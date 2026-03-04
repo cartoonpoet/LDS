@@ -48,6 +48,91 @@ export function Example() {
   }
 };
 
+export const Secondary: Story = {
+  args: {
+    tone: "secondary",
+    children: "Secondary"
+  },
+  parameters: {
+    ...withCode(
+      `import { Button } from "@lds/ui-v3";
+
+export function Example() {
+  return <Button tone="secondary">Secondary</Button>;
+}`,
+      "Secondary tone button."
+    )
+  }
+};
+
+export const Success: Story = {
+  args: {
+    tone: "success",
+    children: "Approve"
+  },
+  parameters: {
+    ...withCode(
+      `import { Button } from "@lds/ui-v3";
+
+export function Example() {
+  return <Button tone="success">Approve</Button>;
+}`,
+      "Success tone button."
+    )
+  }
+};
+
+export const Warning: Story = {
+  args: {
+    tone: "warning",
+    children: "Review"
+  },
+  parameters: {
+    ...withCode(
+      `import { Button } from "@lds/ui-v3";
+
+export function Example() {
+  return <Button tone="warning">Review</Button>;
+}`,
+      "Warning tone button."
+    )
+  }
+};
+
+export const Info: Story = {
+  args: {
+    tone: "info",
+    children: "More Info"
+  },
+  parameters: {
+    ...withCode(
+      `import { Button } from "@lds/ui-v3";
+
+export function Example() {
+  return <Button tone="info">More Info</Button>;
+}`,
+      "Info tone button."
+    )
+  }
+};
+
+export const Dark: Story = {
+  args: {
+    tone: "dark",
+    children: "Archive"
+  },
+  parameters: {
+    ...withCode(
+      `import { Button } from "@lds/ui-v3";
+
+export function Example() {
+  return <Button tone="dark">Archive</Button>;
+}`,
+      "Dark tone button."
+    )
+  }
+};
+
 export const DangerOutline: Story = {
   args: {
     children: "Delete",

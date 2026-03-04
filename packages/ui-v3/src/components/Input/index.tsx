@@ -1,17 +1,61 @@
-import type { InputHTMLAttributes } from "react";
-import * as shared from "../../styles/shared.css";
+import type { InputHTMLAttributes, ReactNode } from "react";
+import * as styles from "./Input.css";
 
-export type InputProps = InputHTMLAttributes<HTMLInputElement> & {
+export type InputProps = Omit<InputHTMLAttributes<HTMLInputElement>, "size"> & {
   label?: string;
+  helperText?: string;
+  status?: "default" | "success" | "error";
+  prefix?: ReactNode;
+  suffix?: ReactNode;
+  size?: "sm" | "md" | "lg";
 };
 
-export function Input({ className, label, ...props }: InputProps) {
-  const inputClassName = [shared.fieldControl({ control: "input" }), className].filter(Boolean).join(" ");
+export function Input({
+  className,
+  disabled = false,
+  helperText,
+  label,
+  prefix,
+  required,
+  size = "md",
+  status = "default",
+  suffix,
+  ...props
+}: InputProps) {
+  const hasPrefix = prefix !== undefined && prefix !== null;
+  const hasSuffix = suffix !== undefined && suffix !== null;
+
+  const inputClassName = [
+    styles.input({
+      hasPrefix,
+      hasSuffix,
+      size
+    }),
+    className
+  ]
+    .filter(Boolean)
+    .join(" ");
 
   return (
-    <label className={shared.fieldShell}>
-      {label ? <span className={shared.fieldLabel}>{label}</span> : null}
-      <input className={inputClassName} {...props} />
+    <label className={styles.root}>
+      {label ? (
+        <span className={styles.label}>
+          {label}
+          {required ? <span className={styles.requiredMark}>*</span> : null}
+        </span>
+      ) : null}
+      <span
+        className={styles.controlShell({
+          disabled,
+          size,
+          tone: status
+        })}
+      >
+        {hasPrefix ? <span className={styles.adornment}>{prefix}</span> : null}
+        <input className={inputClassName} disabled={disabled} required={required} {...props} />
+        {hasSuffix ? <span className={styles.adornment}>{suffix}</span> : null}
+      </span>
+      {helperText ? <span className={styles.helperText({ tone: status })}>{helperText}</span> : null}
     </label>
   );
 }

@@ -46,6 +46,90 @@ export function Example() {
   }
 };
 
+export const Success: Story = {
+  args: {
+    status: "success",
+    helperText: "Looks good.",
+    value: "Approved title"
+  },
+  parameters: {
+    ...withCode(
+      `import { Input } from "@lds/ui-v3";
+
+export function Example() {
+  return (
+    <Input
+      label="Document Title"
+      value="Approved title"
+      status="success"
+      helperText="Looks good."
+    />
+  );
+}`,
+      "Success state input."
+    )
+  }
+};
+
+export const Error: Story = {
+  args: {
+    status: "error",
+    helperText: "This field is required."
+  },
+  parameters: {
+    ...withCode(
+      `import { Input } from "@lds/ui-v3";
+
+export function Example() {
+  return (
+    <Input
+      label="Document Title"
+      status="error"
+      helperText="This field is required."
+    />
+  );
+}`,
+      "Error state input."
+    )
+  }
+};
+
+export const WithPrefix: Story = {
+  args: {
+    label: "Amount",
+    prefix: "₩",
+    placeholder: "0"
+  },
+  parameters: {
+    ...withCode(
+      `import { Input } from "@lds/ui-v3";
+
+export function Example() {
+  return <Input label="Amount" prefix="₩" placeholder="0" />;
+}`,
+      "Input with prefix adornment."
+    )
+  }
+};
+
+export const WithSuffix: Story = {
+  args: {
+    label: "Reference",
+    suffix: ".pdf",
+    placeholder: "contract"
+  },
+  parameters: {
+    ...withCode(
+      `import { Input } from "@lds/ui-v3";
+
+export function Example() {
+  return <Input label="Reference" placeholder="contract" suffix=".pdf" />;
+}`,
+      "Input with suffix adornment."
+    )
+  }
+};
+
 export const Disabled: Story = {
   args: {
     disabled: true,
