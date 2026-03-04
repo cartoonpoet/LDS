@@ -2,6 +2,16 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { lightThemeClass } from "@lds/tokens";
 import { Button } from ".";
 
+const buttonTemplateCode = `import { Button } from "@lds/ui-v3";
+
+export function Example() {
+  return (
+    <Button tone="primary" variant="solid" size="md">
+      Save
+    </Button>
+  );
+}`;
+
 const meta: Meta<typeof Button> = {
   title: "Components/Button",
   component: Button,
@@ -51,8 +61,8 @@ export const Gradient: Story = {
 export const LargeWithIcons: Story = {
   args: {
     size: "lg",
-    leadingIcon: "←",
-    trailingIcon: "→",
+    leadingIcon: "<",
+    trailingIcon: ">",
     children: "Move Forward"
   }
 };
@@ -76,4 +86,24 @@ export const FullWidth: Story = {
       </div>
     )
   ]
+};
+
+export const UsageTemplate: Story = {
+  name: "Usage Template",
+  args: {
+    children: "Save",
+    tone: "primary",
+    variant: "solid",
+    size: "md"
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "Basic usage example you can copy into a service."
+      },
+      source: {
+        code: buttonTemplateCode
+      }
+    }
+  }
 };

@@ -6,7 +6,7 @@ export type InputProps = InputHTMLAttributes<HTMLInputElement> & {
 };
 
 export function Input({ className, label, ...props }: InputProps) {
-  const inputClassName = [shared.fieldControl, className].filter(Boolean).join(" ");
+  const inputClassName = [shared.fieldControl({ control: "input" }), className].filter(Boolean).join(" ");
 
   return (
     <label className={shared.fieldShell}>
@@ -15,4 +15,3 @@ export function Input({ className, label, ...props }: InputProps) {
     </label>
   );
 }
-

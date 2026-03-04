@@ -1,5 +1,7 @@
-import { keyframes, style, styleVariants } from "@vanilla-extract/css";
+import { keyframes, style } from "@vanilla-extract/css";
+import { recipe } from "@vanilla-extract/recipes";
 import { themeVars } from "@lds/tokens";
+import { sprinkles } from "../../styles/sprinkles.css";
 
 const spin = keyframes({
   from: {
@@ -10,63 +12,69 @@ const spin = keyframes({
   }
 });
 
-export const base = style({
-  display: "inline-flex",
-  alignItems: "center",
-  justifyContent: "center",
-  gap: themeVars.spacing.x2,
-  minHeight: "38px",
-  padding: `0 ${themeVars.spacing.x4}`,
-  borderRadius: themeVars.radius.sm,
-  border: "1px solid transparent",
-  fontFamily: themeVars.font.family,
-  fontSize: themeVars.font.sizeMd,
-  fontWeight: themeVars.font.weightBold,
-  lineHeight: 1,
-  cursor: "pointer",
-  transition: "background-color 120ms ease, border-color 120ms ease, color 120ms ease, box-shadow 120ms ease",
+const tones = [
+  "primary",
+  "secondary",
+  "success",
+  "danger",
+  "warning",
+  "info",
+  "dark",
+  "neutral"
+] as const;
+
+const toneVariant = {
+  primary: {},
+  secondary: {},
+  success: {},
+  danger: {},
+  warning: {},
+  info: {},
+  dark: {},
+  neutral: {}
+} as const;
+
+const solidDisabled = {
+  backgroundColor: themeVars.color.neutralDisabled,
+  color: themeVars.color.textInverse,
+  cursor: "not-allowed"
+} as const;
+
+const outlineDisabled = {
+  borderColor: themeVars.color.neutralBorder,
+  color: themeVars.color.textDisabled,
+  cursor: "not-allowed"
+} as const;
+
+const createSolidTone = (defaultColor: string, hoverColor: string, activeColor: string) => ({
+  backgroundColor: defaultColor,
+  color: themeVars.color.textInverse,
   selectors: {
-    "&:focus-visible": {
-      outline: "none",
-      boxShadow: themeVars.shadow.focus
+    "&:hover:not(:disabled)": {
+      backgroundColor: hoverColor
     },
-    "&:disabled": {
-      cursor: "not-allowed"
-    }
+    "&:active:not(:disabled)": {
+      backgroundColor: activeColor
+    },
+    "&:disabled": solidDisabled
   }
 });
 
-export const variant = styleVariants({
-  solid: {},
-  gradient: {},
-  outline: {
-    backgroundColor: themeVars.color.neutralSurface
+const createOutlineTone = (borderColor: string, textColor: string, hoverColor: string, activeColor: string) => ({
+  borderColor,
+  color: textColor,
+  selectors: {
+    "&:hover:not(:disabled)": {
+      backgroundColor: hoverColor
+    },
+    "&:active:not(:disabled)": {
+      backgroundColor: activeColor
+    },
+    "&:disabled": outlineDisabled
   }
 });
 
-export const size = styleVariants({
-  sm: {
-    minHeight: "30px",
-    padding: `0 ${themeVars.spacing.x3}`,
-    fontSize: themeVars.font.sizeSm
-  },
-  md: {
-    minHeight: "38px",
-    padding: `0 ${themeVars.spacing.x4}`,
-    fontSize: themeVars.font.sizeMd
-  },
-  lg: {
-    minHeight: "44px",
-    padding: `0 ${themeVars.spacing.x5}`,
-    fontSize: themeVars.font.sizeLg
-  }
-});
-
-export const fullWidth = style({
-  width: "100%"
-});
-
-const makeGradient = (from: string, to: string, active: string, disabled: string) => ({
+const createGradientTone = (from: string, to: string, active: string, disabled: string) => ({
   backgroundImage: `linear-gradient(90deg, ${from} 0%, ${to} 100%)`,
   color: themeVars.color.textInverse,
   selectors: {
@@ -78,301 +86,230 @@ const makeGradient = (from: string, to: string, active: string, disabled: string
     },
     "&:disabled": {
       backgroundImage: `linear-gradient(90deg, ${disabled} 0%, ${disabled} 100%)`,
-      color: themeVars.color.textInverse
+      color: themeVars.color.textInverse,
+      cursor: "not-allowed"
     }
   }
 });
 
-export const toneSolid = styleVariants({
-  primary: {
-    backgroundColor: themeVars.color.accentPrimary,
-    color: themeVars.color.textInverse,
-    selectors: {
-      "&:hover:not(:disabled)": {
-        backgroundColor: themeVars.color.accentPrimaryHover
-      },
-      "&:active:not(:disabled)": {
-        backgroundColor: themeVars.color.accentPrimaryActive
-      },
-      "&:disabled": {
-        backgroundColor: themeVars.color.neutralDisabled,
-        color: themeVars.color.textInverse,
-        cursor: "not-allowed"
+const solidToneStyles = {
+  primary: createSolidTone(
+    themeVars.color.accentPrimary,
+    themeVars.color.accentPrimaryHover,
+    themeVars.color.accentPrimaryActive
+  ),
+  secondary: createSolidTone(
+    themeVars.color.accentSecondary,
+    themeVars.color.accentSecondaryHover,
+    themeVars.color.accentSecondaryActive
+  ),
+  success: createSolidTone(
+    themeVars.color.accentSuccess,
+    themeVars.color.accentSuccessHover,
+    themeVars.color.accentSuccessActive
+  ),
+  danger: createSolidTone(
+    themeVars.color.accentDanger,
+    themeVars.color.accentDangerHover,
+    themeVars.color.accentDangerActive
+  ),
+  warning: createSolidTone(
+    themeVars.color.accentWarning,
+    themeVars.color.accentWarningHover,
+    themeVars.color.accentWarningActive
+  ),
+  info: createSolidTone(
+    themeVars.color.accentInfo,
+    themeVars.color.accentInfoHover,
+    themeVars.color.accentInfoActive
+  ),
+  dark: createSolidTone(
+    themeVars.color.accentDark,
+    themeVars.color.accentDarkHover,
+    themeVars.color.accentDarkActive
+  ),
+  neutral: createSolidTone(
+    themeVars.color.accentSecondary,
+    themeVars.color.accentSecondaryHover,
+    themeVars.color.accentSecondaryActive
+  )
+} as const;
+
+const outlineToneStyles = {
+  primary: createOutlineTone(themeVars.color.accentPrimary, themeVars.color.accentPrimary, "#eef3ff", "#dfe7ff"),
+  secondary: createOutlineTone(
+    themeVars.color.accentSecondary,
+    themeVars.color.accentSecondary,
+    "#f5f6f8",
+    "#eceef2"
+  ),
+  success: createOutlineTone(themeVars.color.accentSuccess, themeVars.color.accentSuccess, "#eefaf3", "#d5f0de"),
+  danger: createOutlineTone(themeVars.color.accentDanger, themeVars.color.accentDanger, "#fef0f0", "#f8dddd"),
+  warning: createOutlineTone(
+    themeVars.color.accentWarning,
+    themeVars.color.accentWarningActive,
+    "#fff8e7",
+    "#f4ead1"
+  ),
+  info: createOutlineTone(themeVars.color.accentInfo, themeVars.color.accentInfo, "#ecfbfe", "#d2f1f6"),
+  dark: createOutlineTone(themeVars.color.accentDark, themeVars.color.accentDark, "#f0f2f6", "#e2e6ec"),
+  neutral: createOutlineTone(
+    themeVars.color.neutralBorderStrong,
+    themeVars.color.textPrimary,
+    themeVars.color.neutralSurfaceAlt,
+    themeVars.color.neutralSurfaceRaised
+  )
+} as const;
+
+const gradientToneStyles = {
+  primary: createGradientTone("#4e73ff", "#2f5bff", themeVars.color.accentPrimaryActive, "#8ea4ed"),
+  secondary: createGradientTone("#a6abb2", "#8a8f96", themeVars.color.accentSecondaryActive, "#b4b7bc"),
+  success: createGradientTone("#47cf7e", "#2fc56f", themeVars.color.accentSuccessActive, "#7ad4a3"),
+  danger: createGradientTone("#f06c6c", "#eb5757", "#f52929", "#e79a9a"),
+  warning: createGradientTone("#f4c94f", "#f0b319", themeVars.color.accentWarningActive, "#efd07b"),
+  info: createGradientTone("#2bc8dc", "#18bfd9", themeVars.color.accentInfoActive, "#60cfdd"),
+  dark: createGradientTone("#767676", "#555555", "#222222", "#a5a5a5"),
+  neutral: createGradientTone("#a6abb2", "#8a8f96", themeVars.color.accentSecondaryActive, "#b4b7bc")
+} as const;
+
+export const buttonRecipe = recipe({
+  base: [
+    sprinkles({
+      display: "inline-flex",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: "x2"
+    }),
+    {
+      maxWidth: "100%",
+      minHeight: "38px",
+      padding: `0 ${themeVars.spacing.x4}`,
+      borderRadius: themeVars.radius.sm,
+      border: "1px solid transparent",
+      fontFamily: themeVars.font.family,
+      fontSize: themeVars.font.sizeMd,
+      fontWeight: themeVars.font.weightBold,
+      lineHeight: 1,
+      whiteSpace: "nowrap",
+      cursor: "pointer",
+      transition:
+        "background-color 120ms ease, border-color 120ms ease, color 120ms ease, box-shadow 120ms ease",
+      selectors: {
+        "&:focus-visible": {
+          outline: "none",
+          boxShadow: themeVars.shadow.focus
+        },
+        "&:disabled": {
+          cursor: "not-allowed"
+        }
       }
     }
-  },
-  secondary: {
-    backgroundColor: themeVars.color.accentSecondary,
-    color: themeVars.color.textInverse,
-    selectors: {
-      "&:hover:not(:disabled)": {
-        backgroundColor: themeVars.color.accentSecondaryHover
-      },
-      "&:active:not(:disabled)": {
-        backgroundColor: themeVars.color.accentSecondaryActive
-      },
-      "&:disabled": {
-        backgroundColor: themeVars.color.neutralDisabled,
-        color: themeVars.color.textInverse,
-        cursor: "not-allowed"
+  ],
+  variants: {
+    variant: {
+      solid: {},
+      gradient: {},
+      outline: {
+        backgroundColor: themeVars.color.neutralSurface
       }
-    }
-  },
-  success: {
-    backgroundColor: themeVars.color.accentSuccess,
-    color: themeVars.color.textInverse,
-    selectors: {
-      "&:hover:not(:disabled)": {
-        backgroundColor: themeVars.color.accentSuccessHover
+    },
+    size: {
+      sm: {
+        minHeight: "30px",
+        padding: `0 ${themeVars.spacing.x3}`,
+        fontSize: themeVars.font.sizeSm,
+        "@media": {
+          "screen and (max-width: 767px)": {
+            minHeight: "32px"
+          }
+        }
       },
-      "&:active:not(:disabled)": {
-        backgroundColor: themeVars.color.accentSuccessActive
+      md: {
+        minHeight: "38px",
+        padding: `0 ${themeVars.spacing.x4}`,
+        fontSize: themeVars.font.sizeMd,
+        "@media": {
+          "screen and (max-width: 767px)": {
+            minHeight: "36px",
+            padding: `0 ${themeVars.spacing.x3}`,
+            fontSize: themeVars.font.sizeSm
+          }
+        }
       },
-      "&:disabled": {
-        backgroundColor: themeVars.color.neutralDisabled,
-        color: themeVars.color.textInverse,
-        cursor: "not-allowed"
+      lg: {
+        minHeight: "44px",
+        padding: `0 ${themeVars.spacing.x5}`,
+        fontSize: themeVars.font.sizeLg,
+        "@media": {
+          "screen and (max-width: 767px)": {
+            minHeight: "40px",
+            padding: `0 ${themeVars.spacing.x4}`,
+            fontSize: themeVars.font.sizeMd
+          }
+        }
       }
-    }
+    },
+    tone: toneVariant
   },
-  danger: {
-    backgroundColor: themeVars.color.accentDanger,
-    color: themeVars.color.textInverse,
-    selectors: {
-      "&:hover:not(:disabled)": {
-        backgroundColor: themeVars.color.accentDangerHover
+  compoundVariants: [
+    ...tones.map(tone => ({
+      variants: {
+        variant: "solid" as const,
+        tone
       },
-      "&:active:not(:disabled)": {
-        backgroundColor: themeVars.color.accentDangerActive
+      style: solidToneStyles[tone]
+    })),
+    ...tones.map(tone => ({
+      variants: {
+        variant: "outline" as const,
+        tone
       },
-      "&:disabled": {
-        backgroundColor: themeVars.color.neutralDisabled,
-        color: themeVars.color.textInverse,
-        cursor: "not-allowed"
-      }
-    }
-  },
-  warning: {
-    backgroundColor: themeVars.color.accentWarning,
-    color: themeVars.color.textInverse,
-    selectors: {
-      "&:hover:not(:disabled)": {
-        backgroundColor: themeVars.color.accentWarningHover
+      style: outlineToneStyles[tone]
+    })),
+    ...tones.map(tone => ({
+      variants: {
+        variant: "gradient" as const,
+        tone
       },
-      "&:active:not(:disabled)": {
-        backgroundColor: themeVars.color.accentWarningActive
-      },
-      "&:disabled": {
-        backgroundColor: themeVars.color.neutralDisabled,
-        color: themeVars.color.textInverse,
-        cursor: "not-allowed"
-      }
-    }
-  },
-  info: {
-    backgroundColor: themeVars.color.accentInfo,
-    color: themeVars.color.textInverse,
-    selectors: {
-      "&:hover:not(:disabled)": {
-        backgroundColor: themeVars.color.accentInfoHover
-      },
-      "&:active:not(:disabled)": {
-        backgroundColor: themeVars.color.accentInfoActive
-      },
-      "&:disabled": {
-        backgroundColor: themeVars.color.neutralDisabled,
-        color: themeVars.color.textInverse,
-        cursor: "not-allowed"
-      }
-    }
-  },
-  dark: {
-    backgroundColor: themeVars.color.accentDark,
-    color: themeVars.color.textInverse,
-    selectors: {
-      "&:hover:not(:disabled)": {
-        backgroundColor: themeVars.color.accentDarkHover
-      },
-      "&:active:not(:disabled)": {
-        backgroundColor: themeVars.color.accentDarkActive
-      },
-      "&:disabled": {
-        backgroundColor: themeVars.color.neutralDisabled,
-        color: themeVars.color.textInverse,
-        cursor: "not-allowed"
-      }
-    }
-  },
-  neutral: {
-    backgroundColor: themeVars.color.accentSecondary,
-    color: themeVars.color.textInverse
+      style: gradientToneStyles[tone]
+    }))
+  ],
+  defaultVariants: {
+    variant: "solid",
+    size: "md",
+    tone: "primary"
   }
 });
 
-export const toneOutline = styleVariants({
-  primary: {
-    borderColor: themeVars.color.accentPrimary,
-    color: themeVars.color.accentPrimary,
-    selectors: {
-      "&:hover:not(:disabled)": {
-        backgroundColor: "#eef3ff"
-      },
-      "&:active:not(:disabled)": {
-        backgroundColor: "#dfe7ff"
-      },
-      "&:disabled": {
-        borderColor: themeVars.color.neutralBorder,
-        color: themeVars.color.textDisabled,
-        cursor: "not-allowed"
-      }
-    }
-  },
-  secondary: {
-    borderColor: themeVars.color.accentSecondary,
-    color: themeVars.color.accentSecondary,
-    selectors: {
-      "&:hover:not(:disabled)": {
-        backgroundColor: "#f5f6f8"
-      },
-      "&:active:not(:disabled)": {
-        backgroundColor: "#eceef2"
-      },
-      "&:disabled": {
-        borderColor: themeVars.color.neutralBorder,
-        color: themeVars.color.textDisabled,
-        cursor: "not-allowed"
-      }
-    }
-  },
-  success: {
-    borderColor: themeVars.color.accentSuccess,
-    color: themeVars.color.accentSuccess,
-    selectors: {
-      "&:hover:not(:disabled)": {
-        backgroundColor: "#eefaf3"
-      },
-      "&:active:not(:disabled)": {
-        backgroundColor: "#d5f0de"
-      },
-      "&:disabled": {
-        borderColor: themeVars.color.neutralBorder,
-        color: themeVars.color.textDisabled,
-        cursor: "not-allowed"
-      }
-    }
-  },
-  danger: {
-    borderColor: themeVars.color.accentDanger,
-    color: themeVars.color.accentDanger,
-    selectors: {
-      "&:hover:not(:disabled)": {
-        backgroundColor: "#fef0f0"
-      },
-      "&:active:not(:disabled)": {
-        backgroundColor: "#f8dddd"
-      },
-      "&:disabled": {
-        borderColor: themeVars.color.neutralBorder,
-        color: themeVars.color.textDisabled,
-        cursor: "not-allowed"
-      }
-    }
-  },
-  warning: {
-    borderColor: themeVars.color.accentWarning,
-    color: themeVars.color.accentWarningActive,
-    selectors: {
-      "&:hover:not(:disabled)": {
-        backgroundColor: "#fff8e7"
-      },
-      "&:active:not(:disabled)": {
-        backgroundColor: "#f4ead1"
-      },
-      "&:disabled": {
-        borderColor: themeVars.color.neutralBorder,
-        color: themeVars.color.textDisabled,
-        cursor: "not-allowed"
-      }
-    }
-  },
-  info: {
-    borderColor: themeVars.color.accentInfo,
-    color: themeVars.color.accentInfo,
-    selectors: {
-      "&:hover:not(:disabled)": {
-        backgroundColor: "#ecfbfe"
-      },
-      "&:active:not(:disabled)": {
-        backgroundColor: "#d2f1f6"
-      },
-      "&:disabled": {
-        borderColor: themeVars.color.neutralBorder,
-        color: themeVars.color.textDisabled,
-        cursor: "not-allowed"
-      }
-    }
-  },
-  dark: {
-    borderColor: themeVars.color.accentDark,
-    color: themeVars.color.accentDark,
-    selectors: {
-      "&:hover:not(:disabled)": {
-        backgroundColor: "#f0f2f6"
-      },
-      "&:active:not(:disabled)": {
-        backgroundColor: "#e2e6ec"
-      },
-      "&:disabled": {
-        borderColor: themeVars.color.neutralBorder,
-        color: themeVars.color.textDisabled,
-        cursor: "not-allowed"
-      }
-    }
-  },
-  neutral: {
-    borderColor: themeVars.color.neutralBorderStrong,
-    color: themeVars.color.textPrimary,
-    selectors: {
-      "&:hover:not(:disabled)": {
-        backgroundColor: themeVars.color.neutralSurfaceAlt
-      },
-      "&:active:not(:disabled)": {
-        backgroundColor: themeVars.color.neutralSurfaceRaised
-      },
-      "&:disabled": {
-        borderColor: themeVars.color.neutralBorder,
-        color: themeVars.color.textDisabled,
-        cursor: "not-allowed"
-      }
-    }
+export const fullWidth = style([
+  sprinkles({
+    width: "100%"
+  })
+]);
+
+export const content = style([
+  sprinkles({
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: "x2"
+  }),
+  {
+    minWidth: 0
   }
-});
+]);
 
-export const toneGradient = styleVariants({
-  primary: makeGradient("#4e73ff", "#2f5bff", themeVars.color.accentPrimaryActive, "#8ea4ed"),
-  secondary: makeGradient("#a6abb2", "#8a8f96", themeVars.color.accentSecondaryActive, "#b4b7bc"),
-  success: makeGradient("#47cf7e", "#2fc56f", themeVars.color.accentSuccessActive, "#7ad4a3"),
-  danger: makeGradient("#f06c6c", "#eb5757", "#f52929", "#e79a9a"),
-  warning: makeGradient("#f4c94f", "#f0b319", themeVars.color.accentWarningActive, "#efd07b"),
-  info: makeGradient("#2bc8dc", "#18bfd9", themeVars.color.accentInfoActive, "#60cfdd"),
-  dark: makeGradient("#767676", "#555555", "#222222", "#a5a5a5"),
-  neutral: makeGradient("#a6abb2", "#8a8f96", themeVars.color.accentSecondaryActive, "#b4b7bc")
-});
-
-export const content = style({
-  display: "inline-flex",
-  alignItems: "center",
-  justifyContent: "center",
-  gap: themeVars.spacing.x2
-});
-
-export const icon = style({
-  display: "inline-flex",
-  alignItems: "center",
-  justifyContent: "center",
-  lineHeight: 0,
-  fontSize: "1em"
-});
+export const icon = style([
+  sprinkles({
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center"
+  }),
+  {
+    lineHeight: 0,
+    fontSize: "1em"
+  }
+]);
 
 export const spinner = style({
   width: "14px",

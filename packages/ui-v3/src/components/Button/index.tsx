@@ -35,18 +35,13 @@ export function Button({
   disabled,
   ...props
 }: ButtonProps) {
-  const toneClass =
-    variant === "solid"
-      ? styles.toneSolid[tone]
-      : variant === "outline"
-        ? styles.toneOutline[tone]
-        : styles.toneGradient[tone];
   const composedClassName = [
-    styles.base,
-    styles.variant[variant],
-    styles.size[size],
+    styles.buttonRecipe({
+      size,
+      tone,
+      variant
+    }),
     fullWidth ? styles.fullWidth : "",
-    toneClass,
     className
   ]
     .filter(Boolean)
