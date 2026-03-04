@@ -8,23 +8,16 @@ const baseOptions = [
   { label: "Approved", value: "approved" }
 ];
 
-const selectTemplateCode = `import { Select } from "@lds/ui-v3";
-
-const options = [
-  { label: "Draft", value: "draft" },
-  { label: "In Review", value: "review" },
-  { label: "Approved", value: "approved" }
-];
-
-export function Example() {
-  return (
-    <Select
-      label="Status"
-      options={options}
-      placeholder="Select a status"
-    />
-  );
-}`;
+const withCode = (code: string, description: string) => ({
+  docs: {
+    description: {
+      story: description
+    },
+    source: {
+      code
+    }
+  }
+});
 
 const meta: Meta<typeof Select> = {
   title: "Components/Select",
@@ -47,17 +40,72 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {};
+export const Default: Story = {
+  parameters: {
+    ...withCode(
+      `import { Select } from "@lds/ui-v3";
+
+const options = [
+  { label: "Draft", value: "draft" },
+  { label: "In Review", value: "review" },
+  { label: "Approved", value: "approved" }
+];
+
+export function Example() {
+  return <Select label="Status" options={options} placeholder="Select a status" />;
+}`,
+      "Default single-select dropdown."
+    )
+  }
+};
 
 export const Preselected: Story = {
   args: {
     defaultValue: "review"
+  },
+  parameters: {
+    ...withCode(
+      `import { Select } from "@lds/ui-v3";
+
+const options = [
+  { label: "Draft", value: "draft" },
+  { label: "In Review", value: "review" },
+  { label: "Approved", value: "approved" }
+];
+
+export function Example() {
+  return <Select label="Status" options={options} defaultValue="review" />;
+}`,
+      "Preselected dropdown value."
+    )
   }
 };
 
 export const WithHelperText: Story = {
   args: {
     helperText: "Choose the current document status."
+  },
+  parameters: {
+    ...withCode(
+      `import { Select } from "@lds/ui-v3";
+
+const options = [
+  { label: "Draft", value: "draft" },
+  { label: "In Review", value: "review" },
+  { label: "Approved", value: "approved" }
+];
+
+export function Example() {
+  return (
+    <Select
+      label="Status"
+      options={options}
+      helperText="Choose the current document status."
+    />
+  );
+}`,
+      "Select with helper text."
+    )
   }
 };
 
@@ -65,6 +113,29 @@ export const Invalid: Story = {
   args: {
     invalid: true,
     helperText: "You must choose a status."
+  },
+  parameters: {
+    ...withCode(
+      `import { Select } from "@lds/ui-v3";
+
+const options = [
+  { label: "Draft", value: "draft" },
+  { label: "In Review", value: "review" },
+  { label: "Approved", value: "approved" }
+];
+
+export function Example() {
+  return (
+    <Select
+      label="Status"
+      options={options}
+      invalid
+      helperText="You must choose a status."
+    />
+  );
+}`,
+      "Invalid select state."
+    )
   }
 };
 
@@ -83,6 +154,30 @@ export const GroupedOptions: Story = {
         options: [{ label: "Approved", value: "approved" }]
       }
     ]
+  },
+  parameters: {
+    ...withCode(
+      `import { Select } from "@lds/ui-v3";
+
+const options = [
+  {
+    label: "Review",
+    options: [
+      { label: "Draft", value: "draft" },
+      { label: "In Review", value: "review" }
+    ]
+  },
+  {
+    label: "Done",
+    options: [{ label: "Approved", value: "approved" }]
+  }
+];
+
+export function Example() {
+  return <Select label="Status" options={options} />;
+}`,
+      "Grouped options with optgroup."
+    )
   }
 };
 
@@ -96,6 +191,23 @@ export const Multiple: Story = {
       { label: "Opinion", value: "opinion" },
       { label: "Official Letter", value: "official" }
     ]
+  },
+  parameters: {
+    ...withCode(
+      `import { Select } from "@lds/ui-v3";
+
+const options = [
+  { label: "Contract", value: "contract" },
+  { label: "Agreement", value: "agreement" },
+  { label: "Opinion", value: "opinion" },
+  { label: "Official Letter", value: "official" }
+];
+
+export function Example() {
+  return <Select label="Document Types" options={options} multiple size="lg" />;
+}`,
+      "Multiple select example."
+    )
   }
 };
 
@@ -107,13 +219,25 @@ export const UsageTemplate: Story = {
     placeholder: "Select a status"
   },
   parameters: {
-    docs: {
-      description: {
-        story: "Basic single-select dropdown usage."
-      },
-      source: {
-        code: selectTemplateCode
-      }
-    }
+    ...withCode(
+      `import { Select } from "@lds/ui-v3";
+
+const options = [
+  { label: "Draft", value: "draft" },
+  { label: "In Review", value: "review" },
+  { label: "Approved", value: "approved" }
+];
+
+export function Example() {
+  return (
+    <Select
+      label="Status"
+      options={options}
+      placeholder="Select a status"
+    />
+  );
+}`,
+      "Base select template."
+    )
   }
 };

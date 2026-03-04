@@ -2,15 +2,16 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { lightThemeClass } from "@lds/tokens";
 import { Button } from ".";
 
-const buttonTemplateCode = `import { Button } from "@lds/ui-v3";
-
-export function Example() {
-  return (
-    <Button tone="primary" variant="solid" size="md">
-      Save
-    </Button>
-  );
-}`;
+const withCode = (code: string, description: string) => ({
+  docs: {
+    description: {
+      story: description
+    },
+    source: {
+      code
+    }
+  }
+});
 
 const meta: Meta<typeof Button> = {
   title: "Components/Button",
@@ -34,19 +35,54 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Primary: Story = {};
+export const Primary: Story = {
+  parameters: {
+    ...withCode(
+      `import { Button } from "@lds/ui-v3";
+
+export function Example() {
+  return <Button>Confirm</Button>;
+}`,
+      "Primary solid button."
+    )
+  }
+};
 
 export const DangerOutline: Story = {
   args: {
     children: "Delete",
     tone: "danger",
     variant: "outline"
+  },
+  parameters: {
+    ...withCode(
+      `import { Button } from "@lds/ui-v3";
+
+export function Example() {
+  return (
+    <Button tone="danger" variant="outline">
+      Delete
+    </Button>
+  );
+}`,
+      "Outline danger action."
+    )
   }
 };
 
 export const Disabled: Story = {
   args: {
     disabled: true
+  },
+  parameters: {
+    ...withCode(
+      `import { Button } from "@lds/ui-v3";
+
+export function Example() {
+  return <Button disabled>Confirm</Button>;
+}`,
+      "Disabled button state."
+    )
   }
 };
 
@@ -55,6 +91,20 @@ export const Gradient: Story = {
     variant: "gradient",
     tone: "primary",
     children: "Save Changes"
+  },
+  parameters: {
+    ...withCode(
+      `import { Button } from "@lds/ui-v3";
+
+export function Example() {
+  return (
+    <Button variant="gradient" tone="primary">
+      Save Changes
+    </Button>
+  );
+}`,
+      "Gradient button style."
+    )
   }
 };
 
@@ -64,6 +114,20 @@ export const LargeWithIcons: Story = {
     leadingIcon: "<",
     trailingIcon: ">",
     children: "Move Forward"
+  },
+  parameters: {
+    ...withCode(
+      `import { Button } from "@lds/ui-v3";
+
+export function Example() {
+  return (
+    <Button size="lg" leadingIcon="<" trailingIcon=">">
+      Move Forward
+    </Button>
+  );
+}`,
+      "Large button with leading and trailing icons."
+    )
   }
 };
 
@@ -71,6 +135,16 @@ export const Loading: Story = {
   args: {
     loading: true,
     children: "Submitting"
+  },
+  parameters: {
+    ...withCode(
+      `import { Button } from "@lds/ui-v3";
+
+export function Example() {
+  return <Button loading>Submitting</Button>;
+}`,
+      "Loading state button."
+    )
   }
 };
 
@@ -85,7 +159,17 @@ export const FullWidth: Story = {
         <Story />
       </div>
     )
-  ]
+  ],
+  parameters: {
+    ...withCode(
+      `import { Button } from "@lds/ui-v3";
+
+export function Example() {
+  return <Button fullWidth>Full Width Action</Button>;
+}`,
+      "Button stretched to container width."
+    )
+  }
 };
 
 export const UsageTemplate: Story = {
@@ -97,13 +181,17 @@ export const UsageTemplate: Story = {
     size: "md"
   },
   parameters: {
-    docs: {
-      description: {
-        story: "Basic usage example you can copy into a service."
-      },
-      source: {
-        code: buttonTemplateCode
-      }
-    }
+    ...withCode(
+      `import { Button } from "@lds/ui-v3";
+
+export function Example() {
+  return (
+    <Button tone="primary" variant="solid" size="md">
+      Save
+    </Button>
+  );
+}`,
+      "Base template you can copy into a service."
+    )
   }
 };

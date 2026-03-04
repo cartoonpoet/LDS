@@ -2,11 +2,16 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { lightThemeClass } from "@lds/tokens";
 import { Input } from ".";
 
-const inputTemplateCode = `import { Input } from "@lds/ui-v3";
-
-export function Example() {
-  return <Input label="Document Title" placeholder="Enter a title" />;
-}`;
+const withCode = (code: string, description: string) => ({
+  docs: {
+    description: {
+      story: description
+    },
+    source: {
+      code
+    }
+  }
+});
 
 const meta: Meta<typeof Input> = {
   title: "Components/Input",
@@ -28,12 +33,33 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {};
+export const Default: Story = {
+  parameters: {
+    ...withCode(
+      `import { Input } from "@lds/ui-v3";
+
+export function Example() {
+  return <Input label="Label" placeholder="Enter text" />;
+}`,
+      "Default input field."
+    )
+  }
+};
 
 export const Disabled: Story = {
   args: {
     disabled: true,
     value: "Read only"
+  },
+  parameters: {
+    ...withCode(
+      `import { Input } from "@lds/ui-v3";
+
+export function Example() {
+  return <Input label="Label" value="Read only" disabled />;
+}`,
+      "Disabled input state."
+    )
   }
 };
 
@@ -44,13 +70,13 @@ export const UsageTemplate: Story = {
     placeholder: "Enter a title"
   },
   parameters: {
-    docs: {
-      description: {
-        story: "Basic text field usage."
-      },
-      source: {
-        code: inputTemplateCode
-      }
-    }
+    ...withCode(
+      `import { Input } from "@lds/ui-v3";
+
+export function Example() {
+  return <Input label="Document Title" placeholder="Enter a title" />;
+}`,
+      "Base input template."
+    )
   }
 };
