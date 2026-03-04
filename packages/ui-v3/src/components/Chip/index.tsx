@@ -3,31 +3,44 @@ import * as styles from "./Chip.css";
 
 export type ChipProps = PropsWithChildren<
   HTMLAttributes<HTMLSpanElement> & {
+    kind?: "basic" | "check" | "file" | "link";
     selected?: boolean;
-    checkable?: boolean;
     dismissible?: boolean;
     onDismiss?: ButtonHTMLAttributes<HTMLButtonElement>["onClick"];
     leadingIcon?: ReactNode;
+    metaText?: ReactNode;
   }
 >;
 
 export function Chip({
-  checkable = false,
   children,
   className,
   dismissible = false,
+  kind = "basic",
   leadingIcon,
+  metaText,
   onDismiss,
   selected = false,
   ...props
 }: ChipProps) {
-  const composedClassName = [styles.chip({ checkable, selected }), className].filter(Boolean).join(" ");
+  const composedClassName = [styles.chip({ kind, selected }), className].filter(Boolean).join(" ");
+
+  const leadingNode =
+    kind === "check" ? (
+      <span aria-hidden="true" className={styles.checkIndicator}>
+        {selected ? "✓" : ""}
+      </span>
+    ) : leadingIcon ? (
+      <span className={styles.leading}>{leadingIcon}</span>
+    ) : null;
 
   return (
     <span className={composedClassName} {...props}>
-      {checkable ? <span className={styles.leading}>{selected ? "✓" : ""}</span> : null}
-      {!checkable && leadingIcon ? <span className={styles.leading}>{leadingIcon}</span> : null}
-      <span>{children}</span>
+      {leadingNode}
+      <span className={styles.label}>{children}</span>
+      {metaText && (kind === "file" || kind === "link") ? (
+        <span className={styles.metaText({ kind })}>{metaText}</span>
+      ) : null}
       {dismissible ? (
         <button aria-label="Remove chip" className={styles.dismissButton} onClick={onDismiss} type="button">
           ×

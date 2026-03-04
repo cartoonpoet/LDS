@@ -38,16 +38,16 @@ export const Basic: Story = {
       `import { Chip } from "@lds/ui-v3";
 
 export function Example() {
-  return <Chip>Option 1</Chip>;
+  return <Chip kind="basic">Option 1</Chip>;
 }`,
-      "Basic chip."
+      "Basic option chip."
     )
   }
 };
 
-export const SelectedCheck: Story = {
+export const Check: Story = {
   args: {
-    checkable: true,
+    kind: "check",
     selected: true
   },
   parameters: {
@@ -56,18 +56,22 @@ export const SelectedCheck: Story = {
 
 export function Example() {
   return (
-    <Chip checkable selected>
+    <Chip kind="check" selected>
       Option 1
     </Chip>
   );
 }`,
-      "Check-type chip."
+      "Check-type chip from the Zeplin sheet."
     )
   }
 };
 
-export const Dismissible: Story = {
+export const File: Story = {
   args: {
+    kind: "file",
+    leadingIcon: "□",
+    children: "Document_file_name.pdf",
+    metaText: "검토중",
     dismissible: true
   },
   parameters: {
@@ -75,9 +79,66 @@ export const Dismissible: Story = {
       `import { Chip } from "@lds/ui-v3";
 
 export function Example() {
-  return <Chip dismissible>Option 1</Chip>;
+  return (
+    <Chip
+      kind="file"
+      leadingIcon="□"
+      metaText="검토중"
+      dismissible
+    >
+      Document_file_name.pdf
+    </Chip>
+  );
 }`,
-      "Dismissible chip."
+      "Document file chip."
+    )
+  }
+};
+
+export const Link: Story = {
+  args: {
+    kind: "link",
+    leadingIcon: "↗",
+    children: "Linked document name",
+    metaText: "외부 링크"
+  },
+  parameters: {
+    ...withCode(
+      `import { Chip } from "@lds/ui-v3";
+
+export function Example() {
+  return (
+    <Chip
+      kind="link"
+      leadingIcon="↗"
+      metaText="외부 링크"
+    >
+      Linked document name
+    </Chip>
+  );
+}`,
+      "Linked document chip."
+    )
+  }
+};
+
+export const Dismissible: Story = {
+  args: {
+    kind: "basic",
+    dismissible: true
+  },
+  parameters: {
+    ...withCode(
+      `import { Chip } from "@lds/ui-v3";
+
+export function Example() {
+  return (
+    <Chip kind="basic" dismissible>
+      Option 1
+    </Chip>
+  );
+}`,
+      "Dismissible basic chip."
     )
   }
 };

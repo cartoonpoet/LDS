@@ -3,8 +3,18 @@ import { Chip } from ".";
 
 describe("Chip", () => {
   it("renders content", () => {
-    render(<Chip>Option 1</Chip>);
+    render(<Chip kind="basic">Option 1</Chip>);
     expect(screen.getByText("Option 1")).toBeInTheDocument();
+  });
+
+  it("renders meta text for file chip", () => {
+    render(
+      <Chip kind="file" metaText="검토중">
+        Document_file_name.pdf
+      </Chip>
+    );
+
+    expect(screen.getByText("검토중")).toBeInTheDocument();
   });
 
   it("calls onDismiss when dismiss button is clicked", () => {
