@@ -17,9 +17,9 @@ const meta: Meta<typeof Badge> = {
   title: "Components/Badge",
   component: Badge,
   args: {
-    children: "Draft",
-    tone: "primary",
-    variant: "soft"
+    children: "Label",
+    variant: "filled",
+    tone: "primary"
   },
   decorators: [
     Story => (
@@ -34,45 +34,21 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Soft: Story = {
+export const Filled: Story = {
   parameters: {
     ...withCode(
       `import { Badge } from "@lds/ui-v3";
 
 export function Example() {
-  return <Badge tone="primary">Draft</Badge>;
+  return <Badge>Label</Badge>;
 }`,
-      "Soft badge."
-    )
-  }
-};
-
-export const Solid: Story = {
-  args: {
-    children: "Approved",
-    tone: "success",
-    variant: "solid"
-  },
-  parameters: {
-    ...withCode(
-      `import { Badge } from "@lds/ui-v3";
-
-export function Example() {
-  return (
-    <Badge tone="success" variant="solid">
-      Approved
-    </Badge>
-  );
-}`,
-      "Solid badge."
+      "Filled badge like the Zeplin basic label."
     )
   }
 };
 
 export const Outline: Story = {
   args: {
-    children: "Blocked",
-    tone: "danger",
     variant: "outline"
   },
   parameters: {
@@ -80,13 +56,85 @@ export const Outline: Story = {
       `import { Badge } from "@lds/ui-v3";
 
 export function Example() {
+  return <Badge variant="outline">Label</Badge>;
+}`,
+      "Outline badge."
+    )
+  }
+};
+
+export const Muted: Story = {
+  args: {
+    variant: "muted",
+    tone: "neutral"
+  },
+  parameters: {
+    ...withCode(
+      `import { Badge } from "@lds/ui-v3";
+
+export function Example() {
   return (
-    <Badge tone="danger" variant="outline">
-      Blocked
+    <Badge variant="muted" tone="neutral">
+      Label
     </Badge>
   );
 }`,
-      "Outline badge."
+      "Muted badge for low-emphasis state."
+    )
+  }
+};
+
+export const WithIcon: Story = {
+  args: {
+    leadingIcon: "✦"
+  },
+  parameters: {
+    ...withCode(
+      `import { Badge } from "@lds/ui-v3";
+
+export function Example() {
+  return <Badge leadingIcon="✦">Label</Badge>;
+}`,
+      "Badge with leading icon."
+    )
+  }
+};
+
+export const Dismissible: Story = {
+  args: {
+    variant: "outline",
+    dismissible: true
+  },
+  parameters: {
+    ...withCode(
+      `import { Badge } from "@lds/ui-v3";
+
+export function Example() {
+  return (
+    <Badge variant="outline" dismissible>
+      Label
+    </Badge>
+  );
+}`,
+      "Dismissible badge chip."
+    )
+  }
+};
+
+export const IconOnly: Story = {
+  args: {
+    iconOnly: true,
+    leadingIcon: "A",
+    "aria-label": "Alphabet badge"
+  },
+  parameters: {
+    ...withCode(
+      `import { Badge } from "@lds/ui-v3";
+
+export function Example() {
+  return <Badge iconOnly leadingIcon="A" aria-label="Alphabet badge" />;
+}`,
+      "Compact icon-only badge."
     )
   }
 };

@@ -10,3 +10,5 @@ export { Alert } from "./components/Alert";
 export type { AlertProps } from "./components/Alert";
 export { Badge } from "./components/Badge";
 export type { BadgeProps } from "./components/Badge";
+export { Chip } from "./components/Chip";
+export type { ChipProps } from "./components/Chip";

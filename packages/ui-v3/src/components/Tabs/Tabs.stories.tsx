@@ -3,9 +3,10 @@ import { lightThemeClass } from "@lds/tokens";
 import { Tabs } from ".";
 
 const items = [
-  { label: "Overview", value: "overview", content: "Overview content" },
-  { label: "History", value: "history", content: "History content" },
-  { label: "Files", value: "files", content: "Files content" }
+  { label: "Tab 1", value: "tab1", content: "Tab 1 content" },
+  { label: "Tab 2", value: "tab2", content: "Tab 2 content" },
+  { label: "Tab 3", value: "tab3", content: "Tab 3 content" },
+  { label: "Tab 4", value: "tab4", content: "Tab 4 content" }
 ];
 
 const withCode = (code: string, description: string) => ({
@@ -27,7 +28,7 @@ const meta: Meta<typeof Tabs> = {
   },
   decorators: [
     Story => (
-      <div className={lightThemeClass} style={{ padding: "24px", width: "560px", background: "#f4f6fb" }}>
+      <div className={lightThemeClass} style={{ padding: "24px", width: "640px", background: "#f4f6fb" }}>
         <Story />
       </div>
     )
@@ -38,49 +39,52 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
+export const Line: Story = {
   parameters: {
     ...withCode(
       `import { Tabs } from "@lds/ui-v3";
 
 const items = [
-  { label: "Overview", value: "overview", content: "Overview content" },
-  { label: "History", value: "history", content: "History content" },
-  { label: "Files", value: "files", content: "Files content" }
+  { label: "Tab 1", value: "tab1", content: "Tab 1 content" },
+  { label: "Tab 2", value: "tab2", content: "Tab 2 content" },
+  { label: "Tab 3", value: "tab3", content: "Tab 3 content" },
+  { label: "Tab 4", value: "tab4", content: "Tab 4 content" }
 ];
 
 export function Example() {
-  return <Tabs items={items} />;
+  return <Tabs items={items} variant="line" />;
 }`,
-      "Default tabs."
+      "Line tab style close to the Zeplin standard tabs."
     )
   }
 };
 
-export const WithDefaultValue: Story = {
+export const Segment: Story = {
   args: {
-    defaultValue: "history"
+    variant: "segment"
   },
   parameters: {
     ...withCode(
       `import { Tabs } from "@lds/ui-v3";
 
 const items = [
-  { label: "Overview", value: "overview", content: "Overview content" },
-  { label: "History", value: "history", content: "History content" },
-  { label: "Files", value: "files", content: "Files content" }
+  { label: "Tab 1", value: "tab1", content: "Tab 1 content" },
+  { label: "Tab 2", value: "tab2", content: "Tab 2 content" },
+  { label: "Tab 3", value: "tab3", content: "Tab 3 content" },
+  { label: "Tab 4", value: "tab4", content: "Tab 4 content" }
 ];
 
 export function Example() {
-  return <Tabs items={items} defaultValue="history" />;
+  return <Tabs items={items} variant="segment" />;
 }`,
-      "Tabs with default selected item."
+      "Segmented tab style."
     )
   }
 };
 
-export const Stretched: Story = {
+export const StretchedSegment: Story = {
   args: {
+    variant: "segment",
     stretched: true
   },
   parameters: {
@@ -88,15 +92,16 @@ export const Stretched: Story = {
       `import { Tabs } from "@lds/ui-v3";
 
 const items = [
-  { label: "Overview", value: "overview", content: "Overview content" },
-  { label: "History", value: "history", content: "History content" },
-  { label: "Files", value: "files", content: "Files content" }
+  { label: "Tab 1", value: "tab1", content: "Tab 1 content" },
+  { label: "Tab 2", value: "tab2", content: "Tab 2 content" },
+  { label: "Tab 3", value: "tab3", content: "Tab 3 content" },
+  { label: "Tab 4", value: "tab4", content: "Tab 4 content" }
 ];
 
 export function Example() {
-  return <Tabs items={items} stretched />;
+  return <Tabs items={items} variant="segment" stretched />;
 }`,
-      "Tabs stretched to fill container."
+      "Stretched segmented tabs."
     )
   }
 };

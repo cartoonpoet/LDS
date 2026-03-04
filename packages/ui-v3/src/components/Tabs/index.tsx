@@ -14,9 +14,17 @@ export type TabsProps = {
   defaultValue?: string;
   onValueChange?: (value: string) => void;
   stretched?: boolean;
+  variant?: "line" | "segment";
 };
 
-export function Tabs({ defaultValue, items, onValueChange, stretched = false, value }: TabsProps) {
+export function Tabs({
+  defaultValue,
+  items,
+  onValueChange,
+  stretched = false,
+  value,
+  variant = "line"
+}: TabsProps) {
   const fallbackValue = items.find(item => !item.disabled)?.value ?? "";
   const [internalValue, setInternalValue] = useState(defaultValue ?? fallbackValue);
   const selectedValue = value ?? internalValue;
@@ -32,7 +40,7 @@ export function Tabs({ defaultValue, items, onValueChange, stretched = false, va
 
   return (
     <div className={styles.root}>
-      <div aria-label="Tabs" className={styles.list} role="tablist">
+      <div aria-label="Tabs" className={styles.list({ variant })} role="tablist">
         {items.map(item => {
           const tabId = `${baseId}-${item.value}-tab`;
           const panelId = `${baseId}-${item.value}-panel`;
@@ -42,7 +50,7 @@ export function Tabs({ defaultValue, items, onValueChange, stretched = false, va
             <button
               aria-controls={panelId}
               aria-selected={isActive}
-              className={styles.tab({ active: isActive, stretched })}
+              className={styles.tab({ active: isActive, stretched, variant })}
               disabled={item.disabled}
               id={tabId}
               key={item.value}
