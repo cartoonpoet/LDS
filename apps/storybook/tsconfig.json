@@ -1,0 +1,22 @@
+{
+  "extends": "../../packages/typescript-config/react-library.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@lds/ui-v3": [
+        "../../packages/ui-v3/src"
+      ],
+      "@lds/tokens": [
+        "../../packages/tokens/src"
+      ]
+    }
+  },
+  "include": [
+    ".storybook",
+    "src",
+    "../../packages/ui-v3/src"
+  ],
+  "exclude": [
+    "../../packages/ui-v3/src/**/*.test.tsx"
+  ]
+}

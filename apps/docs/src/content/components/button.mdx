@@ -1,0 +1,25 @@
+import { ButtonShowcase, Callout } from "../../components/DocPrimitives";
+
+<h2 id="overview">개요</h2>
+
+버튼은 LDS v3에서 가장 핵심이 되는 액션 프리미티브입니다.  
+현재 구현은 `solid`, `outline`, `gradient` variant와 여러 tone, size, loading, 앞뒤 아이콘 슬롯을 지원합니다.
+
+<ButtonShowcase />
+
+<h2 id="props-in-use">주요 props</h2>
+
+- `variant`: `solid | outline | gradient`
+- `tone`: `primary | secondary | success | danger | warning | info | dark | neutral`
+- `size`: `sm | md | lg`
+- `fullWidth`
+- `loading`
+
+<h2 id="guidelines">사용 가이드</h2>
+
+한 화면 안에서 gradient 버튼은 가장 강한 CTA 한 개에만 사용하는 것을 권장합니다.  
+아웃라인 버튼은 더 강한 primary 버튼과 함께 보조 액션으로 배치하는 경우에 적합합니다.
+
+<Callout>
+  같은 액션 그룹 안에 gradient 버튼을 여러 개 두지 않는 것이 좋습니다.
+</Callout>

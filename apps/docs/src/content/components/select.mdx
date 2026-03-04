@@ -1,0 +1,18 @@
+import { FormShowcase } from "../../components/DocPrimitives";
+
+<h2 id="overview">개요</h2>
+
+셀렉트는 LDS 폼에서 단일 선택을 처리하는 가장 기본적인 선택 프리미티브입니다.
+
+<FormShowcase />
+
+<h2 id="intended-evolution">확장 방향</h2>
+
+기본 셀렉트는 가장 단순한 진입점으로 유지합니다.  
+검색형 드롭다운, 멀티 셀렉트 같은 패턴은 이후 별도의 조합형 컴포넌트로 확장하는 방향이 적합합니다.
+
+<h2 id="integration-notes">적용 메모</h2>
+
+- 옵션 라벨은 짧고 명확하게 유지합니다
+- 선택 범위가 명확히 한정된 경우에 우선 사용합니다
+- 옵션이 많아지면 검색형 드롭다운으로 전환합니다

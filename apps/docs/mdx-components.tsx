@@ -1,0 +1,21 @@
+import type { MDXComponents } from "mdx/types";
+import Link from "next/link";
+
+export function useMDXComponents(components: MDXComponents): MDXComponents {
+  return {
+    h1: props => <h1 {...props} />,
+    h2: props => <h2 {...props} />,
+    h3: props => <h3 {...props} />,
+    p: props => <p {...props} />,
+    a: props => {
+      const href = typeof props.href === "string" ? props.href : "";
+      if (href.startsWith("/")) {
+        return <Link href={href}>{props.children}</Link>;
+      }
+
+      return <a {...props} />;
+    },
+    ...components
+  };
+}
+

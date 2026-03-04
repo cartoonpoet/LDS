@@ -1,0 +1,11 @@
+node_modules
+dist
+.turbo
+.next
+storybook-static
+.npm-cache
+.pnpm-store
+storybook.log
+coverage
+*.log
+*.tsbuildinfo
