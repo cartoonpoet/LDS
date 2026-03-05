@@ -22,6 +22,15 @@ const withCode = (code: string, description: string) => ({
 const meta: Meta<typeof Select> = {
   title: "Components/Select",
   component: Select,
+  tags: ["autodocs"],
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "LDS 선택 필드 컴포넌트입니다. placeholder, invalid, grouped options, multiple 모드를 지원합니다."
+      }
+    }
+  },
   args: {
     label: "Status",
     options: baseOptions,

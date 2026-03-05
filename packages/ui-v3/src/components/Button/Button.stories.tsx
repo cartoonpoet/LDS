@@ -16,6 +16,14 @@ const withCode = (code: string, description: string) => ({
 const meta: Meta<typeof Button> = {
   title: "Components/Button",
   component: Button,
+  tags: ["autodocs"],
+  parameters: {
+    docs: {
+      description: {
+        component: "LDS 기본 버튼 컴포넌트입니다. variant, tone, size 조합으로 상태를 표현합니다."
+      }
+    }
+  },
   args: {
     children: "Confirm",
     tone: "primary",

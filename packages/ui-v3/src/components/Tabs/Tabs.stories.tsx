@@ -23,6 +23,14 @@ const withCode = (code: string, description: string) => ({
 const meta: Meta<typeof Tabs> = {
   title: "Components/Tabs",
   component: Tabs,
+  tags: ["autodocs"],
+  parameters: {
+    docs: {
+      description: {
+        component: "LDS 탭 컴포넌트입니다. line/segment 스타일과 stretched 배치를 지원합니다."
+      }
+    }
+  },
   args: {
     items
   },

@@ -1,3 +1,4 @@
+import { forwardRef } from "react";
 import type { InputHTMLAttributes, ReactNode } from "react";
 import * as styles from "./Input.css";
 
@@ -10,18 +11,21 @@ export type InputProps = Omit<InputHTMLAttributes<HTMLInputElement>, "size"> & {
   size?: "sm" | "md" | "lg";
 };
 
-export function Input({
-  className,
-  disabled = false,
-  helperText,
-  label,
-  prefix,
-  required,
-  size = "md",
-  status = "default",
-  suffix,
-  ...props
-}: InputProps) {
+export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
+  {
+    className,
+    disabled = false,
+    helperText,
+    label,
+    prefix,
+    required,
+    size = "md",
+    status = "default",
+    suffix,
+    ...props
+  },
+  ref
+) {
   const hasPrefix = prefix !== undefined && prefix !== null;
   const hasSuffix = suffix !== undefined && suffix !== null;
 
@@ -52,10 +56,12 @@ export function Input({
         })}
       >
         {hasPrefix ? <span className={styles.adornment}>{prefix}</span> : null}
-        <input className={inputClassName} disabled={disabled} required={required} {...props} />
+        <input className={inputClassName} disabled={disabled} ref={ref} required={required} {...props} />
         {hasSuffix ? <span className={styles.adornment}>{suffix}</span> : null}
       </span>
       {helperText ? <span className={styles.helperText({ tone: status })}>{helperText}</span> : null}
     </label>
   );
-}
+});
+
+Input.displayName = "Input";

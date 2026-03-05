@@ -16,6 +16,15 @@ const withCode = (code: string, description: string) => ({
 const meta: Meta<typeof Chip> = {
   title: "Components/Chip",
   component: Chip,
+  tags: ["autodocs"],
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "LDS 칩 컴포넌트입니다. basic/check/file/link 타입을 제공하고 dismissible 상호작용을 지원합니다."
+      }
+    }
+  },
   args: {
     children: "Option 1"
   },

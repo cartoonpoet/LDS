@@ -1,3 +1,4 @@
+import { forwardRef } from "react";
 import type { SelectHTMLAttributes } from "react";
 import * as styles from "./Select.css";
 
@@ -27,19 +28,22 @@ export type SelectProps = Omit<SelectHTMLAttributes<HTMLSelectElement>, "size"> 
   size?: SelectSize;
 };
 
-export function Select({
-  className,
-  disabled,
-  helperText,
-  invalid = false,
-  label,
-  multiple = false,
-  options,
-  placeholder,
-  required,
-  size = "md",
-  ...props
-}: SelectProps) {
+export const Select = forwardRef<HTMLSelectElement, SelectProps>(function Select(
+  {
+    className,
+    disabled,
+    helperText,
+    invalid = false,
+    label,
+    multiple = false,
+    options,
+    placeholder,
+    required,
+    size = "md",
+    ...props
+  },
+  ref
+) {
   const hasPlaceholder = Boolean(placeholder) && !multiple;
   const selectClassName = [
     styles.control({
@@ -63,7 +67,14 @@ export function Select({
     <label className={styles.root}>
       {label ? <span className={styles.label}>{label}</span> : null}
       <span className={shellClassName}>
-        <select className={selectClassName} disabled={disabled} multiple={multiple} required={required || hasPlaceholder} {...props}>
+        <select
+          className={selectClassName}
+          disabled={disabled}
+          multiple={multiple}
+          ref={ref}
+          required={required || hasPlaceholder}
+          {...props}
+        >
           {hasPlaceholder ? (
             <option disabled hidden value="">
               {placeholder}
@@ -100,4 +111,6 @@ export function Select({
       {helperText ? <span className={styles.helperText({ tone: invalid ? "danger" : "neutral" })}>{helperText}</span> : null}
     </label>
   );
-}
+});
+
+Select.displayName = "Select";

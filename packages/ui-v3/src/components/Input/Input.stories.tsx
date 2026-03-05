@@ -16,6 +16,14 @@ const withCode = (code: string, description: string) => ({
 const meta: Meta<typeof Input> = {
   title: "Components/Input",
   component: Input,
+  tags: ["autodocs"],
+  parameters: {
+    docs: {
+      description: {
+        component: "LDS 입력 필드 컴포넌트입니다. 상태(success/error), helper text, prefix/suffix를 지원합니다."
+      }
+    }
+  },
   args: {
     label: "Label",
     placeholder: "Enter text"

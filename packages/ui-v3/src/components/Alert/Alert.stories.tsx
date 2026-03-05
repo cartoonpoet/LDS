@@ -16,6 +16,14 @@ const withCode = (code: string, description: string) => ({
 const meta: Meta<typeof Alert> = {
   title: "Components/Alert",
   component: Alert,
+  tags: ["autodocs"],
+  parameters: {
+    docs: {
+      description: {
+        component: "LDS 행형 알림 컴포넌트입니다. 아이콘, 액션 버튼, dismiss 동작을 지원합니다."
+      }
+    }
+  },
   args: {
     title: "중요!",
     children: "이것은 기본 알림입니다. 확인해주세요!"

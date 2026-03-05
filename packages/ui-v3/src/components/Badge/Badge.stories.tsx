@@ -16,6 +16,14 @@ const withCode = (code: string, description: string) => ({
 const meta: Meta<typeof Badge> = {
   title: "Components/Badge",
   component: Badge,
+  tags: ["autodocs"],
+  parameters: {
+    docs: {
+      description: {
+        component: "LDS 배지 컴포넌트입니다. 작은 상태 라벨과 아이콘/닫기 조합을 지원합니다."
+      }
+    }
+  },
   args: {
     children: "Label",
     variant: "filled",
