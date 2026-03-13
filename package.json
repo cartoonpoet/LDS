@@ -2,7 +2,7 @@
   "name": "lds-workspace",
   "private": true,
   "version": "0.1.0",
-  "packageManager": "pnpm@10.20.0",
+  "packageManager": "pnpm@10.32.1",
   "workspaces": [
     "apps/*",
     "packages/*"
@@ -16,7 +16,7 @@
     "storybook": "turbo run storybook --filter=@lds/storybook --ui=tui"
   },
   "devDependencies": {
-    "turbo": "^2.4.0",
-    "typescript": "^5.7.3"
+    "turbo": "^2.8.16",
+    "typescript": "^5.9.3"
   }
 }
