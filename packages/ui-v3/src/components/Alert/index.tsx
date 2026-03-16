@@ -35,7 +35,7 @@ export function Alert({
   return (
     <div className={composedClassName} role="alert" {...props}>
       <div className={styles.body}>
-        <span aria-hidden="true" className={styles.icon}>
+        <span aria-hidden="true" className={styles.icon({ tone })}>
           {icon}
         </span>
         <div className={styles.textWrap}>

@@ -1,6 +1,6 @@
 import { keyframes, style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
-import { semanticColorRoles, themeVars, bluePalette, cyanPalette, darkPalette, greenPalette, redPalette, yellowPalette } from "@lds/tokens";
+import { semanticColorRoles, themeVars } from "@lds/tokens";
 import { sprinkles } from "../../styles/sprinkles.css";
 
 const spin = keyframes({
@@ -35,166 +35,125 @@ const toneVariant = {
 } as const;
 
 const solidDisabled = {
-  backgroundColor: themeVars.color.neutralDisabled,
-  color: themeVars.color.textInverse,
+  backgroundColor: semanticColorRoles.button.solid.disabled.background,
+  color: semanticColorRoles.button.solid.disabled.text,
+  boxShadow: "none",
   cursor: "not-allowed"
 } as const;
 
 const outlineDisabled = {
-  borderColor: themeVars.color.neutralBorder,
-  color: themeVars.color.textDisabled,
+  borderColor: semanticColorRoles.button.outline.disabled.border,
+  color: semanticColorRoles.button.outline.disabled.text,
+  backgroundColor: semanticColorRoles.surface.canvas,
+  boxShadow: "none",
   cursor: "not-allowed"
 } as const;
 
-const createSolidTone = (defaultColor: string, hoverColor: string, activeColor: string) => ({
-  backgroundColor: defaultColor,
-  color: themeVars.color.textInverse,
-  selectors: {
-    "&:hover:not(:disabled)": {
-      backgroundColor: hoverColor
-    },
-    "&:active:not(:disabled)": {
-      backgroundColor: activeColor
-    },
-    "&:disabled": solidDisabled
+const createSolidTone = (tone: keyof typeof semanticColorRoles.button.solid) => {
+  if (tone === "disabled") {
+    return {};
   }
-});
 
-const createOutlineTone = (borderColor: string, textColor: string, hoverColor: string, activeColor: string) => ({
-  borderColor,
-  color: textColor,
-  selectors: {
-    "&:hover:not(:disabled)": {
-      backgroundColor: hoverColor
-    },
-    "&:active:not(:disabled)": {
-      backgroundColor: activeColor
-    },
-    "&:disabled": outlineDisabled
-  }
-});
+  const palette = semanticColorRoles.button.solid[tone];
 
-const createGradientTone = (from: string, to: string, active: string, disabled: string) => ({
-  backgroundImage: `linear-gradient(90deg, ${from} 0%, ${to} 100%)`,
-  color: themeVars.color.textInverse,
-  selectors: {
-    "&:hover:not(:disabled)": {
-      filter: "brightness(1.03)"
-    },
-    "&:active:not(:disabled)": {
-      backgroundImage: `linear-gradient(90deg, ${active} 0%, ${active} 100%)`
-    },
-    "&:disabled": {
-      backgroundImage: `linear-gradient(90deg, ${disabled} 0%, ${disabled} 100%)`,
-      color: themeVars.color.textInverse,
-      cursor: "not-allowed"
+  return {
+    backgroundColor: palette.background,
+    color: palette.text,
+    selectors: {
+      "&:hover:not(:disabled)": {
+        backgroundColor: palette.hover,
+        boxShadow: themeVars.shadow.raised
+      },
+      "&:active:not(:disabled)": {
+        backgroundColor: palette.active,
+        boxShadow: "none",
+        transform: "translateY(1px)"
+      },
+      "&:disabled": solidDisabled
     }
+  };
+};
+
+const createOutlineTone = (tone: keyof typeof semanticColorRoles.button.outline) => {
+  if (tone === "disabled") {
+    return {};
   }
-});
+
+  const palette = semanticColorRoles.button.outline[tone];
+
+  return {
+    borderColor: palette.border,
+    color: palette.text,
+    selectors: {
+      "&:hover:not(:disabled)": {
+        backgroundColor: palette.hover
+      },
+      "&:active:not(:disabled)": {
+        backgroundColor: palette.active,
+        transform: "translateY(1px)"
+      },
+      "&:disabled": outlineDisabled
+    }
+  };
+};
+
+const createGradientTone = (tone: keyof typeof semanticColorRoles.button.gradient) => {
+  const palette = semanticColorRoles.button.gradient[tone];
+
+  return {
+    backgroundImage: `linear-gradient(90deg, ${palette.from} 0%, ${palette.to} 100%)`,
+    color: palette.text,
+    selectors: {
+      "&:hover:not(:disabled)": {
+        backgroundImage: `linear-gradient(90deg, ${palette.hoverFrom} 0%, ${palette.hoverTo} 100%)`,
+        boxShadow: themeVars.shadow.raised
+      },
+      "&:active:not(:disabled)": {
+        backgroundImage: `linear-gradient(90deg, ${palette.activeFrom} 0%, ${palette.activeTo} 100%)`,
+        boxShadow: "none",
+        transform: "translateY(1px)"
+      },
+      "&:disabled": {
+        backgroundImage: `linear-gradient(90deg, ${palette.disabledFrom} 0%, ${palette.disabledTo} 100%)`,
+        color: palette.text,
+        boxShadow: "none",
+        cursor: "not-allowed"
+      }
+    }
+  };
+};
 
 const solidToneStyles = {
-  primary: createSolidTone(
-    themeVars.color.accentPrimary,
-    themeVars.color.accentPrimaryHover,
-    themeVars.color.accentPrimaryActive
-  ),
-  secondary: createSolidTone(
-    themeVars.color.accentSecondary,
-    themeVars.color.accentSecondaryHover,
-    themeVars.color.accentSecondaryActive
-  ),
-  success: createSolidTone(
-    themeVars.color.accentSuccess,
-    themeVars.color.accentSuccessHover,
-    themeVars.color.accentSuccessActive
-  ),
-  danger: createSolidTone(
-    themeVars.color.accentDanger,
-    themeVars.color.accentDangerHover,
-    themeVars.color.accentDangerActive
-  ),
-  warning: createSolidTone(
-    themeVars.color.accentWarning,
-    themeVars.color.accentWarningHover,
-    themeVars.color.accentWarningActive
-  ),
-  info: createSolidTone(
-    themeVars.color.accentInfo,
-    themeVars.color.accentInfoHover,
-    themeVars.color.accentInfoActive
-  ),
-  dark: createSolidTone(
-    themeVars.color.accentDark,
-    themeVars.color.accentDarkHover,
-    themeVars.color.accentDarkActive
-  ),
-  neutral: createSolidTone(
-    themeVars.color.accentSecondary,
-    themeVars.color.accentSecondaryHover,
-    themeVars.color.accentSecondaryActive
-  )
+  primary: createSolidTone("primary"),
+  secondary: createSolidTone("secondary"),
+  success: createSolidTone("success"),
+  danger: createSolidTone("danger"),
+  warning: createSolidTone("warning"),
+  info: createSolidTone("info"),
+  dark: createSolidTone("dark"),
+  neutral: createSolidTone("neutral")
 } as const;
 
 const outlineToneStyles = {
-  primary: createOutlineTone(
-    themeVars.color.accentPrimary,
-    themeVars.color.accentPrimary,
-    semanticColorRoles.action.primary.subtle,
-    bluePalette[200]
-  ),
-  secondary: createOutlineTone(
-    themeVars.color.accentSecondary,
-    themeVars.color.accentSecondary,
-    semanticColorRoles.action.secondary.subtle,
-    themeVars.color.neutralSurfaceRaised
-  ),
-  success: createOutlineTone(
-    themeVars.color.accentSuccess,
-    themeVars.color.accentSuccess,
-    semanticColorRoles.status.success.fill,
-    greenPalette[200]
-  ),
-  danger: createOutlineTone(
-    themeVars.color.accentDanger,
-    themeVars.color.accentDanger,
-    semanticColorRoles.status.danger.fill,
-    redPalette[200]
-  ),
-  warning: createOutlineTone(
-    themeVars.color.accentWarning,
-    themeVars.color.accentWarningActive,
-    semanticColorRoles.status.warning.fill,
-    yellowPalette[200]
-  ),
-  info: createOutlineTone(
-    themeVars.color.accentInfo,
-    themeVars.color.accentInfo,
-    semanticColorRoles.status.info.fill,
-    cyanPalette[200]
-  ),
-  dark: createOutlineTone(
-    themeVars.color.accentDark,
-    themeVars.color.accentDark,
-    semanticColorRoles.surface.raised,
-    themeVars.color.neutralDisabled
-  ),
-  neutral: createOutlineTone(
-    themeVars.color.neutralBorderStrong,
-    themeVars.color.textPrimary,
-    themeVars.color.neutralSurfaceAlt,
-    themeVars.color.neutralSurfaceRaised
-  )
+  primary: createOutlineTone("primary"),
+  secondary: createOutlineTone("secondary"),
+  success: createOutlineTone("success"),
+  danger: createOutlineTone("danger"),
+  warning: createOutlineTone("warning"),
+  info: createOutlineTone("info"),
+  dark: createOutlineTone("dark"),
+  neutral: createOutlineTone("neutral")
 } as const;
 
 const gradientToneStyles = {
-  primary: createGradientTone(bluePalette[400], bluePalette[500], themeVars.color.accentPrimaryActive, bluePalette[300]),
-  secondary: createGradientTone("#a6abb2", themeVars.color.accentSecondary, themeVars.color.accentSecondaryActive, "#b4b7bc"),
-  success: createGradientTone(greenPalette[400], greenPalette[500], themeVars.color.accentSuccessActive, greenPalette[300]),
-  danger: createGradientTone(redPalette[400], redPalette[500], themeVars.color.accentDangerActive, redPalette[300]),
-  warning: createGradientTone(yellowPalette[400], yellowPalette[500], themeVars.color.accentWarningActive, yellowPalette[300]),
-  info: createGradientTone(cyanPalette[400], cyanPalette[500], themeVars.color.accentInfoActive, cyanPalette[300]),
-  dark: createGradientTone(darkPalette[300], darkPalette[400], themeVars.color.accentDarkActive, "#a5a5a5"),
-  neutral: createGradientTone("#a6abb2", themeVars.color.accentSecondary, themeVars.color.accentSecondaryActive, "#b4b7bc")
+  primary: createGradientTone("primary"),
+  secondary: createGradientTone("secondary"),
+  success: createGradientTone("success"),
+  danger: createGradientTone("danger"),
+  warning: createGradientTone("warning"),
+  info: createGradientTone("info"),
+  dark: createGradientTone("dark"),
+  neutral: createGradientTone("neutral")
 } as const;
 
 export const buttonRecipe = recipe({
@@ -210,7 +169,7 @@ export const buttonRecipe = recipe({
       minHeight: "38px",
       padding: `0 ${themeVars.spacing.x4}`,
       borderRadius: themeVars.radius.sm,
-      border: "1px solid transparent",
+      border: `1px solid transparent`,
       fontFamily: themeVars.font.family,
       fontSize: themeVars.font.sizeMd,
       fontWeight: themeVars.font.weightBold,
@@ -218,14 +177,15 @@ export const buttonRecipe = recipe({
       whiteSpace: "nowrap",
       cursor: "pointer",
       transition:
-        "background-color 120ms ease, border-color 120ms ease, color 120ms ease, box-shadow 120ms ease",
+        "background-color 120ms ease, background-image 120ms ease, border-color 120ms ease, color 120ms ease, box-shadow 120ms ease, transform 80ms ease",
       selectors: {
         "&:focus-visible": {
           outline: "none",
           boxShadow: themeVars.shadow.focus
         },
         "&:disabled": {
-          cursor: "not-allowed"
+          cursor: "not-allowed",
+          transform: "none"
         }
       }
     }
@@ -235,43 +195,24 @@ export const buttonRecipe = recipe({
       solid: {},
       gradient: {},
       outline: {
-        backgroundColor: themeVars.color.neutralSurface
+        backgroundColor: semanticColorRoles.surface.canvas
       }
     },
     size: {
       sm: {
         minHeight: "30px",
         padding: `0 ${themeVars.spacing.x3}`,
-        fontSize: themeVars.font.sizeSm,
-        "@media": {
-          "screen and (max-width: 767px)": {
-            minHeight: "32px"
-          }
-        }
+        fontSize: themeVars.font.sizeSm
       },
       md: {
         minHeight: "38px",
         padding: `0 ${themeVars.spacing.x4}`,
-        fontSize: themeVars.font.sizeMd,
-        "@media": {
-          "screen and (max-width: 767px)": {
-            minHeight: "36px",
-            padding: `0 ${themeVars.spacing.x3}`,
-            fontSize: themeVars.font.sizeSm
-          }
-        }
+        fontSize: themeVars.font.sizeMd
       },
       lg: {
         minHeight: "44px",
         padding: `0 ${themeVars.spacing.x5}`,
-        fontSize: themeVars.font.sizeLg,
-        "@media": {
-          "screen and (max-width: 767px)": {
-            minHeight: "40px",
-            padding: `0 ${themeVars.spacing.x4}`,
-            fontSize: themeVars.font.sizeMd
-          }
-        }
+        fontSize: themeVars.font.sizeLg
       }
     },
     tone: toneVariant

@@ -12,7 +12,7 @@ export const root = style([
 ]);
 
 export const label = style({
-  color: themeVars.color.textMuted,
+  color: semanticColorRoles.field.label,
   fontFamily: themeVars.font.family,
   fontSize: themeVars.font.sizeSm,
   fontWeight: themeVars.font.weightMedium,
@@ -51,7 +51,7 @@ export const controlShell = recipe({
             position: "absolute",
             inset: 0,
             borderRadius: themeVars.radius.sm,
-            boxShadow: `inset 0 0 0 1px ${themeVars.color.accentDanger}`,
+            boxShadow: `inset 0 0 0 1px ${semanticColorRoles.status.danger.border}`,
             pointerEvents: "none"
           }
         }
@@ -72,10 +72,10 @@ export const control = recipe({
     boxSizing: "border-box",
     minHeight: "34px",
     padding: `0 ${themeVars.spacing.x3}`,
-    border: `1px solid ${themeVars.color.neutralBorder}`,
+    border: `1px solid ${semanticColorRoles.field.border}`,
     borderRadius: themeVars.radius.sm,
-    backgroundColor: themeVars.color.neutralSurface,
-    color: themeVars.color.textPrimary,
+    backgroundColor: semanticColorRoles.field.background,
+    color: semanticColorRoles.field.text,
     fontFamily: themeVars.font.family,
     fontSize: themeVars.font.sizeMd,
     lineHeight: 1.4,
@@ -89,14 +89,17 @@ export const control = recipe({
       }
     },
     selectors: {
+      "&:hover:not(:disabled)": {
+        borderColor: semanticColorRoles.field.borderHover
+      },
       "&:focus": {
-        borderColor: themeVars.color.accentPrimary,
+        borderColor: semanticColorRoles.field.borderFocus,
         boxShadow: themeVars.shadow.focus
       },
       "&:disabled": {
-        backgroundColor: themeVars.color.neutralDisabled,
-        borderColor: themeVars.color.neutralBorder,
-        color: themeVars.color.textDisabled,
+        backgroundColor: semanticColorRoles.field.backgroundDisabled,
+        borderColor: semanticColorRoles.field.border,
+        color: semanticColorRoles.text.disabled,
         cursor: "not-allowed"
       }
     }
@@ -128,11 +131,14 @@ export const control = recipe({
     },
     invalid: {
       true: {
-        borderColor: themeVars.color.accentDanger,
+        borderColor: semanticColorRoles.status.danger.border,
         selectors: {
+          "&:hover:not(:disabled)": {
+            borderColor: semanticColorRoles.status.danger.border
+          },
           "&:focus": {
-            borderColor: themeVars.color.accentDanger,
-            boxShadow: themeVars.shadow.focus
+            borderColor: semanticColorRoles.status.danger.border,
+            boxShadow: `0 0 0 3px ${semanticColorRoles.status.danger.fill}`
           }
         }
       },
@@ -142,7 +148,7 @@ export const control = recipe({
       true: {
         selectors: {
           "&:required:invalid": {
-            color: themeVars.color.textMuted
+            color: semanticColorRoles.field.placeholder
           }
         }
       },
@@ -198,10 +204,10 @@ export const indicator = recipe({
     width: "10px",
     height: "6px",
     pointerEvents: "none",
-    color: themeVars.color.textMuted,
+    color: semanticColorRoles.field.icon,
     selectors: {
       "select:disabled + &": {
-        color: themeVars.color.textDisabled
+        color: semanticColorRoles.text.disabled
       }
     }
   },
@@ -227,10 +233,10 @@ export const helperText = recipe({
   variants: {
     tone: {
       neutral: {
-        color: themeVars.color.textMuted
+        color: semanticColorRoles.field.helper
       },
       danger: {
-        color: themeVars.color.accentDanger
+        color: semanticColorRoles.status.danger.text
       }
     }
   },
@@ -238,4 +244,3 @@ export const helperText = recipe({
     tone: "neutral"
   }
 });
-

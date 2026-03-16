@@ -1,6 +1,6 @@
 import { style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
-import { bluePalette, greenPalette, semanticColorRoles, themeVars } from "@lds/tokens";
+import { semanticColorRoles, themeVars } from "@lds/tokens";
 
 export const chip = recipe({
   base: {
@@ -10,9 +10,9 @@ export const chip = recipe({
     minHeight: "22px",
     padding: `0 ${themeVars.spacing.x2}`,
     borderRadius: "999px",
-    border: `1px solid ${themeVars.color.neutralBorder}`,
-    backgroundColor: themeVars.color.neutralSurface,
-    color: themeVars.color.textSecondary,
+    border: `1px solid ${semanticColorRoles.chip.border}`,
+    backgroundColor: semanticColorRoles.chip.background,
+    color: semanticColorRoles.chip.text,
     fontFamily: themeVars.font.family,
     fontSize: themeVars.font.sizeSm,
     fontWeight: themeVars.font.weightMedium,
@@ -36,7 +36,7 @@ export const chip = recipe({
         minHeight: "20px",
         paddingRight: themeVars.spacing.x1,
         borderRadius: themeVars.radius.sm,
-        color: themeVars.color.accentPrimary
+        color: semanticColorRoles.action.primary.default
       }
     },
     selected: {
@@ -48,31 +48,33 @@ export const chip = recipe({
     {
       variants: { kind: "basic", selected: true },
       style: {
-        borderColor: bluePalette[300],
-        backgroundColor: semanticColorRoles.action.primary.subtle,
-        color: themeVars.color.accentPrimary
+        borderColor: semanticColorRoles.chip.selected.basic.border,
+        backgroundColor: semanticColorRoles.chip.selected.basic.background,
+        color: semanticColorRoles.chip.selected.basic.text
       }
     },
     {
       variants: { kind: "check", selected: true },
       style: {
-        borderColor: bluePalette[300],
-        backgroundColor: semanticColorRoles.action.primary.subtle,
-        color: themeVars.color.accentPrimary
+        borderColor: semanticColorRoles.chip.selected.check.border,
+        backgroundColor: semanticColorRoles.chip.selected.check.background,
+        color: semanticColorRoles.chip.selected.check.text
       }
     },
     {
       variants: { kind: "file", selected: true },
       style: {
-        borderColor: greenPalette[200],
-        backgroundColor: semanticColorRoles.status.success.fill
+        borderColor: semanticColorRoles.chip.selected.file.border,
+        backgroundColor: semanticColorRoles.chip.selected.file.background,
+        color: semanticColorRoles.chip.selected.file.text
       }
     },
     {
       variants: { kind: "link", selected: true },
       style: {
-        borderColor: bluePalette[200],
-        backgroundColor: semanticColorRoles.surface.canvas
+        borderColor: semanticColorRoles.chip.selected.link.border,
+        backgroundColor: semanticColorRoles.chip.selected.link.background,
+        color: semanticColorRoles.chip.selected.link.text
       }
     }
   ],
@@ -98,9 +100,9 @@ export const checkIndicator = style({
   width: "14px",
   height: "14px",
   borderRadius: "999px",
-  border: `1px solid ${themeVars.color.neutralBorderStrong}`,
-  backgroundColor: themeVars.color.neutralSurface,
-  color: themeVars.color.accentPrimary,
+  border: `1px solid ${semanticColorRoles.border.strong}`,
+  backgroundColor: semanticColorRoles.surface.canvas,
+  color: semanticColorRoles.action.primary.default,
   fontSize: "9px",
   lineHeight: 1,
   boxSizing: "border-box"
