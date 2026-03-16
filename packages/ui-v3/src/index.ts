@@ -25,3 +25,7 @@ export { Dropdown } from "./components/Dropdown";
 export type { DropdownOption, DropdownOptionGroup, DropdownProps } from "./components/Dropdown";
 export { DatePicker, DateRangePicker, DateTimePicker, TimePicker } from "./components/DatePicker";
 export type { DatePickerProps, DateRangePickerProps, TimePickerProps } from "./components/DatePicker";
+export { ButtonGroup } from "./components/ButtonGroup";
+export type { ButtonGroupItem, ButtonGroupProps } from "./components/ButtonGroup";
+export { Pagination } from "./components/Pagination";
+export type { PaginationProps } from "./components/Pagination";
