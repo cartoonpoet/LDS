@@ -140,9 +140,11 @@
   - `Comments(Timeline Type).png`
   - `Comments(Chat Type).png`
   - `Comments(Bottom Sheet).png`
-- 상태: **미개발**
+- 상태: **개발 완료 (v3 1차)**
 - 메모:
-  - 주석/커뮤니케이션/협업 피드백 영역
+  - `Comments` 패턴으로 Timeline / Chat / Bottom Sheet 변형 지원
+  - composer 상태는 `useCommentsState` 훅으로 분리
+  - Storybook / docs / export 반영 완료
 - 우선순위: 중상
 
 ---

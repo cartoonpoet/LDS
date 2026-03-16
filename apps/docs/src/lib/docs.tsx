@@ -8,6 +8,7 @@ import SelectDoc from "../content/components/select.mdx";
 import DrawerDoc from "../content/components/drawer.mdx";
 import TreeViewDoc from "../content/components/tree-view.mdx";
 import TableTreeDoc from "../content/components/table-tree.mdx";
+import CommentsDoc from "../content/components/comments.mdx";
 import GnbDoc from "../content/components/gnb.mdx";
 import LnbDoc from "../content/components/lnb.mdx";
 
@@ -160,6 +161,20 @@ export const docsRegistry: DocEntry[] = [
       { id: "usage-guidelines", label: "사용 가이드" }
     ],
     Component: TableTreeDoc
+  },
+  {
+    id: "comments",
+    slug: ["components", "comments"],
+    title: "Comments",
+    sectionId: "components",
+    sectionLabel: "컴포넌트",
+    summary: "검토 이력, 협업 채팅, 하단 시트 코멘트를 하나의 패턴으로 정리한 컴포넌트입니다.",
+    toc: [
+      { id: "overview", label: "개요" },
+      { id: "supported-features", label: "현재 지원 범위" },
+      { id: "usage-guidelines", label: "사용 가이드" }
+    ],
+    Component: CommentsDoc
   },
   {
     id: "gnb",

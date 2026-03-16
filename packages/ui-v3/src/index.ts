@@ -47,3 +47,5 @@ export { Gnb } from "./components/Gnb";
 export type { GnbItem, GnbProps } from "./components/Gnb";
 export { Lnb } from "./components/Lnb";
 export type { LnbChildItem, LnbGroup, LnbProps } from "./components/Lnb";
+export { Comments, useCommentsState } from "./components/Comments";
+export type { CommentItem, CommentTone, CommentsProps, CommentsVariant, UseCommentsStateOptions } from "./components/Comments";
