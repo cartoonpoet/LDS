@@ -16,7 +16,7 @@ export const chip = recipe({
     fontFamily: themeVars.font.family,
     fontSize: themeVars.font.sizeSm,
     fontWeight: themeVars.font.weightMedium,
-    lineHeight: 1,
+    lineHeight: 1.2,
     whiteSpace: "nowrap",
     boxSizing: "border-box"
   },
@@ -109,7 +109,8 @@ export const checkIndicator = style({
 });
 
 export const label = style({
-  minWidth: 0
+  minWidth: 0,
+  lineHeight: 1.2
 });
 
 export const metaText = recipe({
@@ -134,9 +135,10 @@ export const dismissButton = style({
   display: "inline-flex",
   alignItems: "center",
   justifyContent: "center",
-  width: "10px",
-  height: "10px",
+  width: "14px",
+  height: "14px",
   border: 0,
+  borderRadius: "999px",
   background: "transparent",
   padding: 0,
   color: "inherit",

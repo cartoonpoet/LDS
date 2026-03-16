@@ -80,6 +80,7 @@ export const control = recipe({
     fontSize: themeVars.font.sizeMd,
     lineHeight: 1.4,
     outline: "none",
+    verticalAlign: "middle",
     appearance: "none",
     transition: "border-color 120ms ease, box-shadow 120ms ease, background-color 120ms ease",
     "@media": {

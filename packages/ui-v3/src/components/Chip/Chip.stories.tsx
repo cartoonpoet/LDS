@@ -21,7 +21,7 @@ const meta: Meta<typeof Chip> = {
     docs: {
       description: {
         component:
-          "LDS 칩 컴포넌트입니다. basic/check/file/link 타입을 제공하고 dismissible 상호작용을 지원합니다."
+          "LDS 칩 컴포넌트입니다. basic/check/file/link 타입을 제공하고 dismissible 상호작용을 지원합니다.\n\n사용 가이드\n- Chip은 필터, 선택 상태, 파일/링크 메타 정보처럼 맥락이 짧은 데이터 조각에 사용합니다.\n- 한 줄에 많이 배치될 수 있으므로 label은 짧고 스캔 가능하게 유지하는 편이 좋습니다.\n- dismissible은 사용자가 직접 추가한 항목을 제거할 때만 쓰고, 단순 상태 표시는 dismiss 없이 유지하세요."
       }
     }
   },

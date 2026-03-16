@@ -173,8 +173,9 @@ export const buttonRecipe = recipe({
       fontFamily: themeVars.font.family,
       fontSize: themeVars.font.sizeMd,
       fontWeight: themeVars.font.weightBold,
-      lineHeight: 1,
+      lineHeight: 1.2,
       whiteSpace: "nowrap",
+      verticalAlign: "middle",
       cursor: "pointer",
       transition:
         "background-color 120ms ease, background-image 120ms ease, border-color 120ms ease, color 120ms ease, box-shadow 120ms ease, transform 80ms ease",

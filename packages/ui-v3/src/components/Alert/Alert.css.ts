@@ -7,7 +7,7 @@ export const alert = recipe({
     display: "grid",
     gap: themeVars.spacing.x2,
     width: "100%",
-    padding: `6px ${themeVars.spacing.x3}`,
+    padding: `${themeVars.spacing.x2} ${themeVars.spacing.x3}`,
     border: "1px solid transparent",
     borderRadius: themeVars.radius.sm,
     fontFamily: themeVars.font.family,
@@ -43,7 +43,8 @@ export const body = style({
   display: "flex",
   alignItems: "flex-start",
   gap: themeVars.spacing.x2,
-  minWidth: 0
+  minWidth: 0,
+  paddingTop: "1px"
 });
 
 export const icon = recipe({
@@ -77,13 +78,15 @@ export const title = style({
   color: semanticColorRoles.text.heading,
   fontSize: themeVars.font.sizeSm,
   fontWeight: themeVars.font.weightBold,
-  lineHeight: 1.4
+  lineHeight: 1.4,
+  wordBreak: "keep-all"
 });
 
 export const description = style({
-  color: semanticColorRoles.text.heading,
+  color: semanticColorRoles.text.secondary,
   fontSize: themeVars.font.sizeSm,
-  lineHeight: 1.4
+  lineHeight: 1.5,
+  wordBreak: "keep-all"
 });
 
 export const actionRow = style({
@@ -91,7 +94,8 @@ export const actionRow = style({
   alignItems: "center",
   gap: themeVars.spacing.x2,
   justifySelf: "end",
-  alignSelf: "center"
+  alignSelf: "center",
+  flexWrap: "wrap"
 });
 
 export const actionButton = recipe({
@@ -161,11 +165,26 @@ export const actionButton = recipe({
 });
 
 export const closeButton = style({
+  display: "inline-flex",
+  alignItems: "center",
+  justifyContent: "center",
+  width: "20px",
+  height: "20px",
   border: 0,
+  borderRadius: themeVars.radius.sm,
   background: "transparent",
   color: semanticColorRoles.text.heading,
   cursor: "pointer",
   padding: 0,
   fontSize: "14px",
-  lineHeight: 1
+  lineHeight: 1,
+  selectors: {
+    "&:hover": {
+      backgroundColor: semanticColorRoles.surface.subtle
+    },
+    "&:focus-visible": {
+      outline: "none",
+      boxShadow: themeVars.shadow.focus
+    }
+  }
 });

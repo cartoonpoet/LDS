@@ -122,6 +122,7 @@ export const input = recipe({
     fontSize: themeVars.font.sizeMd,
     lineHeight: 1.4,
     outline: "none",
+    boxSizing: "border-box",
     padding: `0 ${themeVars.spacing.x3}`,
     selectors: {
       "&::placeholder": {
