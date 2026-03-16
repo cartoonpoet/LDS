@@ -22,9 +22,10 @@ export type DocEntry = {
   Component: ComponentType;
 };
 
-type DocGroup = {
+export type DocGroup = {
   id: string;
   label: string;
+  description: string;
   items: DocEntry[];
 };
 
@@ -119,20 +120,32 @@ export const docsGroups: DocGroup[] = [
   {
     id: "overview",
     label: "개요",
+    description: "디자인 시스템의 방향성과 운영 원칙, 현재 제공 범위를 빠르게 이해합니다.",
     items: docsRegistry.filter(entry => entry.sectionId === "overview")
   },
   {
     id: "foundations",
     label: "파운데이션",
+    description: "색상, 타이포그래피처럼 전체 화면의 일관성을 만드는 기준 레이어를 다룹니다.",
     items: docsRegistry.filter(entry => entry.sectionId === "foundations")
   },
   {
     id: "components",
     label: "컴포넌트",
+    description: "실제 화면에 재사용되는 버튼, 입력, 선택 계열의 구현 기준을 제공합니다.",
     items: docsRegistry.filter(entry => entry.sectionId === "components")
   }
 ];
 
 export function findDocBySlug(slug: string[]) {
   return docsRegistry.find(entry => entry.slug.join("/") === slug.join("/"));
+}
+
+export function getDocNeighbors(currentId: string) {
+  const currentIndex = docsRegistry.findIndex(entry => entry.id === currentId);
+
+  return {
+    prev: currentIndex > 0 ? docsRegistry[currentIndex - 1] : undefined,
+    next: currentIndex >= 0 && currentIndex < docsRegistry.length - 1 ? docsRegistry[currentIndex + 1] : undefined
+  };
 }

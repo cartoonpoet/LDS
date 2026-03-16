@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { docsGroups, type DocEntry } from "../lib/docs";
+import { docsGroups, getDocNeighbors, type DocEntry } from "../lib/docs";
 
 type DocsLayoutProps = {
   children: ReactNode;
@@ -15,6 +15,7 @@ function slugToHref(slug: string[]) {
 export function DocsLayout({ children, currentSlug, entry }: DocsLayoutProps) {
   const currentPath = slugToHref(currentSlug);
   const currentSection = docsGroups.find(group => group.id === entry.sectionId);
+  const { prev, next } = getDocNeighbors(entry.id);
 
   return (
     <div className="docs-shell">
@@ -66,7 +67,40 @@ export function DocsLayout({ children, currentSlug, entry }: DocsLayoutProps) {
             <h1>{entry.title}</h1>
             <p className="docs-summary">{entry.summary}</p>
           </header>
+          <section className="docs-overview-grid" aria-label="Sections overview">
+            {docsGroups.map(group => (
+              <div className="docs-overview-card" key={group.id}>
+                <p className="docs-overview-kicker">{group.label}</p>
+                <p className="docs-overview-description">{group.description}</p>
+                <div className="docs-overview-links">
+                  {group.items.slice(0, 3).map(item => (
+                    <Link className="docs-overview-link" href={slugToHref(item.slug)} key={item.id}>
+                      {item.title}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </section>
           <div className="docs-page-body">{children}</div>
+          <nav className="docs-pager" aria-label="Page navigation">
+            {prev ? (
+              <Link className="docs-pager-link" href={slugToHref(prev.slug)}>
+                <span className="docs-pager-label">Previous</span>
+                <strong>{prev.title}</strong>
+              </Link>
+            ) : (
+              <div />
+            )}
+            {next ? (
+              <Link className="docs-pager-link docs-pager-link-next" href={slugToHref(next.slug)}>
+                <span className="docs-pager-label">Next</span>
+                <strong>{next.title}</strong>
+              </Link>
+            ) : (
+              <div />
+            )}
+          </nav>
         </div>
       </main>
       <aside className="docs-right-rail">
