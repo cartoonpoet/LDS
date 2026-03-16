@@ -1,5 +1,15 @@
 "use client";
 
+import {
+  flexRender,
+  getCoreRowModel,
+  getSortedRowModel,
+  useReactTable,
+  type ColumnDef,
+  type ColumnSort,
+  type OnChangeFn,
+  type SortingState
+} from "@tanstack/react-table";
 import { useMemo, useState } from "react";
 import type { CSSProperties, ReactNode } from "react";
 import * as styles from "./DataTable.css";
@@ -97,6 +107,19 @@ const getComparableValue = <Row,>(
   return String(cellValue ?? "");
 };
 
+const toSortingState = (sortState?: DataTableSortState): SortingState =>
+  sortState ? [{ id: sortState.key, desc: sortState.direction === "desc" }] : [];
+
+const toExternalSortState = (sorting: SortingState): DataTableSortState | undefined => {
+  const current = sorting[0];
+  if (!current) return undefined;
+
+  return {
+    key: current.id,
+    direction: current.desc ? "desc" : "asc"
+  };
+};
+
 export function DataTable<Row>({
   caption,
   columns,
@@ -109,48 +132,55 @@ export function DataTable<Row>({
   rows,
   sortState
 }: DataTableProps<Row>) {
-  const [internalSortState, setInternalSortState] = useState<DataTableSortState | undefined>(defaultSortState);
-  const activeSortState = sortState ?? internalSortState;
+  const [internalSorting, setInternalSorting] = useState<SortingState>(() => toSortingState(defaultSortState));
+  const controlledSorting = sortState ? toSortingState(sortState) : undefined;
+  const sorting = controlledSorting ?? internalSorting;
 
-  const sortedRows = useMemo(() => {
-    if (!activeSortState) {
-      return rows;
-    }
+  const tableColumns = useMemo<ColumnDef<Row>[]>(() => {
+    return columns.map(column => ({
+      id: column.key,
+      accessorFn: row => getComparableValue(row, column, getSortableValue),
+      enableSorting: Boolean(column.sortable),
+      sortingFn: (left, right) => {
+        const leftValue = getComparableValue(left.original, column, getSortableValue);
+        const rightValue = getComparableValue(right.original, column, getSortableValue);
+        return compareValues(leftValue, rightValue);
+      },
+      meta: {
+        align: column.align ?? "left",
+        density,
+        width: column.width,
+        label: column.label
+      },
+      header: () => column.label,
+      cell: info => getCellValue(info.row.original, column)
+    }));
+  }, [columns, density, getSortableValue]);
 
-    const targetColumn = columns.find(column => column.key === activeSortState.key);
-
-    if (!targetColumn || !targetColumn.sortable) {
-      return rows;
-    }
-
-    const nextRows = [...rows];
-    nextRows.sort((leftRow, rightRow) => {
-      const left = getComparableValue(leftRow, targetColumn, getSortableValue);
-      const right = getComparableValue(rightRow, targetColumn, getSortableValue);
-      const result = compareValues(left, right);
-
-      return activeSortState.direction === "asc" ? result : result * -1;
-    });
-
-    return nextRows;
-  }, [activeSortState, columns, getSortableValue, rows]);
-
-  const handleSort = (column: DataTableColumn<Row>) => {
-    if (!column.sortable) {
-      return;
-    }
-
-    const nextSortState: DataTableSortState =
-      activeSortState?.key === column.key && activeSortState.direction === "asc"
-        ? { key: column.key, direction: "desc" }
-        : { key: column.key, direction: "asc" };
+  const handleSortingChange: OnChangeFn<SortingState> = updater => {
+    const nextSorting = typeof updater === "function" ? updater(sorting) : updater;
 
     if (sortState === undefined) {
-      setInternalSortState(nextSortState);
+      setInternalSorting(nextSorting);
     }
 
-    onSortChange?.(nextSortState);
+    const nextSortState = toExternalSortState(nextSorting);
+    if (nextSortState) {
+      onSortChange?.(nextSortState);
+    }
   };
+
+  const table = useReactTable({
+    data: rows,
+    columns: tableColumns,
+    getCoreRowModel: getCoreRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+    state: {
+      sorting
+    },
+    onSortingChange: handleSortingChange,
+    manualSorting: false
+  });
 
   return (
     <div className={styles.root}>
@@ -158,44 +188,68 @@ export function DataTable<Row>({
         <table className={styles.table}>
           {caption ? <caption className={styles.caption}>{caption}</caption> : null}
           <thead>
-            <tr>
-              {columns.map(column => {
-                const direction = activeSortState?.key === column.key ? activeSortState.direction : undefined;
+            {table.getHeaderGroups().map(headerGroup => (
+              <tr key={headerGroup.id}>
+                {headerGroup.headers.map(header => {
+                  const meta = header.column.columnDef.meta as {
+                    align: DataTableAlign;
+                    density: DataTableDensity;
+                    width?: CSSProperties["width"];
+                  };
+                  const sorted = header.column.getIsSorted();
+                  const direction = sorted === "desc" ? "desc" : "asc";
 
-                return (
-                  <th
-                    aria-sort={
-                      direction ? (direction === "asc" ? "ascending" : "descending") : column.sortable ? "none" : undefined
-                    }
-                    className={styles.headerCell({ align: column.align ?? "left", density })}
-                    key={column.key}
-                    scope="col"
-                    style={column.width ? { width: column.width } : undefined}
-                  >
-                    {column.sortable ? (
-                      <button className={styles.sortButton({ align: column.align ?? "left" })} onClick={() => handleSort(column)} type="button">
-                        <span>{column.label}</span>
-                        <span aria-hidden="true" className={styles.sortIcon({ active: Boolean(direction), direction: direction ?? "asc" })}>
-                          ↕
+                  return (
+                    <th
+                      aria-sort={
+                        sorted ? (sorted === "asc" ? "ascending" : "descending") : header.column.getCanSort() ? "none" : undefined
+                      }
+                      className={styles.headerCell({ align: meta.align, density: meta.density })}
+                      key={header.id}
+                      scope="col"
+                      style={meta.width ? { width: meta.width } : undefined}
+                    >
+                      {header.column.getCanSort() ? (
+                        <button
+                          className={styles.sortButton({ align: meta.align })}
+                          onClick={header.column.getToggleSortingHandler()}
+                          type="button"
+                        >
+                          <span>{flexRender(header.column.columnDef.header, header.getContext())}</span>
+                          <span
+                            aria-hidden="true"
+                            className={styles.sortIcon({ active: Boolean(sorted), direction })}
+                          >
+                            ↕
+                          </span>
+                        </button>
+                      ) : (
+                        <span className={styles.headerLabel({ align: meta.align })}>
+                          {flexRender(header.column.columnDef.header, header.getContext())}
                         </span>
-                      </button>
-                    ) : (
-                      <span className={styles.headerLabel({ align: column.align ?? "left" })}>{column.label}</span>
-                    )}
-                  </th>
-                );
-              })}
-            </tr>
+                      )}
+                    </th>
+                  );
+                })}
+              </tr>
+            ))}
           </thead>
           <tbody>
-            {sortedRows.length > 0 ? (
-              sortedRows.map((row, index) => (
-                <tr className={styles.row} key={getRowKeyValue(row, rowKey, index)}>
-                  {columns.map(column => (
-                    <td className={styles.bodyCell({ align: column.align ?? "left", density })} key={column.key}>
-                      {getCellValue(row, column)}
-                    </td>
-                  ))}
+            {table.getRowModel().rows.length > 0 ? (
+              table.getRowModel().rows.map((row, index) => (
+                <tr className={styles.row} key={getRowKeyValue(row.original, rowKey, index)}>
+                  {row.getVisibleCells().map(cell => {
+                    const meta = cell.column.columnDef.meta as {
+                      align: DataTableAlign;
+                      density: DataTableDensity;
+                    };
+
+                    return (
+                      <td className={styles.bodyCell({ align: meta.align, density: meta.density })} key={cell.id}>
+                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      </td>
+                    );
+                  })}
                 </tr>
               ))
             ) : (
