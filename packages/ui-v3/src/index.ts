@@ -43,3 +43,7 @@ export { TableTree } from "./components/TableTree";
 export type { TableTreeColumn, TableTreeItem, TableTreeProps } from "./components/TableTree";
 export { Drawer } from "./components/Drawer";
 export type { DrawerPlacement, DrawerProps } from "./components/Drawer";
+export { Gnb } from "./components/Gnb";
+export type { GnbItem, GnbProps } from "./components/Gnb";
+export { Lnb } from "./components/Lnb";
+export type { LnbChildItem, LnbGroup, LnbProps } from "./components/Lnb";

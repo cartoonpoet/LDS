@@ -8,6 +8,8 @@ import SelectDoc from "../content/components/select.mdx";
 import DrawerDoc from "../content/components/drawer.mdx";
 import TreeViewDoc from "../content/components/tree-view.mdx";
 import TableTreeDoc from "../content/components/table-tree.mdx";
+import GnbDoc from "../content/components/gnb.mdx";
+import LnbDoc from "../content/components/lnb.mdx";
 
 type TocItem = {
   id: string;
@@ -158,6 +160,26 @@ export const docsRegistry: DocEntry[] = [
       { id: "usage-guidelines", label: "사용 가이드" }
     ],
     Component: TableTreeDoc
+  },
+  {
+    id: "gnb",
+    slug: ["components", "gnb"],
+    title: "GNB",
+    sectionId: "components",
+    sectionLabel: "컴포넌트",
+    summary: "앱 최상단의 글로벌 내비게이션 프리미티브입니다.",
+    toc: [{ id: "overview", label: "개요" }],
+    Component: GnbDoc
+  },
+  {
+    id: "lnb",
+    slug: ["components", "lnb"],
+    title: "LNB",
+    sectionId: "components",
+    sectionLabel: "컴포넌트",
+    summary: "좌측 정보 구조를 단계적으로 여는 로컬 내비게이션 프리미티브입니다.",
+    toc: [{ id: "overview", label: "개요" }],
+    Component: LnbDoc
   }
 ];
 
