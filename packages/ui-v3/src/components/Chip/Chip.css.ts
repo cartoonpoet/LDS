@@ -1,6 +1,6 @@
 import { style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
-import { themeVars } from "@lds/tokens";
+import { bluePalette, greenPalette, semanticColorRoles, themeVars } from "@lds/tokens";
 
 export const chip = recipe({
   base: {
@@ -48,31 +48,31 @@ export const chip = recipe({
     {
       variants: { kind: "basic", selected: true },
       style: {
-        borderColor: "#b7c7ff",
-        backgroundColor: "#eef3ff",
+        borderColor: bluePalette[300],
+        backgroundColor: semanticColorRoles.action.primary.subtle,
         color: themeVars.color.accentPrimary
       }
     },
     {
       variants: { kind: "check", selected: true },
       style: {
-        borderColor: "#b7c7ff",
-        backgroundColor: "#eef3ff",
+        borderColor: bluePalette[300],
+        backgroundColor: semanticColorRoles.action.primary.subtle,
         color: themeVars.color.accentPrimary
       }
     },
     {
       variants: { kind: "file", selected: true },
       style: {
-        borderColor: "#cce7d8",
-        backgroundColor: "#f5fcf8"
+        borderColor: greenPalette[200],
+        backgroundColor: semanticColorRoles.status.success.fill
       }
     },
     {
       variants: { kind: "link", selected: true },
       style: {
-        borderColor: "#d8e3ff",
-        backgroundColor: "#f7f9ff"
+        borderColor: bluePalette[200],
+        backgroundColor: semanticColorRoles.surface.canvas
       }
     }
   ],
@@ -119,10 +119,10 @@ export const metaText = recipe({
   variants: {
     kind: {
       file: {
-        color: themeVars.color.accentSuccess
+        color: semanticColorRoles.status.success.text
       },
       link: {
-        color: themeVars.color.accentPrimary
+        color: semanticColorRoles.action.primary.default
       }
     }
   }

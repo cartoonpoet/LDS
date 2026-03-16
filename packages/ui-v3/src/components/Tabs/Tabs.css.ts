@@ -1,6 +1,6 @@
 import { style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
-import { themeVars } from "@lds/tokens";
+import { semanticColorRoles, themeVars } from "@lds/tokens";
 
 export const root = style({
   display: "grid",
@@ -39,7 +39,7 @@ export const tab = recipe({
     padding: `0 ${themeVars.spacing.x3}`,
     border: 0,
     backgroundColor: "transparent",
-    color: "#8e95a5",
+    color: semanticColorRoles.text.tertiary,
     fontFamily: themeVars.font.family,
     fontSize: themeVars.font.sizeSm,
     fontWeight: themeVars.font.weightMedium,

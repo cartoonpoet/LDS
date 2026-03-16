@@ -1,6 +1,6 @@
 import { style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
-import { themeVars } from "@lds/tokens";
+import { bluePalette, semanticColorRoles, themeVars } from "@lds/tokens";
 
 export const badge = recipe({
   base: {
@@ -57,7 +57,7 @@ export const badge = recipe({
       variants: { variant: "outline", tone: "primary" },
       style: {
         backgroundColor: themeVars.color.neutralSurface,
-        borderColor: "#b7c7ff",
+        borderColor: bluePalette[300],
         color: themeVars.color.accentPrimary
       }
     },
@@ -72,17 +72,17 @@ export const badge = recipe({
     {
       variants: { variant: "muted", tone: "primary" },
       style: {
-        backgroundColor: "#f5f7ff",
-        borderColor: "#dde5ff",
-        color: "#7c8fc9"
+        backgroundColor: semanticColorRoles.action.primary.subtle,
+        borderColor: bluePalette[200],
+        color: themeVars.color.accentPrimary
       }
     },
     {
       variants: { variant: "muted", tone: "neutral" },
       style: {
-        backgroundColor: "#fafbfc",
-        borderColor: "#e7ebf2",
-        color: "#99a3b3"
+        backgroundColor: semanticColorRoles.surface.subtle,
+        borderColor: semanticColorRoles.border.subtle,
+        color: semanticColorRoles.text.tertiary
       }
     }
   ],

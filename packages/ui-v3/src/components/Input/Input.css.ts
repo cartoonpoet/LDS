@@ -1,6 +1,6 @@
 import { style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
-import { themeVars } from "@lds/tokens";
+import { semanticColorRoles, themeVars } from "@lds/tokens";
 import { sprinkles } from "../../styles/sprinkles.css";
 
 export const root = style([
@@ -67,7 +67,7 @@ export const controlShell = recipe({
         selectors: {
           "&:focus-within": {
             borderColor: themeVars.color.accentSuccess,
-            boxShadow: "0 0 0 3px rgba(47, 197, 111, 0.14)"
+            boxShadow: themeVars.shadow.focus
           }
         }
       },
@@ -76,7 +76,7 @@ export const controlShell = recipe({
         selectors: {
           "&:focus-within": {
             borderColor: themeVars.color.accentDanger,
-            boxShadow: "0 0 0 3px rgba(235, 87, 87, 0.14)"
+            boxShadow: themeVars.shadow.focus
           }
         }
       }

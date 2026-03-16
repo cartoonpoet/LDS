@@ -1,6 +1,6 @@
 import { keyframes, style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
-import { themeVars } from "@lds/tokens";
+import { semanticColorRoles, themeVars, bluePalette, cyanPalette, darkPalette, greenPalette, redPalette, yellowPalette } from "@lds/tokens";
 import { sprinkles } from "../../styles/sprinkles.css";
 
 const spin = keyframes({
@@ -136,23 +136,48 @@ const solidToneStyles = {
 } as const;
 
 const outlineToneStyles = {
-  primary: createOutlineTone(themeVars.color.accentPrimary, themeVars.color.accentPrimary, "#eef3ff", "#dfe7ff"),
+  primary: createOutlineTone(
+    themeVars.color.accentPrimary,
+    themeVars.color.accentPrimary,
+    semanticColorRoles.action.primary.subtle,
+    bluePalette[200]
+  ),
   secondary: createOutlineTone(
     themeVars.color.accentSecondary,
     themeVars.color.accentSecondary,
-    "#f5f6f8",
-    "#eceef2"
+    semanticColorRoles.action.secondary.subtle,
+    themeVars.color.neutralSurfaceRaised
   ),
-  success: createOutlineTone(themeVars.color.accentSuccess, themeVars.color.accentSuccess, "#eefaf3", "#d5f0de"),
-  danger: createOutlineTone(themeVars.color.accentDanger, themeVars.color.accentDanger, "#fef0f0", "#f8dddd"),
+  success: createOutlineTone(
+    themeVars.color.accentSuccess,
+    themeVars.color.accentSuccess,
+    semanticColorRoles.status.success.fill,
+    greenPalette[200]
+  ),
+  danger: createOutlineTone(
+    themeVars.color.accentDanger,
+    themeVars.color.accentDanger,
+    semanticColorRoles.status.danger.fill,
+    redPalette[200]
+  ),
   warning: createOutlineTone(
     themeVars.color.accentWarning,
     themeVars.color.accentWarningActive,
-    "#fff8e7",
-    "#f4ead1"
+    semanticColorRoles.status.warning.fill,
+    yellowPalette[200]
   ),
-  info: createOutlineTone(themeVars.color.accentInfo, themeVars.color.accentInfo, "#ecfbfe", "#d2f1f6"),
-  dark: createOutlineTone(themeVars.color.accentDark, themeVars.color.accentDark, "#f0f2f6", "#e2e6ec"),
+  info: createOutlineTone(
+    themeVars.color.accentInfo,
+    themeVars.color.accentInfo,
+    semanticColorRoles.status.info.fill,
+    cyanPalette[200]
+  ),
+  dark: createOutlineTone(
+    themeVars.color.accentDark,
+    themeVars.color.accentDark,
+    semanticColorRoles.surface.raised,
+    themeVars.color.neutralDisabled
+  ),
   neutral: createOutlineTone(
     themeVars.color.neutralBorderStrong,
     themeVars.color.textPrimary,
@@ -162,14 +187,14 @@ const outlineToneStyles = {
 } as const;
 
 const gradientToneStyles = {
-  primary: createGradientTone("#4e73ff", "#2f5bff", themeVars.color.accentPrimaryActive, "#8ea4ed"),
-  secondary: createGradientTone("#a6abb2", "#8a8f96", themeVars.color.accentSecondaryActive, "#b4b7bc"),
-  success: createGradientTone("#47cf7e", "#2fc56f", themeVars.color.accentSuccessActive, "#7ad4a3"),
-  danger: createGradientTone("#f06c6c", "#eb5757", "#f52929", "#e79a9a"),
-  warning: createGradientTone("#f4c94f", "#f0b319", themeVars.color.accentWarningActive, "#efd07b"),
-  info: createGradientTone("#2bc8dc", "#18bfd9", themeVars.color.accentInfoActive, "#60cfdd"),
-  dark: createGradientTone("#767676", "#555555", "#222222", "#a5a5a5"),
-  neutral: createGradientTone("#a6abb2", "#8a8f96", themeVars.color.accentSecondaryActive, "#b4b7bc")
+  primary: createGradientTone(bluePalette[400], bluePalette[500], themeVars.color.accentPrimaryActive, bluePalette[300]),
+  secondary: createGradientTone("#a6abb2", themeVars.color.accentSecondary, themeVars.color.accentSecondaryActive, "#b4b7bc"),
+  success: createGradientTone(greenPalette[400], greenPalette[500], themeVars.color.accentSuccessActive, greenPalette[300]),
+  danger: createGradientTone(redPalette[400], redPalette[500], themeVars.color.accentDangerActive, redPalette[300]),
+  warning: createGradientTone(yellowPalette[400], yellowPalette[500], themeVars.color.accentWarningActive, yellowPalette[300]),
+  info: createGradientTone(cyanPalette[400], cyanPalette[500], themeVars.color.accentInfoActive, cyanPalette[300]),
+  dark: createGradientTone(darkPalette[300], darkPalette[400], themeVars.color.accentDarkActive, "#a5a5a5"),
+  neutral: createGradientTone("#a6abb2", themeVars.color.accentSecondary, themeVars.color.accentSecondaryActive, "#b4b7bc")
 } as const;
 
 export const buttonRecipe = recipe({

@@ -1,6 +1,6 @@
 import { style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
-import { themeVars } from "@lds/tokens";
+import { semanticColorRoles, themeVars } from "@lds/tokens";
 
 export const alert = recipe({
   base: {
@@ -15,11 +15,11 @@ export const alert = recipe({
   variants: {
     tone: {
       info: {
-        backgroundColor: "#dff5fb",
+        backgroundColor: semanticColorRoles.status.info.fill,
         color: themeVars.color.textHeading
       },
       neutral: {
-        backgroundColor: "#eceef2",
+        backgroundColor: semanticColorRoles.surface.raised,
         color: themeVars.color.textHeading
       }
     },
