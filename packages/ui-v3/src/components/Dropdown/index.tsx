@@ -1,3 +1,5 @@
+"use client";
+
 import { useId, useMemo, useState } from "react";
 import type { ReactNode } from "react";
 import * as styles from "./Dropdown.css";

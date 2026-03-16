@@ -1,3 +1,5 @@
+"use client";
+
 import { useId, useRef, useState } from "react";
 import type { DragEvent, InputHTMLAttributes } from "react";
 import { Button } from "../Button";

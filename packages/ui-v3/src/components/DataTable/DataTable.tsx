@@ -1,3 +1,5 @@
+"use client";
+
 import { useMemo, useState } from "react";
 import type { CSSProperties, ReactNode } from "react";
 import * as styles from "./DataTable.css";
