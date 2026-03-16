@@ -21,3 +21,7 @@ export type {
   DataTableSortDirection,
   DataTableSortState
 } from "./components/DataTable";
+export { Dropdown } from "./components/Dropdown";
+export type { DropdownOption, DropdownOptionGroup, DropdownProps } from "./components/Dropdown";
+export { DatePicker, DateRangePicker, DateTimePicker, TimePicker } from "./components/DatePicker";
+export type { DatePickerProps, DateRangePickerProps, TimePickerProps } from "./components/DatePicker";
