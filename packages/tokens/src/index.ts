@@ -4,6 +4,10 @@ export {
   lightThemeClass,
   themeVars
 } from "./theme.css";
+export { grayPalette, bluePalette, greenPalette, redPalette, yellowPalette, cyanPalette, darkPalette } from "./foundation/color-palette";
+export { fontFamilyTokens, fontSizeScale, lineHeightScale, fontWeightScale } from "./foundation/typography-scale";
+export { semanticColorRoles } from "./semantic/color-roles";
+export { textStyles } from "./semantic/text-styles";
 export type {
   LdsColorTokens,
   LdsSpacingTokens
