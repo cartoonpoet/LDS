@@ -1,0 +1,75 @@
+export type LdsColorTokens = {
+  accentPrimary: string;
+  accentPrimaryHover: string;
+  accentPrimaryActive: string;
+  accentSecondary: string;
+  accentSecondaryHover: string;
+  accentSecondaryActive: string;
+  accentSuccess: string;
+  accentSuccessHover: string;
+  accentSuccessActive: string;
+  accentDanger: string;
+  accentDangerHover: string;
+  accentDangerActive: string;
+  accentWarning: string;
+  accentWarningHover: string;
+  accentWarningActive: string;
+  accentInfo: string;
+  accentInfoHover: string;
+  accentInfoActive: string;
+  accentDark: string;
+  accentDarkHover: string;
+  accentDarkActive: string;
+  neutralBackground: string;
+  neutralSurface: string;
+  neutralSurfaceAlt: string;
+  neutralSurfaceRaised: string;
+  neutralBorder: string;
+  neutralBorderStrong: string;
+  neutralDisabled: string;
+  textPrimary: string;
+  textHeading: string;
+  textSecondary: string;
+  textMuted: string;
+  textDisabled: string;
+  textInverse: string;
+  focusRing: string;
+};
+
+export const defaultColorTokens: LdsColorTokens = {
+  accentPrimary: "#2f5bff",
+  accentPrimaryHover: "#2550ee",
+  accentPrimaryActive: "#1f46cf",
+  accentSecondary: "#8a8f96",
+  accentSecondaryHover: "#7f858d",
+  accentSecondaryActive: "#6f757d",
+  accentSuccess: "#2fc56f",
+  accentSuccessHover: "#25bc67",
+  accentSuccessActive: "#0b7a3e",
+  accentDanger: "#eb5757",
+  accentDangerHover: "#eb5252",
+  accentDangerActive: "#bc272e",
+  accentWarning: "#f0b319",
+  accentWarningHover: "#eba90b",
+  accentWarningActive: "#9a7100",
+  accentInfo: "#18bfd9",
+  accentInfoHover: "#0eb5d1",
+  accentInfoActive: "#0b7384",
+  accentDark: "#525b75",
+  accentDarkHover: "#49526b",
+  accentDarkActive: "#333333",
+  neutralBackground: "#f7f8fc",
+  neutralSurface: "#ffffff",
+  neutralSurfaceAlt: "#f4f6fb",
+  neutralSurfaceRaised: "#eef2f8",
+  neutralBorder: "#d7dde8",
+  neutralBorderStrong: "#b9c2d1",
+  neutralDisabled: "#dfe3ea",
+  textPrimary: "#000000",
+  textHeading: "#0f1631",
+  textSecondary: "#4f5f7c",
+  textMuted: "#66748e",
+  textDisabled: "#b8b8b8",
+  textInverse: "#ffffff",
+  focusRing: "rgba(47, 91, 255, 0.22)"
+};
