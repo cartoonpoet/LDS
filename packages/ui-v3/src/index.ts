@@ -12,3 +12,12 @@ export { Badge } from "./components/Badge";
 export type { BadgeProps } from "./components/Badge";
 export { Chip } from "./components/Chip";
 export type { ChipProps } from "./components/Chip";
+export { DataTable } from "./components/DataTable";
+export type {
+  DataTableAlign,
+  DataTableColumn,
+  DataTableDensity,
+  DataTableProps,
+  DataTableSortDirection,
+  DataTableSortState
+} from "./components/DataTable";
