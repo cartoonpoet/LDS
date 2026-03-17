@@ -41,44 +41,44 @@ export const trigger = recipe({
     cursor: "pointer",
     transition: "border-color 120ms ease, box-shadow 120ms ease, background-color 120ms ease",
     selectors: {
-      '&:hover:not(:disabled)': { borderColor: semanticColorRoles.field.borderHover },
-      '&:focus-visible': { outline: 'none', boxShadow: themeVars.shadow.focus, borderColor: semanticColorRoles.field.borderFocus },
-      '&:disabled': { background: semanticColorRoles.field.backgroundDisabled, color: semanticColorRoles.text.disabled, cursor: 'not-allowed' }
+      "&:hover:not(:disabled)": { borderColor: semanticColorRoles.field.borderHover },
+      "&:focus-visible": { outline: "none", boxShadow: themeVars.shadow.focus, borderColor: semanticColorRoles.field.borderFocus },
+      "&:disabled": { background: semanticColorRoles.field.backgroundDisabled, color: semanticColorRoles.text.disabled, cursor: "not-allowed" }
     }
   },
   variants: {
     size: {
-      sm: { minHeight: '32px', fontSize: themeVars.font.sizeSm },
+      sm: { minHeight: "32px", fontSize: themeVars.font.sizeSm },
       md: {},
-      lg: { minHeight: '44px', fontSize: themeVars.font.sizeLg, padding: `0 ${themeVars.spacing.x4}` }
+      lg: { minHeight: "44px", fontSize: themeVars.font.sizeLg, padding: `0 ${themeVars.spacing.x4}` }
     },
     invalid: {
       true: { borderColor: semanticColorRoles.status.danger.border },
       false: {}
     }
   },
-  defaultVariants: { size: 'md', invalid: false }
+  defaultVariants: { size: "md", invalid: false }
 });
 
 export const triggerValue = style({
   flex: 1,
   minWidth: 0,
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
-  whiteSpace: 'nowrap'
+  overflow: "hidden",
+  textOverflow: "ellipsis",
+  whiteSpace: "nowrap"
 });
 
 export const placeholder = style({ color: semanticColorRoles.field.placeholder });
 
 export const icon = style({
   flexShrink: 0,
-  width: '10px',
-  height: '6px',
+  width: "10px",
+  height: "6px",
   color: semanticColorRoles.field.icon
 });
 
 export const panel = style({
-  display: 'grid',
+  display: "grid",
   gap: themeVars.spacing.x2,
   padding: themeVars.spacing.x3,
   borderRadius: themeVars.radius.md,
@@ -88,8 +88,8 @@ export const panel = style({
 });
 
 export const searchInput = style({
-  width: '100%',
-  minHeight: '34px',
+  width: "100%",
+  minHeight: "34px",
   padding: `0 ${themeVars.spacing.x3}`,
   borderRadius: themeVars.radius.sm,
   border: `1px solid ${semanticColorRoles.field.border}`,
@@ -98,35 +98,35 @@ export const searchInput = style({
   fontFamily: themeVars.font.family,
   fontSize: themeVars.font.sizeSm,
   selectors: {
-    '&:focus': { outline: 'none', borderColor: semanticColorRoles.field.borderFocus, boxShadow: themeVars.shadow.focus }
+    "&:focus": { outline: "none", borderColor: semanticColorRoles.field.borderFocus, boxShadow: themeVars.shadow.focus }
   }
 });
 
-export const list = style({ display: 'grid', gap: themeVars.spacing.x1 });
-export const group = style({ display: 'grid', gap: themeVars.spacing.x1 });
+export const list = style({ display: "grid", gap: themeVars.spacing.x1 });
+export const group = style({ display: "grid", gap: themeVars.spacing.x1 });
 export const groupLabel = style({ fontSize: themeVars.font.sizeSm, fontWeight: themeVars.font.weightBold, color: semanticColorRoles.text.tertiary });
 
 export const option = recipe({
   base: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
     gap: themeVars.spacing.x2,
-    width: '100%',
-    minHeight: '34px',
-    padding: `0 ${themeVars.spacing.x3}`,
+    width: "100%",
+    minHeight: "36px",
+    padding: `${themeVars.spacing.x2} ${themeVars.spacing.x3}`,
     borderRadius: themeVars.radius.sm,
-    border: 'none',
-    background: 'transparent',
+    border: "none",
+    background: "transparent",
     color: semanticColorRoles.text.primary,
-    cursor: 'pointer',
+    cursor: "pointer",
     fontFamily: themeVars.font.family,
     fontSize: themeVars.font.sizeSm,
-    textAlign: 'left',
+    textAlign: "left",
     selectors: {
-      '&:hover:not(:disabled)': { background: semanticColorRoles.surface.subtle },
-      '&:focus-visible': { outline: 'none', boxShadow: themeVars.shadow.focus },
-      '&:disabled': { color: semanticColorRoles.text.disabled, cursor: 'not-allowed' }
+      "&:hover:not(:disabled)": { background: semanticColorRoles.surface.subtle },
+      "&:focus-visible": { outline: "none", boxShadow: themeVars.shadow.focus },
+      "&:disabled": { color: semanticColorRoles.text.disabled, cursor: "not-allowed" }
     }
   },
   variants: {
@@ -138,8 +138,31 @@ export const option = recipe({
   defaultVariants: { selected: false }
 });
 
+export const optionMain = style({
+  display: "flex",
+  alignItems: "flex-start",
+  gap: themeVars.spacing.x2,
+  minWidth: 0,
+  flex: 1
+});
+
+export const checkSlot = style({
+  display: "inline-flex",
+  alignItems: "center",
+  justifyContent: "center",
+  width: "16px",
+  minWidth: "16px",
+  paddingTop: "1px"
+});
+
+export const optionText = style({
+  display: "grid",
+  gap: "2px",
+  minWidth: 0
+});
+
 export const optionMeta = style({ color: semanticColorRoles.text.tertiary, fontSize: themeVars.font.sizeSm });
-export const check = style({ color: semanticColorRoles.status.info.text, fontWeight: themeVars.font.weightBold });
+export const check = style({ color: semanticColorRoles.status.info.text, fontWeight: themeVars.font.weightBold, flexShrink: 0 });
 export const helperText = recipe({
   base: { fontFamily: themeVars.font.family, fontSize: themeVars.font.sizeSm, lineHeight: 1.4 },
   variants: {
@@ -148,5 +171,5 @@ export const helperText = recipe({
       danger: { color: semanticColorRoles.status.danger.text }
     }
   },
-  defaultVariants: { tone: 'neutral' }
+  defaultVariants: { tone: "neutral" }
 });

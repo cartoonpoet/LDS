@@ -1,9 +1,16 @@
 <h2 id="overview">개요</h2>
 
-ButtonGroup은 탭보다 가벼운 필터/세그먼트 선택 UI입니다.
+ButtonGroup은 탭보다 가볍고, 버튼보다 덜 공격적인 톤으로 상태 전환이나 필터 선택을 보여주는 세그먼트 UI입니다.
 
 <h2 id="supported-features">현재 지원 범위</h2>
 
 - 단일 active 상태
 - controlled / uncontrolled 사용
 - size 변형
+- 토큰 기반 세그먼트 배경/선택 강조
+
+<h2 id="usage-guidelines">사용 가이드</h2>
+
+- 짧은 필터 집합(예: 전체/진행중/완료)에 우선 사용합니다.
+- 현재 선택만 부드럽게 강조하고, 주 액션 버튼처럼 과도하게 눈에 띄지 않게 유지합니다.
+- 항목 수가 많거나 패널 전환이 필요한 경우에는 `Tabs`가 더 적합합니다.

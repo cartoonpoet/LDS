@@ -32,19 +32,17 @@ export type DropdownProps = {
   defaultValue?: string | string[];
   onValueChange?: (value: string | string[]) => void;
   searchPlaceholder?: string;
-  actionLabel?: string;
-  renderAction?: ReactNode;
 };
 
 const normalizeValue = (value: DropdownProps["value"] | DropdownProps["defaultValue"], multiple: boolean) => {
   if (multiple) {
     return Array.isArray(value) ? value : value ? [value] : [];
   }
+
   return Array.isArray(value) ? value[0] ?? "" : value ?? "";
 };
 
 export function Dropdown({
-  actionLabel = "저장",
   defaultValue,
   disabled = false,
   groups,
@@ -54,7 +52,6 @@ export function Dropdown({
   multiple = false,
   onValueChange,
   placeholder = "항목 선택",
-  renderAction,
   required = false,
   searchable = false,
   searchPlaceholder = "검색어 입력",
@@ -63,8 +60,8 @@ export function Dropdown({
 }: DropdownProps) {
   const [internalValue, setInternalValue] = useState(() => normalizeValue(defaultValue, multiple));
   const [query, setQuery] = useState("");
+  const triggerId = useId();
   const selectedValue = value ?? internalValue;
-  const panelId = useId();
 
   const filteredGroups = useMemo(() => {
     if (!query.trim()) {
@@ -72,6 +69,7 @@ export function Dropdown({
     }
 
     const normalizedQuery = query.trim().toLowerCase();
+
     return groups
       .map(group => ({
         ...group,
@@ -90,6 +88,7 @@ export function Dropdown({
     if (value === undefined) {
       setInternalValue(nextValue as never);
     }
+
     onValueChange?.(nextValue);
   };
 
@@ -99,6 +98,7 @@ export function Dropdown({
       const nextValue = currentValues.includes(optionValue)
         ? currentValues.filter(current => current !== optionValue)
         : [...currentValues, optionValue];
+
       commitValue(nextValue);
       return;
     }
@@ -116,15 +116,24 @@ export function Dropdown({
   return (
     <div className={styles.root}>
       {label ? (
-        <label className={styles.label} htmlFor={panelId}>
+        <label className={styles.label} htmlFor={triggerId}>
           {label}
           {required ? <span className={styles.requiredMark}>*</span> : null}
         </label>
       ) : null}
-      <button aria-controls={panelId} aria-disabled={disabled} aria-invalid={invalid} className={styles.trigger({ invalid, size })} disabled={disabled} id={panelId} type="button">
+      <button
+        aria-disabled={disabled}
+        aria-invalid={invalid}
+        className={styles.trigger({ invalid, size })}
+        disabled={disabled}
+        id={triggerId}
+        type="button"
+      >
         <span className={`${styles.triggerValue} ${selectedLabels.length === 0 ? styles.placeholder : ""}`}>{triggerContent}</span>
         <span aria-hidden="true" className={styles.icon}>
-          <svg fill="none" height="6" viewBox="0 0 10 6" width="10" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L5 5L9 1" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.4" /></svg>
+          <svg fill="none" height="6" viewBox="0 0 10 6" width="10" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 1L5 5L9 1" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.4" />
+          </svg>
         </span>
       </button>
       <div className={styles.panel} role="group">
@@ -133,23 +142,39 @@ export function Dropdown({
         ) : null}
         <div className={styles.list}>
           {filteredGroups.map((group, index) => (
-            <div className={styles.group} key={`${group.label ?? 'group'}-${index}`}>
+            <div className={styles.group} key={`${group.label ?? "group"}-${index}`}>
               {group.label ? <div className={styles.groupLabel}>{group.label}</div> : null}
               {group.options.map(option => {
                 const selected = isSelected(option.value);
+
                 return (
-                  <button className={styles.option({ selected })} disabled={option.disabled} key={option.value} onClick={() => handleSelect(option.value)} type="button">
-                    <span>{option.label}</span>
-                    <span>{option.description ? <span className={styles.optionMeta}>{option.description}</span> : null}{selected ? <span className={styles.check}> ✓</span> : null}</span>
+                  <button
+                    className={styles.option({ selected })}
+                    disabled={option.disabled}
+                    key={option.value}
+                    onClick={() => handleSelect(option.value)}
+                    type="button"
+                  >
+                    <span className={styles.optionMain}>
+                      {multiple ? (
+                        <span aria-hidden="true" className={styles.checkSlot}>
+                          {selected ? <span className={styles.check}>✓</span> : null}
+                        </span>
+                      ) : null}
+                      <span className={styles.optionText}>
+                        <span>{option.label}</span>
+                        {option.description ? <span className={styles.optionMeta}>{option.description}</span> : null}
+                      </span>
+                    </span>
+                    {!multiple && selected ? <span className={styles.check}>✓</span> : null}
                   </button>
                 );
               })}
             </div>
           ))}
         </div>
-        {renderAction ?? <div style={{ display: 'flex', justifyContent: 'flex-end' }}><button type="button">{actionLabel}</button></div>}
       </div>
-      {helperText ? <div className={styles.helperText({ tone: invalid ? 'danger' : 'neutral' })}>{helperText}</div> : null}
+      {helperText ? <div className={styles.helperText({ tone: invalid ? "danger" : "neutral" })}>{helperText}</div> : null}
     </div>
   );
 }
