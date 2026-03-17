@@ -5,7 +5,9 @@ import {
   defaultColorTokens,
   grayPalette,
   greenPalette,
+  opacityPalette,
   redPalette,
+  scourtPalette,
   yellowPalette
 } from "../foundation/color-palette";
 
@@ -15,7 +17,9 @@ export const semanticColorRoles = {
     canvas: defaultColorTokens.neutralSurface,
     subtle: defaultColorTokens.neutralSurfaceAlt,
     raised: defaultColorTokens.neutralSurfaceRaised,
-    disabled: defaultColorTokens.neutralDisabled
+    disabled: defaultColorTokens.neutralDisabled,
+    tableHeader: grayPalette[100],
+    backdrop: "rgba(0, 0, 0, 0.2)"
   },
   text: {
     primary: defaultColorTokens.textPrimary,
@@ -23,53 +27,70 @@ export const semanticColorRoles = {
     secondary: defaultColorTokens.textSecondary,
     tertiary: defaultColorTokens.textMuted,
     disabled: defaultColorTokens.textDisabled,
-    inverse: defaultColorTokens.textInverse
+    inverse: defaultColorTokens.textInverse,
+    placeholder: defaultColorTokens.textMuted
   },
   border: {
-    subtle: grayPalette[300],
+    subtle: defaultColorTokens.neutralBorder,
     default: defaultColorTokens.neutralBorder,
     strong: defaultColorTokens.neutralBorderStrong,
-    focus: defaultColorTokens.accentPrimary
+    focus: defaultColorTokens.accentPrimary,
+    input: grayPalette[500],
+    primary: defaultColorTokens.accentPrimary,
+    secondary: defaultColorTokens.accentSecondary,
+    success: "#28c76f",
+    danger: defaultColorTokens.accentDanger,
+    warning: defaultColorTokens.accentWarning,
+    info: defaultColorTokens.accentInfo,
+    dark: "#4b4b4b"
   },
   action: {
     primary: {
       default: defaultColorTokens.accentPrimary,
       hover: defaultColorTokens.accentPrimaryHover,
       active: defaultColorTokens.accentPrimaryActive,
-      subtle: bluePalette[100]
+      subtle: opacityPalette.primary,
+      subtleActive: opacityPalette.primaryActive
     },
     secondary: {
       default: defaultColorTokens.accentSecondary,
       hover: defaultColorTokens.accentSecondaryHover,
       active: defaultColorTokens.accentSecondaryActive,
-      subtle: grayPalette[100]
+      subtle: opacityPalette.secondary
     }
   },
   status: {
     success: {
       text: greenPalette[700],
-      fill: greenPalette[100],
-      border: greenPalette[500]
+      fill: opacityPalette.success,
+      border: "#28c76f"
     },
     danger: {
       text: redPalette[700],
-      fill: redPalette[100],
-      border: redPalette[500]
+      fill: opacityPalette.danger,
+      border: defaultColorTokens.accentDanger
     },
     warning: {
       text: yellowPalette[700],
-      fill: yellowPalette[100],
-      border: yellowPalette[500]
+      fill: opacityPalette.warning,
+      border: defaultColorTokens.accentWarning
     },
     info: {
       text: cyanPalette[700],
-      fill: cyanPalette[100],
-      border: cyanPalette[500]
+      fill: opacityPalette.info,
+      border: defaultColorTokens.accentInfo
     },
     dark: {
       text: darkPalette[700],
-      fill: grayPalette[100],
-      border: darkPalette[500]
+      fill: opacityPalette.dark,
+      border: defaultColorTokens.accentDark
+    },
+    scourt: {
+      blue: { text: scourtPalette.blue, fill: opacityPalette.scourtBlue },
+      green: { text: scourtPalette.green, fill: opacityPalette.scourtGreen },
+      red: { text: scourtPalette.red, fill: opacityPalette.scourtRed },
+      yellow: { text: scourtPalette.yellow, fill: opacityPalette.scourtYellow },
+      stamp: { text: scourtPalette.stamp, fill: opacityPalette.danger }
     }
   },
   button: {
@@ -87,39 +108,39 @@ export const semanticColorRoles = {
         text: defaultColorTokens.textInverse
       },
       success: {
-        background: defaultColorTokens.accentSuccess,
-        hover: greenPalette[600],
-        active: greenPalette[700],
+        background: "#28c76f",
+        hover: "#28c76f",
+        active: "#006d38",
         text: defaultColorTokens.textInverse
       },
       danger: {
         background: defaultColorTokens.accentDanger,
-        hover: redPalette[600],
-        active: redPalette[700],
+        hover: defaultColorTokens.accentDangerHover,
+        active: defaultColorTokens.accentDangerActive,
         text: defaultColorTokens.textInverse
       },
       warning: {
         background: defaultColorTokens.accentWarning,
-        hover: yellowPalette[600],
-        active: yellowPalette[700],
+        hover: defaultColorTokens.accentWarningHover,
+        active: defaultColorTokens.accentWarningActive,
         text: defaultColorTokens.textInverse
       },
       info: {
         background: defaultColorTokens.accentInfo,
-        hover: cyanPalette[600],
-        active: cyanPalette[700],
+        hover: defaultColorTokens.accentInfoHover,
+        active: defaultColorTokens.accentInfoActive,
         text: defaultColorTokens.textInverse
       },
       dark: {
         background: defaultColorTokens.accentDark,
-        hover: darkPalette[600],
-        active: darkPalette[700],
+        hover: defaultColorTokens.accentDarkHover,
+        active: defaultColorTokens.accentDarkActive,
         text: defaultColorTokens.textInverse
       },
       neutral: {
-        background: grayPalette[500],
-        hover: grayPalette[600],
-        active: grayPalette[700],
+        background: defaultColorTokens.neutralBorderStrong,
+        hover: defaultColorTokens.accentSecondary,
+        active: defaultColorTokens.accentSecondaryActive,
         text: defaultColorTokens.textInverse
       },
       disabled: {
@@ -131,44 +152,44 @@ export const semanticColorRoles = {
       primary: {
         border: defaultColorTokens.accentPrimary,
         text: defaultColorTokens.accentPrimary,
-        hover: bluePalette[100],
-        active: bluePalette[200]
+        hover: opacityPalette.primary,
+        active: opacityPalette.primaryActive
       },
       secondary: {
         border: defaultColorTokens.accentSecondary,
         text: defaultColorTokens.accentSecondary,
-        hover: grayPalette[100],
-        active: grayPalette[200]
+        hover: opacityPalette.secondary,
+        active: opacityPalette.secondary
       },
       success: {
-        border: greenPalette[500],
+        border: "#28c76f",
         text: greenPalette[700],
-        hover: greenPalette[100],
-        active: greenPalette[200]
+        hover: opacityPalette.success,
+        active: opacityPalette.success
       },
       danger: {
-        border: redPalette[500],
+        border: defaultColorTokens.accentDanger,
         text: redPalette[700],
-        hover: redPalette[100],
-        active: redPalette[200]
+        hover: opacityPalette.danger,
+        active: opacityPalette.danger
       },
       warning: {
-        border: yellowPalette[500],
+        border: defaultColorTokens.accentWarning,
         text: yellowPalette[700],
-        hover: yellowPalette[100],
-        active: yellowPalette[200]
+        hover: opacityPalette.warning,
+        active: opacityPalette.warning
       },
       info: {
-        border: cyanPalette[500],
+        border: defaultColorTokens.accentInfo,
         text: cyanPalette[700],
-        hover: cyanPalette[100],
-        active: cyanPalette[200]
+        hover: opacityPalette.info,
+        active: opacityPalette.info
       },
       dark: {
-        border: darkPalette[500],
+        border: defaultColorTokens.accentDark,
         text: darkPalette[700],
-        hover: grayPalette[100],
-        active: grayPalette[200]
+        hover: opacityPalette.dark,
+        active: opacityPalette.dark
       },
       neutral: {
         border: defaultColorTokens.neutralBorderStrong,
@@ -178,96 +199,98 @@ export const semanticColorRoles = {
       },
       disabled: {
         border: defaultColorTokens.neutralBorder,
-        text: defaultColorTokens.textDisabled
+        text: defaultColorTokens.textDisabled,
+        hover: defaultColorTokens.neutralSurface,
+        active: defaultColorTokens.neutralSurface
       }
     },
     gradient: {
       primary: {
-        from: bluePalette[400],
-        to: bluePalette[500],
-        hoverFrom: bluePalette[500],
-        hoverTo: bluePalette[600],
-        activeFrom: bluePalette[600],
-        activeTo: bluePalette[600],
-        disabledFrom: bluePalette[300],
-        disabledTo: bluePalette[300],
+        from: defaultColorTokens.accentPrimary,
+        to: defaultColorTokens.accentPrimary,
+        hoverFrom: defaultColorTokens.accentPrimaryHover,
+        hoverTo: defaultColorTokens.accentPrimaryHover,
+        activeFrom: defaultColorTokens.accentPrimaryActive,
+        activeTo: defaultColorTokens.accentPrimaryActive,
+        disabledFrom: "rgba(33, 81, 236, 0.18)",
+        disabledTo: "rgba(33, 81, 236, 0.18)",
         text: defaultColorTokens.textInverse
       },
       secondary: {
-        from: grayPalette[400],
-        to: grayPalette[500],
-        hoverFrom: grayPalette[500],
-        hoverTo: grayPalette[600],
-        activeFrom: grayPalette[600],
-        activeTo: grayPalette[600],
-        disabledFrom: grayPalette[300],
-        disabledTo: grayPalette[300],
+        from: defaultColorTokens.accentSecondary,
+        to: defaultColorTokens.accentSecondary,
+        hoverFrom: defaultColorTokens.accentSecondaryHover,
+        hoverTo: defaultColorTokens.accentSecondaryHover,
+        activeFrom: defaultColorTokens.accentSecondaryActive,
+        activeTo: defaultColorTokens.accentSecondaryActive,
+        disabledFrom: "rgba(130, 134, 139, 0.18)",
+        disabledTo: "rgba(130, 134, 139, 0.18)",
         text: defaultColorTokens.textInverse
       },
       success: {
-        from: greenPalette[400],
-        to: greenPalette[500],
-        hoverFrom: greenPalette[500],
-        hoverTo: greenPalette[600],
-        activeFrom: greenPalette[600],
-        activeTo: greenPalette[600],
-        disabledFrom: greenPalette[300],
-        disabledTo: greenPalette[300],
+        from: "#28c76f",
+        to: "#28c76f",
+        hoverFrom: "#28c76f",
+        hoverTo: "#28c76f",
+        activeFrom: "#006d38",
+        activeTo: "#006d38",
+        disabledFrom: "rgba(40, 199, 111, 0.18)",
+        disabledTo: "rgba(40, 199, 111, 0.18)",
         text: defaultColorTokens.textInverse
       },
       danger: {
-        from: redPalette[400],
-        to: redPalette[500],
-        hoverFrom: redPalette[500],
-        hoverTo: redPalette[600],
-        activeFrom: redPalette[600],
-        activeTo: redPalette[600],
-        disabledFrom: redPalette[300],
-        disabledTo: redPalette[300],
+        from: defaultColorTokens.accentDanger,
+        to: defaultColorTokens.accentDanger,
+        hoverFrom: defaultColorTokens.accentDangerHover,
+        hoverTo: defaultColorTokens.accentDangerHover,
+        activeFrom: defaultColorTokens.accentDangerActive,
+        activeTo: defaultColorTokens.accentDangerActive,
+        disabledFrom: "rgba(234, 84, 85, 0.18)",
+        disabledTo: "rgba(234, 84, 85, 0.18)",
         text: defaultColorTokens.textInverse
       },
       warning: {
-        from: yellowPalette[400],
-        to: yellowPalette[500],
-        hoverFrom: yellowPalette[500],
-        hoverTo: yellowPalette[600],
-        activeFrom: yellowPalette[600],
-        activeTo: yellowPalette[600],
-        disabledFrom: yellowPalette[300],
-        disabledTo: yellowPalette[300],
+        from: defaultColorTokens.accentWarning,
+        to: defaultColorTokens.accentWarning,
+        hoverFrom: defaultColorTokens.accentWarningHover,
+        hoverTo: defaultColorTokens.accentWarningHover,
+        activeFrom: defaultColorTokens.accentWarningActive,
+        activeTo: defaultColorTokens.accentWarningActive,
+        disabledFrom: "rgba(240, 175, 35, 0.18)",
+        disabledTo: "rgba(240, 175, 35, 0.18)",
         text: defaultColorTokens.textInverse
       },
       info: {
-        from: cyanPalette[400],
-        to: cyanPalette[500],
-        hoverFrom: cyanPalette[500],
-        hoverTo: cyanPalette[600],
-        activeFrom: cyanPalette[600],
-        activeTo: cyanPalette[600],
-        disabledFrom: cyanPalette[300],
-        disabledTo: cyanPalette[300],
+        from: defaultColorTokens.accentInfo,
+        to: defaultColorTokens.accentInfo,
+        hoverFrom: defaultColorTokens.accentInfoHover,
+        hoverTo: defaultColorTokens.accentInfoHover,
+        activeFrom: defaultColorTokens.accentInfoActive,
+        activeTo: defaultColorTokens.accentInfoActive,
+        disabledFrom: "rgba(0, 207, 232, 0.18)",
+        disabledTo: "rgba(0, 207, 232, 0.18)",
         text: defaultColorTokens.textInverse
       },
       dark: {
-        from: darkPalette[300],
-        to: darkPalette[400],
-        hoverFrom: darkPalette[400],
-        hoverTo: darkPalette[500],
-        activeFrom: darkPalette[600],
-        activeTo: darkPalette[600],
-        disabledFrom: grayPalette[300],
-        disabledTo: grayPalette[300],
+        from: defaultColorTokens.accentDark,
+        to: defaultColorTokens.accentDark,
+        hoverFrom: defaultColorTokens.accentDarkHover,
+        hoverTo: defaultColorTokens.accentDarkHover,
+        activeFrom: defaultColorTokens.accentDarkActive,
+        activeTo: defaultColorTokens.accentDarkActive,
+        disabledFrom: "rgba(75, 75, 75, 0.18)",
+        disabledTo: "rgba(75, 75, 75, 0.18)",
         text: defaultColorTokens.textInverse
       },
       neutral: {
-        from: grayPalette[400],
-        to: grayPalette[500],
-        hoverFrom: grayPalette[500],
-        hoverTo: grayPalette[600],
-        activeFrom: grayPalette[600],
-        activeTo: grayPalette[600],
-        disabledFrom: grayPalette[300],
-        disabledTo: grayPalette[300],
+        from: defaultColorTokens.accentSecondary,
+        to: defaultColorTokens.accentSecondary,
+        hoverFrom: defaultColorTokens.accentSecondaryHover,
+        hoverTo: defaultColorTokens.accentSecondaryHover,
+        activeFrom: defaultColorTokens.accentSecondaryActive,
+        activeTo: defaultColorTokens.accentSecondaryActive,
+        disabledFrom: "rgba(130, 134, 139, 0.18)",
+        disabledTo: "rgba(130, 134, 139, 0.18)",
         text: defaultColorTokens.textInverse
       }
     }
@@ -279,100 +302,48 @@ export const semanticColorRoles = {
     helper: defaultColorTokens.textMuted,
     background: defaultColorTokens.neutralSurface,
     backgroundDisabled: defaultColorTokens.neutralDisabled,
-    border: defaultColorTokens.neutralBorder,
+    border: grayPalette[500],
     borderHover: defaultColorTokens.neutralBorderStrong,
     borderFocus: defaultColorTokens.accentPrimary,
     icon: defaultColorTokens.textMuted
   },
+  table: {
+    headerBackground: grayPalette[100],
+    bodyBackground: grayPalette[50],
+    border: defaultColorTokens.neutralBorder,
+    text: defaultColorTokens.textPrimary
+  },
   badge: {
     filled: {
-      primary: {
-        background: defaultColorTokens.accentPrimary,
-        text: defaultColorTokens.textInverse
-      },
-      neutral: {
-        background: defaultColorTokens.accentSecondary,
-        text: defaultColorTokens.textInverse
-      }
+      primary: { background: defaultColorTokens.accentPrimary, text: defaultColorTokens.textInverse },
+      neutral: { background: defaultColorTokens.accentSecondary, text: defaultColorTokens.textInverse }
     },
     outline: {
-      primary: {
-        background: defaultColorTokens.neutralSurface,
-        border: bluePalette[300],
-        text: defaultColorTokens.accentPrimary
-      },
-      neutral: {
-        background: defaultColorTokens.neutralSurface,
-        border: defaultColorTokens.neutralBorder,
-        text: defaultColorTokens.textSecondary
-      }
+      primary: { background: defaultColorTokens.neutralSurface, border: defaultColorTokens.accentPrimary, text: defaultColorTokens.accentPrimary },
+      neutral: { background: defaultColorTokens.neutralSurface, border: defaultColorTokens.neutralBorder, text: defaultColorTokens.textMuted }
     },
     muted: {
-      primary: {
-        background: bluePalette[100],
-        border: bluePalette[200],
-        text: defaultColorTokens.accentPrimary
-      },
-      neutral: {
-        background: defaultColorTokens.neutralSurfaceAlt,
-        border: grayPalette[200],
-        text: defaultColorTokens.textSecondary
-      }
+      primary: { background: opacityPalette.primary, border: defaultColorTokens.accentPrimary, text: defaultColorTokens.accentPrimary },
+      neutral: { background: opacityPalette.light, border: defaultColorTokens.neutralBorder, text: defaultColorTokens.textMuted }
     }
   },
   chip: {
     background: defaultColorTokens.neutralSurface,
     border: defaultColorTokens.neutralBorder,
-    text: defaultColorTokens.textSecondary,
+    text: defaultColorTokens.textMuted,
     selected: {
-      basic: {
-        background: bluePalette[100],
-        border: bluePalette[300],
-        text: defaultColorTokens.accentPrimary
-      },
-      check: {
-        background: bluePalette[100],
-        border: bluePalette[300],
-        text: defaultColorTokens.accentPrimary
-      },
-      file: {
-        background: greenPalette[100],
-        border: greenPalette[200],
-        text: defaultColorTokens.textSecondary
-      },
-      link: {
-        background: defaultColorTokens.neutralSurface,
-        border: bluePalette[200],
-        text: defaultColorTokens.accentPrimary
-      }
+      basic: { background: opacityPalette.primary, border: defaultColorTokens.accentPrimary, text: defaultColorTokens.accentPrimary },
+      check: { background: opacityPalette.primary, border: defaultColorTokens.accentPrimary, text: defaultColorTokens.accentPrimary },
+      file: { background: opacityPalette.success, border: "#28c76f", text: greenPalette[700] },
+      link: { background: defaultColorTokens.neutralSurface, border: defaultColorTokens.accentPrimary, text: defaultColorTokens.accentPrimary }
     }
   },
   alert: {
-    info: {
-      background: cyanPalette[100],
-      border: cyanPalette[200],
-      text: defaultColorTokens.textHeading,
-      icon: cyanPalette[700]
-    },
-    neutral: {
-      background: defaultColorTokens.neutralSurfaceRaised,
-      border: grayPalette[300],
-      text: defaultColorTokens.textHeading,
-      icon: defaultColorTokens.textSecondary
-    },
+    info: { background: opacityPalette.info, border: defaultColorTokens.accentInfo, text: defaultColorTokens.textHeading, icon: cyanPalette[700] },
+    neutral: { background: defaultColorTokens.neutralSurfaceRaised, border: defaultColorTokens.neutralBorder, text: defaultColorTokens.textHeading, icon: defaultColorTokens.textMuted },
     action: {
-      primary: {
-        background: defaultColorTokens.accentPrimary,
-        hover: defaultColorTokens.accentPrimaryHover,
-        active: defaultColorTokens.accentPrimaryActive,
-        text: defaultColorTokens.textInverse
-      },
-      warning: {
-        background: defaultColorTokens.accentWarning,
-        hover: yellowPalette[600],
-        active: yellowPalette[700],
-        text: defaultColorTokens.textInverse
-      }
+      primary: { background: defaultColorTokens.accentPrimary, hover: defaultColorTokens.accentPrimaryHover, active: defaultColorTokens.accentPrimaryActive, text: defaultColorTokens.textInverse },
+      warning: { background: defaultColorTokens.accentWarning, hover: defaultColorTokens.accentWarningHover, active: defaultColorTokens.accentWarningActive, text: defaultColorTokens.textInverse }
     }
   }
 } as const;

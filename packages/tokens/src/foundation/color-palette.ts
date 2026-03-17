@@ -36,112 +36,139 @@ export type LdsColorTokens = {
   focusRing: string;
 };
 
+export const scourtPalette = {
+  blue: "#003399",
+  green: "#336633",
+  red: "#660000",
+  yellow: "#cc6600",
+  stamp: "#ff0000"
+} as const;
+
 export const grayPalette = {
   0: "#ffffff",
-  50: "#f7f8fc",
-  100: "#f4f6fb",
-  200: "#eef2f8",
-  300: "#dfe3ea",
-  400: "#d7dde8",
-  500: "#b9c2d1",
-  600: "#8a8f96",
-  700: "#66748e",
-  800: "#4f5f7c",
-  900: "#0f1631"
+  50: "#f2f4f6",
+  100: "#f1f4f9",
+  200: "#eeeff2",
+  300: "#d1d1d1",
+  400: "#cfd5e1",
+  500: "#9ea7b8",
+  600: "#82868b",
+  700: "#626f86",
+  800: "#4c5469",
+  900: "#11152a"
 } as const;
 
 export const bluePalette = {
-  100: "#eef3ff",
-  200: "#dfe7ff",
-  300: "#8ea4ed",
-  400: "#4e73ff",
-  500: "#2f5bff",
-  600: "#2550ee",
-  700: "#1f46cf"
+  100: "rgba(33, 81, 236, 0.12)",
+  200: "rgba(23, 57, 165, 0.12)",
+  300: "#2151ec",
+  400: "#2151ec",
+  500: "#2151ec",
+  600: "#2151ec",
+  700: "#1739a5"
 } as const;
 
 export const greenPalette = {
-  100: "#eefaf3",
-  200: "#d5f0de",
-  300: "#7ad4a3",
-  400: "#47cf7e",
-  500: "#2fc56f",
-  600: "#25bc67",
-  700: "#0b7a3e"
+  100: "rgba(39, 194, 129, 0.12)",
+  200: "#28c76f",
+  300: "#28c76f",
+  400: "#28c76f",
+  500: "#1bc47d",
+  600: "#28c76f",
+  700: "#006d38"
 } as const;
 
 export const redPalette = {
-  100: "#fef0f0",
-  200: "#f8dddd",
-  300: "#e79a9a",
-  400: "#f06c6c",
-  500: "#eb5757",
-  600: "#eb5252",
-  700: "#bc272e"
+  100: "rgba(234, 59, 59, 0.12)",
+  200: "#ea5455",
+  300: "#ea5455",
+  400: "#ea5455",
+  500: "#ea5455",
+  600: "#ea5455",
+  700: "#b12a30"
 } as const;
 
 export const yellowPalette = {
-  100: "#fff8e7",
-  200: "#f4ead1",
-  300: "#efd07b",
-  400: "#f4c94f",
-  500: "#f0b319",
-  600: "#eba90b",
-  700: "#9a7100"
+  100: "rgba(240, 175, 35, 0.12)",
+  200: "#f0af23",
+  300: "#f0af23",
+  400: "#f0af23",
+  500: "#f0af23",
+  600: "#f0af23",
+  700: "#7d5800"
 } as const;
 
 export const cyanPalette = {
-  100: "#ecfbfe",
-  200: "#d2f1f6",
-  300: "#60cfdd",
-  400: "#2bc8dc",
-  500: "#18bfd9",
-  600: "#0eb5d1",
-  700: "#0b7384"
+  100: "rgba(0, 207, 232, 0.12)",
+  200: "#00cfe8",
+  300: "#00cfe8",
+  400: "#00cfe8",
+  500: "#00cfe8",
+  600: "#00cfe8",
+  700: "#006876"
 } as const;
 
 export const darkPalette = {
-  300: "#767676",
-  400: "#555555",
-  500: "#525b75",
-  600: "#49526b",
-  700: "#333333"
+  100: "rgba(76, 84, 105, 0.12)",
+  300: "#4c5469",
+  400: "#4c5469",
+  500: "#4c5469",
+  600: "#4c5469",
+  700: "#343434"
+} as const;
+
+export const opacityPalette = {
+  scourtBlue: "rgba(0, 51, 153, 0.12)",
+  primary: "rgba(33, 81, 236, 0.12)",
+  secondary: "rgba(130, 134, 139, 0.12)",
+  scourtGreen: "rgba(51, 102, 51, 0.12)",
+  success: "rgba(39, 194, 129, 0.12)",
+  scourtRed: "rgba(102, 0, 0, 0.12)",
+  danger: "rgba(234, 59, 59, 0.12)",
+  orange: "rgba(253, 126, 20, 0.12)",
+  scourtYellow: "rgba(204, 102, 0, 0.12)",
+  warning: "rgba(240, 175, 35, 0.12)",
+  info: "rgba(0, 207, 232, 0.12)",
+  black: "rgba(0, 0, 0, 0.12)",
+  light: "rgba(158, 167, 184, 0.12)",
+  dark: "rgba(76, 84, 105, 0.12)",
+  primaryActive: "rgba(23, 57, 165, 0.12)"
 } as const;
 
 export const defaultColorTokens: LdsColorTokens = {
-  accentPrimary: bluePalette[500],
-  accentPrimaryHover: bluePalette[600],
-  accentPrimaryActive: bluePalette[700],
-  accentSecondary: grayPalette[600],
-  accentSecondaryHover: "#7f858d",
-  accentSecondaryActive: "#6f757d",
-  accentSuccess: greenPalette[500],
-  accentSuccessHover: greenPalette[600],
-  accentSuccessActive: greenPalette[700],
-  accentDanger: redPalette[500],
-  accentDangerHover: redPalette[600],
-  accentDangerActive: redPalette[700],
-  accentWarning: yellowPalette[500],
-  accentWarningHover: yellowPalette[600],
-  accentWarningActive: yellowPalette[700],
-  accentInfo: cyanPalette[500],
-  accentInfoHover: cyanPalette[600],
-  accentInfoActive: cyanPalette[700],
-  accentDark: darkPalette[500],
-  accentDarkHover: darkPalette[600],
-  accentDarkActive: darkPalette[700],
-  neutralBackground: grayPalette[50],
-  neutralSurface: grayPalette[0],
-  neutralSurfaceAlt: grayPalette[100],
-  neutralSurfaceRaised: grayPalette[200],
-  neutralBorder: grayPalette[400],
-  neutralBorderStrong: grayPalette[500],
-  neutralDisabled: grayPalette[300],
+  accentPrimary: "#2151ec",
+  accentPrimaryHover: "#2151ec",
+  accentPrimaryActive: "#1739a5",
+  accentSecondary: "#82868b",
+  accentSecondaryHover: "#82868b",
+  accentSecondaryActive: "#75797e",
+  accentSuccess: "#28c76f",
+  accentSuccessHover: "#28c76f",
+  accentSuccessActive: "#006d38",
+  accentDanger: "#ea5455",
+  accentDangerHover: "#ea5455",
+  accentDangerActive: "#b12a30",
+  accentWarning: "#f0af23",
+  accentWarningHover: "#f0af23",
+  accentWarningActive: "#7d5800",
+  accentInfo: "#00cfe8",
+  accentInfoHover: "#00cfe8",
+  accentInfoActive: "#006876",
+  accentDark: "#4c5469",
+  accentDarkHover: "#4c5469",
+  accentDarkActive: "#343434",
+  neutralBackground: "#f2f4f6",
+  neutralSurface: "#ffffff",
+  neutralSurfaceAlt: "#f1f4f9",
+  neutralSurfaceRaised: "#eeeff2",
+  neutralBorder: "#cfd5e1",
+  neutralBorderStrong: "#9ea7b8",
+  neutralDisabled: "#eeeff2",
   textPrimary: "#000000",
-  textHeading: grayPalette[900],
-  textSecondary: grayPalette[800],
-  textMuted: grayPalette[700],
-  textDisabled: "#b8b8b8",
-  textInverse: grayPalette[0],
-  focusRing: "rgba(47, 91, 255, 0.22)"
+  textHeading: "#11152a",
+  textSecondary: "#000000",
+  textMuted: "#626f86",
+  textDisabled: "#d1d1d1",
+  textInverse: "#ffffff",
+  focusRing: "rgba(23, 57, 165, 0.12)"
 };
