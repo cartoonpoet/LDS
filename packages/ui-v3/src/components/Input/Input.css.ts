@@ -1,6 +1,6 @@
 import { style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
-import { themeVars } from "@lds/tokens";
+import { semanticColorRoles, themeVars } from "@lds/tokens";
 import { sprinkles } from "../../styles/sprinkles.css";
 
 export const root = style([
@@ -12,7 +12,7 @@ export const root = style([
 ]);
 
 export const label = style({
-  color: themeVars.color.textMuted,
+  color: semanticColorRoles.field.label,
   fontFamily: themeVars.font.family,
   fontSize: themeVars.font.sizeSm,
   fontWeight: themeVars.font.weightMedium,
@@ -20,7 +20,7 @@ export const label = style({
 });
 
 export const requiredMark = style({
-  color: themeVars.color.accentDanger,
+  color: semanticColorRoles.status.danger.text,
   marginLeft: themeVars.spacing.x1
 });
 
@@ -33,13 +33,16 @@ export const controlShell = recipe({
     }),
     {
       minHeight: "34px",
-      border: `1px solid ${themeVars.color.neutralBorder}`,
+      border: `1px solid ${semanticColorRoles.field.border}`,
       borderRadius: themeVars.radius.sm,
-      backgroundColor: themeVars.color.neutralSurface,
+      backgroundColor: semanticColorRoles.field.background,
       transition: "border-color 120ms ease, box-shadow 120ms ease, background-color 120ms ease",
       selectors: {
+        "&:hover": {
+          borderColor: semanticColorRoles.field.borderHover
+        },
         "&:focus-within": {
-          borderColor: themeVars.color.accentPrimary,
+          borderColor: semanticColorRoles.field.borderFocus,
           boxShadow: themeVars.shadow.focus
         }
       },
@@ -63,29 +66,40 @@ export const controlShell = recipe({
     tone: {
       default: {},
       success: {
-        borderColor: themeVars.color.accentSuccess,
+        borderColor: semanticColorRoles.status.success.border,
         selectors: {
+          "&:hover": {
+            borderColor: semanticColorRoles.status.success.border
+          },
           "&:focus-within": {
-            borderColor: themeVars.color.accentSuccess,
-            boxShadow: "0 0 0 3px rgba(47, 197, 111, 0.14)"
+            borderColor: semanticColorRoles.status.success.border,
+            boxShadow: `0 0 0 3px ${semanticColorRoles.status.success.fill}`
           }
         }
       },
       error: {
-        borderColor: themeVars.color.accentDanger,
+        borderColor: semanticColorRoles.status.danger.border,
         selectors: {
+          "&:hover": {
+            borderColor: semanticColorRoles.status.danger.border
+          },
           "&:focus-within": {
-            borderColor: themeVars.color.accentDanger,
-            boxShadow: "0 0 0 3px rgba(235, 87, 87, 0.14)"
+            borderColor: semanticColorRoles.status.danger.border,
+            boxShadow: `0 0 0 3px ${semanticColorRoles.status.danger.fill}`
           }
         }
       }
     },
     disabled: {
       true: {
-        backgroundColor: themeVars.color.neutralDisabled,
-        borderColor: themeVars.color.neutralBorder,
-        cursor: "not-allowed"
+        backgroundColor: semanticColorRoles.field.backgroundDisabled,
+        borderColor: semanticColorRoles.field.border,
+        cursor: "not-allowed",
+        selectors: {
+          "&:hover": {
+            borderColor: semanticColorRoles.field.border
+          }
+        }
       },
       false: {}
     }
@@ -103,18 +117,19 @@ export const input = recipe({
     minWidth: 0,
     border: 0,
     background: "transparent",
-    color: themeVars.color.textPrimary,
+    color: semanticColorRoles.field.text,
     fontFamily: themeVars.font.family,
     fontSize: themeVars.font.sizeMd,
     lineHeight: 1.4,
     outline: "none",
+    boxSizing: "border-box",
     padding: `0 ${themeVars.spacing.x3}`,
     selectors: {
       "&::placeholder": {
-        color: themeVars.color.textMuted
+        color: semanticColorRoles.field.placeholder
       },
       "&:disabled": {
-        color: themeVars.color.textDisabled,
+        color: semanticColorRoles.text.disabled,
         cursor: "not-allowed"
       }
     },
@@ -160,7 +175,7 @@ export const adornment = style([
     alignItems: "center"
   }),
   {
-    color: themeVars.color.textMuted,
+    color: semanticColorRoles.field.icon,
     fontFamily: themeVars.font.family,
     fontSize: themeVars.font.sizeSm,
     paddingInline: themeVars.spacing.x3,
@@ -177,13 +192,13 @@ export const helperText = recipe({
   variants: {
     tone: {
       default: {
-        color: themeVars.color.textMuted
+        color: semanticColorRoles.field.helper
       },
       success: {
-        color: themeVars.color.accentSuccess
+        color: semanticColorRoles.status.success.text
       },
       error: {
-        color: themeVars.color.accentDanger
+        color: semanticColorRoles.status.danger.text
       }
     }
   },

@@ -1,6 +1,6 @@
 import { style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
-import { themeVars } from "@lds/tokens";
+import { semanticColorRoles, themeVars } from "@lds/tokens";
 
 export const chip = recipe({
   base: {
@@ -10,13 +10,13 @@ export const chip = recipe({
     minHeight: "22px",
     padding: `0 ${themeVars.spacing.x2}`,
     borderRadius: "999px",
-    border: `1px solid ${themeVars.color.neutralBorder}`,
-    backgroundColor: themeVars.color.neutralSurface,
-    color: themeVars.color.textSecondary,
+    border: `1px solid ${semanticColorRoles.chip.border}`,
+    backgroundColor: semanticColorRoles.chip.background,
+    color: semanticColorRoles.chip.text,
     fontFamily: themeVars.font.family,
     fontSize: themeVars.font.sizeSm,
     fontWeight: themeVars.font.weightMedium,
-    lineHeight: 1,
+    lineHeight: 1.2,
     whiteSpace: "nowrap",
     boxSizing: "border-box"
   },
@@ -36,7 +36,7 @@ export const chip = recipe({
         minHeight: "20px",
         paddingRight: themeVars.spacing.x1,
         borderRadius: themeVars.radius.sm,
-        color: themeVars.color.accentPrimary
+        color: semanticColorRoles.action.primary.default
       }
     },
     selected: {
@@ -48,31 +48,33 @@ export const chip = recipe({
     {
       variants: { kind: "basic", selected: true },
       style: {
-        borderColor: "#b7c7ff",
-        backgroundColor: "#eef3ff",
-        color: themeVars.color.accentPrimary
+        borderColor: semanticColorRoles.chip.selected.basic.border,
+        backgroundColor: semanticColorRoles.chip.selected.basic.background,
+        color: semanticColorRoles.chip.selected.basic.text
       }
     },
     {
       variants: { kind: "check", selected: true },
       style: {
-        borderColor: "#b7c7ff",
-        backgroundColor: "#eef3ff",
-        color: themeVars.color.accentPrimary
+        borderColor: semanticColorRoles.chip.selected.check.border,
+        backgroundColor: semanticColorRoles.chip.selected.check.background,
+        color: semanticColorRoles.chip.selected.check.text
       }
     },
     {
       variants: { kind: "file", selected: true },
       style: {
-        borderColor: "#cce7d8",
-        backgroundColor: "#f5fcf8"
+        borderColor: semanticColorRoles.chip.selected.file.border,
+        backgroundColor: semanticColorRoles.chip.selected.file.background,
+        color: semanticColorRoles.chip.selected.file.text
       }
     },
     {
       variants: { kind: "link", selected: true },
       style: {
-        borderColor: "#d8e3ff",
-        backgroundColor: "#f7f9ff"
+        borderColor: semanticColorRoles.chip.selected.link.border,
+        backgroundColor: semanticColorRoles.chip.selected.link.background,
+        color: semanticColorRoles.chip.selected.link.text
       }
     }
   ],
@@ -98,16 +100,17 @@ export const checkIndicator = style({
   width: "14px",
   height: "14px",
   borderRadius: "999px",
-  border: `1px solid ${themeVars.color.neutralBorderStrong}`,
-  backgroundColor: themeVars.color.neutralSurface,
-  color: themeVars.color.accentPrimary,
+  border: `1px solid ${semanticColorRoles.border.strong}`,
+  backgroundColor: semanticColorRoles.surface.canvas,
+  color: semanticColorRoles.action.primary.default,
   fontSize: "9px",
   lineHeight: 1,
   boxSizing: "border-box"
 });
 
 export const label = style({
-  minWidth: 0
+  minWidth: 0,
+  lineHeight: 1.2
 });
 
 export const metaText = recipe({
@@ -119,10 +122,10 @@ export const metaText = recipe({
   variants: {
     kind: {
       file: {
-        color: themeVars.color.accentSuccess
+        color: semanticColorRoles.status.success.text
       },
       link: {
-        color: themeVars.color.accentPrimary
+        color: semanticColorRoles.action.primary.default
       }
     }
   }
@@ -132,9 +135,10 @@ export const dismissButton = style({
   display: "inline-flex",
   alignItems: "center",
   justifyContent: "center",
-  width: "10px",
-  height: "10px",
+  width: "14px",
+  height: "14px",
   border: 0,
+  borderRadius: "999px",
   background: "transparent",
   padding: 0,
   color: "inherit",

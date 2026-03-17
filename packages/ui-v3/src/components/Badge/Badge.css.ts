@@ -1,13 +1,13 @@
 import { style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
-import { themeVars } from "@lds/tokens";
+import { semanticColorRoles, themeVars } from "@lds/tokens";
 
 export const badge = recipe({
   base: {
     display: "inline-flex",
     alignItems: "center",
     justifyContent: "center",
-    gap: "4px",
+    gap: themeVars.spacing.x1,
     minHeight: "18px",
     padding: "0 6px",
     borderRadius: themeVars.radius.sm,
@@ -15,7 +15,7 @@ export const badge = recipe({
     fontFamily: themeVars.font.family,
     fontSize: "10px",
     fontWeight: themeVars.font.weightMedium,
-    lineHeight: 1,
+    lineHeight: 1.2,
     whiteSpace: "nowrap",
     boxSizing: "border-box"
   },
@@ -42,47 +42,47 @@ export const badge = recipe({
     {
       variants: { variant: "filled", tone: "primary" },
       style: {
-        backgroundColor: themeVars.color.accentPrimary,
-        color: themeVars.color.textInverse
+        backgroundColor: semanticColorRoles.badge.filled.primary.background,
+        color: semanticColorRoles.badge.filled.primary.text
       }
     },
     {
       variants: { variant: "filled", tone: "neutral" },
       style: {
-        backgroundColor: themeVars.color.accentSecondary,
-        color: themeVars.color.textInverse
+        backgroundColor: semanticColorRoles.badge.filled.neutral.background,
+        color: semanticColorRoles.badge.filled.neutral.text
       }
     },
     {
       variants: { variant: "outline", tone: "primary" },
       style: {
-        backgroundColor: themeVars.color.neutralSurface,
-        borderColor: "#b7c7ff",
-        color: themeVars.color.accentPrimary
+        backgroundColor: semanticColorRoles.badge.outline.primary.background,
+        borderColor: semanticColorRoles.badge.outline.primary.border,
+        color: semanticColorRoles.badge.outline.primary.text
       }
     },
     {
       variants: { variant: "outline", tone: "neutral" },
       style: {
-        backgroundColor: themeVars.color.neutralSurface,
-        borderColor: themeVars.color.neutralBorder,
-        color: themeVars.color.textSecondary
+        backgroundColor: semanticColorRoles.badge.outline.neutral.background,
+        borderColor: semanticColorRoles.badge.outline.neutral.border,
+        color: semanticColorRoles.badge.outline.neutral.text
       }
     },
     {
       variants: { variant: "muted", tone: "primary" },
       style: {
-        backgroundColor: "#f5f7ff",
-        borderColor: "#dde5ff",
-        color: "#7c8fc9"
+        backgroundColor: semanticColorRoles.badge.muted.primary.background,
+        borderColor: semanticColorRoles.badge.muted.primary.border,
+        color: semanticColorRoles.badge.muted.primary.text
       }
     },
     {
       variants: { variant: "muted", tone: "neutral" },
       style: {
-        backgroundColor: "#fafbfc",
-        borderColor: "#e7ebf2",
-        color: "#99a3b3"
+        backgroundColor: semanticColorRoles.badge.muted.neutral.background,
+        borderColor: semanticColorRoles.badge.muted.neutral.border,
+        color: semanticColorRoles.badge.muted.neutral.text
       }
     }
   ],
@@ -105,10 +105,11 @@ export const dismissButton = style({
   display: "inline-flex",
   alignItems: "center",
   justifyContent: "center",
-  width: "10px",
-  height: "10px",
+  width: "14px",
+  height: "14px",
   padding: 0,
   border: 0,
+  borderRadius: "999px",
   background: "transparent",
   color: "inherit",
   fontSize: "10px",

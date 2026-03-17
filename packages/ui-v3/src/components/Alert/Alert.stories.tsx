@@ -20,7 +20,8 @@ const meta: Meta<typeof Alert> = {
   parameters: {
     docs: {
       description: {
-        component: "LDS 행형 알림 컴포넌트입니다. 아이콘, 액션 버튼, dismiss 동작을 지원합니다."
+        component:
+          "LDS 행형 알림 컴포넌트입니다. 아이콘, 액션 버튼, dismiss 동작을 지원합니다.\n\n사용 가이드\n- 즉시 확인이 필요한 짧은 상태/안내 문구에 적합합니다.\n- title은 핵심 메시지, 본문은 후속 설명 1~2줄 정도로 간결하게 유지하세요.\n- 사용자가 바로 대응해야 할 때만 action 버튼을 붙이고, dismiss는 정보성 알림에서만 선택적으로 사용하세요."
       }
     }
   },

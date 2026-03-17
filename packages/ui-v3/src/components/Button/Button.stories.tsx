@@ -20,7 +20,8 @@ const meta: Meta<typeof Button> = {
   parameters: {
     docs: {
       description: {
-        component: "LDS 기본 버튼 컴포넌트입니다. variant, tone, size 조합으로 상태를 표현합니다."
+        component:
+          "LDS 기본 버튼 컴포넌트입니다. variant, tone, size 조합으로 상태를 표현합니다.\n\n사용 가이드\n- primary solid는 화면당 하나의 핵심 액션에 우선 사용합니다.\n- outline은 보조 액션이나 파괴적 액션의 대비 표현에 적합합니다.\n- loading 상태에서는 중복 제출을 막기 위해 버튼이 자동 비활성화됩니다.\n- 동일 영역에서는 size와 variant를 혼용하기보다 일관되게 유지하는 편이 읽기 좋습니다."
       }
     }
   },

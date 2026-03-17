@@ -4,12 +4,17 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "LDS 문서",
-  description: "법무 디자인 시스템 문서"
+  description: "법무 디자인 시스템 문서",
+  metadataBase: new URL("https://lds-docs.local"),
+  openGraph: {
+    title: "LDS 문서",
+    description: "법무 디자인 시스템 문서"
+  }
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="ko">
       <body>{children}</body>
     </html>
   );

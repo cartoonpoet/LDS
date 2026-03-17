@@ -5,6 +5,12 @@ import TypographyDoc from "../content/foundations/typography.mdx";
 import ButtonDoc from "../content/components/button.mdx";
 import InputDoc from "../content/components/input.mdx";
 import SelectDoc from "../content/components/select.mdx";
+import DrawerDoc from "../content/components/drawer.mdx";
+import TreeViewDoc from "../content/components/tree-view.mdx";
+import TableTreeDoc from "../content/components/table-tree.mdx";
+import CommentsDoc from "../content/components/comments.mdx";
+import GnbDoc from "../content/components/gnb.mdx";
+import LnbDoc from "../content/components/lnb.mdx";
 
 type TocItem = {
   id: string;
@@ -22,9 +28,10 @@ export type DocEntry = {
   Component: ComponentType;
 };
 
-type DocGroup = {
+export type DocGroup = {
   id: string;
   label: string;
+  description: string;
   items: DocEntry[];
 };
 
@@ -112,6 +119,82 @@ export const docsRegistry: DocEntry[] = [
       { id: "integration-notes", label: "적용 메모" }
     ],
     Component: SelectDoc
+  },
+  {
+    id: "drawer",
+    slug: ["components", "drawer"],
+    title: "Drawer",
+    sectionId: "components",
+    sectionLabel: "컴포넌트",
+    summary: "메인 컨텍스트를 유지한 채 보조 편집과 상세 정보를 여는 보조 레이어입니다.",
+    toc: [
+      { id: "overview", label: "개요" },
+      { id: "supported-features", label: "현재 지원 범위" },
+      { id: "usage-guidelines", label: "사용 가이드" }
+    ],
+    Component: DrawerDoc
+  },
+  {
+    id: "tree-view",
+    slug: ["components", "tree-view"],
+    title: "Tree View",
+    sectionId: "components",
+    sectionLabel: "컴포넌트",
+    summary: "계층 탐색 중심 화면을 위한 기본 트리 프리미티브입니다.",
+    toc: [
+      { id: "overview", label: "개요" },
+      { id: "supported-features", label: "현재 지원 범위" },
+      { id: "usage-guidelines", label: "사용 가이드" }
+    ],
+    Component: TreeViewDoc
+  },
+  {
+    id: "table-tree",
+    slug: ["components", "table-tree"],
+    title: "Table Tree",
+    sectionId: "components",
+    sectionLabel: "컴포넌트",
+    summary: "계층 정보와 표 컬럼을 함께 보여주는 목록형 트리 패턴입니다.",
+    toc: [
+      { id: "overview", label: "개요" },
+      { id: "supported-features", label: "현재 지원 범위" },
+      { id: "usage-guidelines", label: "사용 가이드" }
+    ],
+    Component: TableTreeDoc
+  },
+  {
+    id: "comments",
+    slug: ["components", "comments"],
+    title: "Comments",
+    sectionId: "components",
+    sectionLabel: "컴포넌트",
+    summary: "검토 이력, 협업 채팅, 하단 시트 코멘트를 하나의 패턴으로 정리한 컴포넌트입니다.",
+    toc: [
+      { id: "overview", label: "개요" },
+      { id: "supported-features", label: "현재 지원 범위" },
+      { id: "usage-guidelines", label: "사용 가이드" }
+    ],
+    Component: CommentsDoc
+  },
+  {
+    id: "gnb",
+    slug: ["components", "gnb"],
+    title: "GNB",
+    sectionId: "components",
+    sectionLabel: "컴포넌트",
+    summary: "앱 최상단의 글로벌 내비게이션 프리미티브입니다.",
+    toc: [{ id: "overview", label: "개요" }],
+    Component: GnbDoc
+  },
+  {
+    id: "lnb",
+    slug: ["components", "lnb"],
+    title: "LNB",
+    sectionId: "components",
+    sectionLabel: "컴포넌트",
+    summary: "좌측 정보 구조를 단계적으로 여는 로컬 내비게이션 프리미티브입니다.",
+    toc: [{ id: "overview", label: "개요" }],
+    Component: LnbDoc
   }
 ];
 
@@ -119,20 +202,32 @@ export const docsGroups: DocGroup[] = [
   {
     id: "overview",
     label: "개요",
+    description: "디자인 시스템의 방향성과 운영 원칙, 현재 제공 범위를 빠르게 이해합니다.",
     items: docsRegistry.filter(entry => entry.sectionId === "overview")
   },
   {
     id: "foundations",
     label: "파운데이션",
+    description: "색상, 타이포그래피처럼 전체 화면의 일관성을 만드는 기준 레이어를 다룹니다.",
     items: docsRegistry.filter(entry => entry.sectionId === "foundations")
   },
   {
     id: "components",
     label: "컴포넌트",
+    description: "실제 화면에 재사용되는 버튼, 입력, 선택 계열의 구현 기준을 제공합니다.",
     items: docsRegistry.filter(entry => entry.sectionId === "components")
   }
 ];
 
 export function findDocBySlug(slug: string[]) {
   return docsRegistry.find(entry => entry.slug.join("/") === slug.join("/"));
+}
+
+export function getDocNeighbors(currentId: string) {
+  const currentIndex = docsRegistry.findIndex(entry => entry.id === currentId);
+
+  return {
+    prev: currentIndex > 0 ? docsRegistry[currentIndex - 1] : undefined,
+    next: currentIndex >= 0 && currentIndex < docsRegistry.length - 1 ? docsRegistry[currentIndex + 1] : undefined
+  };
 }

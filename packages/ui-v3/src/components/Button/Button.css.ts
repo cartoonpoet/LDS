@@ -1,6 +1,6 @@
 import { keyframes, style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
-import { themeVars } from "@lds/tokens";
+import { semanticColorRoles, themeVars } from "@lds/tokens";
 import { sprinkles } from "../../styles/sprinkles.css";
 
 const spin = keyframes({
@@ -35,141 +35,125 @@ const toneVariant = {
 } as const;
 
 const solidDisabled = {
-  backgroundColor: themeVars.color.neutralDisabled,
-  color: themeVars.color.textInverse,
+  backgroundColor: semanticColorRoles.button.solid.disabled.background,
+  color: semanticColorRoles.button.solid.disabled.text,
+  boxShadow: "none",
   cursor: "not-allowed"
 } as const;
 
 const outlineDisabled = {
-  borderColor: themeVars.color.neutralBorder,
-  color: themeVars.color.textDisabled,
+  borderColor: semanticColorRoles.button.outline.disabled.border,
+  color: semanticColorRoles.button.outline.disabled.text,
+  backgroundColor: semanticColorRoles.surface.canvas,
+  boxShadow: "none",
   cursor: "not-allowed"
 } as const;
 
-const createSolidTone = (defaultColor: string, hoverColor: string, activeColor: string) => ({
-  backgroundColor: defaultColor,
-  color: themeVars.color.textInverse,
-  selectors: {
-    "&:hover:not(:disabled)": {
-      backgroundColor: hoverColor
-    },
-    "&:active:not(:disabled)": {
-      backgroundColor: activeColor
-    },
-    "&:disabled": solidDisabled
+const createSolidTone = (tone: keyof typeof semanticColorRoles.button.solid) => {
+  if (tone === "disabled") {
+    return {};
   }
-});
 
-const createOutlineTone = (borderColor: string, textColor: string, hoverColor: string, activeColor: string) => ({
-  borderColor,
-  color: textColor,
-  selectors: {
-    "&:hover:not(:disabled)": {
-      backgroundColor: hoverColor
-    },
-    "&:active:not(:disabled)": {
-      backgroundColor: activeColor
-    },
-    "&:disabled": outlineDisabled
-  }
-});
+  const palette = semanticColorRoles.button.solid[tone];
 
-const createGradientTone = (from: string, to: string, active: string, disabled: string) => ({
-  backgroundImage: `linear-gradient(90deg, ${from} 0%, ${to} 100%)`,
-  color: themeVars.color.textInverse,
-  selectors: {
-    "&:hover:not(:disabled)": {
-      filter: "brightness(1.03)"
-    },
-    "&:active:not(:disabled)": {
-      backgroundImage: `linear-gradient(90deg, ${active} 0%, ${active} 100%)`
-    },
-    "&:disabled": {
-      backgroundImage: `linear-gradient(90deg, ${disabled} 0%, ${disabled} 100%)`,
-      color: themeVars.color.textInverse,
-      cursor: "not-allowed"
+  return {
+    backgroundColor: palette.background,
+    color: palette.text,
+    selectors: {
+      "&:hover:not(:disabled)": {
+        backgroundColor: palette.hover,
+        boxShadow: themeVars.shadow.raised
+      },
+      "&:active:not(:disabled)": {
+        backgroundColor: palette.active,
+        boxShadow: "none",
+        transform: "translateY(1px)"
+      },
+      "&:disabled": solidDisabled
     }
+  };
+};
+
+const createOutlineTone = (tone: keyof typeof semanticColorRoles.button.outline) => {
+  if (tone === "disabled") {
+    return {};
   }
-});
+
+  const palette = semanticColorRoles.button.outline[tone];
+
+  return {
+    borderColor: palette.border,
+    color: palette.text,
+    selectors: {
+      "&:hover:not(:disabled)": {
+        backgroundColor: palette.hover
+      },
+      "&:active:not(:disabled)": {
+        backgroundColor: palette.active,
+        transform: "translateY(1px)"
+      },
+      "&:disabled": outlineDisabled
+    }
+  };
+};
+
+const createGradientTone = (tone: keyof typeof semanticColorRoles.button.gradient) => {
+  const palette = semanticColorRoles.button.gradient[tone];
+
+  return {
+    backgroundImage: `linear-gradient(90deg, ${palette.from} 0%, ${palette.to} 100%)`,
+    color: palette.text,
+    selectors: {
+      "&:hover:not(:disabled)": {
+        backgroundImage: `linear-gradient(90deg, ${palette.hoverFrom} 0%, ${palette.hoverTo} 100%)`,
+        boxShadow: themeVars.shadow.raised
+      },
+      "&:active:not(:disabled)": {
+        backgroundImage: `linear-gradient(90deg, ${palette.activeFrom} 0%, ${palette.activeTo} 100%)`,
+        boxShadow: "none",
+        transform: "translateY(1px)"
+      },
+      "&:disabled": {
+        backgroundImage: `linear-gradient(90deg, ${palette.disabledFrom} 0%, ${palette.disabledTo} 100%)`,
+        color: palette.text,
+        boxShadow: "none",
+        cursor: "not-allowed"
+      }
+    }
+  };
+};
 
 const solidToneStyles = {
-  primary: createSolidTone(
-    themeVars.color.accentPrimary,
-    themeVars.color.accentPrimaryHover,
-    themeVars.color.accentPrimaryActive
-  ),
-  secondary: createSolidTone(
-    themeVars.color.accentSecondary,
-    themeVars.color.accentSecondaryHover,
-    themeVars.color.accentSecondaryActive
-  ),
-  success: createSolidTone(
-    themeVars.color.accentSuccess,
-    themeVars.color.accentSuccessHover,
-    themeVars.color.accentSuccessActive
-  ),
-  danger: createSolidTone(
-    themeVars.color.accentDanger,
-    themeVars.color.accentDangerHover,
-    themeVars.color.accentDangerActive
-  ),
-  warning: createSolidTone(
-    themeVars.color.accentWarning,
-    themeVars.color.accentWarningHover,
-    themeVars.color.accentWarningActive
-  ),
-  info: createSolidTone(
-    themeVars.color.accentInfo,
-    themeVars.color.accentInfoHover,
-    themeVars.color.accentInfoActive
-  ),
-  dark: createSolidTone(
-    themeVars.color.accentDark,
-    themeVars.color.accentDarkHover,
-    themeVars.color.accentDarkActive
-  ),
-  neutral: createSolidTone(
-    themeVars.color.accentSecondary,
-    themeVars.color.accentSecondaryHover,
-    themeVars.color.accentSecondaryActive
-  )
+  primary: createSolidTone("primary"),
+  secondary: createSolidTone("secondary"),
+  success: createSolidTone("success"),
+  danger: createSolidTone("danger"),
+  warning: createSolidTone("warning"),
+  info: createSolidTone("info"),
+  dark: createSolidTone("dark"),
+  neutral: createSolidTone("neutral")
 } as const;
 
 const outlineToneStyles = {
-  primary: createOutlineTone(themeVars.color.accentPrimary, themeVars.color.accentPrimary, "#eef3ff", "#dfe7ff"),
-  secondary: createOutlineTone(
-    themeVars.color.accentSecondary,
-    themeVars.color.accentSecondary,
-    "#f5f6f8",
-    "#eceef2"
-  ),
-  success: createOutlineTone(themeVars.color.accentSuccess, themeVars.color.accentSuccess, "#eefaf3", "#d5f0de"),
-  danger: createOutlineTone(themeVars.color.accentDanger, themeVars.color.accentDanger, "#fef0f0", "#f8dddd"),
-  warning: createOutlineTone(
-    themeVars.color.accentWarning,
-    themeVars.color.accentWarningActive,
-    "#fff8e7",
-    "#f4ead1"
-  ),
-  info: createOutlineTone(themeVars.color.accentInfo, themeVars.color.accentInfo, "#ecfbfe", "#d2f1f6"),
-  dark: createOutlineTone(themeVars.color.accentDark, themeVars.color.accentDark, "#f0f2f6", "#e2e6ec"),
-  neutral: createOutlineTone(
-    themeVars.color.neutralBorderStrong,
-    themeVars.color.textPrimary,
-    themeVars.color.neutralSurfaceAlt,
-    themeVars.color.neutralSurfaceRaised
-  )
+  primary: createOutlineTone("primary"),
+  secondary: createOutlineTone("secondary"),
+  success: createOutlineTone("success"),
+  danger: createOutlineTone("danger"),
+  warning: createOutlineTone("warning"),
+  info: createOutlineTone("info"),
+  dark: createOutlineTone("dark"),
+  neutral: createOutlineTone("neutral")
 } as const;
 
 const gradientToneStyles = {
-  primary: createGradientTone("#4e73ff", "#2f5bff", themeVars.color.accentPrimaryActive, "#8ea4ed"),
-  secondary: createGradientTone("#a6abb2", "#8a8f96", themeVars.color.accentSecondaryActive, "#b4b7bc"),
-  success: createGradientTone("#47cf7e", "#2fc56f", themeVars.color.accentSuccessActive, "#7ad4a3"),
-  danger: createGradientTone("#f06c6c", "#eb5757", "#f52929", "#e79a9a"),
-  warning: createGradientTone("#f4c94f", "#f0b319", themeVars.color.accentWarningActive, "#efd07b"),
-  info: createGradientTone("#2bc8dc", "#18bfd9", themeVars.color.accentInfoActive, "#60cfdd"),
-  dark: createGradientTone("#767676", "#555555", "#222222", "#a5a5a5"),
-  neutral: createGradientTone("#a6abb2", "#8a8f96", themeVars.color.accentSecondaryActive, "#b4b7bc")
+  primary: createGradientTone("primary"),
+  secondary: createGradientTone("secondary"),
+  success: createGradientTone("success"),
+  danger: createGradientTone("danger"),
+  warning: createGradientTone("warning"),
+  info: createGradientTone("info"),
+  dark: createGradientTone("dark"),
+  neutral: createGradientTone("neutral")
 } as const;
 
 export const buttonRecipe = recipe({
@@ -185,22 +169,24 @@ export const buttonRecipe = recipe({
       minHeight: "38px",
       padding: `0 ${themeVars.spacing.x4}`,
       borderRadius: themeVars.radius.sm,
-      border: "1px solid transparent",
+      border: `1px solid transparent`,
       fontFamily: themeVars.font.family,
       fontSize: themeVars.font.sizeMd,
       fontWeight: themeVars.font.weightBold,
-      lineHeight: 1,
+      lineHeight: 1.2,
       whiteSpace: "nowrap",
+      verticalAlign: "middle",
       cursor: "pointer",
       transition:
-        "background-color 120ms ease, border-color 120ms ease, color 120ms ease, box-shadow 120ms ease",
+        "background-color 120ms ease, background-image 120ms ease, border-color 120ms ease, color 120ms ease, box-shadow 120ms ease, transform 80ms ease",
       selectors: {
         "&:focus-visible": {
           outline: "none",
           boxShadow: themeVars.shadow.focus
         },
         "&:disabled": {
-          cursor: "not-allowed"
+          cursor: "not-allowed",
+          transform: "none"
         }
       }
     }
@@ -210,43 +196,24 @@ export const buttonRecipe = recipe({
       solid: {},
       gradient: {},
       outline: {
-        backgroundColor: themeVars.color.neutralSurface
+        backgroundColor: semanticColorRoles.surface.canvas
       }
     },
     size: {
       sm: {
         minHeight: "30px",
         padding: `0 ${themeVars.spacing.x3}`,
-        fontSize: themeVars.font.sizeSm,
-        "@media": {
-          "screen and (max-width: 767px)": {
-            minHeight: "32px"
-          }
-        }
+        fontSize: themeVars.font.sizeSm
       },
       md: {
         minHeight: "38px",
         padding: `0 ${themeVars.spacing.x4}`,
-        fontSize: themeVars.font.sizeMd,
-        "@media": {
-          "screen and (max-width: 767px)": {
-            minHeight: "36px",
-            padding: `0 ${themeVars.spacing.x3}`,
-            fontSize: themeVars.font.sizeSm
-          }
-        }
+        fontSize: themeVars.font.sizeMd
       },
       lg: {
         minHeight: "44px",
         padding: `0 ${themeVars.spacing.x5}`,
-        fontSize: themeVars.font.sizeLg,
-        "@media": {
-          "screen and (max-width: 767px)": {
-            minHeight: "40px",
-            padding: `0 ${themeVars.spacing.x4}`,
-            fontSize: themeVars.font.sizeMd
-          }
-        }
+        fontSize: themeVars.font.sizeLg
       }
     },
     tone: toneVariant

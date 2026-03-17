@@ -6,14 +6,26 @@ import { FormShowcase } from "../../components/DocPrimitives";
 
 <FormShowcase />
 
-<h2 id="current-status">현재 상태</h2>
+<h2 id="supported-features">현재 지원 범위</h2>
 
-현재 구현은 라벨이 포함된 기본 텍스트 필드 셸까지 제공하는 단계입니다.  
-다음 단계에서는 helper text, validation 상태, prefix/suffix, 검색 전용 동작이 추가될 예정입니다.
+현재 구현은 아래 범위를 포함합니다.
 
-<h2 id="planned-enhancements">예정된 확장</h2>
-
+- 라벨 + required 마크
 - helper text
-- error / success 상태
+- `default | success | error` 상태
 - prefix / suffix 슬롯
-- 선택적 clear affordance
+- `sm | md | lg` 크기
+- disabled 상태
+- `forwardRef` 기반 폼 라이브러리 연동
+
+<h2 id="state-guidelines">상태 가이드</h2>
+
+- 기본 안내는 helper text의 `default` 상태를 사용합니다.
+- 완료/정상 확인은 `success` 상태를 사용합니다.
+- 검증 실패는 `error` 상태를 사용하고, border / focus ring / helper text를 함께 맞춥니다.
+- prefix / suffix가 있어도 입력 영역 높이와 포커스 링은 동일하게 유지해야 합니다.
+
+<h2 id="integration-notes">실무 메모</h2>
+
+`Input`은 native `<input>`을 그대로 노출하므로 RHF의 `register()`와 직접 연결하기 쉽습니다.
+검색형, clear 버튼 포함형 등은 이후 조합형 컴포넌트로 확장하는 편이 안전합니다.
