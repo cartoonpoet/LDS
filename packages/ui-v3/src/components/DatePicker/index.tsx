@@ -3,6 +3,7 @@ import * as styles from "./DatePicker.css";
 
 type BaseFieldProps = Omit<InputHTMLAttributes<HTMLInputElement>, "size" | "type"> & {
   label?: string;
+  caption?: string;
   helperText?: string;
   invalid?: boolean;
   required?: boolean;
@@ -20,6 +21,7 @@ export type DateRangePickerProps = Omit<BaseFieldProps, "value" | "defaultValue"
 
 type FieldShellProps = {
   label?: string;
+  caption?: string;
   required?: boolean;
   helperText?: string;
   invalid?: boolean;
@@ -39,13 +41,16 @@ const timeIcon = (
   </svg>
 );
 
-function FieldShell({ children, helperText, invalid = false, label, required = false }: FieldShellProps) {
+function FieldShell({ caption, children, helperText, invalid = false, label, required = false }: FieldShellProps) {
   return (
     <label className={styles.stack}>
       {label ? (
-        <span className={styles.label}>
-          {label}
-          {required ? <span className={styles.requiredMark}>*</span> : null}
+        <span className={styles.labelRow}>
+          <span className={styles.label}>
+            {label}
+            {required ? <span className={styles.requiredMark}>*</span> : null}
+          </span>
+          {caption ? <span className={styles.caption}>{caption}</span> : null}
         </span>
       ) : null}
       {children}
@@ -54,11 +59,11 @@ function FieldShell({ children, helperText, invalid = false, label, required = f
   );
 }
 
-function Field({ helperText, invalid = false, label, required = false, size = "md", type, ...props }: BaseFieldProps & { type: "date" | "time" | "datetime-local" }) {
+function Field({ caption, helperText, invalid = false, label, required = false, size = "md", type, ...props }: BaseFieldProps & { type: "date" | "time" | "datetime-local" }) {
   const icon = type === "time" ? timeIcon : calendarIcon;
 
   return (
-    <FieldShell helperText={helperText} invalid={invalid} label={label} required={required}>
+    <FieldShell caption={caption} helperText={helperText} invalid={invalid} label={label} required={required}>
       <span className={styles.controlShell({ invalid, size })}>
         <input className={styles.input({ size })} required={required} type={type} {...props} />
         <span aria-hidden="true" className={styles.icon}>
@@ -69,12 +74,17 @@ function Field({ helperText, invalid = false, label, required = false, size = "m
   );
 }
 
-function RangeField({ invalid = false, label, required = false, size = "md", type = "date", ...props }: BaseFieldProps & { type?: "date" | "time" | "datetime-local" }) {
+function RangeField({ caption, invalid = false, label, required = false, size = "md", type = "date", ...props }: BaseFieldProps & { type?: "date" | "time" | "datetime-local" }) {
   const icon = type === "time" ? timeIcon : calendarIcon;
 
   return (
     <label className={styles.stack}>
-      <span className={styles.label}>{label}</span>
+      {label ? (
+        <span className={styles.labelRow}>
+          <span className={styles.label}>{label}</span>
+          {caption ? <span className={styles.caption}>{caption}</span> : null}
+        </span>
+      ) : null}
       <span className={styles.controlShell({ invalid, size })}>
         <input className={styles.input({ size })} required={required} type={type} {...props} />
         <span aria-hidden="true" className={styles.icon}>
@@ -98,6 +108,7 @@ export function DateTimePicker(props: BaseFieldProps) {
 }
 
 export function DateRangePicker({
+  caption,
   endLabel = "종료일",
   endProps,
   helperText,
@@ -109,7 +120,7 @@ export function DateRangePicker({
   startProps
 }: DateRangePickerProps) {
   return (
-    <FieldShell helperText={helperText} invalid={invalid} label={label} required={required}>
+    <FieldShell caption={caption} helperText={helperText} invalid={invalid} label={label} required={required}>
       <div className={styles.inline}>
         <RangeField {...startProps} invalid={invalid} label={startLabel} required={required} size={size} />
         <RangeField {...endProps} invalid={invalid} label={endLabel} required={required} size={size} />

@@ -21,6 +21,7 @@ const hasNestedOptions = (item: SelectItem): item is SelectOptionGroup => "optio
 
 export type SelectProps = Omit<SelectHTMLAttributes<HTMLSelectElement>, "size"> & {
   label?: string;
+  caption?: string;
   options: SelectItem[];
   helperText?: string;
   invalid?: boolean;
@@ -31,6 +32,7 @@ export type SelectProps = Omit<SelectHTMLAttributes<HTMLSelectElement>, "size"> 
 export const Select = forwardRef<HTMLSelectElement, SelectProps>(function Select(
   {
     className,
+    caption,
     disabled,
     helperText,
     invalid = false,
@@ -57,18 +59,21 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(function Select
     .filter(Boolean)
     .join(" ");
 
-  const shellClassName = styles.controlShell({
-    invalid,
-    multiple,
-    size
-  });
-
   return (
     <label className={styles.root}>
-      {label ? <span className={styles.label}>{label}</span> : null}
-      <span className={shellClassName}>
+      {label ? (
+        <span className={styles.labelRow}>
+          <span className={styles.label}>
+            {label}
+            {required ? <span className={styles.requiredMark}>*</span> : null}
+          </span>
+          {caption ? <span className={styles.caption}>{caption}</span> : null}
+        </span>
+      ) : null}
+      <span className={styles.controlShell}>
         <select
           className={selectClassName}
+          defaultValue={hasPlaceholder ? "" : props.defaultValue}
           disabled={disabled}
           multiple={multiple}
           ref={ref}

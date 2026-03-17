@@ -11,6 +11,13 @@ export const root = style([
   })
 ]);
 
+export const labelRow = style({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
+  gap: themeVars.spacing.x2
+});
+
 export const label = style({
   color: semanticColorRoles.field.label,
   fontFamily: themeVars.font.family,
@@ -19,36 +26,23 @@ export const label = style({
   lineHeight: 1.4
 });
 
-export const controlShell = recipe({
-  base: {
-    position: "relative",
-    width: "100%",
-    display: "flex",
-    alignItems: "center"
-  },
-  variants: {
-    size: { sm: {}, md: {}, lg: {} },
-    invalid: { true: {}, false: {} },
-    multiple: { true: {}, false: {} }
-  },
-  compoundVariants: [
-    {
-      variants: { invalid: true },
-      style: {
-        selectors: {
-          "&::before": {
-            content: '\"\"',
-            position: "absolute",
-            inset: 0,
-            borderRadius: themeVars.radius.sm,
-            boxShadow: `inset 0 0 0 1px ${semanticColorRoles.status.danger.border}`,
-            pointerEvents: "none"
-          }
-        }
-      }
-    }
-  ],
-  defaultVariants: { size: "md", invalid: false, multiple: false }
+export const caption = style({
+  color: semanticColorRoles.text.tertiary,
+  fontFamily: themeVars.font.family,
+  fontSize: themeVars.font.sizeSm,
+  lineHeight: 1.4
+});
+
+export const requiredMark = style({
+  color: semanticColorRoles.status.danger.text,
+  marginLeft: themeVars.spacing.x1
+});
+
+export const controlShell = style({
+  position: "relative",
+  width: "100%",
+  display: "flex",
+  alignItems: "center"
 });
 
 export const control = recipe({
@@ -56,7 +50,7 @@ export const control = recipe({
     width: "100%",
     maxWidth: "100%",
     boxSizing: "border-box",
-    minHeight: "34px",
+    minHeight: "38px",
     padding: `0 ${themeVars.spacing.x3}`,
     border: `1px solid ${semanticColorRoles.field.border}`,
     borderRadius: themeVars.radius.sm,
@@ -82,9 +76,9 @@ export const control = recipe({
   },
   variants: {
     size: {
-      sm: { minHeight: "30px", paddingLeft: themeVars.spacing.x3, paddingRight: `calc(${themeVars.spacing.x6} + ${themeVars.spacing.x1})`, fontSize: themeVars.font.sizeSm },
+      sm: { minHeight: "32px", paddingLeft: themeVars.spacing.x3, paddingRight: `calc(${themeVars.spacing.x6} + ${themeVars.spacing.x1})`, fontSize: themeVars.font.sizeSm },
       md: { paddingRight: `calc(${themeVars.spacing.x6} + ${themeVars.spacing.x1})` },
-      lg: { minHeight: "40px", paddingLeft: themeVars.spacing.x4, paddingRight: `calc(${themeVars.spacing.x6} + ${themeVars.spacing.x2})`, fontSize: themeVars.font.sizeLg }
+      lg: { minHeight: "44px", paddingLeft: themeVars.spacing.x4, paddingRight: `calc(${themeVars.spacing.x6} + ${themeVars.spacing.x2})`, fontSize: themeVars.font.sizeLg }
     },
     invalid: {
       true: {
@@ -109,7 +103,7 @@ export const control = recipe({
     },
     multiple: {
       true: {
-        minHeight: "88px",
+        minHeight: "96px",
         paddingTop: themeVars.spacing.x2,
         paddingBottom: themeVars.spacing.x2,
         paddingRight: themeVars.spacing.x3,
@@ -119,8 +113,8 @@ export const control = recipe({
     }
   },
   compoundVariants: [
-    { variants: { size: "sm", multiple: true }, style: { minHeight: "76px", paddingRight: themeVars.spacing.x3 } },
-    { variants: { size: "lg", multiple: true }, style: { minHeight: "104px", paddingRight: themeVars.spacing.x4 } }
+    { variants: { size: "sm", multiple: true }, style: { minHeight: "84px", paddingRight: themeVars.spacing.x3 } },
+    { variants: { size: "lg", multiple: true }, style: { minHeight: "112px", paddingRight: themeVars.spacing.x4 } }
   ],
   defaultVariants: { size: "md", invalid: false, hasPlaceholder: false, multiple: false }
 });

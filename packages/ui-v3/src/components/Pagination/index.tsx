@@ -49,6 +49,13 @@ const getPageCount = ({ pageCount, pageSize, totalCount }: Pick<UsePaginationSta
   return 1;
 };
 
+const arrow = {
+  first: "«",
+  previous: "‹",
+  next: "›",
+  last: "»"
+} as const;
+
 export function usePaginationState({ onPageIndexChange, pageCount, pageIndex, pageSize, totalCount }: UsePaginationStateOptions) {
   const resolvedPageCount = getPageCount({ pageCount, pageSize, totalCount });
   const page = clampPage(pageIndex + 1, resolvedPageCount);
@@ -63,19 +70,22 @@ export function usePaginationState({ onPageIndexChange, pageCount, pageIndex, pa
 export function Pagination({ itemLabel = "items", onPageChange, page, pageCount, pageSize, showFirstLast = true, siblingCount = 1, totalCount }: PaginationProps) {
   const currentPage = clampPage(page, pageCount);
   const pages = useMemo(() => getPages(currentPage, pageCount, siblingCount), [currentPage, pageCount, siblingCount]);
-  const startItem = totalCount && pageSize ? (currentPage - 1) * pageSize + 1 : undefined;
-  const endItem = totalCount && pageSize ? Math.min(currentPage * pageSize, totalCount) : undefined;
 
   return (
     <nav aria-label="Pagination" className={styles.root}>
+      {totalCount !== undefined ? (
+        <p className={styles.summary}>
+          총 <span className={styles.totalCount}>{totalCount.toLocaleString()}</span> {itemLabel}
+        </p>
+      ) : <span />}
       <div className={styles.controls}>
         {showFirstLast ? (
-          <button className={styles.pageButton({ kind: "text" })} disabled={currentPage <= 1} onClick={() => onPageChange(1)} type="button">
-            처음
+          <button aria-label="처음" className={styles.pageButton({ kind: "icon" })} disabled={currentPage <= 1} onClick={() => onPageChange(1)} type="button">
+            {arrow.first}
           </button>
         ) : null}
-        <button className={styles.pageButton({ kind: "text" })} disabled={currentPage <= 1} onClick={() => onPageChange(currentPage - 1)} type="button">
-          이전
+        <button aria-label="이전" className={styles.pageButton({ kind: "icon" })} disabled={currentPage <= 1} onClick={() => onPageChange(currentPage - 1)} type="button">
+          {arrow.previous}
         </button>
         <div className={styles.pageList}>
           {pages.map((pageNumber, index) => {
@@ -97,20 +107,15 @@ export function Pagination({ itemLabel = "items", onPageChange, page, pageCount,
             );
           })}
         </div>
-        <button className={styles.pageButton({ kind: "text" })} disabled={currentPage >= pageCount} onClick={() => onPageChange(currentPage + 1)} type="button">
-          다음
+        <button aria-label="다음" className={styles.pageButton({ kind: "icon" })} disabled={currentPage >= pageCount} onClick={() => onPageChange(currentPage + 1)} type="button">
+          {arrow.next}
         </button>
         {showFirstLast ? (
-          <button className={styles.pageButton({ kind: "text" })} disabled={currentPage >= pageCount} onClick={() => onPageChange(pageCount)} type="button">
-            마지막
+          <button aria-label="마지막" className={styles.pageButton({ kind: "icon" })} disabled={currentPage >= pageCount} onClick={() => onPageChange(pageCount)} type="button">
+            {arrow.last}
           </button>
         ) : null}
       </div>
-      {startItem !== undefined && endItem !== undefined ? (
-        <p className={styles.summary}>
-          {startItem}–{endItem} / {totalCount} {itemLabel}
-        </p>
-      ) : null}
     </nav>
   );
 }

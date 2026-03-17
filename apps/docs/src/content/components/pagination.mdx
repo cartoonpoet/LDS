@@ -1,6 +1,7 @@
 <h2 id="overview">개요</h2>
 
 Pagination은 목록 화면의 페이지 이동을 위한 내비게이션 프리미티브입니다.
+이번 라운드에서는 Zeplin pagination처럼 숫자 버튼 중심, 원형 active 강조, 아이콘형 이전/다음 흐름으로 톤을 조정했습니다.
 
 <h2 id="supported-features">현재 지원 범위</h2>
 
@@ -12,6 +13,6 @@ Pagination은 목록 화면의 페이지 이동을 위한 내비게이션 프리
 
 <h2 id="usage-guidelines">사용 가이드</h2>
 
-- 페이지 버튼은 최소 높이/간격을 일정하게 유지해 표 하단에서도 눌림 영역이 안정적으로 보여야 합니다.
+- 숫자 버튼은 짧고 조밀하게 유지하고, active 상태만 강하게 드러내는 편이 Zeplin 기준과 가깝습니다.
+- `totalCount`가 있으면 좌측 summary와 우측 페이지 이동을 함께 보여 테이블 하단 패턴으로 재사용하기 좋습니다.
 - `@tanstack/react-table`의 `pageIndex`는 0-base, 컴포넌트의 `page`는 1-base이므로 `usePaginationState`로 변환을 고정하는 편이 안전합니다.
-- 서버 페이지네이션에서도 `totalCount` 또는 `pageCount`만 알면 같은 UI를 재사용할 수 있습니다.

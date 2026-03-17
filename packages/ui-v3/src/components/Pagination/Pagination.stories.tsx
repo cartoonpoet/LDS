@@ -24,7 +24,7 @@ export const Basic: Story = {
     const [page, setPage] = useState(5);
     return <Pagination {...args} onPageChange={setPage} page={page} />;
   },
-  args: { pageCount: 24 }
+  args: { pageCount: 24, showFirstLast: false }
 };
 
 export const WithSummary: Story = {
@@ -35,8 +35,8 @@ export const WithSummary: Story = {
   args: {
     pageCount: 12,
     pageSize: 20,
-    totalCount: 228,
-    itemLabel: "rows"
+    totalCount: 11442,
+    itemLabel: "건"
   }
 };
 
@@ -45,6 +45,6 @@ export const TanstackTableBridge: Story = {
     const [pageIndex, setPageIndex] = useState(2);
     const pagination = usePaginationState({ pageIndex, pageSize: 20, totalCount: 228, onPageIndexChange: setPageIndex });
 
-    return <Pagination {...pagination} pageSize={20} totalCount={228} itemLabel="rows" />;
+    return <Pagination {...pagination} itemLabel="rows" pageSize={20} totalCount={228} />;
   }
 };

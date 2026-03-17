@@ -15,11 +15,25 @@ export const inline = style({
   width: "100%"
 });
 
+export const labelRow = style({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
+  gap: themeVars.spacing.x2
+});
+
 export const label = style({
   color: semanticColorRoles.field.label,
   fontFamily: themeVars.font.family,
   fontSize: themeVars.font.sizeSm,
   fontWeight: themeVars.font.weightMedium,
+  lineHeight: 1.4
+});
+
+export const caption = style({
+  color: semanticColorRoles.text.tertiary,
+  fontFamily: themeVars.font.family,
+  fontSize: themeVars.font.sizeSm,
   lineHeight: 1.4
 });
 
@@ -95,6 +109,9 @@ export const input = recipe({
         position: "absolute",
         inset: 0,
         cursor: "pointer"
+      },
+      "&::placeholder": {
+        color: semanticColorRoles.field.placeholder
       },
       "&:disabled": {
         color: semanticColorRoles.text.disabled,

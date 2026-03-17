@@ -1,8 +1,9 @@
 "use client";
 
-import { useId, useMemo, useState } from "react";
+import { useId } from "react";
 import type { ReactNode } from "react";
 import * as styles from "./Dropdown.css";
+import { useDropdownState } from "./useDropdownState";
 
 export type DropdownOption = {
   value: string;
@@ -19,6 +20,7 @@ export type DropdownOptionGroup = {
 
 export type DropdownProps = {
   label?: string;
+  caption?: string;
   helperText?: string;
   placeholder?: string;
   required?: boolean;
@@ -34,15 +36,8 @@ export type DropdownProps = {
   searchPlaceholder?: string;
 };
 
-const normalizeValue = (value: DropdownProps["value"] | DropdownProps["defaultValue"], multiple: boolean) => {
-  if (multiple) {
-    return Array.isArray(value) ? value : value ? [value] : [];
-  }
-
-  return Array.isArray(value) ? value[0] ?? "" : value ?? "";
-};
-
 export function Dropdown({
+  caption,
   defaultValue,
   disabled = false,
   groups,
@@ -58,53 +53,14 @@ export function Dropdown({
   size = "md",
   value
 }: DropdownProps) {
-  const [internalValue, setInternalValue] = useState(() => normalizeValue(defaultValue, multiple));
-  const [query, setQuery] = useState("");
   const triggerId = useId();
-  const selectedValue = value ?? internalValue;
-
-  const filteredGroups = useMemo(() => {
-    if (!query.trim()) {
-      return groups;
-    }
-
-    const normalizedQuery = query.trim().toLowerCase();
-
-    return groups
-      .map(group => ({
-        ...group,
-        options: group.options.filter(option => {
-          const haystack = [option.label, ...(option.keywords ?? [])].join(" ").toLowerCase();
-          return haystack.includes(normalizedQuery);
-        })
-      }))
-      .filter(group => group.options.length > 0);
-  }, [groups, query]);
-
-  const isSelected = (optionValue: string) =>
-    Array.isArray(selectedValue) ? selectedValue.includes(optionValue) : selectedValue === optionValue;
-
-  const commitValue = (nextValue: string | string[]) => {
-    if (value === undefined) {
-      setInternalValue(nextValue as never);
-    }
-
-    onValueChange?.(nextValue);
-  };
-
-  const handleSelect = (optionValue: string) => {
-    if (multiple) {
-      const currentValues = Array.isArray(selectedValue) ? selectedValue : [];
-      const nextValue = currentValues.includes(optionValue)
-        ? currentValues.filter(current => current !== optionValue)
-        : [...currentValues, optionValue];
-
-      commitValue(nextValue);
-      return;
-    }
-
-    commitValue(optionValue);
-  };
+  const { filteredGroups, isSelected, open, query, select, selectedValue, setOpen, setQuery } = useDropdownState({
+    defaultValue,
+    groups,
+    multiple,
+    onValueChange,
+    value
+  });
 
   const selectedLabels = groups
     .flatMap(group => group.options)
@@ -116,64 +72,70 @@ export function Dropdown({
   return (
     <div className={styles.root}>
       {label ? (
-        <label className={styles.label} htmlFor={triggerId}>
-          {label}
-          {required ? <span className={styles.requiredMark}>*</span> : null}
+        <label className={styles.labelRow} htmlFor={triggerId}>
+          <span className={styles.label}>
+            {label}
+            {required ? <span className={styles.requiredMark}>*</span> : null}
+          </span>
+          {caption ? <span className={styles.caption}>{caption}</span> : null}
         </label>
       ) : null}
       <button
+        aria-controls={`${triggerId}-panel`}
         aria-disabled={disabled}
+        aria-expanded={open}
         aria-invalid={invalid}
-        className={styles.trigger({ invalid, size })}
+        className={styles.trigger({ invalid, open, size })}
         disabled={disabled}
         id={triggerId}
+        onClick={() => setOpen(!open)}
         type="button"
       >
         <span className={`${styles.triggerValue} ${selectedLabels.length === 0 ? styles.placeholder : ""}`}>{triggerContent}</span>
-        <span aria-hidden="true" className={styles.icon}>
+        {multiple && selectedLabels.length > 0 ? <span className={styles.counter}>{selectedLabels.length}</span> : null}
+        <span aria-hidden="true" className={styles.icon({ open })}>
           <svg fill="none" height="6" viewBox="0 0 10 6" width="10" xmlns="http://www.w3.org/2000/svg">
             <path d="M1 1L5 5L9 1" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.4" />
           </svg>
         </span>
       </button>
-      <div className={styles.panel} role="group">
-        {searchable ? (
-          <input className={styles.searchInput} onChange={event => setQuery(event.target.value)} placeholder={searchPlaceholder} type="search" value={query} />
-        ) : null}
-        <div className={styles.list}>
-          {filteredGroups.map((group, index) => (
-            <div className={styles.group} key={`${group.label ?? "group"}-${index}`}>
-              {group.label ? <div className={styles.groupLabel}>{group.label}</div> : null}
-              {group.options.map(option => {
-                const selected = isSelected(option.value);
+      {open ? (
+        <div className={styles.panel} id={`${triggerId}-panel`} role="group">
+          {searchable ? (
+            <input className={styles.searchInput} onChange={event => setQuery(event.target.value)} placeholder={searchPlaceholder} type="search" value={query} />
+          ) : null}
+          <div className={styles.list}>
+            {filteredGroups.length === 0 ? <div className={styles.empty}>검색 결과가 없습니다.</div> : null}
+            {filteredGroups.map((group, index) => (
+              <div className={styles.group} key={`${group.label ?? "group"}-${index}`}>
+                {group.label ? <div className={styles.groupLabel}>{group.label}</div> : null}
+                {group.options.map(option => {
+                  const selected = isSelected(option.value);
 
-                return (
-                  <button
-                    className={styles.option({ selected })}
-                    disabled={option.disabled}
-                    key={option.value}
-                    onClick={() => handleSelect(option.value)}
-                    type="button"
-                  >
-                    <span className={styles.optionMain}>
-                      {multiple ? (
-                        <span aria-hidden="true" className={styles.checkSlot}>
-                          {selected ? <span className={styles.check}>✓</span> : null}
+                  return (
+                    <button
+                      className={styles.option({ selected })}
+                      disabled={option.disabled}
+                      key={option.value}
+                      onClick={() => select(option.value)}
+                      type="button"
+                    >
+                      <span className={styles.optionMain}>
+                        {multiple ? <span aria-hidden="true" className={styles.checkbox({ selected })}>{selected ? "✓" : ""}</span> : null}
+                        <span className={styles.optionText}>
+                          <span>{option.label}</span>
+                          {option.description ? <span className={styles.optionMeta}>{option.description}</span> : null}
                         </span>
-                      ) : null}
-                      <span className={styles.optionText}>
-                        <span>{option.label}</span>
-                        {option.description ? <span className={styles.optionMeta}>{option.description}</span> : null}
                       </span>
-                    </span>
-                    {!multiple && selected ? <span className={styles.check}>✓</span> : null}
-                  </button>
-                );
-              })}
-            </div>
-          ))}
+                      {!multiple && selected ? <span className={styles.check}>✓</span> : null}
+                    </button>
+                  );
+                })}
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
+      ) : null}
       {helperText ? <div className={styles.helperText({ tone: invalid ? "danger" : "neutral" })}>{helperText}</div> : null}
     </div>
   );

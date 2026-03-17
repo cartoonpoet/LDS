@@ -8,11 +8,25 @@ export const root = style({
   width: "100%"
 });
 
+export const labelRow = style({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
+  gap: themeVars.spacing.x2
+});
+
 export const label = style({
   color: semanticColorRoles.field.label,
   fontFamily: themeVars.font.family,
   fontSize: themeVars.font.sizeSm,
   fontWeight: themeVars.font.weightMedium,
+  lineHeight: 1.4
+});
+
+export const caption = style({
+  color: semanticColorRoles.text.tertiary,
+  fontFamily: themeVars.font.family,
+  fontSize: themeVars.font.sizeSm,
   lineHeight: 1.4
 });
 
@@ -55,9 +69,13 @@ export const trigger = recipe({
     invalid: {
       true: { borderColor: semanticColorRoles.status.danger.border },
       false: {}
+    },
+    open: {
+      true: { borderColor: semanticColorRoles.field.borderFocus, boxShadow: themeVars.shadow.focus },
+      false: {}
     }
   },
-  defaultVariants: { size: "md", invalid: false }
+  defaultVariants: { size: "md", invalid: false, open: false }
 });
 
 export const triggerValue = style({
@@ -70,11 +88,37 @@ export const triggerValue = style({
 
 export const placeholder = style({ color: semanticColorRoles.field.placeholder });
 
-export const icon = style({
-  flexShrink: 0,
-  width: "10px",
-  height: "6px",
-  color: semanticColorRoles.field.icon
+export const counter = style({
+  display: "inline-flex",
+  alignItems: "center",
+  justifyContent: "center",
+  minWidth: "20px",
+  height: "20px",
+  padding: `0 ${themeVars.spacing.x1}`,
+  borderRadius: "999px",
+  background: semanticColorRoles.action.primary.subtle,
+  color: semanticColorRoles.button.solid.primary.background,
+  fontSize: themeVars.font.sizeSm,
+  fontWeight: themeVars.font.weightBold
+});
+
+export const icon = recipe({
+  base: {
+    flexShrink: 0,
+    width: "10px",
+    height: "6px",
+    color: semanticColorRoles.field.icon,
+    transition: "transform 120ms ease"
+  },
+  variants: {
+    open: {
+      true: { transform: "rotate(180deg)" },
+      false: {}
+    }
+  },
+  defaultVariants: {
+    open: false
+  }
 });
 
 export const panel = style({
@@ -113,7 +157,7 @@ export const option = recipe({
     justifyContent: "space-between",
     gap: themeVars.spacing.x2,
     width: "100%",
-    minHeight: "36px",
+    minHeight: "32px",
     padding: `${themeVars.spacing.x2} ${themeVars.spacing.x3}`,
     borderRadius: themeVars.radius.sm,
     border: "none",
@@ -131,7 +175,7 @@ export const option = recipe({
   },
   variants: {
     selected: {
-      true: { background: semanticColorRoles.status.info.fill, color: semanticColorRoles.text.primary },
+      true: { background: semanticColorRoles.action.primary.subtle, color: semanticColorRoles.text.primary },
       false: {}
     }
   },
@@ -140,19 +184,38 @@ export const option = recipe({
 
 export const optionMain = style({
   display: "flex",
-  alignItems: "flex-start",
+  alignItems: "center",
   gap: themeVars.spacing.x2,
   minWidth: 0,
   flex: 1
 });
 
-export const checkSlot = style({
-  display: "inline-flex",
-  alignItems: "center",
-  justifyContent: "center",
-  width: "16px",
-  minWidth: "16px",
-  paddingTop: "1px"
+export const checkbox = recipe({
+  base: {
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "14px",
+    height: "14px",
+    borderRadius: "3px",
+    border: `1px solid ${semanticColorRoles.field.border}`,
+    color: "transparent",
+    fontSize: "10px",
+    fontWeight: themeVars.font.weightBold
+  },
+  variants: {
+    selected: {
+      true: {
+        borderColor: semanticColorRoles.button.solid.primary.background,
+        background: semanticColorRoles.button.solid.primary.background,
+        color: semanticColorRoles.button.solid.primary.text
+      },
+      false: {}
+    }
+  },
+  defaultVariants: {
+    selected: false
+  }
 });
 
 export const optionText = style({
@@ -162,7 +225,8 @@ export const optionText = style({
 });
 
 export const optionMeta = style({ color: semanticColorRoles.text.tertiary, fontSize: themeVars.font.sizeSm });
-export const check = style({ color: semanticColorRoles.status.info.text, fontWeight: themeVars.font.weightBold, flexShrink: 0 });
+export const check = style({ color: semanticColorRoles.button.solid.primary.background, fontWeight: themeVars.font.weightBold, flexShrink: 0 });
+export const empty = style({ color: semanticColorRoles.text.tertiary, fontSize: themeVars.font.sizeSm, padding: `${themeVars.spacing.x2} ${themeVars.spacing.x1}` });
 export const helperText = recipe({
   base: { fontFamily: themeVars.font.family, fontSize: themeVars.font.sizeSm, lineHeight: 1.4 },
   variants: {

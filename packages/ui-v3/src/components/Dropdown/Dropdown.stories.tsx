@@ -23,5 +23,5 @@ const meta: Meta<typeof Dropdown> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Basic: Story = { args: { label: "조회 기간", groups, placeholder: "항목 선택" } };
-export const SearchableMulti: Story = { args: { label: "수신자", groups, searchable: true, multiple: true, defaultValue: ["junho"] } };
+export const Basic: Story = { args: { label: "조회 기간", caption: "Caption Text", groups, placeholder: "항목 선택" } };
+export const SearchableMulti: Story = { args: { label: "수신자", caption: "Caption Text", groups, searchable: true, multiple: true, defaultValue: ["junho"] } };

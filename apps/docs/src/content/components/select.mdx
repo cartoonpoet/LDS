@@ -10,7 +10,7 @@ import { FormShowcase } from "../../components/DocPrimitives";
 
 현재 구현은 아래를 지원합니다.
 
-- 라벨 + helper text
+- 라벨 + caption + helper text
 - placeholder
 - invalid 상태
 - `sm | md | lg` 크기
@@ -23,10 +23,10 @@ import { FormShowcase } from "../../components/DocPrimitives";
 
 - 옵션 수가 적고 탐색 비용이 낮을 때 기본 `Select`를 우선 사용합니다.
 - invalid 상태에서는 border, focus ring, helper text가 함께 경고 상태로 보여야 합니다.
-- placeholder는 실제 값이 아니라 안내 텍스트로만 사용합니다.
+- label / caption 분리는 Zeplin form element 패턴처럼 입력의 의미와 보조 설명을 한 줄에서 빠르게 읽게 해줍니다.
 - 옵션이 많아지거나 검색이 필요하면 searchable dropdown 같은 조합형 컴포넌트로 분리하는 편이 낫습니다.
 
 <h2 id="integration-notes">적용 메모</h2>
 
 기본 `Select`는 native `<select>`를 유지하므로 접근성과 폼 제출 호환성이 좋습니다.
-이번 정리에서는 입력 우측 패딩과 indicator 위치를 함께 맞춰 화살표가 size별로 흔들리지 않도록 조정했습니다.
+이번 정리에서는 입력 높이, label/caption 구조, indicator 위치를 함께 맞춰 size별로 레이아웃이 흔들리지 않도록 조정했습니다.

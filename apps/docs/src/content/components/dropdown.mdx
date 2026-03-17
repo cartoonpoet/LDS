@@ -1,7 +1,7 @@
 <h2 id="overview">개요</h2>
 
 Dropdown은 단일 선택, 다중 선택, 검색형 목록을 빠르게 조합하기 위한 선택 패널 프리미티브입니다.
-Zeplin의 basic / multi-check / search dropdown 패턴을 우선 대응합니다.
+이번 라운드에서는 Zeplin의 basic / multi-check / search dropdown 톤에 맞춰 닫힌 trigger + 펼침 패널 구조로 정리했습니다.
 
 <h2 id="supported-features">현재 지원 범위</h2>
 
@@ -9,10 +9,11 @@ Zeplin의 basic / multi-check / search dropdown 패턴을 우선 대응합니다
 - 그룹 목록
 - 검색 필터
 - placeholder / helper / invalid 상태
-- 다중 선택용 좌측 체크 정렬
+- 다중 선택 count badge
+- 다중 선택용 체크박스 정렬
 
 <h2 id="usage-guidelines">사용 가이드</h2>
 
-- 단순 네이티브 폼이면 `Select`, 검색/다중선택/전이형 패널이면 `Dropdown`을 우선 고려합니다.
-- 현재 패널은 선택 즉시 반영되는 구조이므로 별도의 저장 버튼을 두지 않습니다.
+- 단순 네이티브 폼이면 `Select`, 검색/다중선택/패널 노출이 필요하면 `Dropdown`을 우선 고려합니다.
+- 단일 선택은 옵션 선택 즉시 패널을 닫고, 다중 선택은 열린 상태에서 연속 선택할 수 있게 두는 편이 읽기 쉽습니다.
 - 서버 검색, 가상 스크롤, 포탈 팝오버는 다음 단계 확장 후보입니다.
