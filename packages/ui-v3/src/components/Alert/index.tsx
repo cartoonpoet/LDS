@@ -1,62 +1,118 @@
 import type { ButtonHTMLAttributes, HTMLAttributes, ReactNode } from "react";
 import * as styles from "./Alert.css";
+import { useAlertState } from "./useAlertState";
+
+export type AlertType = "info" | "confirm" | "saveTemporarily" | "secret";
+export type AlertSize = "medium" | "small";
+export type AlertLayout = "default" | "expanded";
+export type AlertActionTone = "primary" | "warning";
 
 export type AlertAction = {
   label: string;
-  tone?: "primary" | "warning";
+  tone?: AlertActionTone;
   onClick?: ButtonHTMLAttributes<HTMLButtonElement>["onClick"];
 };
 
 export type AlertProps = HTMLAttributes<HTMLDivElement> & {
-  tone?: "info" | "neutral";
+  type?: AlertType;
+  size?: AlertSize;
+  layout?: AlertLayout;
   title?: string;
   icon?: ReactNode;
+  action?: AlertAction;
   primaryAction?: AlertAction;
   secondaryAction?: AlertAction;
+  textAction?: AlertAction;
+  button?: boolean;
+  textButton?: boolean;
+  showCloseButton?: boolean;
   dismissible?: boolean;
   onClose?: () => void;
+  tone?: "info" | "neutral";
 };
 
 export function Alert({
+  action,
+  button,
   children,
   className,
-  dismissible = false,
-  icon = "i",
+  dismissible,
+  icon,
+  layout = "default",
   onClose,
   primaryAction,
   secondaryAction,
+  showCloseButton,
+  size = "medium",
+  textAction,
+  textButton,
   title,
-  tone = "info",
+  tone,
+  type = "info",
   ...props
 }: AlertProps) {
-  const hasAction = Boolean(primaryAction || secondaryAction || dismissible);
-  const composedClassName = [styles.alert({ tone, withAction: hasAction }), className].filter(Boolean).join(" ");
+  const {
+    hasButtons,
+    hasCloseButton,
+    resolvedActions,
+    resolvedLayout,
+    resolvedSize,
+    resolvedType,
+    rootClassName
+  } = useAlertState({
+    action,
+    className,
+    dismissible,
+    layout,
+    primaryAction,
+    secondaryAction,
+    showCloseButton,
+    size,
+    textAction,
+    tone,
+    type
+  });
+
+  const leadingIcon = icon ?? getDefaultIcon(resolvedType);
+  const hasTitle = Boolean(title);
+  const shouldRenderButtons = button ?? hasButtons;
+  const shouldRenderTextButton = textButton ?? Boolean(resolvedActions.textAction);
 
   return (
-    <div className={composedClassName} role="alert" {...props}>
-      <div className={styles.body}>
-        <span aria-hidden="true" className={styles.icon({ tone })}>
-          {icon}
-        </span>
-        <div className={styles.textWrap}>
-          {title ? <p className={styles.title}>{title}</p> : null}
-          {children ? <div className={styles.description}>{children}</div> : null}
+    <div className={rootClassName} role="alert" {...props}>
+      <div className={styles.content({ layout: resolvedLayout })}>
+        <div className={styles.leadingRow}>
+          <span aria-hidden="true" className={styles.iconWrap({ type: resolvedType })}>
+            {leadingIcon}
+          </span>
+          <div className={styles.body}>
+            {title ? <p className={styles.title({ size: resolvedSize })}>{title}</p> : null}
+            {children ? <div className={styles.description({ hasTitle, size: resolvedSize })}>{children}</div> : null}
+          </div>
         </div>
       </div>
-      {hasAction ? (
-        <div className={styles.actionRow}>
-          {primaryAction ? (
-            <button className={styles.actionButton({ tone: primaryAction.tone ?? "primary" })} onClick={primaryAction.onClick} type="button">
-              {primaryAction.label}
-            </button>
-          ) : null}
-          {secondaryAction ? (
-            <button className={styles.actionButton({ tone: secondaryAction.tone ?? "warning" })} onClick={secondaryAction.onClick} type="button">
-              {secondaryAction.label}
-            </button>
-          ) : null}
-          {dismissible ? (
-            <button aria-label="Close alert" className={styles.closeButton} onClick={onClose} type="button">
+
+      {shouldRenderButtons || shouldRenderTextButton || hasCloseButton ? (
+        <div className={styles.actionArea({ layout: resolvedLayout })}>
+          <div className={styles.buttonGroup}>
+            {shouldRenderTextButton && resolvedActions.textAction ? (
+              <button className={styles.textButton} onClick={resolvedActions.textAction.onClick} type="button">
+                {resolvedActions.textAction.label}
+              </button>
+            ) : null}
+            {shouldRenderButtons && resolvedActions.primaryAction ? (
+              <button className={styles.actionButton({ tone: resolvedActions.primaryAction.tone ?? "primary" })} onClick={resolvedActions.primaryAction.onClick} type="button">
+                {resolvedActions.primaryAction.label}
+              </button>
+            ) : null}
+            {shouldRenderButtons && resolvedActions.secondaryAction ? (
+              <button className={styles.actionButton({ tone: resolvedActions.secondaryAction.tone ?? "warning" })} onClick={resolvedActions.secondaryAction.onClick} type="button">
+                {resolvedActions.secondaryAction.label}
+              </button>
+            ) : null}
+          </div>
+          {hasCloseButton ? (
+            <button aria-label="Close alert" className={styles.closeButton({ layout: resolvedLayout })} onClick={onClose} type="button">
               ×
             </button>
           ) : null}
@@ -64,4 +120,18 @@ export function Alert({
       ) : null}
     </div>
   );
+}
+
+function getDefaultIcon(type: AlertType) {
+  switch (type) {
+    case "saveTemporarily":
+      return "✓";
+    case "secret":
+      return "!";
+    case "confirm":
+      return "•";
+    case "info":
+    default:
+      return "i";
+  }
 }

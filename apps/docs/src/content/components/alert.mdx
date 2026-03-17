@@ -1,0 +1,36 @@
+<h2 id="overview">개요</h2>
+
+Alert는 짧은 상태 안내를 한 줄 혹은 확장 블록으로 전달하는 피드백 컴포넌트입니다.
+이번 재구축에서는 A안 기준에 맞춰 `type`, `size`, `layout`, 액션 축을 분리해 조합을 찾기 쉽게 정리했습니다.
+
+<h2 id="current-target">현재 1차 타깃</h2>
+
+현재 픽셀 기준점은 아래 조합입니다.
+
+- `type`: `info`
+- `size`: `medium`
+- `layout`: `default`
+- `showCloseButton`: `true`
+- `textButton`: `false`
+- `button`: `false`
+
+이 조합을 먼저 정확히 맞춘 뒤, 나머지 타입과 액션 축을 같은 구조에서 확장합니다.
+
+<h2 id="supported-axis">현재 지원 축</h2>
+
+- `type`: `info | confirm | saveTemporarily | secret`
+- `size`: `medium | small`
+- `layout`: `default | expanded`
+- 액션: `action`, `secondaryAction`, `textAction`, `showCloseButton`
+
+<h2 id="rebuild-notes">재구축 메모</h2>
+
+- 시각 variant 조합은 vanilla-extract recipe에 모으고, JSX는 읽기 쉬운 구조만 남깁니다.
+- 이전 `tone`, `dismissible`, `primaryAction` API도 함께 받아 점진적 이행이 가능하게 했습니다.
+- 파생 상태 계산은 `useAlertState`로 분리해 컴포넌트 본문 책임을 줄였습니다.
+
+<h2 id="guidelines">사용 가이드</h2>
+
+- 기본 행형 안내에는 `layout="default"`를 우선 사용합니다.
+- 버튼이 없고 빠르게 닫을 수 있어야 하면 닫기 버튼만 켜는 조합이 가장 가볍습니다.
+- 여러 액션을 함께 붙이는 경우에는 `expanded` 레이아웃으로 분리해 가독성을 확보하는 편이 좋습니다.

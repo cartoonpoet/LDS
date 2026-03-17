@@ -21,13 +21,19 @@ const meta: Meta<typeof Alert> = {
     docs: {
       description: {
         component:
-          "LDS 행형 알림 컴포넌트입니다. 아이콘, 액션 버튼, dismiss 동작을 지원합니다.\n\n사용 가이드\n- 즉시 확인이 필요한 짧은 상태/안내 문구에 적합합니다.\n- title은 핵심 메시지, 본문은 후속 설명 1~2줄 정도로 간결하게 유지하세요.\n- 사용자가 바로 대응해야 할 때만 action 버튼을 붙이고, dismiss는 정보성 알림에서만 선택적으로 사용하세요."
+          "LDS 행형 알림 컴포넌트입니다. A안 재구축 규칙에 맞춰 type / size / layout / action 축을 분리했습니다.\n\n현재 1차 기준점은 `Info + Medium + Default + xButton(true) + textButton(false) + button(false)` 조합이며, 나머지 축은 같은 구조에서 확장할 수 있도록 정리했습니다."
       }
     }
   },
   args: {
+    type: "info",
+    size: "medium",
+    layout: "default",
     title: "중요!",
-    children: "이것은 기본 알림입니다. 확인해주세요!"
+    children: "이것은 기본 알림입니다. 확인해주세요!",
+    showCloseButton: true,
+    button: false,
+    textButton: false
   },
   decorators: [
     Story => (
@@ -42,54 +48,69 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const InlineInfo: Story = {
+export const InfoMediumDefaultX: Story = {
+  name: "Info / Medium / Default / X",
   parameters: {
     ...withCode(
       `import { Alert } from "@lds/ui-v3";
 
 export function Example() {
   return (
-    <Alert title="중요!">
+    <Alert
+      type="info"
+      size="medium"
+      layout="default"
+      title="중요!"
+      showCloseButton
+    >
       이것은 기본 알림입니다. 확인해주세요!
     </Alert>
   );
 }`,
-      "Thin inline info alert based on the Zeplin sheet."
+      "사용자 CSS 기준 1차 타깃 조합입니다. 버튼 없이 닫기 버튼만 노출합니다."
     )
   }
 };
 
-export const NeutralRow: Story = {
+export const SaveTemporarilySmall: Story = {
   args: {
-    tone: "neutral",
-    icon: "✓",
-    title: "임시저장"
+    type: "saveTemporarily",
+    size: "small",
+    title: "임시저장",
+    children: "지금 상태로 저장되었습니다.",
+    showCloseButton: false
   },
   parameters: {
     ...withCode(
       `import { Alert } from "@lds/ui-v3";
 
 export function Example() {
-  return <Alert tone="neutral" icon="✓" title="임시저장" />;
+  return (
+    <Alert type="saveTemporarily" size="small" title="임시저장">
+      지금 상태로 저장되었습니다.
+    </Alert>
+  );
 }`,
-      "Neutral row alert."
+      "작은 크기의 저장 상태 알림 예시입니다."
     )
   }
 };
 
-export const WithButtons: Story = {
+export const ConfirmExpandedWithActions: Story = {
   args: {
-    tone: "neutral",
-    icon: "•",
+    type: "confirm",
+    layout: "expanded",
     title: "의견 검토 중",
-    children: "검토 상태를 확인해주세요.",
-    primaryAction: {
+    children: "검토 상태를 확인하고 필요한 조치를 진행해주세요.",
+    button: true,
+    action: {
       label: "승인"
     },
     secondaryAction: {
       label: "반려",
       tone: "warning"
-    }
+    },
+    showCloseButton: true
   },
   parameters: {
     ...withCode(
@@ -98,37 +119,19 @@ export const WithButtons: Story = {
 export function Example() {
   return (
     <Alert
-      tone="neutral"
-      icon="•"
+      type="confirm"
+      layout="expanded"
       title="의견 검토 중"
-      primaryAction={{ label: "승인" }}
+      button
+      action={{ label: "승인" }}
       secondaryAction={{ label: "반려", tone: "warning" }}
+      showCloseButton
     >
-      검토 상태를 확인해주세요.
+      검토 상태를 확인하고 필요한 조치를 진행해주세요.
     </Alert>
   );
 }`,
-      "Alert row with action buttons."
-    )
-  }
-};
-
-export const Dismissible: Story = {
-  args: {
-    dismissible: true
-  },
-  parameters: {
-    ...withCode(
-      `import { Alert } from "@lds/ui-v3";
-
-export function Example() {
-  return (
-    <Alert dismissible title="중요!">
-      이것은 기본 알림입니다. 확인해주세요!
-    </Alert>
-  );
-}`,
-      "Dismissible inline alert."
+      "확장 레이아웃에서 CTA를 함께 배치하는 구조입니다."
     )
   }
 };
