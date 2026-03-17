@@ -27,8 +27,8 @@ export { DatePicker, DateRangePicker, DateTimePicker, TimePicker } from "./compo
 export type { DatePickerProps, DateRangePickerProps, TimePickerProps } from "./components/DatePicker";
 export { ButtonGroup } from "./components/ButtonGroup";
 export type { ButtonGroupItem, ButtonGroupProps } from "./components/ButtonGroup";
-export { Pagination } from "./components/Pagination";
-export type { PaginationProps } from "./components/Pagination";
+export { Pagination, usePaginationState } from "./components/Pagination";
+export type { PaginationProps, UsePaginationStateOptions } from "./components/Pagination";
 export { ApprovalLine } from "./components/ApprovalLine";
 export type { ApprovalLineItem, ApprovalLineProps, ApprovalLineStatus } from "./components/ApprovalLine";
 export { Viewer, ViewerStatusBadge } from "./components/Viewer";

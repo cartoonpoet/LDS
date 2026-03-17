@@ -22,32 +22,22 @@ export const label = style({
 export const controlShell = recipe({
   base: {
     position: "relative",
-    width: "100%"
+    width: "100%",
+    display: "flex",
+    alignItems: "center"
   },
   variants: {
-    size: {
-      sm: {},
-      md: {},
-      lg: {}
-    },
-    invalid: {
-      true: {},
-      false: {}
-    },
-    multiple: {
-      true: {},
-      false: {}
-    }
+    size: { sm: {}, md: {}, lg: {} },
+    invalid: { true: {}, false: {} },
+    multiple: { true: {}, false: {} }
   },
   compoundVariants: [
     {
-      variants: {
-        invalid: true
-      },
+      variants: { invalid: true },
       style: {
         selectors: {
           "&::before": {
-            content: '""',
+            content: '\"\"',
             position: "absolute",
             inset: 0,
             borderRadius: themeVars.radius.sm,
@@ -58,11 +48,7 @@ export const controlShell = recipe({
       }
     }
   ],
-  defaultVariants: {
-    size: "md",
-    invalid: false,
-    multiple: false
-  }
+  defaultVariants: { size: "md", invalid: false, multiple: false }
 });
 
 export const control = recipe({
@@ -83,20 +69,9 @@ export const control = recipe({
     verticalAlign: "middle",
     appearance: "none",
     transition: "border-color 120ms ease, box-shadow 120ms ease, background-color 120ms ease",
-    "@media": {
-      "screen and (max-width: 767px)": {
-        minHeight: "38px",
-        fontSize: themeVars.font.sizeLg
-      }
-    },
     selectors: {
-      "&:hover:not(:disabled)": {
-        borderColor: semanticColorRoles.field.borderHover
-      },
-      "&:focus": {
-        borderColor: semanticColorRoles.field.borderFocus,
-        boxShadow: themeVars.shadow.focus
-      },
+      "&:hover:not(:disabled)": { borderColor: semanticColorRoles.field.borderHover },
+      "&:focus": { borderColor: semanticColorRoles.field.borderFocus, boxShadow: themeVars.shadow.focus },
       "&:disabled": {
         backgroundColor: semanticColorRoles.field.backgroundDisabled,
         borderColor: semanticColorRoles.field.border,
@@ -107,36 +82,15 @@ export const control = recipe({
   },
   variants: {
     size: {
-      sm: {
-        minHeight: "30px",
-        padding: `0 ${themeVars.spacing.x3}`,
-        fontSize: themeVars.font.sizeSm,
-        "@media": {
-          "screen and (max-width: 767px)": {
-            minHeight: "34px",
-            fontSize: themeVars.font.sizeMd
-          }
-        }
-      },
-      md: {},
-      lg: {
-        minHeight: "40px",
-        padding: `0 ${themeVars.spacing.x4}`,
-        fontSize: themeVars.font.sizeLg,
-        "@media": {
-          "screen and (max-width: 767px)": {
-            minHeight: "42px"
-          }
-        }
-      }
+      sm: { minHeight: "30px", paddingLeft: themeVars.spacing.x3, paddingRight: `calc(${themeVars.spacing.x6} + ${themeVars.spacing.x1})`, fontSize: themeVars.font.sizeSm },
+      md: { paddingRight: `calc(${themeVars.spacing.x6} + ${themeVars.spacing.x1})` },
+      lg: { minHeight: "40px", paddingLeft: themeVars.spacing.x4, paddingRight: `calc(${themeVars.spacing.x6} + ${themeVars.spacing.x2})`, fontSize: themeVars.font.sizeLg }
     },
     invalid: {
       true: {
         borderColor: semanticColorRoles.status.danger.border,
         selectors: {
-          "&:hover:not(:disabled)": {
-            borderColor: semanticColorRoles.status.danger.border
-          },
+          "&:hover:not(:disabled)": { borderColor: semanticColorRoles.status.danger.border },
           "&:focus": {
             borderColor: semanticColorRoles.status.danger.border,
             boxShadow: `0 0 0 3px ${semanticColorRoles.status.danger.fill}`
@@ -148,9 +102,7 @@ export const control = recipe({
     hasPlaceholder: {
       true: {
         selectors: {
-          "&:required:invalid": {
-            color: semanticColorRoles.field.placeholder
-          }
+          "&:required:invalid": { color: semanticColorRoles.field.placeholder }
         }
       },
       false: {}
@@ -163,37 +115,14 @@ export const control = recipe({
         paddingRight: themeVars.spacing.x3,
         backgroundImage: "none"
       },
-      false: {
-        paddingRight: themeVars.spacing.x6
-      }
+      false: {}
     }
   },
   compoundVariants: [
-    {
-      variants: {
-        size: "sm",
-        multiple: true
-      },
-      style: {
-        minHeight: "76px"
-      }
-    },
-    {
-      variants: {
-        size: "lg",
-        multiple: true
-      },
-      style: {
-        minHeight: "104px"
-      }
-    }
+    { variants: { size: "sm", multiple: true }, style: { minHeight: "76px", paddingRight: themeVars.spacing.x3 } },
+    { variants: { size: "lg", multiple: true }, style: { minHeight: "104px", paddingRight: themeVars.spacing.x4 } }
   ],
-  defaultVariants: {
-    size: "md",
-    invalid: false,
-    hasPlaceholder: false,
-    multiple: false
-  }
+  defaultVariants: { size: "md", invalid: false, hasPlaceholder: false, multiple: false }
 });
 
 export const indicator = recipe({
@@ -202,46 +131,33 @@ export const indicator = recipe({
     top: "50%",
     right: themeVars.spacing.x3,
     transform: "translateY(-50%)",
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
     width: "10px",
     height: "6px",
     pointerEvents: "none",
     color: semanticColorRoles.field.icon,
     selectors: {
-      "select:disabled + &": {
-        color: semanticColorRoles.text.disabled
-      }
+      "select:disabled + &": { color: semanticColorRoles.text.disabled }
     }
   },
   variants: {
     hidden: {
-      true: {
-        display: "none"
-      },
+      true: { display: "none" },
       false: {}
     }
   },
-  defaultVariants: {
-    hidden: false
-  }
+  defaultVariants: { hidden: false }
 });
 
 export const helperText = recipe({
-  base: {
-    fontFamily: themeVars.font.family,
-    fontSize: themeVars.font.sizeSm,
-    lineHeight: 1.4
-  },
+  base: { fontFamily: themeVars.font.family, fontSize: themeVars.font.sizeSm, lineHeight: 1.4 },
   variants: {
     tone: {
-      neutral: {
-        color: semanticColorRoles.field.helper
-      },
-      danger: {
-        color: semanticColorRoles.status.danger.text
-      }
+      neutral: { color: semanticColorRoles.field.helper },
+      danger: { color: semanticColorRoles.status.danger.text }
     }
   },
-  defaultVariants: {
-    tone: "neutral"
-  }
+  defaultVariants: { tone: "neutral" }
 });

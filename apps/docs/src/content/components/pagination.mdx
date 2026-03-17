@@ -7,3 +7,11 @@ Pagination은 목록 화면의 페이지 이동을 위한 내비게이션 프리
 - 이전/다음/처음/마지막 이동
 - 현재 페이지 강조
 - sibling 기반 페이지 축약
+- 전체 건수 기반 summary 표시
+- tanstack/table 연동용 `usePaginationState`
+
+<h2 id="usage-guidelines">사용 가이드</h2>
+
+- 페이지 버튼은 최소 높이/간격을 일정하게 유지해 표 하단에서도 눌림 영역이 안정적으로 보여야 합니다.
+- `@tanstack/react-table`의 `pageIndex`는 0-base, 컴포넌트의 `page`는 1-base이므로 `usePaginationState`로 변환을 고정하는 편이 안전합니다.
+- 서버 페이지네이션에서도 `totalCount` 또는 `pageCount`만 알면 같은 UI를 재사용할 수 있습니다.
