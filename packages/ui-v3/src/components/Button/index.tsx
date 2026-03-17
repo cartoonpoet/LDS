@@ -1,5 +1,6 @@
 import type { ButtonHTMLAttributes, PropsWithChildren, ReactNode } from "react";
 import * as styles from "./Button.css";
+import { useButtonState } from "./useButtonState";
 
 export type ButtonProps = PropsWithChildren<
   ButtonHTMLAttributes<HTMLButtonElement> & {
@@ -24,6 +25,7 @@ export type ButtonProps = PropsWithChildren<
 export function Button({
   children,
   className,
+  disabled,
   fullWidth = false,
   leadingIcon,
   loading = false,
@@ -32,23 +34,20 @@ export function Button({
   trailingIcon,
   type = "button",
   variant = "solid",
-  disabled,
   ...props
 }: ButtonProps) {
-  const composedClassName = [
-    styles.buttonRecipe({
-      size,
-      tone,
-      variant
-    }),
-    fullWidth ? styles.fullWidth : "",
-    className
-  ]
-    .filter(Boolean)
-    .join(" ");
+  const { buttonClassName, isDisabled } = useButtonState({
+    className,
+    disabled,
+    fullWidth,
+    loading,
+    size,
+    tone,
+    variant
+  });
 
   return (
-    <button className={composedClassName} disabled={disabled || loading} type={type} {...props}>
+    <button className={buttonClassName} disabled={isDisabled} type={type} {...props}>
       <span className={styles.content}>
         {loading ? <span aria-hidden="true" className={styles.spinner} /> : null}
         {!loading && leadingIcon ? <span className={styles.icon}>{leadingIcon}</span> : null}

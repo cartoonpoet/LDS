@@ -1,6 +1,9 @@
 import { forwardRef } from "react";
 import type { InputHTMLAttributes, ReactNode } from "react";
+import { Field, FieldAdornment, FieldControlShell } from "../../foundations/field";
 import * as styles from "./Input.css";
+import { cx } from "../../lib/cx";
+import { useInputState } from "./useInputState";
 
 export type InputProps = Omit<InputHTMLAttributes<HTMLInputElement>, "size"> & {
   label?: string;
@@ -26,41 +29,35 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
   },
   ref
 ) {
-  const hasPrefix = prefix !== undefined && prefix !== null;
-  const hasSuffix = suffix !== undefined && suffix !== null;
-
-  const inputClassName = [
-    styles.input({
-      hasPrefix,
-      hasSuffix,
-      size
-    }),
-    className
-  ]
-    .filter(Boolean)
-    .join(" ");
+  const state = useInputState({
+    disabled,
+    prefix,
+    size,
+    status,
+    suffix
+  });
 
   return (
-    <label className={styles.root}>
-      {label ? (
-        <span className={styles.label}>
-          {label}
-          {required ? <span className={styles.requiredMark}>*</span> : null}
-        </span>
-      ) : null}
-      <span
-        className={styles.controlShell({
-          disabled,
-          size,
-          tone: status
-        })}
-      >
-        {hasPrefix ? <span className={styles.adornment}>{prefix}</span> : null}
-        <input className={inputClassName} disabled={disabled} ref={ref} required={required} {...props} />
-        {hasSuffix ? <span className={styles.adornment}>{suffix}</span> : null}
-      </span>
-      {helperText ? <span className={styles.helperText({ tone: status })}>{helperText}</span> : null}
-    </label>
+    <Field helperText={helperText} label={label} required={required} tone={state.tone}>
+      <FieldControlShell disabled={state.disabled} size={state.size} tone={state.tone}>
+        {state.hasPrefix ? <FieldAdornment>{prefix}</FieldAdornment> : null}
+        <input
+          className={cx(
+            styles.input({
+              hasPrefix: state.hasPrefix,
+              hasSuffix: state.hasSuffix,
+              size: state.size
+            }),
+            className
+          )}
+          disabled={state.disabled}
+          ref={ref}
+          required={required}
+          {...props}
+        />
+        {state.hasSuffix ? <FieldAdornment>{suffix}</FieldAdornment> : null}
+      </FieldControlShell>
+    </Field>
   );
 });
 

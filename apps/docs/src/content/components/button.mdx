@@ -2,7 +2,7 @@ import { ButtonShowcase, Callout } from "../../components/DocPrimitives";
 
 <h2 id="overview">개요</h2>
 
-버튼은 LDS v3에서 가장 핵심이 되는 액션 프리미티브입니다.  
+버튼은 LDS v3 재구축에서 가장 먼저 다듬는 액션 프리미티브입니다.  
 현재 구현은 `solid`, `outline`, `gradient` variant와 여러 tone, size, loading, 앞뒤 아이콘 슬롯을 지원합니다.
 
 <ButtonShowcase />
@@ -14,6 +14,12 @@ import { ButtonShowcase, Callout } from "../../components/DocPrimitives";
 - `size`: `sm | md | lg`
 - `fullWidth`
 - `loading`
+
+<h2 id="rebuild-notes">재구축 메모</h2>
+
+- 시각 상태 계산은 스타일 레시피로 모으고, JSX에서는 읽기 쉬운 구조만 남깁니다.
+- disabled / loading 파생 상태는 컴포넌트 밖의 훅에서 정리해 버튼 본문 책임을 줄입니다.
+- 이후 IconButton, SplitButton 같은 파생형도 같은 액션 foundation 위에서 확장할 예정입니다.
 
 <h2 id="guidelines">사용 가이드</h2>
 

@@ -19,6 +19,12 @@ import { FormShowcase } from "../../components/DocPrimitives";
 - option group 렌더링
 - 우측 화살표 위치 고정 정렬
 
+<h2 id="rebuild-notes">재구축 메모</h2>
+
+- `Select`는 새 field foundation과 같은 문맥으로 정리해 Input과 label/helper 구조를 맞췄습니다.
+- 아직 native `<select>`를 유지해 접근성과 폼 제출 호환성을 우선 확보합니다.
+- searchable / async / command palette형 선택 컴포넌트는 별도 조합형으로 분리할 예정입니다.
+
 <h2 id="dropdown-guidelines">드롭다운 사용 가이드</h2>
 
 - 옵션 수가 적고 탐색 비용이 낮을 때 기본 `Select`를 우선 사용합니다.
@@ -29,4 +35,4 @@ import { FormShowcase } from "../../components/DocPrimitives";
 <h2 id="integration-notes">적용 메모</h2>
 
 기본 `Select`는 native `<select>`를 유지하므로 접근성과 폼 제출 호환성이 좋습니다.
-이번 정리에서는 입력 높이, label/caption 구조, indicator 위치를 함께 맞춰 size별로 레이아웃이 흔들리지 않도록 조정했습니다.
+현재 단계에서는 Input과 같은 foundation을 공유하도록 구조를 정리하는 데 집중했습니다.

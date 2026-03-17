@@ -1,6 +1,9 @@
 import { forwardRef } from "react";
 import type { SelectHTMLAttributes } from "react";
+import { Field } from "../../foundations/field";
 import * as styles from "./Select.css";
+import { cx } from "../../lib/cx";
+import { useSelectState } from "./useSelectState";
 
 export type SelectOption = {
   label: string;
@@ -31,8 +34,8 @@ export type SelectProps = Omit<SelectHTMLAttributes<HTMLSelectElement>, "size"> 
 
 export const Select = forwardRef<HTMLSelectElement, SelectProps>(function Select(
   {
-    className,
     caption,
+    className,
     disabled,
     helperText,
     invalid = false,
@@ -46,41 +49,29 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(function Select
   },
   ref
 ) {
-  const hasPlaceholder = Boolean(placeholder) && !multiple;
-  const selectClassName = [
-    styles.control({
-      hasPlaceholder,
-      invalid,
-      multiple,
-      size
-    }),
-    className
-  ]
-    .filter(Boolean)
-    .join(" ");
+  const state = useSelectState({ invalid, multiple, placeholder, size });
 
   return (
-    <label className={styles.root}>
-      {label ? (
-        <span className={styles.labelRow}>
-          <span className={styles.label}>
-            {label}
-            {required ? <span className={styles.requiredMark}>*</span> : null}
-          </span>
-          {caption ? <span className={styles.caption}>{caption}</span> : null}
-        </span>
-      ) : null}
+    <Field caption={caption} helperText={helperText} label={label} required={required} tone={state.tone}>
       <span className={styles.controlShell}>
         <select
-          className={selectClassName}
-          defaultValue={hasPlaceholder ? "" : props.defaultValue}
+          className={cx(
+            styles.control({
+              hasPlaceholder: state.hasPlaceholder,
+              invalid,
+              multiple: state.multiple,
+              size: state.size
+            }),
+            className
+          )}
+          defaultValue={state.hasPlaceholder ? "" : props.defaultValue}
           disabled={disabled}
-          multiple={multiple}
+          multiple={state.multiple}
           ref={ref}
-          required={required || hasPlaceholder}
+          required={required || state.hasPlaceholder}
           {...props}
         >
-          {hasPlaceholder ? (
+          {state.hasPlaceholder ? (
             <option disabled hidden value="">
               {placeholder}
             </option>
@@ -101,20 +92,13 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(function Select
             )
           )}
         </select>
-        <span aria-hidden="true" className={styles.indicator({ hidden: multiple })}>
+        <span aria-hidden="true" className={styles.indicator({ hidden: state.multiple })}>
           <svg fill="none" height="6" viewBox="0 0 10 6" width="10" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M1 1L5 5L9 1"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="1.4"
-            />
+            <path d="M1 1L5 5L9 1" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.4" />
           </svg>
         </span>
       </span>
-      {helperText ? <span className={styles.helperText({ tone: invalid ? "danger" : "neutral" })}>{helperText}</span> : null}
-    </label>
+    </Field>
   );
 });
 
