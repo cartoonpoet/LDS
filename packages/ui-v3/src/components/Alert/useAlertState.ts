@@ -48,8 +48,7 @@ export function useAlertState({
       styles.alertRoot({
         type: resolvedType,
         size: resolvedSize,
-        layout: resolvedLayout,
-        hasActions
+        layout: resolvedLayout
       }),
       className
     )

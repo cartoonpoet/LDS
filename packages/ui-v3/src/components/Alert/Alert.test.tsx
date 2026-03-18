@@ -52,4 +52,24 @@ describe("Alert", () => {
     expect(screen.getByRole("button", { name: "Approve" })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Reject" })).toBeInTheDocument();
   });
+
+  it("renders expanded layout action combinations without dropping controls", () => {
+    render(
+      <>
+        <Alert layout="expanded" showCloseButton title="Close only">
+          Body
+        </Alert>
+        <Alert layout="expanded" textButton textAction={{ label: "Details" }} title="Text only">
+          Body
+        </Alert>
+        <Alert layout="expanded" button action={{ label: "Approve" }} showCloseButton title="Mixed actions">
+          Body
+        </Alert>
+      </>
+    );
+
+    expect(screen.getAllByRole("button", { name: "Close alert" })).toHaveLength(2);
+    expect(screen.getByRole("button", { name: "Details" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Approve" })).toBeInTheDocument();
+  });
 });

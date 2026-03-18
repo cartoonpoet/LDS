@@ -1,4 +1,4 @@
-import { style } from "@vanilla-extract/css";
+import { style, styleVariants } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 import { semanticColorRoles, themeVars } from "@lds/tokens";
 
@@ -48,71 +48,57 @@ export const alertRoot = recipe({
       default: {
         gridTemplateColumns: "minmax(0, 1fr) auto",
         alignItems: "flex-start",
-        gap: "8px"
+        columnGap: themeVars.spacing.x3
       },
       expanded: {
-        gap: themeVars.spacing.x3
-      }
-    },
-    hasActions: {
-      true: {},
-      false: {}
-    }
-  },
-  compoundVariants: [
-    {
-      variants: {
-        layout: "expanded",
-        hasActions: true
-      },
-      style: {
-        gridTemplateColumns: "1fr",
-        alignItems: "stretch"
-      }
-    },
-    {
-      variants: {
-        layout: "expanded",
-        hasActions: false
-      },
-      style: {
-        gridTemplateColumns: "1fr"
-      }
-    }
-  ],
-  defaultVariants: {
-    type: "info",
-    size: "medium",
-    layout: "default",
-    hasActions: false
-  }
-});
-
-export const content = recipe({
-  base: {
-    minWidth: 0
-  },
-  variants: {
-    layout: {
-      default: {
-        display: "grid",
-        gridTemplateColumns: "16px minmax(0, 1fr)",
-        alignItems: "flex-start",
-        columnGap: "8px"
-      },
-      expanded: {
-        display: "grid",
+        gridTemplateColumns: "minmax(0, 1fr)",
         rowGap: themeVars.spacing.x2
       }
     }
   },
   defaultVariants: {
+    type: "info",
+    size: "medium",
     layout: "default"
   }
 });
 
-export const leadingRow = style({
-  display: "contents"
+const contentAreaBase = style({
+  minWidth: 0
+});
+
+export const contentArea = styleVariants({
+  default: [contentAreaBase],
+  expanded: [
+    contentAreaBase,
+    {
+      display: "grid",
+      rowGap: themeVars.spacing.x2
+    }
+  ]
+});
+
+const bodyRowBase = style({
+  display: "grid",
+  gridTemplateColumns: "16px minmax(0, 1fr)",
+  columnGap: themeVars.spacing.x2,
+  alignItems: "flex-start",
+  minWidth: 0
+});
+
+export const bodyRow = styleVariants({
+  medium: [
+    bodyRowBase,
+    {
+      minHeight: "20px"
+    }
+  ],
+  small: [
+    bodyRowBase,
+    {
+      minHeight: "16px"
+    }
+  ]
 });
 
 export const iconWrap = recipe({
@@ -123,7 +109,6 @@ export const iconWrap = recipe({
     width: "16px",
     height: "16px",
     flexShrink: 0,
-    marginTop: "1px",
     fontSize: "12px",
     lineHeight: 1
   },
@@ -141,15 +126,34 @@ export const iconWrap = recipe({
       secret: {
         color: semanticColorRoles.alert.neutral.icon
       }
+    },
+    size: {
+      medium: {
+        marginTop: "1px"
+      },
+      small: {
+        marginTop: 0
+      }
     }
   },
   defaultVariants: {
-    type: "info"
+    type: "info",
+    size: "medium"
   }
 });
 
-export const body = style({
+const bodyBase = style({
   minWidth: 0
+});
+
+export const body = styleVariants({
+  default: [bodyBase],
+  expanded: [
+    bodyBase,
+    {
+      paddingRight: themeVars.spacing.x1
+    }
+  ]
 });
 
 export const title = recipe({
@@ -215,56 +219,129 @@ export const actionArea = recipe({
     layout: {
       default: {
         display: "inline-flex",
-        alignItems: "center",
+        alignItems: "flex-start",
         justifySelf: "end",
-        alignSelf: "flex-start",
         gap: themeVars.spacing.x2
       },
       expanded: {
         display: "flex",
-        alignItems: "center",
+        alignItems: "flex-start",
         justifyContent: "space-between",
         gap: themeVars.spacing.x3,
-        marginTop: themeVars.spacing.x2
+        minHeight: "24px"
       }
+    },
+    hasButtons: {
+      true: {},
+      false: {}
+    },
+    hasTextButton: {
+      true: {},
+      false: {}
+    },
+    hasCloseButton: {
+      true: {},
+      false: {}
     }
   },
+  compoundVariants: [
+    {
+      variants: {
+        layout: "default",
+        hasButtons: false,
+        hasTextButton: false,
+        hasCloseButton: true
+      },
+      style: {
+        alignItems: "center"
+      }
+    },
+    {
+      variants: {
+        layout: "expanded",
+        hasButtons: false,
+        hasTextButton: false,
+        hasCloseButton: true
+      },
+      style: {
+        justifyContent: "flex-end"
+      }
+    },
+    {
+      variants: {
+        layout: "expanded",
+        hasButtons: false,
+        hasTextButton: true,
+        hasCloseButton: false
+      },
+      style: {
+        justifyContent: "flex-start"
+      }
+    }
+  ],
   defaultVariants: {
-    layout: "default"
+    layout: "default",
+    hasButtons: false,
+    hasTextButton: false,
+    hasCloseButton: false
   }
 });
 
-export const buttonGroup = style({
+const actionGroupBase = style({
   display: "inline-flex",
   alignItems: "center",
   gap: themeVars.spacing.x2,
-  flexWrap: "wrap"
+  flexWrap: "wrap",
+  minWidth: 0
 });
+
+export const actionGroup = styleVariants({
+  default: [
+    actionGroupBase,
+    {
+      justifyContent: "flex-end"
+    }
+  ],
+  expanded: [
+    actionGroupBase,
+    {
+      flex: 1,
+      justifyContent: "flex-start"
+    }
+  ]
+});
+
+const interactiveReset = {
+  border: 0,
+  fontFamily: themeVars.font.family,
+  cursor: "pointer",
+  selectors: {
+    "&:focus-visible": {
+      outline: "none",
+      boxShadow: themeVars.shadow.focus
+    }
+  }
+} as const;
 
 export const actionButton = recipe({
   base: {
+    ...interactiveReset,
     minWidth: "42px",
     height: "24px",
     padding: `0 ${themeVars.spacing.x2}`,
-    border: 0,
     borderRadius: themeVars.radius.sm,
-    fontFamily: themeVars.font.family,
     fontSize: themeVars.font.sizeSm,
     fontWeight: themeVars.font.weightBold,
     lineHeight: 1,
-    cursor: "pointer",
     transition: "background-color 120ms ease, box-shadow 120ms ease, transform 80ms ease",
     selectors: {
+      ...interactiveReset.selectors,
       "&:hover": {
         boxShadow: themeVars.shadow.raised
       },
       "&:active": {
         transform: "translateY(1px)",
         boxShadow: "none"
-      },
-      "&:focus-visible": {
-        outline: "none",
-        boxShadow: themeVars.shadow.focus
       }
     }
   },
@@ -308,49 +385,52 @@ export const actionButton = recipe({
 });
 
 export const textButton = style({
-  border: 0,
+  ...interactiveReset,
   background: "transparent",
   color: semanticColorRoles.alert.action.primary.background,
   padding: 0,
-  cursor: "pointer",
-  fontFamily: themeVars.font.family,
   fontSize: themeVars.font.sizeSm,
   fontWeight: themeVars.font.weightBold,
-  lineHeight: "20px"
+  lineHeight: "20px",
+  textDecoration: "none",
+  selectors: {
+    ...interactiveReset.selectors,
+    "&:hover": {
+      textDecoration: "underline"
+    }
+  }
 });
 
 export const closeButton = recipe({
   base: {
+    ...interactiveReset,
     display: "inline-flex",
     alignItems: "center",
     justifyContent: "center",
     width: "20px",
     height: "20px",
-    border: 0,
     borderRadius: themeVars.radius.sm,
     background: "transparent",
     color: semanticColorRoles.text.heading,
-    cursor: "pointer",
     padding: 0,
     fontSize: "14px",
     lineHeight: 1,
+    flexShrink: 0,
     selectors: {
+      ...interactiveReset.selectors,
       "&:hover": {
         backgroundColor: semanticColorRoles.surface.subtle
-      },
-      "&:focus-visible": {
-        outline: "none",
-        boxShadow: themeVars.shadow.focus
       }
     }
   },
   variants: {
     layout: {
       default: {
-        alignSelf: "flex-start",
-        justifySelf: "end"
+        marginTop: "2px"
       },
-      expanded: {}
+      expanded: {
+        marginTop: "2px"
+      }
     }
   },
   defaultVariants: {

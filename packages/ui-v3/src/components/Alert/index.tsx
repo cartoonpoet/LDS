@@ -80,24 +80,32 @@ export function Alert({
   const hasTitle = Boolean(title);
   const shouldRenderButtons = button ?? hasButtons;
   const shouldRenderTextButton = textButton ?? Boolean(resolvedActions.textAction);
+  const shouldRenderActions = shouldRenderButtons || shouldRenderTextButton || hasCloseButton;
 
   return (
     <div className={rootClassName} role="alert" {...props}>
-      <div className={styles.content({ layout: resolvedLayout })}>
-        <div className={styles.leadingRow}>
-          <span aria-hidden="true" className={styles.iconWrap({ type: resolvedType })}>
+      <div className={styles.contentArea[resolvedLayout]}>
+        <div className={styles.bodyRow[resolvedSize]}>
+          <span aria-hidden="true" className={styles.iconWrap({ size: resolvedSize, type: resolvedType })}>
             {leadingIcon}
           </span>
-          <div className={styles.body}>
+          <div className={styles.body[resolvedLayout]}>
             {title ? <p className={styles.title({ size: resolvedSize })}>{title}</p> : null}
             {children ? <div className={styles.description({ hasTitle, size: resolvedSize })}>{children}</div> : null}
           </div>
         </div>
       </div>
 
-      {shouldRenderButtons || shouldRenderTextButton || hasCloseButton ? (
-        <div className={styles.actionArea({ layout: resolvedLayout })}>
-          <div className={styles.buttonGroup}>
+      {shouldRenderActions ? (
+        <div
+          className={styles.actionArea({
+            layout: resolvedLayout,
+            hasButtons: shouldRenderButtons,
+            hasTextButton: shouldRenderTextButton,
+            hasCloseButton
+          })}
+        >
+          <div className={styles.actionGroup[resolvedLayout]}>
             {shouldRenderTextButton && resolvedActions.textAction ? (
               <button className={styles.textButton} onClick={resolvedActions.textAction.onClick} type="button">
                 {resolvedActions.textAction.label}

@@ -21,7 +21,7 @@ const meta: Meta<typeof Alert> = {
     docs: {
       description: {
         component:
-          "LDS 행형 알림 컴포넌트입니다. A안 재구축 규칙에 맞춰 type / size / layout / action 축을 분리했습니다.\n\n현재 1차 기준점은 `Info + Medium + Default + xButton(true) + textButton(false) + button(false)` 조합이며, 나머지 축은 같은 구조에서 확장할 수 있도록 정리했습니다.\n\n기본 아이콘은 새로 정리한 `Icon` registry를 통해 연결되며, Alert type(`info`, `confirm`, `saveTemporarily`, `secret`)에 맞춰 source SVG를 semantic color 기반으로 렌더링합니다."
+          "LDS 행형 알림 컴포넌트입니다. A안 재구축 규칙에 맞춰 type / size / layout / action 축을 분리했습니다.\n\n이번 보정에서는 `expanded` 레이아웃이 `display: contents`에 의존하지 않도록 body row와 action row를 명시적으로 나눠, icon / body / action / close 정렬을 variant 조합별로 안정적으로 제어하도록 정리했습니다.\n\n기본 아이콘은 `Icon` registry를 통해 연결되며, Alert type(`info`, `confirm`, `saveTemporarily`, `secret`)에 맞춰 source SVG를 semantic color 기반으로 렌더링합니다."
       }
     }
   },
@@ -121,6 +121,75 @@ export function Example() {
   );
 }`,
       "Alert type별 기본 SVG 아이콘 매핑을 빠르게 확인하는 문서용 matrix입니다."
+    )
+  }
+};
+
+export const ExpandedVariantMatrix: Story = {
+  name: "Expanded variant matrix",
+  render: () => (
+    <div style={{ display: "grid", gap: "12px" }}>
+      <Alert layout="expanded" type="confirm" title="의견 검토 중" showCloseButton>
+        닫기 버튼만 있는 expanded 조합입니다.
+      </Alert>
+      <Alert
+        layout="expanded"
+        type="saveTemporarily"
+        title="임시 저장됨"
+        textButton
+        textAction={{ label: "자세히 보기" }}
+      >
+        텍스트 버튼만 있는 expanded 조합입니다.
+      </Alert>
+      <Alert
+        layout="expanded"
+        type="secret"
+        title="보안 설정 필요"
+        button
+        action={{ label: "설정" }}
+        secondaryAction={{ label: "나중에", tone: "warning" }}
+        showCloseButton
+      >
+        버튼 + 닫기 버튼이 함께 있을 때도 action row가 안정적으로 유지됩니다.
+      </Alert>
+    </div>
+  ),
+  parameters: {
+    ...withCode(
+      `import { Alert } from "@lds/ui-v3";
+
+export function Example() {
+  return (
+    <>
+      <Alert layout="expanded" type="confirm" title="의견 검토 중" showCloseButton>
+        닫기 버튼만 있는 expanded 조합입니다.
+      </Alert>
+
+      <Alert
+        layout="expanded"
+        type="saveTemporarily"
+        title="임시 저장됨"
+        textButton
+        textAction={{ label: "자세히 보기" }}
+      >
+        텍스트 버튼만 있는 expanded 조합입니다.
+      </Alert>
+
+      <Alert
+        layout="expanded"
+        type="secret"
+        title="보안 설정 필요"
+        button
+        action={{ label: "설정" }}
+        secondaryAction={{ label: "나중에", tone: "warning" }}
+        showCloseButton
+      >
+        버튼 + 닫기 버튼이 함께 있을 때도 action row가 안정적으로 유지됩니다.
+      </Alert>
+    </>
+  );
+}`,
+      "expanded에서 close-only / text-only / buttons+close 조합이 각각 자연스럽게 정렬되는지 확인하는 QA용 matrix입니다."
     )
   }
 };
