@@ -19,8 +19,28 @@ const variantMeta = {
   }
 } as const;
 
+const componentQuickDecision: Record<string, { useFor: string; checkFirst: string }> = {
+  button: {
+    useFor: "핵심 CTA와 보조 액션의 우선순위를 빠르게 나눌 때",
+    checkFirst: "variant 강조 차이와 같은 그룹 안의 액션 개수"
+  },
+  input: {
+    useFor: "자유 입력과 상태 피드백을 같은 흐름에서 읽혀야 할 때",
+    checkFirst: "label / helper / validation 리듬과 adornment 밀도"
+  },
+  select: {
+    useFor: "허용된 옵션 중 하나를 안정적으로 고르게 할 때",
+    checkFirst: "옵션 수, searchable 필요 여부, invalid 상태 표현"
+  },
+  alert: {
+    useFor: "현재 화면 맥락을 끊지 않고 상태 변화나 경고를 알려야 할 때",
+    checkFirst: "default vs expanded 레이아웃과 액션 수"
+  }
+};
+
 export function DocsPageHeader({ entry, variant = "detail" }: DocsPageHeaderProps) {
   const meta = variantMeta[variant];
+  const quickDecision = entry.pageType === "component" ? componentQuickDecision[entry.id] : undefined;
 
   return (
     <header className="docs-page-header" data-variant={variant}>
@@ -37,6 +57,19 @@ export function DocsPageHeader({ entry, variant = "detail" }: DocsPageHeaderProp
       </div>
 
       <p className="docs-summary">{entry.summary}</p>
+
+      {quickDecision ? (
+        <div className="docs-header-decision-strip">
+          <div className="docs-header-decision-card">
+            <span>Use for</span>
+            <strong>{quickDecision.useFor}</strong>
+          </div>
+          <div className="docs-header-decision-card">
+            <span>Check first</span>
+            <strong>{quickDecision.checkFirst}</strong>
+          </div>
+        </div>
+      ) : null}
 
       <div className="docs-header-meta-row">
         <span className="docs-meta-pill">{entry.sectionLabel}</span>

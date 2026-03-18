@@ -5,6 +5,7 @@ import TypographyDoc from "../content/foundations/typography.mdx";
 import ButtonDoc from "../content/components/button.mdx";
 import InputDoc from "../content/components/input.mdx";
 import SelectDoc from "../content/components/select.mdx";
+import AlertDoc from "../content/components/alert.mdx";
 import DrawerDoc from "../content/components/drawer.mdx";
 import TreeViewDoc from "../content/components/tree-view.mdx";
 import TableTreeDoc from "../content/components/table-tree.mdx";
@@ -111,9 +112,10 @@ export const docsRegistry: DocEntry[] = [
     navLabel: "핵심 액션 프리미티브",
     pageType: "component",
     toc: [
-      { id: "overview", label: "개요" },
-      { id: "props-in-use", label: "주요 props" },
-      { id: "guidelines", label: "사용 가이드" }
+      { id: "overview", label: "Overview" },
+      { id: "when-to-use", label: "When to use" },
+      { id: "variants", label: "Variants" },
+      { id: "usage-guidance", label: "Usage guidance" }
     ],
     Component: ButtonDoc
   }),
@@ -127,9 +129,10 @@ export const docsRegistry: DocEntry[] = [
     navLabel: "필드 상태와 확장 방향",
     pageType: "component",
     toc: [
-      { id: "overview", label: "개요" },
-      { id: "current-status", label: "현재 상태" },
-      { id: "planned-enhancements", label: "예정된 확장" }
+      { id: "overview", label: "Overview" },
+      { id: "when-to-use", label: "When to use" },
+      { id: "variants", label: "Variants" },
+      { id: "usage-guidance", label: "Usage guidance" }
     ],
     Component: InputDoc
   }),
@@ -143,11 +146,29 @@ export const docsRegistry: DocEntry[] = [
     navLabel: "선택 입력의 기본 패턴",
     pageType: "component",
     toc: [
-      { id: "overview", label: "개요" },
-      { id: "intended-evolution", label: "확장 방향" },
-      { id: "integration-notes", label: "적용 메모" }
+      { id: "overview", label: "Overview" },
+      { id: "when-to-use", label: "When to use" },
+      { id: "variants", label: "Variants" },
+      { id: "usage-guidance", label: "Usage guidance" }
     ],
     Component: SelectDoc
+  }),
+  createDocEntry({
+    id: "alert",
+    slug: ["components", "alert"],
+    title: "Alert",
+    sectionId: "components",
+    sectionLabel: "컴포넌트",
+    summary: "상태 안내를 한 줄 또는 확장형 블록으로 빠르게 전달하는 피드백 패턴을 정리합니다.",
+    navLabel: "빠른 상태 안내 패턴",
+    pageType: "component",
+    toc: [
+      { id: "overview", label: "Overview" },
+      { id: "when-to-use", label: "When to use" },
+      { id: "variants", label: "Variants" },
+      { id: "usage-guidance", label: "Usage guidance" }
+    ],
+    Component: AlertDoc
   }),
   createDocEntry({
     id: "drawer",
@@ -221,8 +242,8 @@ export const docsRegistry: DocEntry[] = [
     sectionLabel: "컴포넌트",
     summary: "앱 최상단의 글로벌 내비게이션 프리미티브입니다.",
     navLabel: "글로벌 내비게이션",
-    pageType: "component",
     toc: [{ id: "overview", label: "개요" }],
+    pageType: "component",
     Component: GnbDoc
   }),
   createDocEntry({
@@ -233,8 +254,8 @@ export const docsRegistry: DocEntry[] = [
     sectionLabel: "컴포넌트",
     summary: "좌측 정보 구조를 단계적으로 여는 로컬 내비게이션 프리미티브입니다.",
     navLabel: "로컬 내비게이션",
-    pageType: "component",
     toc: [{ id: "overview", label: "개요" }],
+    pageType: "component",
     Component: LnbDoc
   })
 ];
