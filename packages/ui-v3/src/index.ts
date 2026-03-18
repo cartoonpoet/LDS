@@ -8,6 +8,8 @@ export { Tabs } from "./components/Tabs";
 export type { TabItem, TabsProps } from "./components/Tabs";
 export { Alert } from "./components/Alert";
 export type { AlertProps } from "./components/Alert";
+export { Icon } from "./components/Icon";
+export type { IconName, IconProps, IconSize } from "./components/Icon";
 export { Badge } from "./components/Badge";
 export type { BadgeProps } from "./components/Badge";
 export { Chip } from "./components/Chip";

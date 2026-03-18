@@ -1,5 +1,7 @@
 import type { ButtonHTMLAttributes, HTMLAttributes, ReactNode } from "react";
+import { Icon } from "../Icon";
 import * as styles from "./Alert.css";
+import { useAlertIcon } from "./useAlertIcon";
 import { useAlertState } from "./useAlertState";
 
 export type AlertType = "info" | "confirm" | "saveTemporarily" | "secret";
@@ -73,7 +75,8 @@ export function Alert({
     type
   });
 
-  const leadingIcon = icon ?? getDefaultIcon(resolvedType);
+  const defaultIcon = useAlertIcon(resolvedType);
+  const leadingIcon = icon ?? defaultIcon;
   const hasTitle = Boolean(title);
   const shouldRenderButtons = button ?? hasButtons;
   const shouldRenderTextButton = textButton ?? Boolean(resolvedActions.textAction);
@@ -113,25 +116,11 @@ export function Alert({
           </div>
           {hasCloseButton ? (
             <button aria-label="Close alert" className={styles.closeButton({ layout: resolvedLayout })} onClick={onClose} type="button">
-              ×
+              <Icon name="close" size="sm" />
             </button>
           ) : null}
         </div>
       ) : null}
     </div>
   );
-}
-
-function getDefaultIcon(type: AlertType) {
-  switch (type) {
-    case "saveTemporarily":
-      return "✓";
-    case "secret":
-      return "!";
-    case "confirm":
-      return "•";
-    case "info":
-    default:
-      return "i";
-  }
 }

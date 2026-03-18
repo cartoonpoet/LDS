@@ -27,6 +27,16 @@ describe("Alert", () => {
     expect(onClose).toHaveBeenCalledTimes(1);
   });
 
+  it("renders svg icons for alert body and close action", () => {
+    const { container } = render(
+      <Alert showCloseButton title="Notice">
+        Saved
+      </Alert>
+    );
+
+    expect(container.querySelectorAll("svg")).toHaveLength(2);
+  });
+
   it("renders action buttons when the button axis is enabled", () => {
     render(
       <Alert
