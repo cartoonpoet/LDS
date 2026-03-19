@@ -1,235 +1,90 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { lightThemeClass } from "@lds/tokens";
 import { Alert } from ".";
-
-const withCode = (code: string, description: string) => ({
-  docs: {
-    description: {
-      story: description
-    },
-    source: {
-      code
-    }
-  }
-});
+import { lightThemeClass } from "@lds/tokens";
 
 const meta: Meta<typeof Alert> = {
   title: "Components/Alert",
   component: Alert,
+  decorators: [(Story) => <div className={lightThemeClass}><Story /></div>],
   tags: ["autodocs"],
-  parameters: {
-    docs: {
-      description: {
-        component:
-          "LDS 행형 알림 컴포넌트입니다. A안 재구축 규칙에 맞춰 type / size / layout / action 축을 분리했습니다.\n\n이번 보정에서는 `expanded` 레이아웃이 `display: contents`에 의존하지 않도록 body row와 action row를 명시적으로 나눠, icon / body / action / close 정렬을 variant 조합별로 안정적으로 제어하도록 정리했습니다.\n\n기본 아이콘은 `Icon` registry를 통해 연결되며, Alert type(`info`, `confirm`, `saveTemporarily`, `secret`)에 맞춰 source SVG를 semantic color 기반으로 렌더링합니다."
-      }
-    }
-  },
+};
+export default meta;
+type Story = StoryObj<typeof Alert>;
+
+export const Info: Story = {
   args: {
     type: "info",
-    size: "medium",
-    layout: "default",
-    title: "중요!",
-    children: "이것은 기본 알림입니다. 확인해주세요!",
-    showCloseButton: true,
-    button: false,
-    textButton: false
+    children: "중요! 이것은 기본 알림입니다. 확인해주세요!",
+    closable: true,
   },
-  decorators: [
-    Story => (
-      <div className={lightThemeClass} style={{ padding: "24px", width: "560px", background: "#f4f6fb" }}>
-        <Story />
-      </div>
-    )
-  ]
 };
 
-export default meta;
-
-type Story = StoryObj<typeof meta>;
-
-export const InfoMediumDefaultX: Story = {
-  name: "Info / Medium / Default / X",
-  parameters: {
-    ...withCode(
-      `import { Alert } from "@lds/ui-v3";
-
-export function Example() {
-  return (
-    <Alert
-      type="info"
-      size="medium"
-      layout="default"
-      title="중요!"
-      showCloseButton
-    >
-      이것은 기본 알림입니다. 확인해주세요!
-    </Alert>
-  );
-}`,
-      "사용자 CSS 기준 1차 타깃 조합입니다. 버튼 없이 닫기 버튼만 노출합니다."
-    )
-  }
-};
-
-export const SaveTemporarilySmall: Story = {
-  args: {
-    type: "saveTemporarily",
-    size: "small",
-    title: "임시저장",
-    children: "지금 상태로 저장되었습니다.",
-    showCloseButton: false
-  },
-  parameters: {
-    ...withCode(
-      `import { Alert } from "@lds/ui-v3";
-
-export function Example() {
-  return (
-    <Alert type="saveTemporarily" size="small" title="임시저장">
-      지금 상태로 저장되었습니다.
-    </Alert>
-  );
-}`,
-      "작은 크기의 저장 상태 알림 예시입니다."
-    )
-  }
-};
-
-export const AlertTypeIconMatrix: Story = {
-  name: "Alert type icon matrix",
-  render: () => (
-    <div style={{ display: "grid", gap: "12px" }}>
-      <Alert type="info" title="안내">기본 안내 아이콘 연결</Alert>
-      <Alert type="confirm" title="확인">체크 아이콘 연결</Alert>
-      <Alert type="saveTemporarily" title="임시저장">저장 아이콘 연결</Alert>
-      <Alert type="secret" title="보안">잠금 아이콘 연결</Alert>
-    </div>
-  ),
-  parameters: {
-    ...withCode(
-      `import { Alert } from "@lds/ui-v3";
-
-export function Example() {
-  return (
-    <>
-      <Alert type="info" title="안내">기본 안내 아이콘 연결</Alert>
-      <Alert type="confirm" title="확인">체크 아이콘 연결</Alert>
-      <Alert type="saveTemporarily" title="임시저장">저장 아이콘 연결</Alert>
-      <Alert type="secret" title="보안">잠금 아이콘 연결</Alert>
-    </>
-  );
-}`,
-      "Alert type별 기본 SVG 아이콘 매핑을 빠르게 확인하는 문서용 matrix입니다."
-    )
-  }
-};
-
-export const ExpandedVariantMatrix: Story = {
-  name: "Expanded variant matrix",
-  render: () => (
-    <div style={{ display: "grid", gap: "12px" }}>
-      <Alert layout="expanded" type="confirm" title="의견 검토 중" showCloseButton>
-        닫기 버튼만 있는 expanded 조합입니다.
-      </Alert>
-      <Alert
-        layout="expanded"
-        type="saveTemporarily"
-        title="임시 저장됨"
-        textButton
-        textAction={{ label: "자세히 보기" }}
-      >
-        텍스트 버튼만 있는 expanded 조합입니다.
-      </Alert>
-      <Alert
-        layout="expanded"
-        type="secret"
-        title="보안 설정 필요"
-        button
-        action={{ label: "설정" }}
-        secondaryAction={{ label: "나중에", tone: "warning" }}
-        showCloseButton
-      >
-        버튼 + 닫기 버튼이 함께 있을 때도 action row가 안정적으로 유지됩니다.
-      </Alert>
-    </div>
-  ),
-  parameters: {
-    ...withCode(
-      `import { Alert } from "@lds/ui-v3";
-
-export function Example() {
-  return (
-    <>
-      <Alert layout="expanded" type="confirm" title="의견 검토 중" showCloseButton>
-        닫기 버튼만 있는 expanded 조합입니다.
-      </Alert>
-
-      <Alert
-        layout="expanded"
-        type="saveTemporarily"
-        title="임시 저장됨"
-        textButton
-        textAction={{ label: "자세히 보기" }}
-      >
-        텍스트 버튼만 있는 expanded 조합입니다.
-      </Alert>
-
-      <Alert
-        layout="expanded"
-        type="secret"
-        title="보안 설정 필요"
-        button
-        action={{ label: "설정" }}
-        secondaryAction={{ label: "나중에", tone: "warning" }}
-        showCloseButton
-      >
-        버튼 + 닫기 버튼이 함께 있을 때도 action row가 안정적으로 유지됩니다.
-      </Alert>
-    </>
-  );
-}`,
-      "expanded에서 close-only / text-only / buttons+close 조합이 각각 자연스럽게 정렬되는지 확인하는 QA용 matrix입니다."
-    )
-  }
-};
-
-export const ConfirmExpandedWithActions: Story = {
+export const Confirm: Story = {
   args: {
     type: "confirm",
-    layout: "expanded",
-    title: "의견 검토 중",
-    children: "검토 상태를 확인하고 필요한 조치를 진행해주세요.",
-    button: true,
-    action: {
-      label: "승인"
-    },
-    secondaryAction: {
-      label: "반려",
-      tone: "warning"
-    },
-    showCloseButton: true
+    children: "의견 검토 중 (검토자 : 김팀장 / 검토상태 : 확인 중)",
+    closable: true,
   },
-  parameters: {
-    ...withCode(
-      `import { Alert } from "@lds/ui-v3";
+};
 
-export function Example() {
-  return (
-    <Alert
-      type="confirm"
-      layout="expanded"
-      title="의견 검토 중"
-      button
-      action={{ label: "승인" }}
-      secondaryAction={{ label: "반려", tone: "warning" }}
-      showCloseButton
-    >
-      검토 상태를 확인하고 필요한 조치를 진행해주세요.
-    </Alert>
-  );
-}`,
-      "확장 레이아웃에서 CTA를 함께 배치하는 구조입니다."
-    )
-  }
+export const Secret: Story = {
+  args: {
+    type: "secret",
+    children: "비밀 문서입니다. 열람 권한을 확인하세요.",
+    closable: true,
+  },
+};
+
+export const SaveTemporarily: Story = {
+  args: {
+    type: "saveTemporarily",
+    children: "임시 저장된 문서가 있습니다.",
+    closable: true,
+  },
+};
+
+export const Expanded: Story = {
+  args: {
+    type: "info",
+    title: "알림 제목",
+    children: "이것은 확장된 알림입니다. 제목과 본문이 분리됩니다.",
+    closable: true,
+  },
+};
+
+export const Small: Story = {
+  args: {
+    type: "info",
+    size: "small",
+    children: "작은 사이즈 알림입니다.",
+    closable: true,
+  },
+};
+
+export const WithTextButton: Story = {
+  args: {
+    type: "info",
+    children: "중요! 이것은 기본 알림입니다. 확인해주세요!",
+    textButton: { label: "자세히 보기", onClick: () => alert("clicked") },
+  },
+};
+
+export const WithActionButtons: Story = {
+  args: {
+    type: "confirm",
+    title: "의견 검토 중",
+    children: "의견 검토 중 (검토자 : 강팀장, 권팀장, 김팀장, 문팀장, 박팀장)",
+    actions: [
+      { label: "승인", intent: "primary", onClick: () => alert("승인") },
+      { label: "반려", intent: "warning", onClick: () => alert("반려") },
+    ],
+  },
+};
+
+export const NoDismiss: Story = {
+  args: {
+    type: "info",
+    children: "닫기 버튼이 없는 알림입니다.",
+    closable: false,
+  },
 };

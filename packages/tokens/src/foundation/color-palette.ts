@@ -135,6 +135,30 @@ export const opacityPalette = {
   primaryActive: "rgba(23, 57, 165, 0.12)"
 } as const;
 
+export const bootstrapPalette = {
+  blue: "#0d6efd",
+  purple: "#6f42c1",
+  red: "#dc3545",
+  pink: "#d63384",
+  orange: "#fd7e14",
+  yellow: "#ffc107",
+  green: "#198754",
+  emerald: "#2bdac7",
+  teal: "#20c997",
+  cyan: "#0dcaf0",
+  gray: "#adb5bd",
+} as const;
+
+export const socialPalette = {
+  youtube: "#c4302b",
+  facebook: "#3b5998",
+  github: "#211f1f",
+  google: "#db3236",
+  instagram: "#3f729b",
+  linkedin: "#0e76a8",
+  twitter: "#00acee",
+} as const;
+
 export const defaultColorTokens: LdsColorTokens = {
   accentPrimary: "#2151ec",
   accentPrimaryHover: "#2151ec",
