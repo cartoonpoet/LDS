@@ -1,10 +1,12 @@
 import type { ButtonHTMLAttributes, HTMLAttributes, ReactNode } from "react";
-import { Icon } from "../Icon";
+import { Icon, type IconName } from "../Icon";
 import * as styles from "./Alert.css";
 import { useAlertIcon } from "./useAlertIcon";
 import { useAlertState } from "./useAlertState";
 
-export type AlertType = "info" | "confirm" | "saveTemporarily" | "secret";
+const alertTypes = ["info", "confirm", "saveTemporarily", "secret"] as const satisfies readonly Exclude<IconName, "close">[];
+
+export type AlertType = (typeof alertTypes)[number];
 export type AlertSize = "medium" | "small";
 export type AlertLayout = "default" | "expanded";
 export type AlertActionTone = "primary" | "warning";
@@ -132,3 +134,5 @@ export function Alert({
     </div>
   );
 }
+
+export { alertTypes };

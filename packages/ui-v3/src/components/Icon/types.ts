@@ -1,9 +1,13 @@
 import type { SVGProps } from "react";
+import { iconRegistry } from "./registry";
 
-export type IconName = "info" | "confirm" | "saveTemporarily" | "secret" | "close";
+export const iconSizes = ["sm", "md"] as const;
 
-export type IconSize = "sm" | "md";
+export type IconName = keyof typeof iconRegistry;
+export type IconSize = (typeof iconSizes)[number];
 
-export type IconComponentProps = SVGProps<SVGSVGElement> & {
+export type IconProps = SVGProps<SVGSVGElement> & {
+  name: IconName;
+  size?: IconSize;
   title?: string;
 };
