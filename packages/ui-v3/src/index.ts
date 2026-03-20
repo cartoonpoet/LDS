@@ -41,6 +41,9 @@ export type { ModalProps, ModalSize } from "./components/Modal";
 export { SweetAlert } from "./components/SweetAlert";
 export type { SweetAlertProps, SweetAlertIntent } from "./components/SweetAlert";
 
+export { Pagination, PaginationCount } from "./components/Pagination";
+export type { PaginationProps } from "./components/Pagination";
+
 /* ─── Styles ─── */
 export { sprinkles } from "./styles/sprinkles.css";
 
