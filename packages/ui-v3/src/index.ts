@@ -74,6 +74,12 @@ export type { TagSelectProps, TagSelectOption } from "./components/TagSelect";
 export { Switch } from "./components/Switch";
 export type { SwitchProps, SwitchSize } from "./components/Switch";
 
+export { Checkbox } from "./components/Checkbox";
+export type { CheckboxProps, CheckboxSize } from "./components/Checkbox";
+
+export { Radio, RadioGroup } from "./components/Radio";
+export type { RadioProps, RadioSize, RadioVariant, RadioGroupProps } from "./components/Radio";
+
 /* ─── Styles ─── */
 export { sprinkles } from "./styles/sprinkles.css";
 

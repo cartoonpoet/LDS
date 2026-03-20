@@ -11,7 +11,7 @@
 
 ---
 
-## 완료된 컴포넌트 (25개)
+## 완료된 컴포넌트 (27개)
 
 | # | 컴포넌트 | Zeplin | 커밋 |
 |---|---------|--------|------|
@@ -40,6 +40,8 @@
 | 23 | Input + InputGroup + MultiSelect | 18) Input & Inputgroups | (미커밋) |
 | 24 | TagSelect | 19) Selects | (미커밋) |
 | 25 | Switch | 20) Switches | (미커밋) |
+| 26 | Checkbox | 21) Checkboxes | (미커밋) |
+| 27 | Radio + RadioGroup | 22) Radios | (미커밋) |
 
 ### 함께 생성된 유틸리티
 - `src/lib/Portal.tsx` — createPortal SSR-safe 래퍼
@@ -61,8 +63,8 @@ Zeplin 스타일가이드에서 아직 구현하지 않은 항목들:
 | ~~18) Input & Inputgroups~~ | ~~Input, InputGroup~~ | ✅ 완료 (에디터 제외) |
 | ~~19) Select~~ | ~~Select 추가 변형~~ | ✅ TagSelect로 완료 |
 | 20) Textarea | Textarea | 폼 컴포넌트 |
-| 21) Checkbox | Checkbox | 폼 컴포넌트 |
-| 22) Radio | Radio | 폼 컴포넌트 |
+| ~~21) Checkbox~~ | ~~Checkbox~~ | ✅ 완료 |
+| ~~22) Radio~~ | ~~Radio~~ | ✅ 완료 |
 | ~~23) Switch/Toggle~~ | ~~Switch~~ | ✅ 완료 |
 | 24) DatePicker | DatePicker | 복잡도 높음 |
 | 25) Table | Table | 복잡도 높음 |
