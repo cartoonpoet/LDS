@@ -62,6 +62,9 @@ export type { InfoPopoverProps, InfoPopoverStep } from "./components/InfoPopover
 export { CalendarPopover } from "./components/CalendarPopover";
 export type { CalendarPopoverProps, CalendarPopoverPlacement, CalendarPopoverField } from "./components/CalendarPopover";
 
+export { Toast, ToastContainer } from "./components/Toast";
+export type { ToastProps, ToastIntent, ToastPosition, ToastContainerProps } from "./components/Toast";
+
 /* ─── Styles ─── */
 export { sprinkles } from "./styles/sprinkles.css";
 

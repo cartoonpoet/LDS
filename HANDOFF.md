@@ -11,7 +11,7 @@
 
 ---
 
-## 완료된 컴포넌트 (21개)
+## 완료된 컴포넌트 (22개)
 
 | # | 컴포넌트 | Zeplin | 커밋 |
 |---|---------|--------|------|
@@ -36,6 +36,7 @@
 | 19 | ChartTooltip | 15) Tooltips (Chart) | (미커밋) |
 | 20 | InfoPopover | 15) Tooltips (Info Popovers) | (미커밋) |
 | 21 | CalendarPopover | 15) Tooltips (Calendar Popovers) | (미커밋) |
+| 22 | Toast + ToastContainer | 17) Bootstrap Toasts & Toastr | (미커밋) |
 
 ### 함께 생성된 유틸리티
 - `src/lib/Portal.tsx` — createPortal SSR-safe 래퍼
