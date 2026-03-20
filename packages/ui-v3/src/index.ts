@@ -26,6 +26,9 @@ export type { ChipsNavigationProps, ChipsNavigationItem } from "./components/Chi
 export { Card, CardHeader, CardBody, CardFooter } from "./components/Card";
 export type { CardProps } from "./components/Card";
 
+export { Collapse, CollapseGroup } from "./components/Collapse";
+export type { CollapseProps, CollapseVariant, CollapseGroupProps } from "./components/Collapse";
+
 /* ─── Styles ─── */
 export { sprinkles } from "./styles/sprinkles.css";
 
