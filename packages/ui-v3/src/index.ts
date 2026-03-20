@@ -47,6 +47,12 @@ export type { PaginationProps } from "./components/Pagination";
 export { ProgressBar, StepBar } from "./components/Progress";
 export type { ProgressBarProps, ProgressColor, ProgressSegment, StepBarProps, StepItem, StepStatus } from "./components/Progress";
 
+export { Tooltip } from "./components/Tooltip";
+export type { TooltipProps, TooltipPlacement } from "./components/Tooltip";
+
+export { Popover } from "./components/Popover";
+export type { PopoverProps, PopoverPlacement } from "./components/Popover";
+
 /* ─── Styles ─── */
 export { sprinkles } from "./styles/sprinkles.css";
 

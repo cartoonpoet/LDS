@@ -11,7 +11,7 @@
 
 ---
 
-## 완료된 컴포넌트 (16개)
+## 완료된 컴포넌트 (18개)
 
 | # | 컴포넌트 | Zeplin | 커밋 |
 |---|---------|--------|------|
@@ -31,6 +31,8 @@
 | 14 | SweetAlert | 11) Modals (Sweet Alert) | 1826e4c (같이 포함됨) |
 | 15 | Pagination + PaginationCount | 12) Paginations | 31f7537 |
 | 16 | ProgressBar + StepBar | 14) Progress | 7440e6f |
+| 17 | Tooltip | 15) Tooltips & Popovers | (미커밋) |
+| 18 | Popover | 15) Tooltips & Popovers | (미커밋) |
 
 ### 함께 생성된 유틸리티
 - `src/lib/Portal.tsx` — createPortal SSR-safe 래퍼
@@ -45,7 +47,7 @@ Zeplin 스타일가이드에서 아직 구현하지 않은 항목들:
 
 | Zeplin 번호 | 이름 | 비고 |
 |-------------|------|------|
-| 13) Tooltips | Tooltip | |
+| ~~13) Tooltips~~ | ~~Tooltip~~ | ✅ 완료 |
 | 15) Spinners | Spinner/Loading | |
 | 16) Breadcrumbs | Breadcrumb | |
 | 17) Avatar | Avatar | |
@@ -57,7 +59,7 @@ Zeplin 스타일가이드에서 아직 구현하지 않은 항목들:
 | 23) Switch/Toggle | Switch | 폼 컴포넌트 |
 | 24) DatePicker | DatePicker | 복잡도 높음 |
 | 25) Table | Table | 복잡도 높음 |
-| 11) Modals 후속 | Popover, FloatingModal, FullScreenModal | Modal에서 분리한 후속 작업 |
+| 11) Modals 후속 | ~~Popover~~, FloatingModal, FullScreenModal | Popover ✅ 완료, 나머지 후속 |
 
 > Zeplin 스타일가이드 URL에서 component ID를 넣어 확인 가능:
 > `https://app.zeplin.io/styleguide/639bef141f03481409421455/component/{COMPONENT_ID}`
