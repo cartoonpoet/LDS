@@ -23,6 +23,9 @@ export type { IconButtonGroupProps, IconButtonGroupItem, IconButtonGroupVariant 
 export { ChipsNavigation } from "./components/ChipsNavigation";
 export type { ChipsNavigationProps, ChipsNavigationItem } from "./components/ChipsNavigation";
 
+export { Card, CardHeader, CardBody, CardFooter } from "./components/Card";
+export type { CardProps } from "./components/Card";
+
 /* ─── Styles ─── */
 export { sprinkles } from "./styles/sprinkles.css";
 
