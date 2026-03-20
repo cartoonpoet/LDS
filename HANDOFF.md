@@ -11,7 +11,7 @@
 
 ---
 
-## 완료된 컴포넌트 (23개)
+## 완료된 컴포넌트 (24개)
 
 | # | 컴포넌트 | Zeplin | 커밋 |
 |---|---------|--------|------|
@@ -38,6 +38,7 @@
 | 21 | CalendarPopover | 15) Tooltips (Calendar Popovers) | (미커밋) |
 | 22 | Toast + ToastContainer | 17) Bootstrap Toasts & Toastr | (미커밋) |
 | 23 | Input + InputGroup + MultiSelect | 18) Input & Inputgroups | (미커밋) |
+| 24 | TagSelect | 19) Selects | (미커밋) |
 
 ### 함께 생성된 유틸리티
 - `src/lib/Portal.tsx` — createPortal SSR-safe 래퍼
@@ -57,7 +58,7 @@ Zeplin 스타일가이드에서 아직 구현하지 않은 항목들:
 | 16) Breadcrumbs | Breadcrumb | |
 | 17) Avatar | Avatar | |
 | ~~18) Input & Inputgroups~~ | ~~Input, InputGroup~~ | ✅ 완료 (에디터 제외) |
-| 19) Select | Select 추가 변형? | Dropdown으로 일부 커버됨, 확인 필요 |
+| ~~19) Select~~ | ~~Select 추가 변형~~ | ✅ TagSelect로 완료 |
 | 20) Textarea | Textarea | 폼 컴포넌트 |
 | 21) Checkbox | Checkbox | 폼 컴포넌트 |
 | 22) Radio | Radio | 폼 컴포넌트 |

@@ -68,6 +68,9 @@ export type { ToastProps, ToastIntent, ToastPosition, ToastContainerProps } from
 export { Input, InputGroup, MultiSelect } from "./components/Input";
 export type { InputProps, InputSize, InputState, InputGroupProps, MultiSelectProps, MultiSelectItem } from "./components/Input";
 
+export { TagSelect } from "./components/TagSelect";
+export type { TagSelectProps, TagSelectOption } from "./components/TagSelect";
+
 /* ─── Styles ─── */
 export { sprinkles } from "./styles/sprinkles.css";
 
