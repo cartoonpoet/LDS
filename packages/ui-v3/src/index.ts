@@ -29,6 +29,9 @@ export type { CardProps } from "./components/Card";
 export { Collapse, CollapseGroup } from "./components/Collapse";
 export type { CollapseProps, CollapseVariant, CollapseGroupProps } from "./components/Collapse";
 
+export { Dropdown } from "./components/Dropdown";
+export type { DropdownProps, DropdownOption, DropdownSize } from "./components/Dropdown";
+
 /* ─── Styles ─── */
 export { sprinkles } from "./styles/sprinkles.css";
 
