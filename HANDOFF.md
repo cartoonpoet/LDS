@@ -11,7 +11,7 @@
 
 ---
 
-## 완료된 컴포넌트 (24개)
+## 완료된 컴포넌트 (25개)
 
 | # | 컴포넌트 | Zeplin | 커밋 |
 |---|---------|--------|------|
@@ -39,6 +39,7 @@
 | 22 | Toast + ToastContainer | 17) Bootstrap Toasts & Toastr | (미커밋) |
 | 23 | Input + InputGroup + MultiSelect | 18) Input & Inputgroups | (미커밋) |
 | 24 | TagSelect | 19) Selects | (미커밋) |
+| 25 | Switch | 20) Switches | (미커밋) |
 
 ### 함께 생성된 유틸리티
 - `src/lib/Portal.tsx` — createPortal SSR-safe 래퍼
@@ -62,7 +63,7 @@ Zeplin 스타일가이드에서 아직 구현하지 않은 항목들:
 | 20) Textarea | Textarea | 폼 컴포넌트 |
 | 21) Checkbox | Checkbox | 폼 컴포넌트 |
 | 22) Radio | Radio | 폼 컴포넌트 |
-| 23) Switch/Toggle | Switch | 폼 컴포넌트 |
+| ~~23) Switch/Toggle~~ | ~~Switch~~ | ✅ 완료 |
 | 24) DatePicker | DatePicker | 복잡도 높음 |
 | 25) Table | Table | 복잡도 높음 |
 | 11) Modals 후속 | ~~Popover~~, FloatingModal, FullScreenModal | Popover ✅ 완료, 나머지 후속 |

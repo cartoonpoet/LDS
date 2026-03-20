@@ -71,6 +71,9 @@ export type { InputProps, InputSize, InputState, InputGroupProps, MultiSelectPro
 export { TagSelect } from "./components/TagSelect";
 export type { TagSelectProps, TagSelectOption } from "./components/TagSelect";
 
+export { Switch } from "./components/Switch";
+export type { SwitchProps, SwitchSize } from "./components/Switch";
+
 /* ─── Styles ─── */
 export { sprinkles } from "./styles/sprinkles.css";
 
