@@ -1,3 +1,12 @@
+export const spacingScale = {
+  xs: "4px",
+  s: "8px",
+  m: "12px",
+  l: "16px",
+  xl: "20px",
+  xxl: "24px"
+} as const;
+
 export type LdsSpacingTokens = {
   x1: string;
   x2: string;
@@ -8,10 +17,10 @@ export type LdsSpacingTokens = {
 };
 
 export const defaultSpacingTokens: LdsSpacingTokens = {
-  x1: "4px",
-  x2: "8px",
-  x3: "12px",
-  x4: "16px",
-  x5: "20px",
-  x6: "24px"
+  x1: spacingScale.xs,
+  x2: spacingScale.s,
+  x3: spacingScale.m,
+  x4: spacingScale.l,
+  x5: spacingScale.xl,
+  x6: spacingScale.xxl
 };

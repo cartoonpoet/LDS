@@ -1,134 +1,161 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { lightThemeClass } from "@lds/tokens";
 import { Alert } from ".";
+import { lightThemeClass } from "@lds/tokens";
 
-const withCode = (code: string, description: string) => ({
-  docs: {
-    description: {
-      story: description
-    },
-    source: {
-      code
-    }
-  }
-});
-
+/**
+ * ## Alert
+ *
+ * 사용자에게 중요한 정보를 전달하는 인라인 알림 컴포넌트.
+ *
+ * ### Import
+ * ```tsx
+ * import { Alert } from "@lds/ui-v3";
+ * ```
+ *
+ * ### Props
+ * | Prop | Type | Default | Description |
+ * |------|------|---------|-------------|
+ * | `type` | `"info" \| "confirm" \| "secret" \| "saveTemporarily"` | `"info"` | 알림 유형 (배경색/아이콘 결정) |
+ * | `size` | `"small" \| "medium"` | `"medium"` | 크기 |
+ * | `children` | `ReactNode` | **필수** | 알림 본문 텍스트 |
+ * | `title` | `string` | - | 제목 (expanded layout) |
+ * | `icon` | `ReactNode` | 타입별 기본 아이콘 | 커스텀 아이콘 |
+ * | `closable` | `boolean` | `false` | 닫기 버튼 표시 |
+ * | `onClose` | `MouseEventHandler` | - | 닫기 클릭 핸들러 |
+ * | `textButton` | `{ label: string; onClick?: MouseEventHandler }` | - | 텍스트 링크 버튼 |
+ * | `actions` | `AlertAction[]` | - | 액션 버튼 목록 (승인/반려 등) |
+ * | `className` | `string` | - | 추가 CSS 클래스 |
+ *
+ * ### Template Code
+ * ```tsx
+ * // 기본 사용
+ * <Alert type="info" closable onClose={() => {}}>
+ *   중요! 이것은 기본 알림입니다. 확인해주세요!
+ * </Alert>
+ *
+ * // 제목 + 본문 (Expanded)
+ * <Alert type="info" title="알림 제목" closable>
+ *   이것은 확장된 알림입니다. 제목과 본문이 분리됩니다.
+ * </Alert>
+ *
+ * // 텍스트 버튼 포함
+ * <Alert type="info" textButton={{ label: "자세히 보기", onClick: handleClick }}>
+ *   알림 메시지
+ * </Alert>
+ *
+ * // 액션 버튼 포함 (승인/반려)
+ * <Alert type="confirm" title="의견 검토 중" actions={[
+ *   { label: "승인", intent: "primary", onClick: handleApprove },
+ *   { label: "반려", intent: "warning", onClick: handleReject },
+ * ]}>
+ *   의견 검토 중 (검토자 : 김팀장)
+ * </Alert>
+ *
+ * // 작은 사이즈
+ * <Alert type="info" size="small">
+ *   작은 사이즈 알림입니다.
+ * </Alert>
+ * ```
+ */
 const meta: Meta<typeof Alert> = {
   title: "Components/Alert",
   component: Alert,
+  decorators: [(Story) => <div className={lightThemeClass}><Story /></div>],
   tags: ["autodocs"],
-  parameters: {
-    docs: {
-      description: {
-        component:
-          "LDS 행형 알림 컴포넌트입니다. 아이콘, 액션 버튼, dismiss 동작을 지원합니다.\n\n사용 가이드\n- 즉시 확인이 필요한 짧은 상태/안내 문구에 적합합니다.\n- title은 핵심 메시지, 본문은 후속 설명 1~2줄 정도로 간결하게 유지하세요.\n- 사용자가 바로 대응해야 할 때만 action 버튼을 붙이고, dismiss는 정보성 알림에서만 선택적으로 사용하세요."
-      }
-    }
-  },
-  args: {
-    title: "중요!",
-    children: "이것은 기본 알림입니다. 확인해주세요!"
-  },
-  decorators: [
-    Story => (
-      <div className={lightThemeClass} style={{ padding: "24px", width: "560px", background: "#f4f6fb" }}>
-        <Story />
-      </div>
-    )
-  ]
-};
-
-export default meta;
-
-type Story = StoryObj<typeof meta>;
-
-export const InlineInfo: Story = {
-  parameters: {
-    ...withCode(
-      `import { Alert } from "@lds/ui-v3";
-
-export function Example() {
-  return (
-    <Alert title="중요!">
-      이것은 기본 알림입니다. 확인해주세요!
-    </Alert>
-  );
-}`,
-      "Thin inline info alert based on the Zeplin sheet."
-    )
-  }
-};
-
-export const NeutralRow: Story = {
-  args: {
-    tone: "neutral",
-    icon: "✓",
-    title: "임시저장"
-  },
-  parameters: {
-    ...withCode(
-      `import { Alert } from "@lds/ui-v3";
-
-export function Example() {
-  return <Alert tone="neutral" icon="✓" title="임시저장" />;
-}`,
-      "Neutral row alert."
-    )
-  }
-};
-
-export const WithButtons: Story = {
-  args: {
-    tone: "neutral",
-    icon: "•",
-    title: "의견 검토 중",
-    children: "검토 상태를 확인해주세요.",
-    primaryAction: {
-      label: "승인"
+  argTypes: {
+    type: {
+      control: "select",
+      options: ["info", "confirm", "secret", "saveTemporarily"],
+      description: "알림 유형. 배경색과 기본 아이콘을 결정합니다.",
     },
-    secondaryAction: {
-      label: "반려",
-      tone: "warning"
-    }
+    size: {
+      control: "select",
+      options: ["small", "medium"],
+      description: "알림 크기. small은 패딩과 폰트가 작아집니다.",
+    },
+    children: { description: "알림 본문 텍스트 (필수)" },
+    title: { description: "제목. 설정 시 제목+본문 2단 레이아웃" },
+    closable: { description: "닫기(X) 버튼 표시 여부" },
+    className: { description: "추가 CSS 클래스" },
   },
-  parameters: {
-    ...withCode(
-      `import { Alert } from "@lds/ui-v3";
+};
+export default meta;
+type Story = StoryObj<typeof Alert>;
 
-export function Example() {
-  return (
-    <Alert
-      tone="neutral"
-      icon="•"
-      title="의견 검토 중"
-      primaryAction={{ label: "승인" }}
-      secondaryAction={{ label: "반려", tone: "warning" }}
-    >
-      검토 상태를 확인해주세요.
-    </Alert>
-  );
-}`,
-      "Alert row with action buttons."
-    )
-  }
+export const Info: Story = {
+  args: {
+    type: "info",
+    children: "중요! 이것은 기본 알림입니다. 확인해주세요!",
+    closable: true,
+  },
 };
 
-export const Dismissible: Story = {
+export const Confirm: Story = {
   args: {
-    dismissible: true
+    type: "confirm",
+    children: "의견 검토 중 (검토자 : 김팀장 / 검토상태 : 확인 중)",
+    closable: true,
   },
-  parameters: {
-    ...withCode(
-      `import { Alert } from "@lds/ui-v3";
+};
 
-export function Example() {
-  return (
-    <Alert dismissible title="중요!">
-      이것은 기본 알림입니다. 확인해주세요!
-    </Alert>
-  );
-}`,
-      "Dismissible inline alert."
-    )
-  }
+export const Secret: Story = {
+  args: {
+    type: "secret",
+    children: "비밀 문서입니다. 열람 권한을 확인하세요.",
+    closable: true,
+  },
+};
+
+export const SaveTemporarily: Story = {
+  args: {
+    type: "saveTemporarily",
+    children: "임시 저장된 문서가 있습니다.",
+    closable: true,
+  },
+};
+
+export const Expanded: Story = {
+  args: {
+    type: "info",
+    title: "알림 제목",
+    children: "이것은 확장된 알림입니다. 제목과 본문이 분리됩니다.",
+    closable: true,
+  },
+};
+
+export const Small: Story = {
+  args: {
+    type: "info",
+    size: "small",
+    children: "작은 사이즈 알림입니다.",
+    closable: true,
+  },
+};
+
+export const WithTextButton: Story = {
+  args: {
+    type: "info",
+    children: "중요! 이것은 기본 알림입니다. 확인해주세요!",
+    textButton: { label: "자세히 보기", onClick: () => alert("clicked") },
+  },
+};
+
+export const WithActionButtons: Story = {
+  args: {
+    type: "confirm",
+    title: "의견 검토 중",
+    children: "의견 검토 중 (검토자 : 강팀장, 권팀장, 김팀장, 문팀장, 박팀장)",
+    actions: [
+      { label: "승인", intent: "primary", onClick: () => alert("승인") },
+      { label: "반려", intent: "warning", onClick: () => alert("반려") },
+    ],
+  },
+};
+
+export const NoDismiss: Story = {
+  args: {
+    type: "info",
+    children: "닫기 버튼이 없는 알림입니다.",
+    closable: false,
+  },
 };

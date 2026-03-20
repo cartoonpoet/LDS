@@ -1,190 +1,172 @@
-import { style } from "@vanilla-extract/css";
+import { style, styleVariants, keyframes } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
-import { semanticColorRoles, themeVars } from "@lds/tokens";
+import { semanticColorRoles, themeVars, opacityPalette } from "@lds/tokens";
 
-export const alert = recipe({
+/* ─── type → background color mapping (from Zeplin) ─── */
+const typeBackgrounds = {
+  info: opacityPalette.info,
+  confirm: opacityPalette.secondary,
+  secret: opacityPalette.info,
+  saveTemporarily: opacityPalette.secondary,
+} as const;
+
+const typeIconColors = {
+  info: semanticColorRoles.status.info.text,
+  confirm: semanticColorRoles.text.tertiary,
+  secret: semanticColorRoles.status.info.text,
+  saveTemporarily: semanticColorRoles.text.tertiary,
+} as const;
+
+/* ─── root container ─── */
+export const root = recipe({
   base: {
-    display: "grid",
+    display: "flex",
+    alignItems: "flex-start",
     gap: themeVars.spacing.x2,
-    width: "100%",
     padding: `${themeVars.spacing.x2} ${themeVars.spacing.x3}`,
-    border: "1px solid transparent",
-    borderRadius: themeVars.radius.sm,
+    borderRadius: themeVars.radius.md,
     fontFamily: themeVars.font.family,
-    boxSizing: "border-box"
+    fontSize: themeVars.font.sizeMd,
+    lineHeight: 1.5,
+    color: semanticColorRoles.text.primary,
+    transition: "background-color 150ms ease",
   },
   variants: {
-    tone: {
-      info: {
-        backgroundColor: semanticColorRoles.alert.info.background,
-        borderColor: semanticColorRoles.alert.info.border,
-        color: semanticColorRoles.alert.info.text
-      },
-      neutral: {
-        backgroundColor: semanticColorRoles.alert.neutral.background,
-        borderColor: semanticColorRoles.alert.neutral.border,
-        color: semanticColorRoles.alert.neutral.text
-      }
+    type: {
+      info: { backgroundColor: typeBackgrounds.info },
+      confirm: { backgroundColor: typeBackgrounds.confirm },
+      secret: { backgroundColor: typeBackgrounds.secret },
+      saveTemporarily: { backgroundColor: typeBackgrounds.saveTemporarily },
     },
-    withAction: {
-      true: {
-        gridTemplateColumns: "1fr auto"
+    size: {
+      small: {
+        fontSize: themeVars.font.sizeSm,
+        padding: `${themeVars.spacing.x1} ${themeVars.spacing.x2}`,
+        gap: themeVars.spacing.x1,
       },
-      false: {}
-    }
+      medium: {},
+    },
   },
   defaultVariants: {
-    tone: "info",
-    withAction: false
-  }
+    type: "info",
+    size: "medium",
+  },
 });
 
-export const body = style({
-  display: "flex",
-  alignItems: "flex-start",
-  gap: themeVars.spacing.x2,
-  minWidth: 0,
-  paddingTop: "1px"
-});
-
-export const icon = recipe({
+/* ─── icon wrapper ─── */
+export const iconWrapper = recipe({
   base: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
     flexShrink: 0,
-    fontSize: "12px",
-    lineHeight: 1,
-    marginTop: "1px"
   },
   variants: {
-    tone: {
-      info: {
-        color: semanticColorRoles.alert.info.icon
-      },
-      neutral: {
-        color: semanticColorRoles.alert.neutral.icon
-      }
-    }
+    size: {
+      small: { width: 16, height: 16 },
+      medium: { width: 20, height: 20 },
+    },
   },
-  defaultVariants: {
-    tone: "info"
-  }
+  defaultVariants: { size: "medium" },
 });
 
-export const textWrap = style({
-  minWidth: 0
+export const iconColor = styleVariants(typeIconColors, (color) => ({
+  color,
+}));
+
+/* ─── content area ─── */
+export const content = style({
+  flex: 1,
+  minWidth: 0,
+  display: "flex",
+  flexDirection: "column",
+  gap: themeVars.spacing.x1,
 });
 
 export const title = style({
-  margin: 0,
-  color: semanticColorRoles.text.heading,
-  fontSize: themeVars.font.sizeSm,
   fontWeight: themeVars.font.weightBold,
   lineHeight: 1.4,
-  wordBreak: "keep-all"
 });
 
 export const description = style({
-  color: semanticColorRoles.text.secondary,
-  fontSize: themeVars.font.sizeSm,
   lineHeight: 1.5,
-  wordBreak: "keep-all"
+  color: semanticColorRoles.text.primary,
 });
 
-export const actionRow = style({
-  display: "inline-flex",
+/* ─── action area (buttons) ─── */
+export const actions = style({
+  display: "flex",
   alignItems: "center",
   gap: themeVars.spacing.x2,
-  justifySelf: "end",
-  alignSelf: "center",
-  flexWrap: "wrap"
+  flexShrink: 0,
 });
 
 export const actionButton = recipe({
   base: {
-    minWidth: "42px",
-    height: "24px",
-    padding: `0 ${themeVars.spacing.x2}`,
-    border: 0,
-    borderRadius: themeVars.radius.sm,
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: `${themeVars.spacing.x1} ${themeVars.spacing.x3}`,
+    borderRadius: "5px",
+    border: "none",
+    cursor: "pointer",
     fontFamily: themeVars.font.family,
     fontSize: themeVars.font.sizeSm,
-    fontWeight: themeVars.font.weightBold,
-    lineHeight: 1,
-    cursor: "pointer",
-    transition: "background-color 120ms ease, box-shadow 120ms ease, transform 80ms ease",
+    fontWeight: themeVars.font.weightMedium,
+    color: semanticColorRoles.text.inverse,
+    lineHeight: 1.4,
+    transition: "opacity 150ms ease",
     selectors: {
-      "&:hover": {
-        boxShadow: themeVars.shadow.raised
-      },
-      "&:active": {
-        transform: "translateY(1px)",
-        boxShadow: "none"
-      },
-      "&:focus-visible": {
-        outline: "none",
-        boxShadow: themeVars.shadow.focus
-      }
-    }
+      "&:hover": { opacity: 0.85 },
+      "&:active": { opacity: 0.7 },
+    },
   },
   variants: {
-    tone: {
-      primary: {
-        backgroundColor: semanticColorRoles.alert.action.primary.background,
-        color: semanticColorRoles.alert.action.primary.text,
-        selectors: {
-          "&:hover": {
-            backgroundColor: semanticColorRoles.alert.action.primary.hover,
-            boxShadow: themeVars.shadow.raised
-          },
-          "&:active": {
-            backgroundColor: semanticColorRoles.alert.action.primary.active,
-            transform: "translateY(1px)",
-            boxShadow: "none"
-          }
-        }
-      },
-      warning: {
-        backgroundColor: semanticColorRoles.alert.action.warning.background,
-        color: semanticColorRoles.alert.action.warning.text,
-        selectors: {
-          "&:hover": {
-            backgroundColor: semanticColorRoles.alert.action.warning.hover,
-            boxShadow: themeVars.shadow.raised
-          },
-          "&:active": {
-            backgroundColor: semanticColorRoles.alert.action.warning.active,
-            transform: "translateY(1px)",
-            boxShadow: "none"
-          }
-        }
-      }
-    }
+    intent: {
+      primary: { backgroundColor: semanticColorRoles.action.primary.default },
+      warning: { backgroundColor: semanticColorRoles.status.warning.border },
+      danger: { backgroundColor: semanticColorRoles.status.danger.border },
+      secondary: { backgroundColor: semanticColorRoles.action.secondary.default },
+    },
   },
-  defaultVariants: {
-    tone: "primary"
-  }
+  defaultVariants: { intent: "primary" },
 });
 
+/* ─── close button ─── */
 export const closeButton = style({
-  display: "inline-flex",
+  display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  width: "20px",
-  height: "20px",
-  border: 0,
-  borderRadius: themeVars.radius.sm,
-  background: "transparent",
-  color: semanticColorRoles.text.heading,
-  cursor: "pointer",
+  flexShrink: 0,
+  width: 20,
+  height: 20,
   padding: 0,
-  fontSize: "14px",
-  lineHeight: 1,
+  border: "none",
+  background: "none",
+  cursor: "pointer",
+  color: semanticColorRoles.text.tertiary,
+  borderRadius: themeVars.radius.sm,
+  transition: "color 150ms ease, background-color 150ms ease",
   selectors: {
     "&:hover": {
-      backgroundColor: semanticColorRoles.surface.subtle
+      color: semanticColorRoles.text.primary,
+      backgroundColor: "rgba(0,0,0,0.06)",
     },
-    "&:focus-visible": {
-      outline: "none",
-      boxShadow: themeVars.shadow.focus
-    }
-  }
+  },
+});
+
+/* ─── text button (link style) ─── */
+export const textButton = style({
+  background: "none",
+  border: "none",
+  padding: 0,
+  cursor: "pointer",
+  fontFamily: themeVars.font.family,
+  fontSize: themeVars.font.sizeSm,
+  fontWeight: themeVars.font.weightMedium,
+  color: semanticColorRoles.action.primary.default,
+  textDecoration: "underline",
+  selectors: {
+    "&:hover": { color: semanticColorRoles.action.primary.active },
+  },
 });

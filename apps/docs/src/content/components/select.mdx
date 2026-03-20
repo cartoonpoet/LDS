@@ -1,32 +1,70 @@
-import { FormShowcase } from "../../components/DocPrimitives";
+import {
+  Callout,
+  Checklist,
+  DecisionCard,
+  DecisionGrid,
+  GuidanceCard,
+  GuidanceGrid,
+  SelectShowcase,
+  ShowcaseCard
+} from "../../components/DocPrimitives";
 
-<h2 id="overview">개요</h2>
+<h2 id="overview">Overview</h2>
 
-셀렉트는 LDS 폼에서 단일 선택과 제한된 다중 선택을 처리하는 기본 선택 프리미티브입니다.
+Select는 자유 입력보다 **허용된 옵션 안에서 빠르게 고르는 것**이 중요한 상황에 쓰는 기본 선택 프리미티브입니다.
+입력보다 탐색 비용이 낮고, 폼 제출 호환성을 안정적으로 가져가야 할 때 기본값이 됩니다.
 
-<FormShowcase />
+<DecisionGrid>
+  <DecisionCard title="Best for">
+    옵션 수가 적고, 사용자가 값의 범위를 이해한 상태에서 하나를 고르는 업무형 폼에 적합합니다.
+  </DecisionCard>
+  <DecisionCard title="Choose when">
+    native select의 접근성, 폼 제출 호환성, 낮은 구현 복잡도를 우선할 때 사용합니다.
+  </DecisionCard>
+  <DecisionCard title="Avoid when">
+    옵션이 많거나 검색, 비동기 로딩, 커스텀 아이템 표현이 중요하면 별도 dropdown 조합형이 더 적합합니다.
+  </DecisionCard>
+</DecisionGrid>
 
-<h2 id="supported-features">현재 지원 범위</h2>
+<ShowcaseCard
+  title="Quick preview"
+  description="Input과 같은 field foundation 리듬을 유지하면서도 선택형 제어임이 즉시 구분되는지 확인합니다."
+>
+  <SelectShowcase />
+</ShowcaseCard>
 
-현재 구현은 아래를 지원합니다.
+<h2 id="when-to-use">When to use</h2>
 
-- 라벨 + caption + helper text
-- placeholder
-- invalid 상태
-- `sm | md | lg` 크기
-- single / multiple 모드
-- `forwardRef` 기반 폼 연동
-- option group 렌더링
-- 우측 화살표 위치 고정 정렬
+<Checklist
+  items={[
+    <>상태, 유형, 카테고리처럼 제한된 옵션 중 하나를 빠르게 선택하게 할 때 사용합니다.</>,
+    <>placeholder, caption, helper text를 함께 써 선택 이유와 제약을 미리 읽게 하는 데 적합합니다.</>,
+    <>multiple 선택이 필요해도 옵션 탐색 비용이 낮은 범위에서만 유지하는 편이 좋습니다.</>
+  ]}
+/>
 
-<h2 id="dropdown-guidelines">드롭다운 사용 가이드</h2>
+<h2 id="variants">Variants</h2>
 
-- 옵션 수가 적고 탐색 비용이 낮을 때 기본 `Select`를 우선 사용합니다.
-- invalid 상태에서는 border, focus ring, helper text가 함께 경고 상태로 보여야 합니다.
-- label / caption 분리는 Zeplin form element 패턴처럼 입력의 의미와 보조 설명을 한 줄에서 빠르게 읽게 해줍니다.
-- 옵션이 많아지거나 검색이 필요하면 searchable dropdown 같은 조합형 컴포넌트로 분리하는 편이 낫습니다.
+<Checklist
+  items={[
+    <><code>size</code>: <code>sm</code>, <code>md</code>, <code>lg</code>로 화면 밀도에 맞춥니다.</>,
+    <><code>placeholder</code>: 아직 값이 정해지지 않았음을 명확히 드러낼 때 사용합니다.</>,
+    <><code>invalid</code>: 경고 상태에서는 border, helper text, focus 리듬을 함께 맞춥니다.</>,
+    <><code>multiple</code>: 선택 수가 적고 개별 옵션 의미가 명확할 때만 유지합니다.</>
+  ]}
+/>
 
-<h2 id="integration-notes">적용 메모</h2>
+<h2 id="usage-guidance">Usage guidance</h2>
 
-기본 `Select`는 native `<select>`를 유지하므로 접근성과 폼 제출 호환성이 좋습니다.
-이번 정리에서는 입력 높이, label/caption 구조, indicator 위치를 함께 맞춰 size별로 레이아웃이 흔들리지 않도록 조정했습니다.
+<GuidanceGrid>
+  <GuidanceCard title="Do">
+    label과 caption을 분리해 입력의 의미와 보조 설명을 한 줄 흐름에서 빠르게 읽을 수 있게 합니다.
+  </GuidanceCard>
+  <GuidanceCard title="Don't" tone="dont">
+    검색이 필요한 긴 옵션 목록을 기본 Select 하나로 해결하려고 하지 않습니다.
+  </GuidanceCard>
+</GuidanceGrid>
+
+<Callout title="Practical rule">
+  기본 <code>Select</code>는 native <code>&lt;select&gt;</code>를 유지하므로 접근성과 폼 제출 호환성이 좋습니다.
+</Callout>

@@ -1,16 +1,11 @@
-export {
-  defaultColorTokens,
-  defaultSpacingTokens,
-  lightThemeClass,
-  themeVars
-} from "./theme.css";
-export { grayPalette, bluePalette, greenPalette, redPalette, yellowPalette, cyanPalette, darkPalette } from "./foundation/color-palette";
+export type { LdsColorTokens } from "./foundation/color-palette";
+export { defaultColorTokens, grayPalette, bluePalette, greenPalette, redPalette, yellowPalette, cyanPalette, darkPalette, opacityPalette, scourtPalette, bootstrapPalette, socialPalette } from "./foundation/color-palette";
+export type { LdsSpacingTokens } from "./foundation/spacing-scale";
+export { spacingScale, defaultSpacingTokens } from "./foundation/spacing-scale";
 export { fontFamilyTokens, fontSizeScale, lineHeightScale, fontWeightScale } from "./foundation/typography-scale";
 export { semanticColorRoles } from "./semantic/color-roles";
 export { textStyles } from "./semantic/text-styles";
-export type {
-  LdsColorTokens,
-  LdsSpacingTokens
-} from "./theme.css";
+export { themeVars } from "./contracts/theme-contract.css";
+export { defaultThemeValues, lightThemeClass } from "./themes/light-theme.css";
 export type { LdsThemeInput } from "./theme.runtime";
 export { createLdsThemeVars } from "./theme.runtime";

@@ -1,239 +1,244 @@
-import { style } from "@vanilla-extract/css";
+import { style, globalStyle } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
-import { semanticColorRoles, themeVars } from "@lds/tokens";
+import { semanticColorRoles, themeVars, grayPalette, opacityPalette } from "@lds/tokens";
 
-export const root = style({
-  display: "grid",
-  gap: themeVars.spacing.x1,
-  width: "100%"
-});
-
-export const labelRow = style({
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "space-between",
-  gap: themeVars.spacing.x2
-});
-
-export const label = style({
-  color: semanticColorRoles.field.label,
-  fontFamily: themeVars.font.family,
-  fontSize: themeVars.font.sizeSm,
-  fontWeight: themeVars.font.weightMedium,
-  lineHeight: 1.4
-});
-
-export const caption = style({
-  color: semanticColorRoles.text.tertiary,
-  fontFamily: themeVars.font.family,
-  fontSize: themeVars.font.sizeSm,
-  lineHeight: 1.4
-});
-
-export const requiredMark = style({
-  color: semanticColorRoles.status.danger.text,
-  marginLeft: themeVars.spacing.x1
-});
-
+/* ─── trigger button ─── */
 export const trigger = recipe({
   base: {
-    width: "100%",
-    minHeight: "38px",
-    padding: `0 ${themeVars.spacing.x3}`,
-    display: "flex",
+    display: "inline-flex",
     alignItems: "center",
-    justifyContent: "space-between",
     gap: themeVars.spacing.x2,
+    width: "100%",
+    backgroundColor: semanticColorRoles.surface.canvas,
+    border: `1px solid ${grayPalette[200]}`,
     borderRadius: themeVars.radius.sm,
-    border: `1px solid ${semanticColorRoles.field.border}`,
-    background: semanticColorRoles.field.background,
-    color: semanticColorRoles.field.text,
-    fontFamily: themeVars.font.family,
-    fontSize: themeVars.font.sizeMd,
-    lineHeight: 1.4,
-    textAlign: "left",
     cursor: "pointer",
-    transition: "border-color 120ms ease, box-shadow 120ms ease, background-color 120ms ease",
+    fontFamily: themeVars.font.family,
+    fontWeight: themeVars.font.weightRegular,
+    color: semanticColorRoles.text.primary,
+    transition: "border-color 150ms ease, box-shadow 150ms ease",
+    boxSizing: "border-box",
     selectors: {
-      "&:hover:not(:disabled)": { borderColor: semanticColorRoles.field.borderHover },
-      "&:focus-visible": { outline: "none", boxShadow: themeVars.shadow.focus, borderColor: semanticColorRoles.field.borderFocus },
-      "&:disabled": { background: semanticColorRoles.field.backgroundDisabled, color: semanticColorRoles.text.disabled, cursor: "not-allowed" }
-    }
+      "&:focus-visible": {
+        outline: "none",
+        borderColor: semanticColorRoles.border.focus,
+        boxShadow: themeVars.shadow.focus,
+      },
+    },
   },
   variants: {
     size: {
-      sm: { minHeight: "32px", fontSize: themeVars.font.sizeSm },
-      md: {},
-      lg: { minHeight: "44px", fontSize: themeVars.font.sizeLg, padding: `0 ${themeVars.spacing.x4}` }
-    },
-    invalid: {
-      true: { borderColor: semanticColorRoles.status.danger.border },
-      false: {}
+      small: {
+        height: 26,
+        padding: `0 ${themeVars.spacing.x2}`,
+        fontSize: themeVars.font.sizeSm,
+      },
+      medium: {
+        height: 38,
+        padding: `0 ${themeVars.spacing.x3}`,
+        fontSize: "13px",
+      },
+      large: {
+        height: 47,
+        padding: `0 ${themeVars.spacing.x3}`,
+        fontSize: themeVars.font.sizeMd,
+      },
     },
     open: {
-      true: { borderColor: semanticColorRoles.field.borderFocus, boxShadow: themeVars.shadow.focus },
-      false: {}
-    }
+      true: {
+        borderColor: semanticColorRoles.border.focus,
+      },
+      false: {},
+    },
+    disabled: {
+      true: {
+        opacity: 0.4,
+        cursor: "not-allowed",
+        pointerEvents: "none" as const,
+      },
+      false: {},
+    },
   },
-  defaultVariants: { size: "md", invalid: false, open: false }
+  defaultVariants: {
+    size: "medium",
+    open: false,
+    disabled: false,
+  },
 });
 
-export const triggerValue = style({
-  flex: 1,
-  minWidth: 0,
-  overflow: "hidden",
-  textOverflow: "ellipsis",
-  whiteSpace: "nowrap"
-});
-
-export const placeholder = style({ color: semanticColorRoles.field.placeholder });
-
-export const counter = style({
+/* ─── trigger icon ─── */
+export const triggerIcon = style({
   display: "inline-flex",
   alignItems: "center",
   justifyContent: "center",
-  minWidth: "20px",
-  height: "20px",
-  padding: `0 ${themeVars.spacing.x1}`,
-  borderRadius: "999px",
-  background: semanticColorRoles.action.primary.subtle,
-  color: semanticColorRoles.button.solid.primary.background,
-  fontSize: themeVars.font.sizeSm,
-  fontWeight: themeVars.font.weightBold
+  flexShrink: 0,
+  width: 18,
+  height: 18,
+  color: semanticColorRoles.text.tertiary,
 });
 
-export const icon = recipe({
+/* ─── trigger label ─── */
+export const triggerLabel = style({
+  flex: 1,
+  minWidth: 0,
+  textAlign: "left",
+  overflow: "hidden",
+  textOverflow: "ellipsis",
+  whiteSpace: "nowrap",
+});
+
+/* ─── placeholder text ─── */
+export const placeholder = style({
+  color: semanticColorRoles.text.placeholder,
+});
+
+/* ─── chevron icon ─── */
+export const chevron = recipe({
   base: {
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
     flexShrink: 0,
-    width: "10px",
-    height: "6px",
-    color: semanticColorRoles.field.icon,
-    transition: "transform 120ms ease"
+    width: 18,
+    height: 18,
+    color: semanticColorRoles.text.primary,
+    transition: "transform 200ms ease",
+    marginLeft: "auto",
   },
   variants: {
     open: {
       true: { transform: "rotate(180deg)" },
-      false: {}
-    }
+      false: { transform: "rotate(0deg)" },
+    },
   },
-  defaultVariants: {
-    open: false
-  }
+  defaultVariants: { open: false },
 });
 
-export const panel = style({
-  display: "grid",
-  gap: themeVars.spacing.x2,
-  padding: themeVars.spacing.x3,
-  borderRadius: themeVars.radius.md,
-  border: `1px solid ${semanticColorRoles.field.border}`,
-  background: semanticColorRoles.surface.canvas,
-  boxShadow: themeVars.shadow.raised
-});
-
-export const searchInput = style({
+/* ─── wrapper (relative position anchor) ─── */
+export const wrapper = style({
+  position: "relative",
+  display: "inline-flex",
+  flexDirection: "column",
   width: "100%",
-  minHeight: "34px",
-  padding: `0 ${themeVars.spacing.x3}`,
-  borderRadius: themeVars.radius.sm,
-  border: `1px solid ${semanticColorRoles.field.border}`,
-  background: semanticColorRoles.field.background,
-  color: semanticColorRoles.field.text,
-  fontFamily: themeVars.font.family,
-  fontSize: themeVars.font.sizeSm,
-  selectors: {
-    "&:focus": { outline: "none", borderColor: semanticColorRoles.field.borderFocus, boxShadow: themeVars.shadow.focus }
-  }
 });
 
-export const list = style({ display: "grid", gap: themeVars.spacing.x1 });
-export const group = style({ display: "grid", gap: themeVars.spacing.x1 });
-export const groupLabel = style({ fontSize: themeVars.font.sizeSm, fontWeight: themeVars.font.weightBold, color: semanticColorRoles.text.tertiary });
+/* ─── options panel ─── */
+export const panel = style({
+  position: "absolute",
+  top: "100%",
+  left: 0,
+  right: 0,
+  marginTop: 4,
+  backgroundColor: semanticColorRoles.surface.canvas,
+  borderRadius: themeVars.radius.md,
+  boxShadow: "0 4px 16px rgba(0, 0, 0, 0.12)",
+  zIndex: 1000,
+  maxHeight: 240,
+  overflowY: "auto",
+  padding: `${themeVars.spacing.x1} 0`,
+});
 
+/* ─── option item ─── */
 export const option = recipe({
   base: {
     display: "flex",
     alignItems: "center",
-    justifyContent: "space-between",
     gap: themeVars.spacing.x2,
     width: "100%",
-    minHeight: "32px",
-    padding: `${themeVars.spacing.x2} ${themeVars.spacing.x3}`,
-    borderRadius: themeVars.radius.sm,
+    padding: `6px ${themeVars.spacing.x3}`,
+    minHeight: 32,
     border: "none",
-    background: "transparent",
-    color: semanticColorRoles.text.primary,
+    backgroundColor: "transparent",
     cursor: "pointer",
     fontFamily: themeVars.font.family,
-    fontSize: themeVars.font.sizeSm,
+    fontSize: themeVars.font.sizeMd,
+    fontWeight: themeVars.font.weightRegular,
+    color: semanticColorRoles.text.primary,
     textAlign: "left",
+    boxSizing: "border-box",
+    transition: "background-color 100ms ease",
     selectors: {
-      "&:hover:not(:disabled)": { background: semanticColorRoles.surface.subtle },
-      "&:focus-visible": { outline: "none", boxShadow: themeVars.shadow.focus },
-      "&:disabled": { color: semanticColorRoles.text.disabled, cursor: "not-allowed" }
-    }
+      "&:hover": {
+        backgroundColor: opacityPalette.primary,
+      },
+      "&:focus-visible": {
+        outline: "none",
+        backgroundColor: opacityPalette.primary,
+      },
+    },
   },
   variants: {
     selected: {
-      true: { background: semanticColorRoles.action.primary.subtle, color: semanticColorRoles.text.primary },
-      false: {}
-    }
+      true: {
+        color: semanticColorRoles.action.primary.default,
+        backgroundColor: opacityPalette.primary,
+      },
+      false: {},
+    },
+    disabled: {
+      true: {
+        opacity: 0.4,
+        cursor: "not-allowed",
+        pointerEvents: "none" as const,
+      },
+      false: {},
+    },
   },
-  defaultVariants: { selected: false }
+  defaultVariants: {
+    selected: false,
+    disabled: false,
+  },
 });
 
-export const optionMain = style({
+/* ─── option text group (multi-level) ─── */
+export const optionTextGroup = style({
   display: "flex",
-  alignItems: "center",
-  gap: themeVars.spacing.x2,
+  flexDirection: "column",
+  gap: 2,
+  flex: 1,
   minWidth: 0,
-  flex: 1
 });
 
+export const optionDescription = style({
+  fontSize: themeVars.font.sizeSm,
+  color: semanticColorRoles.text.tertiary,
+  lineHeight: 1.4,
+});
+
+/* ─── checkbox (multi-check mode) ─── */
 export const checkbox = recipe({
   base: {
     display: "inline-flex",
     alignItems: "center",
     justifyContent: "center",
-    width: "14px",
-    height: "14px",
-    borderRadius: "3px",
-    border: `1px solid ${semanticColorRoles.field.border}`,
-    color: "transparent",
-    fontSize: "10px",
-    fontWeight: themeVars.font.weightBold
+    flexShrink: 0,
+    width: 16,
+    height: 16,
+    borderRadius: 3,
+    border: `1.5px solid ${grayPalette[400]}`,
+    backgroundColor: semanticColorRoles.surface.canvas,
+    transition: "background-color 150ms ease, border-color 150ms ease",
   },
   variants: {
-    selected: {
+    checked: {
       true: {
-        borderColor: semanticColorRoles.button.solid.primary.background,
-        background: semanticColorRoles.button.solid.primary.background,
-        color: semanticColorRoles.button.solid.primary.text
+        backgroundColor: semanticColorRoles.action.primary.default,
+        borderColor: semanticColorRoles.action.primary.default,
+        color: semanticColorRoles.text.inverse,
       },
-      false: {}
-    }
+      false: {},
+    },
   },
-  defaultVariants: {
-    selected: false
-  }
+  defaultVariants: { checked: false },
 });
 
-export const optionText = style({
-  display: "grid",
-  gap: "2px",
-  minWidth: 0
-});
-
-export const optionMeta = style({ color: semanticColorRoles.text.tertiary, fontSize: themeVars.font.sizeSm });
-export const check = style({ color: semanticColorRoles.button.solid.primary.background, fontWeight: themeVars.font.weightBold, flexShrink: 0 });
-export const empty = style({ color: semanticColorRoles.text.tertiary, fontSize: themeVars.font.sizeSm, padding: `${themeVars.spacing.x2} ${themeVars.spacing.x1}` });
-export const helperText = recipe({
-  base: { fontFamily: themeVars.font.family, fontSize: themeVars.font.sizeSm, lineHeight: 1.4 },
-  variants: {
-    tone: {
-      neutral: { color: semanticColorRoles.field.helper },
-      danger: { color: semanticColorRoles.status.danger.text }
-    }
-  },
-  defaultVariants: { tone: "neutral" }
+/* ─── panel header (multi-check) ─── */
+export const panelHeader = style({
+  display: "flex",
+  alignItems: "center",
+  padding: `${themeVars.spacing.x2} ${themeVars.spacing.x3}`,
+  fontSize: "13px",
+  fontWeight: themeVars.font.weightMedium,
+  color: semanticColorRoles.text.primary,
+  borderBottom: `1px solid ${grayPalette[200]}`,
 });

@@ -1,142 +1,193 @@
-"use client";
+import { useState, useCallback, useRef, useEffect, type ReactNode } from "react";
+import { cx } from "../../lib/cx";
+import * as s from "./Dropdown.css";
 
-import { useId } from "react";
-import type { ReactNode } from "react";
-import * as styles from "./Dropdown.css";
-import { useDropdownState } from "./useDropdownState";
+/* ─── Types ─── */
+export type DropdownSize = "small" | "medium" | "large";
 
-export type DropdownOption = {
+export interface DropdownOption {
+  /** 옵션 값 */
   value: string;
+  /** 표시 텍스트 */
   label: string;
-  description?: ReactNode;
+  /** 설명 (Multi Level 모드) */
+  description?: string;
+  /** 비활성화 */
   disabled?: boolean;
-  keywords?: string[];
-};
+}
 
-export type DropdownOptionGroup = {
-  label?: string;
+export interface DropdownProps {
+  /** 크기 */
+  size?: DropdownSize;
+  /** 옵션 목록 */
   options: DropdownOption[];
-};
-
-export type DropdownProps = {
-  label?: string;
-  caption?: string;
-  helperText?: string;
-  placeholder?: string;
-  required?: boolean;
-  invalid?: boolean;
-  disabled?: boolean;
-  size?: "sm" | "md" | "lg";
-  searchable?: boolean;
-  multiple?: boolean;
-  groups: DropdownOptionGroup[];
+  /** 선택된 값 (controlled) — 다중 선택 시 배열 */
   value?: string | string[];
+  /** 기본 선택 값 (uncontrolled) */
   defaultValue?: string | string[];
-  onValueChange?: (value: string | string[]) => void;
-  searchPlaceholder?: string;
-};
+  /** 변경 핸들러 */
+  onChange?: (value: string | string[]) => void;
+  /** 플레이스홀더 */
+  placeholder?: string;
+  /** 좌측 아이콘 */
+  icon?: ReactNode;
+  /** 다중 선택 (체크박스 모드) */
+  multiple?: boolean;
+  /** 패널 헤더 텍스트 (Multi Check 모드) */
+  panelHeader?: string;
+  /** 비활성화 */
+  disabled?: boolean;
+  /** 추가 className */
+  className?: string;
+}
 
+/* ─── SVG Icons ─── */
+const ChevronIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M4.5 6.75 9 11.25l4.5-4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+
+const CheckIcon = () => (
+  <svg width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M1 4l3 3 5-6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+
+/* ─── Dropdown Component ─── */
 export function Dropdown({
-  caption,
+  size = "medium",
+  options,
+  value: controlledValue,
   defaultValue,
-  disabled = false,
-  groups,
-  helperText,
-  invalid = false,
-  label,
+  onChange,
+  placeholder = "선택하세요",
+  icon,
   multiple = false,
-  onValueChange,
-  placeholder = "항목 선택",
-  required = false,
-  searchable = false,
-  searchPlaceholder = "검색어 입력",
-  size = "md",
-  value
+  panelHeader,
+  disabled = false,
+  className,
 }: DropdownProps) {
-  const triggerId = useId();
-  const { filteredGroups, isSelected, open, query, select, selectedValue, setOpen, setQuery } = useDropdownState({
-    defaultValue,
-    groups,
-    multiple,
-    onValueChange,
-    value
-  });
+  const [internalValue, setInternalValue] = useState<string | string[]>(
+    defaultValue ?? (multiple ? [] : ""),
+  );
+  const isControlled = controlledValue !== undefined;
+  const value = isControlled ? controlledValue : internalValue;
 
-  const selectedLabels = groups
-    .flatMap(group => group.options)
-    .filter(option => isSelected(option.value))
-    .map(option => option.label);
+  const [open, setOpen] = useState(false);
+  const wrapperRef = useRef<HTMLDivElement>(null);
 
-  const triggerContent = selectedLabels.length > 0 ? selectedLabels.join(", ") : placeholder;
+  /* close on outside click */
+  useEffect(() => {
+    if (!open) return;
+    const handler = (e: MouseEvent) => {
+      if (wrapperRef.current && !wrapperRef.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, [open]);
+
+  /* close on Escape */
+  useEffect(() => {
+    if (!open) return;
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("keydown", handler);
+    return () => document.removeEventListener("keydown", handler);
+  }, [open]);
+
+  const toggle = useCallback(() => {
+    if (!disabled) setOpen((prev) => !prev);
+  }, [disabled]);
+
+  const handleSelect = useCallback(
+    (optionValue: string) => {
+      if (multiple) {
+        const arr = Array.isArray(value) ? value : [];
+        const next = arr.includes(optionValue)
+          ? arr.filter((v) => v !== optionValue)
+          : [...arr, optionValue];
+        if (!isControlled) setInternalValue(next);
+        onChange?.(next);
+      } else {
+        if (!isControlled) setInternalValue(optionValue);
+        onChange?.(optionValue);
+        setOpen(false);
+      }
+    },
+    [multiple, value, isControlled, onChange],
+  );
+
+  /* derive display text */
+  const selectedValues = multiple
+    ? (Array.isArray(value) ? value : [])
+    : (typeof value === "string" && value ? [value] : []);
+
+  const displayLabel =
+    selectedValues.length === 0
+      ? null
+      : selectedValues
+          .map((v) => options.find((o) => o.value === v)?.label ?? v)
+          .join(", ");
+
+  const isSelected = (optionValue: string) =>
+    multiple
+      ? (Array.isArray(value) ? value : []).includes(optionValue)
+      : value === optionValue;
 
   return (
-    <div className={styles.root}>
-      {label ? (
-        <label className={styles.labelRow} htmlFor={triggerId}>
-          <span className={styles.label}>
-            {label}
-            {required ? <span className={styles.requiredMark}>*</span> : null}
-          </span>
-          {caption ? <span className={styles.caption}>{caption}</span> : null}
-        </label>
-      ) : null}
+    <div ref={wrapperRef} className={cx(s.wrapper, className)}>
       <button
-        aria-controls={`${triggerId}-panel`}
-        aria-disabled={disabled}
-        aria-expanded={open}
-        aria-invalid={invalid}
-        className={styles.trigger({ invalid, open, size })}
-        disabled={disabled}
-        id={triggerId}
-        onClick={() => setOpen(!open)}
         type="button"
+        className={s.trigger({ size, open, disabled })}
+        aria-expanded={open}
+        aria-haspopup="listbox"
+        onClick={toggle}
       >
-        <span className={`${styles.triggerValue} ${selectedLabels.length === 0 ? styles.placeholder : ""}`}>{triggerContent}</span>
-        {multiple && selectedLabels.length > 0 ? <span className={styles.counter}>{selectedLabels.length}</span> : null}
-        <span aria-hidden="true" className={styles.icon({ open })}>
-          <svg fill="none" height="6" viewBox="0 0 10 6" width="10" xmlns="http://www.w3.org/2000/svg">
-            <path d="M1 1L5 5L9 1" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.4" />
-          </svg>
+        {icon && <span className={s.triggerIcon}>{icon}</span>}
+        <span className={cx(s.triggerLabel, !displayLabel && s.placeholder)}>
+          {displayLabel || placeholder}
+        </span>
+        <span className={s.chevron({ open })}>
+          <ChevronIcon />
         </span>
       </button>
-      {open ? (
-        <div className={styles.panel} id={`${triggerId}-panel`} role="group">
-          {searchable ? (
-            <input className={styles.searchInput} onChange={event => setQuery(event.target.value)} placeholder={searchPlaceholder} type="search" value={query} />
-          ) : null}
-          <div className={styles.list}>
-            {filteredGroups.length === 0 ? <div className={styles.empty}>검색 결과가 없습니다.</div> : null}
-            {filteredGroups.map((group, index) => (
-              <div className={styles.group} key={`${group.label ?? "group"}-${index}`}>
-                {group.label ? <div className={styles.groupLabel}>{group.label}</div> : null}
-                {group.options.map(option => {
-                  const selected = isSelected(option.value);
 
-                  return (
-                    <button
-                      className={styles.option({ selected })}
-                      disabled={option.disabled}
-                      key={option.value}
-                      onClick={() => select(option.value)}
-                      type="button"
-                    >
-                      <span className={styles.optionMain}>
-                        {multiple ? <span aria-hidden="true" className={styles.checkbox({ selected })}>{selected ? "✓" : ""}</span> : null}
-                        <span className={styles.optionText}>
-                          <span>{option.label}</span>
-                          {option.description ? <span className={styles.optionMeta}>{option.description}</span> : null}
-                        </span>
-                      </span>
-                      {!multiple && selected ? <span className={styles.check}>✓</span> : null}
-                    </button>
-                  );
-                })}
-              </div>
-            ))}
-          </div>
+      {open && (
+        <div className={s.panel} role="listbox" aria-multiselectable={multiple || undefined}>
+          {panelHeader && <div className={s.panelHeader}>{panelHeader}</div>}
+          {options.map((opt) => {
+            const selected = isSelected(opt.value);
+            return (
+              <button
+                key={opt.value}
+                type="button"
+                role="option"
+                aria-selected={selected}
+                className={s.option({ selected, disabled: !!opt.disabled })}
+                onClick={() => handleSelect(opt.value)}
+              >
+                {multiple && (
+                  <span className={s.checkbox({ checked: selected })}>
+                    {selected && <CheckIcon />}
+                  </span>
+                )}
+                {opt.description ? (
+                  <span className={s.optionTextGroup}>
+                    <span>{opt.label}</span>
+                    <span className={s.optionDescription}>{opt.description}</span>
+                  </span>
+                ) : (
+                  <span>{opt.label}</span>
+                )}
+              </button>
+            );
+          })}
         </div>
-      ) : null}
-      {helperText ? <div className={styles.helperText({ tone: invalid ? "danger" : "neutral" })}>{helperText}</div> : null}
+      )}
     </div>
   );
 }

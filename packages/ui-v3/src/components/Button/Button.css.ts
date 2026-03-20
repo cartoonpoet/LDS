@@ -1,288 +1,355 @@
-import { keyframes, style } from "@vanilla-extract/css";
+import { style, keyframes } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 import { semanticColorRoles, themeVars } from "@lds/tokens";
-import { sprinkles } from "../../styles/sprinkles.css";
 
-const spin = keyframes({
-  from: {
-    transform: "rotate(0deg)"
-  },
-  to: {
-    transform: "rotate(360deg)"
-  }
-});
+/* ─── color token helpers ─── */
+const solid = semanticColorRoles.button.solid;
+const outline = semanticColorRoles.button.outline;
 
-const tones = [
-  "primary",
-  "secondary",
-  "success",
-  "danger",
-  "warning",
-  "info",
-  "dark",
-  "neutral"
-] as const;
-
-const toneVariant = {
-  primary: {},
-  secondary: {},
-  success: {},
-  danger: {},
-  warning: {},
-  info: {},
-  dark: {},
-  neutral: {}
-} as const;
-
-const solidDisabled = {
-  backgroundColor: semanticColorRoles.button.solid.disabled.background,
-  color: semanticColorRoles.button.solid.disabled.text,
-  boxShadow: "none",
-  cursor: "not-allowed"
-} as const;
-
-const outlineDisabled = {
-  borderColor: semanticColorRoles.button.outline.disabled.border,
-  color: semanticColorRoles.button.outline.disabled.text,
-  backgroundColor: semanticColorRoles.surface.canvas,
-  boxShadow: "none",
-  cursor: "not-allowed"
-} as const;
-
-const createSolidTone = (tone: keyof typeof semanticColorRoles.button.solid) => {
-  if (tone === "disabled") {
-    return {};
-  }
-
-  const palette = semanticColorRoles.button.solid[tone];
-
-  return {
-    backgroundColor: palette.background,
-    color: palette.text,
-    selectors: {
-      "&:hover:not(:disabled)": {
-        backgroundColor: palette.hover,
-        boxShadow: themeVars.shadow.raised
-      },
-      "&:active:not(:disabled)": {
-        backgroundColor: palette.active,
-        boxShadow: "none",
-        transform: "translateY(1px)"
-      },
-      "&:disabled": solidDisabled
-    }
-  };
-};
-
-const createOutlineTone = (tone: keyof typeof semanticColorRoles.button.outline) => {
-  if (tone === "disabled") {
-    return {};
-  }
-
-  const palette = semanticColorRoles.button.outline[tone];
-
-  return {
-    borderColor: palette.border,
-    color: palette.text,
-    selectors: {
-      "&:hover:not(:disabled)": {
-        backgroundColor: palette.hover
-      },
-      "&:active:not(:disabled)": {
-        backgroundColor: palette.active,
-        transform: "translateY(1px)"
-      },
-      "&:disabled": outlineDisabled
-    }
-  };
-};
-
-const createGradientTone = (tone: keyof typeof semanticColorRoles.button.gradient) => {
-  const palette = semanticColorRoles.button.gradient[tone];
-
-  return {
-    backgroundImage: `linear-gradient(90deg, ${palette.from} 0%, ${palette.to} 100%)`,
-    color: palette.text,
-    selectors: {
-      "&:hover:not(:disabled)": {
-        backgroundImage: `linear-gradient(90deg, ${palette.hoverFrom} 0%, ${palette.hoverTo} 100%)`,
-        boxShadow: themeVars.shadow.raised
-      },
-      "&:active:not(:disabled)": {
-        backgroundImage: `linear-gradient(90deg, ${palette.activeFrom} 0%, ${palette.activeTo} 100%)`,
-        boxShadow: "none",
-        transform: "translateY(1px)"
-      },
-      "&:disabled": {
-        backgroundImage: `linear-gradient(90deg, ${palette.disabledFrom} 0%, ${palette.disabledTo} 100%)`,
-        color: palette.text,
-        boxShadow: "none",
-        cursor: "not-allowed"
-      }
-    }
-  };
-};
-
-const solidToneStyles = {
-  primary: createSolidTone("primary"),
-  secondary: createSolidTone("secondary"),
-  success: createSolidTone("success"),
-  danger: createSolidTone("danger"),
-  warning: createSolidTone("warning"),
-  info: createSolidTone("info"),
-  dark: createSolidTone("dark"),
-  neutral: createSolidTone("neutral")
-} as const;
-
-const outlineToneStyles = {
-  primary: createOutlineTone("primary"),
-  secondary: createOutlineTone("secondary"),
-  success: createOutlineTone("success"),
-  danger: createOutlineTone("danger"),
-  warning: createOutlineTone("warning"),
-  info: createOutlineTone("info"),
-  dark: createOutlineTone("dark"),
-  neutral: createOutlineTone("neutral")
-} as const;
-
-const gradientToneStyles = {
-  primary: createGradientTone("primary"),
-  secondary: createGradientTone("secondary"),
-  success: createGradientTone("success"),
-  danger: createGradientTone("danger"),
-  warning: createGradientTone("warning"),
-  info: createGradientTone("info"),
-  dark: createGradientTone("dark"),
-  neutral: createGradientTone("neutral")
-} as const;
-
-export const buttonRecipe = recipe({
-  base: [
-    sprinkles({
-      display: "inline-flex",
-      alignItems: "center",
-      justifyContent: "center",
-      gap: "x2"
-    }),
-    {
-      maxWidth: "100%",
-      minHeight: "38px",
-      padding: `0 ${themeVars.spacing.x4}`,
-      borderRadius: themeVars.radius.sm,
-      border: `1px solid transparent`,
-      fontFamily: themeVars.font.family,
-      fontSize: themeVars.font.sizeMd,
-      fontWeight: themeVars.font.weightBold,
-      lineHeight: 1.2,
-      whiteSpace: "nowrap",
-      verticalAlign: "middle",
-      cursor: "pointer",
-      transition:
-        "background-color 120ms ease, background-image 120ms ease, border-color 120ms ease, color 120ms ease, box-shadow 120ms ease, transform 80ms ease",
-      selectors: {
-        "&:focus-visible": {
-          outline: "none",
-          boxShadow: themeVars.shadow.focus
-        },
-        "&:disabled": {
-          cursor: "not-allowed",
-          transform: "none"
-        }
-      }
-    }
-  ],
-  variants: {
-    variant: {
-      solid: {},
-      gradient: {},
-      outline: {
-        backgroundColor: semanticColorRoles.surface.canvas
-      }
-    },
-    size: {
-      sm: {
-        minHeight: "30px",
-        padding: `0 ${themeVars.spacing.x3}`,
-        fontSize: themeVars.font.sizeSm
-      },
-      md: {
-        minHeight: "38px",
-        padding: `0 ${themeVars.spacing.x4}`,
-        fontSize: themeVars.font.sizeMd
-      },
-      lg: {
-        minHeight: "44px",
-        padding: `0 ${themeVars.spacing.x5}`,
-        fontSize: themeVars.font.sizeLg
-      }
-    },
-    tone: toneVariant
-  },
-  compoundVariants: [
-    ...tones.map(tone => ({
-      variants: {
-        variant: "solid" as const,
-        tone
-      },
-      style: solidToneStyles[tone]
-    })),
-    ...tones.map(tone => ({
-      variants: {
-        variant: "outline" as const,
-        tone
-      },
-      style: outlineToneStyles[tone]
-    })),
-    ...tones.map(tone => ({
-      variants: {
-        variant: "gradient" as const,
-        tone
-      },
-      style: gradientToneStyles[tone]
-    }))
-  ],
-  defaultVariants: {
-    variant: "solid",
-    size: "md",
-    tone: "primary"
-  }
-});
-
-export const fullWidth = style([
-  sprinkles({
-    width: "100%"
-  })
-]);
-
-export const content = style([
-  sprinkles({
+/* ─── root button ─── */
+export const root = recipe({
+  base: {
     display: "inline-flex",
     alignItems: "center",
     justifyContent: "center",
-    gap: "x2"
-  }),
-  {
-    minWidth: 0
-  }
-]);
+    gap: themeVars.spacing.x1,
+    border: "none",
+    cursor: "pointer",
+    fontFamily: themeVars.font.family,
+    fontSize: themeVars.font.sizeMd,
+    fontWeight: themeVars.font.weightMedium,
+    lineHeight: 1,
+    textAlign: "center",
+    textDecoration: "none",
+    verticalAlign: "middle",
+    userSelect: "none",
+    transition:
+      "background-color 150ms ease, box-shadow 150ms ease, border-color 150ms ease, opacity 150ms ease",
+    selectors: {
+      "&:focus-visible": {
+        outline: "none",
+        boxShadow: themeVars.shadow.focus,
+      },
+    },
+  },
 
-export const icon = style([
-  sprinkles({
-    display: "inline-flex",
-    alignItems: "center",
-    justifyContent: "center"
-  }),
-  {
-    lineHeight: 0,
-    fontSize: "1em"
-  }
-]);
+  variants: {
+    /* ─── variant × color ─── */
+    color: {
+      primary: {},
+      secondary: {},
+      success: {},
+      danger: {},
+      warning: {},
+      info: {},
+      dark: {},
+      neutral: {},
+    },
 
-export const spinner = style({
-  width: "14px",
-  height: "14px",
-  borderRadius: "50%",
-  border: "2px solid currentColor",
-  borderRightColor: "transparent",
-  animation: `${spin} 0.75s linear infinite`
+    variant: {
+      default: {},
+      outline: { backgroundColor: "transparent" },
+    },
+
+    shape: {
+      rounded: { borderRadius: themeVars.radius.sm },
+      round: { borderRadius: "9999px" },
+    },
+
+    size: {
+      small: {
+        height: 30,
+        padding: `0 ${themeVars.spacing.x2}`,
+        fontSize: themeVars.font.sizeSm,
+      },
+      medium: {
+        height: 38,
+        padding: `0 ${themeVars.spacing.x3}`,
+        fontSize: themeVars.font.sizeMd,
+      },
+      large: {
+        height: 46,
+        padding: `0 ${themeVars.spacing.x4}`,
+        fontSize: themeVars.font.sizeLg,
+      },
+    },
+  },
+
+  compoundVariants: [
+    /* ─── SOLID variants ─── */
+    {
+      variants: { variant: "default", color: "primary" },
+      style: {
+        backgroundColor: solid.primary.background,
+        color: solid.primary.text,
+        selectors: {
+          "&:hover:not(:disabled)": {
+            boxShadow: `0 0 10px rgba(33, 81, 236, 0.65)`,
+          },
+          "&:active:not(:disabled)": {
+            backgroundColor: solid.primary.active,
+            boxShadow: "none",
+          },
+        },
+      },
+    },
+    {
+      variants: { variant: "default", color: "secondary" },
+      style: {
+        backgroundColor: solid.secondary.background,
+        color: solid.secondary.text,
+        selectors: {
+          "&:hover:not(:disabled)": {
+            boxShadow: `0 0 10px rgba(130, 134, 139, 0.65)`,
+          },
+          "&:active:not(:disabled)": {
+            backgroundColor: solid.secondary.active,
+            boxShadow: "none",
+          },
+        },
+      },
+    },
+    {
+      variants: { variant: "default", color: "success" },
+      style: {
+        backgroundColor: solid.success.background,
+        color: solid.success.text,
+        selectors: {
+          "&:hover:not(:disabled)": {
+            boxShadow: `0 0 10px rgba(40, 199, 111, 0.65)`,
+          },
+          "&:active:not(:disabled)": {
+            backgroundColor: solid.success.active,
+            boxShadow: "none",
+          },
+        },
+      },
+    },
+    {
+      variants: { variant: "default", color: "danger" },
+      style: {
+        backgroundColor: solid.danger.background,
+        color: solid.danger.text,
+        selectors: {
+          "&:hover:not(:disabled)": {
+            boxShadow: `0 0 10px rgba(234, 84, 85, 0.65)`,
+          },
+          "&:active:not(:disabled)": {
+            backgroundColor: solid.danger.active,
+            boxShadow: "none",
+          },
+        },
+      },
+    },
+    {
+      variants: { variant: "default", color: "warning" },
+      style: {
+        backgroundColor: solid.warning.background,
+        color: solid.warning.text,
+        selectors: {
+          "&:hover:not(:disabled)": {
+            boxShadow: `0 0 10px rgba(240, 175, 35, 0.65)`,
+          },
+          "&:active:not(:disabled)": {
+            backgroundColor: solid.warning.active,
+            boxShadow: "none",
+          },
+        },
+      },
+    },
+    {
+      variants: { variant: "default", color: "info" },
+      style: {
+        backgroundColor: solid.info.background,
+        color: solid.info.text,
+        selectors: {
+          "&:hover:not(:disabled)": {
+            boxShadow: `0 0 10px rgba(0, 207, 232, 0.65)`,
+          },
+          "&:active:not(:disabled)": {
+            backgroundColor: solid.info.active,
+            boxShadow: "none",
+          },
+        },
+      },
+    },
+    {
+      variants: { variant: "default", color: "dark" },
+      style: {
+        backgroundColor: solid.dark.background,
+        color: solid.dark.text,
+        selectors: {
+          "&:hover:not(:disabled)": {
+            boxShadow: `0 0 10px rgba(75, 75, 75, 0.65)`,
+          },
+          "&:active:not(:disabled)": {
+            backgroundColor: solid.dark.active,
+            boxShadow: "none",
+          },
+        },
+      },
+    },
+    {
+      variants: { variant: "default", color: "neutral" },
+      style: {
+        backgroundColor: solid.neutral.background,
+        color: solid.neutral.text,
+        selectors: {
+          "&:hover:not(:disabled)": {
+            boxShadow: `0 0 10px rgba(130, 134, 139, 0.65)`,
+          },
+          "&:active:not(:disabled)": {
+            backgroundColor: solid.neutral.active,
+            boxShadow: "none",
+          },
+        },
+      },
+    },
+
+    /* ─── OUTLINE variants ─── */
+    {
+      variants: { variant: "outline", color: "primary" },
+      style: {
+        border: `1px solid ${outline.primary.border}`,
+        color: outline.primary.text,
+        selectors: {
+          "&:hover:not(:disabled)": {
+            backgroundColor: outline.primary.hover,
+          },
+          "&:active:not(:disabled)": {
+            backgroundColor: outline.primary.active,
+          },
+        },
+      },
+    },
+    {
+      variants: { variant: "outline", color: "secondary" },
+      style: {
+        border: `1px solid ${outline.secondary.border}`,
+        color: outline.secondary.text,
+        selectors: {
+          "&:hover:not(:disabled)": {
+            backgroundColor: outline.secondary.hover,
+          },
+          "&:active:not(:disabled)": {
+            backgroundColor: outline.secondary.active,
+          },
+        },
+      },
+    },
+    {
+      variants: { variant: "outline", color: "success" },
+      style: {
+        border: `1px solid ${outline.success.border}`,
+        color: outline.success.text,
+        selectors: {
+          "&:hover:not(:disabled)": {
+            backgroundColor: outline.success.hover,
+          },
+          "&:active:not(:disabled)": {
+            backgroundColor: outline.success.active,
+          },
+        },
+      },
+    },
+    {
+      variants: { variant: "outline", color: "danger" },
+      style: {
+        border: `1px solid ${outline.danger.border}`,
+        color: outline.danger.text,
+        selectors: {
+          "&:hover:not(:disabled)": {
+            backgroundColor: outline.danger.hover,
+          },
+          "&:active:not(:disabled)": {
+            backgroundColor: outline.danger.active,
+          },
+        },
+      },
+    },
+    {
+      variants: { variant: "outline", color: "warning" },
+      style: {
+        border: `1px solid ${outline.warning.border}`,
+        color: outline.warning.text,
+        selectors: {
+          "&:hover:not(:disabled)": {
+            backgroundColor: outline.warning.hover,
+          },
+          "&:active:not(:disabled)": {
+            backgroundColor: outline.warning.active,
+          },
+        },
+      },
+    },
+    {
+      variants: { variant: "outline", color: "info" },
+      style: {
+        border: `1px solid ${outline.info.border}`,
+        color: outline.info.text,
+        selectors: {
+          "&:hover:not(:disabled)": {
+            backgroundColor: outline.info.hover,
+          },
+          "&:active:not(:disabled)": {
+            backgroundColor: outline.info.active,
+          },
+        },
+      },
+    },
+    {
+      variants: { variant: "outline", color: "dark" },
+      style: {
+        border: `1px solid ${outline.dark.border}`,
+        color: outline.dark.text,
+        selectors: {
+          "&:hover:not(:disabled)": {
+            backgroundColor: outline.dark.hover,
+          },
+          "&:active:not(:disabled)": {
+            backgroundColor: outline.dark.active,
+          },
+        },
+      },
+    },
+    {
+      variants: { variant: "outline", color: "neutral" },
+      style: {
+        border: `1px solid ${outline.neutral.border}`,
+        color: outline.neutral.text,
+        selectors: {
+          "&:hover:not(:disabled)": {
+            backgroundColor: outline.neutral.hover,
+          },
+          "&:active:not(:disabled)": {
+            backgroundColor: outline.neutral.active,
+          },
+        },
+      },
+    },
+  ],
+
+  defaultVariants: {
+    variant: "default",
+    color: "primary",
+    shape: "rounded",
+    size: "medium",
+  },
+});
+
+/* ─── disabled state (applied via data attribute) ─── */
+export const disabled = style({
+  cursor: "not-allowed",
+  opacity: 0.4,
+  pointerEvents: "none",
+});
+
+/* ─── icon wrapper ─── */
+export const iconSlot = style({
+  display: "inline-flex",
+  alignItems: "center",
+  justifyContent: "center",
+  flexShrink: 0,
+  width: 14,
+  height: 14,
 });

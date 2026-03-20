@@ -1,64 +1,58 @@
-"use client";
+import type { ReactNode, MouseEventHandler } from "react";
+import { cx } from "../../lib/cx";
+import * as s from "./ButtonGroup.css";
 
-import { useState } from "react";
-import * as styles from "./ButtonGroup.css";
+/* ─── Types ─── */
+export type ButtonGroupVariant = "fill" | "outline";
+export type ButtonGroupSize = "small" | "medium";
 
-export type ButtonGroupItem = {
-  label: string;
+export interface ButtonGroupItem {
+  /** 고유 식별 값 */
   value: string;
-  disabled?: boolean;
-};
+  /** 버튼 텍스트 */
+  label: string;
+  /** 좌측 아이콘 */
+  icon?: ReactNode;
+}
 
-export type ButtonGroupProps = {
+export interface ButtonGroupProps {
+  /** 아이템 목록 */
   items: ButtonGroupItem[];
+  /** 현재 활성화된 값 */
   value?: string;
-  defaultValue?: string;
-  onValueChange?: (value: string) => void;
-  size?: "sm" | "md" | "lg";
-  ariaLabel?: string;
-};
+  /** 값 변경 핸들러 */
+  onChange?: (value: string) => void;
+  /** 스타일 변형 */
+  variant?: ButtonGroupVariant;
+  /** 크기 */
+  size?: ButtonGroupSize;
+  /** 추가 className */
+  className?: string;
+}
 
-const getInitialValue = (items: ButtonGroupItem[], defaultValue?: string) => {
-  if (defaultValue) {
-    return defaultValue;
-  }
-
-  return items.find(item => !item.disabled)?.value ?? "";
-};
-
+/* ─── Component ─── */
 export function ButtonGroup({
-  ariaLabel = "Button group",
-  defaultValue,
   items,
-  onValueChange,
-  size = "md",
-  value
+  value,
+  onChange,
+  variant = "fill",
+  size = "medium",
+  className,
 }: ButtonGroupProps) {
-  const [internalValue, setInternalValue] = useState(() => getInitialValue(items, defaultValue));
-  const selectedValue = value ?? internalValue;
-
-  const handleSelect = (nextValue: string) => {
-    if (value === undefined) {
-      setInternalValue(nextValue);
-    }
-
-    onValueChange?.(nextValue);
-  };
-
   return (
-    <div aria-label={ariaLabel} className={styles.root} role="group">
-      {items.map(item => {
-        const selected = selectedValue === item.value;
-
+    <div className={cx(s.root({ variant, size }), className)} role="group">
+      {items.map((item) => {
+        const isActive = item.value === value;
         return (
           <button
-            aria-pressed={selected}
-            className={styles.button({ active: selected, size })}
-            disabled={item.disabled}
             key={item.value}
-            onClick={() => handleSelect(item.value)}
             type="button"
+            className={s.item({ variant, size, active: isActive })}
+            data-active={isActive}
+            aria-pressed={isActive}
+            onClick={() => onChange?.(item.value)}
           >
+            {item.icon && <span className={s.iconSlot}>{item.icon}</span>}
             {item.label}
           </button>
         );

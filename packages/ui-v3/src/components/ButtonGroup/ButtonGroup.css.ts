@@ -1,77 +1,126 @@
-import { style } from "@vanilla-extract/css";
+import { style, globalStyle } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 import { semanticColorRoles, themeVars } from "@lds/tokens";
 
-export const root = style({
-  display: "inline-flex",
-  alignItems: "stretch",
-  gap: "1px",
-  padding: "1px",
-  borderRadius: themeVars.radius.sm,
-  background: semanticColorRoles.surface.canvas,
-  border: `1px solid ${semanticColorRoles.field.border}`,
-  boxShadow: "0 1px 2px rgba(15, 23, 42, 0.06)"
+const action = semanticColorRoles.action;
+
+/* ─── container ─── */
+export const root = recipe({
+  base: {
+    display: "inline-flex",
+    borderRadius: themeVars.radius.sm,
+    overflow: "hidden",
+  },
+  variants: {
+    variant: {
+      fill: {},
+      outline: {},
+    },
+    size: {
+      small: {},
+      medium: {},
+    },
+  },
+  defaultVariants: {
+    variant: "fill",
+    size: "medium",
+  },
 });
 
-export const button = recipe({
+/* ─── individual item (button) ─── */
+export const item = recipe({
   base: {
-    minWidth: "68px",
-    minHeight: "28px",
-    padding: `0 ${themeVars.spacing.x3}`,
-    border: 0,
-    borderRadius: "3px",
-    background: "transparent",
-    color: semanticColorRoles.text.secondary,
-    fontFamily: themeVars.font.family,
-    fontSize: themeVars.font.sizeSm,
-    fontWeight: themeVars.font.weightMedium,
-    lineHeight: 1,
-    whiteSpace: "nowrap",
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: themeVars.spacing.x1,
+    border: "none",
     cursor: "pointer",
-    transition: "background-color 120ms ease, color 120ms ease, box-shadow 120ms ease",
+    fontFamily: themeVars.font.family,
+    fontWeight: themeVars.font.weightMedium,
+    textAlign: "center",
+    lineHeight: 1,
+    transition: "background-color 150ms ease, color 150ms ease",
+    flexShrink: 0,
     selectors: {
-      "&:hover:not(:disabled)": {
-        background: semanticColorRoles.surface.subtle,
-        color: semanticColorRoles.text.primary
-      },
       "&:focus-visible": {
         outline: "none",
         boxShadow: themeVars.shadow.focus,
+        zIndex: 1,
         position: "relative",
-        zIndex: 1
       },
-      "&:disabled": {
-        color: semanticColorRoles.text.disabled,
-        cursor: "not-allowed"
-      }
-    }
+    },
   },
   variants: {
-    active: {
-      true: {
-        background: semanticColorRoles.button.solid.primary.background,
-        color: semanticColorRoles.button.solid.primary.text,
-        boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.08)"
+    variant: {
+      fill: {
+        backgroundColor: action.primary.default,
+        color: semanticColorRoles.text.inverse,
+        borderRight: "1px solid rgba(0, 0, 0, 0.12)",
+        selectors: {
+          "&:last-child": { borderRight: "none" },
+          "&:hover:not([data-active='true'])": {
+            backgroundColor: action.primary.hover,
+          },
+        },
       },
-      false: {}
+      outline: {
+        backgroundColor: "transparent",
+        color: action.primary.default,
+        border: `1px solid ${action.primary.default}`,
+        marginLeft: -1,
+        selectors: {
+          "&:first-child": { marginLeft: 0 },
+          "&:hover:not([data-active='true'])": {
+            backgroundColor: action.primary.subtle,
+          },
+        },
+      },
     },
     size: {
-      sm: {
-        minWidth: "60px",
-        minHeight: "24px",
-        padding: `0 ${themeVars.spacing.x2}`
+      small: {
+        height: 31,
+        padding: `0 ${themeVars.spacing.x2}`,
+        fontSize: themeVars.font.sizeSm,
       },
-      md: {},
-      lg: {
-        minWidth: "80px",
-        minHeight: "32px",
-        padding: `0 ${themeVars.spacing.x4}`,
-        fontSize: themeVars.font.sizeMd
-      }
-    }
+      medium: {
+        height: 38,
+        padding: `0 ${themeVars.spacing.x3}`,
+        fontSize: themeVars.font.sizeMd,
+      },
+    },
+    active: {
+      true: {},
+      false: {},
+    },
   },
+  compoundVariants: [
+    {
+      variants: { variant: "fill", active: true },
+      style: {
+        backgroundColor: action.primary.active,
+      },
+    },
+    {
+      variants: { variant: "outline", active: true },
+      style: {
+        backgroundColor: action.primary.subtle,
+      },
+    },
+  ],
   defaultVariants: {
+    variant: "fill",
+    size: "medium",
     active: false,
-    size: "md"
-  }
+  },
+});
+
+/* ─── icon slot ─── */
+export const iconSlot = style({
+  display: "inline-flex",
+  alignItems: "center",
+  justifyContent: "center",
+  flexShrink: 0,
+  width: 14,
+  height: 14,
 });

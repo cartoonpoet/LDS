@@ -1,60 +1,66 @@
-import type { ButtonHTMLAttributes, PropsWithChildren, ReactNode } from "react";
-import * as styles from "./Button.css";
+import type { ButtonHTMLAttributes, ReactNode } from "react";
+import { cx } from "../../lib/cx";
+import * as s from "./Button.css";
 
-export type ButtonProps = PropsWithChildren<
-  ButtonHTMLAttributes<HTMLButtonElement> & {
-    tone?:
-      | "primary"
-      | "secondary"
-      | "success"
-      | "danger"
-      | "warning"
-      | "info"
-      | "dark"
-      | "neutral";
-    variant?: "solid" | "outline" | "gradient";
-    size?: "sm" | "md" | "lg";
-    fullWidth?: boolean;
-    leadingIcon?: ReactNode;
-    trailingIcon?: ReactNode;
-    loading?: boolean;
-  }
->;
+/* ─── Types ─── */
+export type ButtonVariant = "default" | "outline";
+export type ButtonColor =
+  | "primary"
+  | "secondary"
+  | "success"
+  | "danger"
+  | "warning"
+  | "info"
+  | "dark"
+  | "neutral";
+export type ButtonShape = "rounded" | "round";
+export type ButtonSize = "small" | "medium" | "large";
 
+export interface ButtonProps
+  extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "color"> {
+  /** 버튼 스타일 변형 */
+  variant?: ButtonVariant;
+  /** 색상 테마 */
+  color?: ButtonColor;
+  /** 모양 (rounded: 5px / round: pill) */
+  shape?: ButtonShape;
+  /** 크기 */
+  size?: ButtonSize;
+  /** 좌측 아이콘 */
+  iconLeft?: ReactNode;
+  /** 우측 아이콘 */
+  iconRight?: ReactNode;
+  /** 버튼 텍스트 */
+  children?: ReactNode;
+}
+
+/* ─── Component ─── */
 export function Button({
-  children,
-  className,
-  fullWidth = false,
-  leadingIcon,
-  loading = false,
-  size = "md",
-  tone = "primary",
-  trailingIcon,
-  type = "button",
-  variant = "solid",
+  variant = "default",
+  color = "primary",
+  shape = "rounded",
+  size = "medium",
+  iconLeft,
+  iconRight,
   disabled,
-  ...props
+  className,
+  children,
+  ...rest
 }: ButtonProps) {
-  const composedClassName = [
-    styles.buttonRecipe({
-      size,
-      tone,
-      variant
-    }),
-    fullWidth ? styles.fullWidth : "",
-    className
-  ]
-    .filter(Boolean)
-    .join(" ");
-
   return (
-    <button className={composedClassName} disabled={disabled || loading} type={type} {...props}>
-      <span className={styles.content}>
-        {loading ? <span aria-hidden="true" className={styles.spinner} /> : null}
-        {!loading && leadingIcon ? <span className={styles.icon}>{leadingIcon}</span> : null}
-        <span>{children}</span>
-        {!loading && trailingIcon ? <span className={styles.icon}>{trailingIcon}</span> : null}
-      </span>
+    <button
+      type="button"
+      disabled={disabled}
+      className={cx(
+        s.root({ variant, color, shape, size }),
+        disabled && s.disabled,
+        className,
+      )}
+      {...rest}
+    >
+      {iconLeft && <span className={s.iconSlot}>{iconLeft}</span>}
+      {children}
+      {iconRight && <span className={s.iconSlot}>{iconRight}</span>}
     </button>
   );
 }
