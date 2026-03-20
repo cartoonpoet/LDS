@@ -44,6 +44,9 @@ export type { SweetAlertProps, SweetAlertIntent } from "./components/SweetAlert"
 export { Pagination, PaginationCount } from "./components/Pagination";
 export type { PaginationProps } from "./components/Pagination";
 
+export { ProgressBar, StepBar } from "./components/Progress";
+export type { ProgressBarProps, ProgressColor, ProgressSegment, StepBarProps, StepItem, StepStatus } from "./components/Progress";
+
 /* ─── Styles ─── */
 export { sprinkles } from "./styles/sprinkles.css";
 
