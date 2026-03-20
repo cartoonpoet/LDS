@@ -9,13 +9,88 @@ const PlusIcon = () => (
   </svg>
 );
 
+/**
+ * ## Tabs
+ *
+ * 언더라인 스타일 탭 바. 활성 탭은 Primary 배경으로 채워지며, 하단에 인디케이터 라인이 표시됩니다.
+ * Badge 카운트와 Action 버튼(예: "Add Tab")을 지원합니다.
+ *
+ * ### Import
+ * ```tsx
+ * import { Tabs } from "@lds/ui-v3";
+ * import type { TabItem } from "@lds/ui-v3";
+ * ```
+ *
+ * ### Props
+ * | Prop | Type | Default | Description |
+ * |------|------|---------|-------------|
+ * | `items` | `TabItem[]` | **필수** | 탭 아이템 목록 `{ value, label, badge? }` |
+ * | `value` | `string` | - | 현재 활성화된 값 |
+ * | `onChange` | `(value: string) => void` | - | 탭 변경 핸들러 |
+ * | `size` | `"large" \| "medium"` | `"large"` | 크기. large=48px, medium=40px |
+ * | `action` | `{ label, icon?, onClick? }` | - | 우측 액션 버튼 (예: 탭 추가) |
+ * | `className` | `string` | - | 추가 CSS 클래스 |
+ *
+ * ### TabItem
+ * ```ts
+ * interface TabItem {
+ *   value: string;  // 고유 식별 값
+ *   label: string;  // 탭 텍스트
+ *   badge?: number; // 뱃지 카운트 (숫자 표시)
+ * }
+ * ```
+ *
+ * ### Template Code
+ * ```tsx
+ * const [tab, setTab] = useState("tab1");
+ *
+ * // 기본 탭
+ * <Tabs
+ *   items={[
+ *     { value: "tab1", label: "Tab 1" },
+ *     { value: "tab2", label: "Tab 2" },
+ *     { value: "tab3", label: "Tab 3" },
+ *   ]}
+ *   value={tab}
+ *   onChange={setTab}
+ * />
+ *
+ * // Badge 탭
+ * <Tabs
+ *   items={[
+ *     { value: "tab1", label: "Tab 1", badge: 12 },
+ *     { value: "tab2", label: "Tab 2", badge: 9 },
+ *     { value: "tab3", label: "Tab 3", badge: 3 },
+ *   ]}
+ *   value={tab}
+ *   onChange={setTab}
+ *   size="medium"
+ * />
+ *
+ * // Action 버튼 포함
+ * <Tabs
+ *   items={items}
+ *   value={tab}
+ *   onChange={setTab}
+ *   action={{
+ *     label: "Add Tab",
+ *     icon: <PlusIcon />,
+ *     onClick: handleAddTab,
+ *   }}
+ * />
+ * ```
+ */
 const meta: Meta<typeof Tabs> = {
   title: "Components/Tabs",
   component: Tabs,
   decorators: [(Story) => <div className={lightThemeClass} style={{ width: "100%" }}><Story /></div>],
   tags: ["autodocs"],
   argTypes: {
-    size: { control: "select", options: ["large", "medium"] },
+    size: {
+      control: "select",
+      options: ["large", "medium"],
+      description: "크기. large=48px, medium=40px",
+    },
   },
 };
 export default meta;
@@ -35,27 +110,22 @@ const badgeItems = [
   { value: "tab4", label: "Tab 4", badge: 3 },
 ];
 
-/* ─── Basic Large ─── */
 export const BasicLarge: Story = {
   args: { items: basicItems, value: "tab1", size: "large" },
 };
 
-/* ─── Basic Medium ─── */
 export const BasicMedium: Story = {
   args: { items: basicItems, value: "tab1", size: "medium" },
 };
 
-/* ─── With Badge Large ─── */
 export const BadgeLarge: Story = {
   args: { items: badgeItems, value: "tab1", size: "large" },
 };
 
-/* ─── With Badge Medium ─── */
 export const BadgeMedium: Story = {
   args: { items: badgeItems, value: "tab1", size: "medium" },
 };
 
-/* ─── With Action Button ─── */
 export const WithAction: Story = {
   args: {
     items: basicItems,
@@ -69,7 +139,6 @@ export const WithAction: Story = {
   },
 };
 
-/* ─── With Action Medium ─── */
 export const WithActionMedium: Story = {
   args: {
     items: basicItems,
@@ -83,7 +152,6 @@ export const WithActionMedium: Story = {
   },
 };
 
-/* ─── Interactive ─── */
 export const Interactive: Story = {
   render: () => {
     const [value, setValue] = useState("tab1");

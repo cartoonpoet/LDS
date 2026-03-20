@@ -3,6 +3,50 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { ButtonTab } from ".";
 import { lightThemeClass } from "@lds/tokens";
 
+/**
+ * ## ButtonTab
+ *
+ * 탭 스타일의 세그먼트 컨트롤. 활성 탭은 Primary 배경으로 강조되며, 개별 탭을 비활성화할 수 있습니다.
+ *
+ * ### Import
+ * ```tsx
+ * import { ButtonTab } from "@lds/ui-v3";
+ * import type { ButtonTabItem } from "@lds/ui-v3";
+ * ```
+ *
+ * ### Props
+ * | Prop | Type | Default | Description |
+ * |------|------|---------|-------------|
+ * | `items` | `ButtonTabItem[]` | **필수** | 탭 아이템 목록 `{ value, label, disabled? }` |
+ * | `value` | `string` | - | 현재 활성화된 값 |
+ * | `onChange` | `(value: string) => void` | - | 탭 변경 핸들러 |
+ * | `className` | `string` | - | 추가 CSS 클래스 |
+ *
+ * ### ButtonTabItem
+ * ```ts
+ * interface ButtonTabItem {
+ *   value: string;      // 고유 식별 값
+ *   label: string;      // 탭 텍스트
+ *   disabled?: boolean; // 비활성화 여부
+ * }
+ * ```
+ *
+ * ### Template Code
+ * ```tsx
+ * const [tab, setTab] = useState("tab1");
+ *
+ * <ButtonTab
+ *   items={[
+ *     { value: "tab1", label: "Tab 1" },
+ *     { value: "tab2", label: "Tab 2" },
+ *     { value: "tab3", label: "Tab 3", disabled: true },
+ *     { value: "tab4", label: "Tab 4" },
+ *   ]}
+ *   value={tab}
+ *   onChange={setTab}
+ * />
+ * ```
+ */
 const meta: Meta<typeof ButtonTab> = {
   title: "Components/ButtonTab",
   component: ButtonTab,

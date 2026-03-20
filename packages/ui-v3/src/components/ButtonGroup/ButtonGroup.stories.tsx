@@ -12,14 +12,87 @@ const InfoIcon = () => (
   </svg>
 );
 
+/**
+ * ## ButtonGroup
+ *
+ * 세그먼트형 버튼 그룹. 여러 옵션 중 하나를 선택하는 토글 컨트롤입니다.
+ *
+ * ### Import
+ * ```tsx
+ * import { ButtonGroup } from "@lds/ui-v3";
+ * import type { ButtonGroupItem } from "@lds/ui-v3";
+ * ```
+ *
+ * ### Props
+ * | Prop | Type | Default | Description |
+ * |------|------|---------|-------------|
+ * | `items` | `ButtonGroupItem[]` | **필수** | 버튼 아이템 목록 `{ value, label, icon? }` |
+ * | `value` | `string` | - | 현재 선택된 값 |
+ * | `onChange` | `(value: string) => void` | - | 선택 변경 핸들러 |
+ * | `variant` | `"fill" \| "outline"` | `"fill"` | 스타일. fill=Solid 채움, outline=테두리 |
+ * | `size` | `"small" \| "medium"` | `"medium"` | 크기. small=31px, medium=38px |
+ * | `className` | `string` | - | 추가 CSS 클래스 |
+ *
+ * ### ButtonGroupItem
+ * ```ts
+ * interface ButtonGroupItem {
+ *   value: string;   // 고유 식별 값
+ *   label: string;   // 버튼 텍스트
+ *   icon?: ReactNode; // 좌측 아이콘 (선택)
+ * }
+ * ```
+ *
+ * ### Template Code
+ * ```tsx
+ * const [value, setValue] = useState("left");
+ *
+ * // 기본 Fill 스타일
+ * <ButtonGroup
+ *   items={[
+ *     { value: "left", label: "Left" },
+ *     { value: "center", label: "Center" },
+ *     { value: "right", label: "Right" },
+ *   ]}
+ *   value={value}
+ *   onChange={setValue}
+ * />
+ *
+ * // Outline 스타일
+ * <ButtonGroup
+ *   items={items}
+ *   value={value}
+ *   onChange={setValue}
+ *   variant="outline"
+ * />
+ *
+ * // Small 사이즈 + 아이콘
+ * <ButtonGroup
+ *   items={[
+ *     { value: "a", label: "옵션A", icon: <MyIcon /> },
+ *     { value: "b", label: "옵션B", icon: <MyIcon /> },
+ *   ]}
+ *   value={value}
+ *   onChange={setValue}
+ *   size="small"
+ * />
+ * ```
+ */
 const meta: Meta<typeof ButtonGroup> = {
   title: "Components/ButtonGroup",
   component: ButtonGroup,
   decorators: [(Story) => <div className={lightThemeClass}><Story /></div>],
   tags: ["autodocs"],
   argTypes: {
-    variant: { control: "select", options: ["fill", "outline"] },
-    size: { control: "select", options: ["small", "medium"] },
+    variant: {
+      control: "select",
+      options: ["fill", "outline"],
+      description: "스타일. fill=Solid 채움, outline=테두리",
+    },
+    size: {
+      control: "select",
+      options: ["small", "medium"],
+      description: "크기. small=31px, medium=38px",
+    },
   },
 };
 export default meta;
@@ -31,44 +104,22 @@ const defaultItems = [
   { value: "right", label: "Right" },
 ];
 
-/* ─── Fill (Solid) ─── */
 export const Fill: Story = {
-  args: {
-    items: defaultItems,
-    value: "left",
-    variant: "fill",
-  },
+  args: { items: defaultItems, value: "left", variant: "fill" },
 };
 
-/* ─── Outline ─── */
 export const Outline: Story = {
-  args: {
-    items: defaultItems,
-    value: "left",
-    variant: "outline",
-  },
+  args: { items: defaultItems, value: "left", variant: "outline" },
 };
 
-/* ─── Small ─── */
 export const Small: Story = {
-  args: {
-    items: defaultItems,
-    value: "left",
-    size: "small",
-  },
+  args: { items: defaultItems, value: "left", size: "small" },
 };
 
-/* ─── Small Outline ─── */
 export const SmallOutline: Story = {
-  args: {
-    items: defaultItems,
-    value: "left",
-    variant: "outline",
-    size: "small",
-  },
+  args: { items: defaultItems, value: "left", variant: "outline", size: "small" },
 };
 
-/* ─── With Icons ─── */
 export const WithIcons: Story = {
   args: {
     items: [
@@ -81,7 +132,6 @@ export const WithIcons: Story = {
   },
 };
 
-/* ─── With Icons Outline ─── */
 export const WithIconsOutline: Story = {
   args: {
     items: [
@@ -94,24 +144,13 @@ export const WithIconsOutline: Story = {
   },
 };
 
-/* ─── Interactive ─── */
 export const Interactive: Story = {
   render: () => {
     const [value, setValue] = useState("left");
     return (
       <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-        <ButtonGroup
-          items={defaultItems}
-          value={value}
-          onChange={setValue}
-          variant="fill"
-        />
-        <ButtonGroup
-          items={defaultItems}
-          value={value}
-          onChange={setValue}
-          variant="outline"
-        />
+        <ButtonGroup items={defaultItems} value={value} onChange={setValue} variant="fill" />
+        <ButtonGroup items={defaultItems} value={value} onChange={setValue} variant="outline" />
         <p style={{ margin: 0 }}>Selected: <strong>{value}</strong></p>
       </div>
     );

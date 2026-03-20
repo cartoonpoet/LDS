@@ -25,13 +25,63 @@ const MenuIcon = () => (
   </svg>
 );
 
+/**
+ * ## IconButtonGroup
+ *
+ * 아이콘 전용 버튼 그룹. 뷰 모드 전환(카드/그리드/리스트) 등에 사용합니다.
+ * 각 버튼은 38x38 정사각형이며 아이콘만 표시됩니다.
+ *
+ * ### Import
+ * ```tsx
+ * import { IconButtonGroup } from "@lds/ui-v3";
+ * import type { IconButtonGroupItem } from "@lds/ui-v3";
+ * ```
+ *
+ * ### Props
+ * | Prop | Type | Default | Description |
+ * |------|------|---------|-------------|
+ * | `items` | `IconButtonGroupItem[]` | **필수** | 버튼 아이템 목록 `{ value, icon, "aria-label" }` |
+ * | `value` | `string` | - | 현재 선택된 값 |
+ * | `onChange` | `(value: string) => void` | - | 선택 변경 핸들러 |
+ * | `variant` | `"fill" \| "outline"` | `"fill"` | 스타일. fill=Solid, outline=테두리 |
+ * | `className` | `string` | - | 추가 CSS 클래스 |
+ *
+ * ### IconButtonGroupItem
+ * ```ts
+ * interface IconButtonGroupItem {
+ *   value: string;        // 고유 식별 값
+ *   icon: ReactNode;      // 아이콘 (필수)
+ *   "aria-label": string; // 접근성 라벨 (필수)
+ * }
+ * ```
+ *
+ * ### Template Code
+ * ```tsx
+ * const [view, setView] = useState("card");
+ *
+ * <IconButtonGroup
+ *   items={[
+ *     { value: "card", icon: <CardIcon />, "aria-label": "카드 보기" },
+ *     { value: "grid", icon: <GridIcon />, "aria-label": "그리드 보기" },
+ *     { value: "list", icon: <MenuIcon />, "aria-label": "리스트 보기" },
+ *   ]}
+ *   value={view}
+ *   onChange={setView}
+ *   variant="fill"
+ * />
+ * ```
+ */
 const meta: Meta<typeof IconButtonGroup> = {
   title: "Components/IconButtonGroup",
   component: IconButtonGroup,
   decorators: [(Story) => <div className={lightThemeClass}><Story /></div>],
   tags: ["autodocs"],
   argTypes: {
-    variant: { control: "select", options: ["fill", "outline"] },
+    variant: {
+      control: "select",
+      options: ["fill", "outline"],
+      description: "스타일. fill=Solid 채움, outline=테두리",
+    },
   },
 };
 export default meta;
