@@ -65,6 +65,9 @@ export type { CalendarPopoverProps, CalendarPopoverPlacement, CalendarPopoverFie
 export { Toast, ToastContainer } from "./components/Toast";
 export type { ToastProps, ToastIntent, ToastPosition, ToastContainerProps } from "./components/Toast";
 
+export { Input, InputGroup, MultiSelect } from "./components/Input";
+export type { InputProps, InputSize, InputState, InputGroupProps, MultiSelectProps, MultiSelectItem } from "./components/Input";
+
 /* ─── Styles ─── */
 export { sprinkles } from "./styles/sprinkles.css";
 
