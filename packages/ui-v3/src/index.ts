@@ -53,6 +53,15 @@ export type { TooltipProps, TooltipPlacement } from "./components/Tooltip";
 export { Popover } from "./components/Popover";
 export type { PopoverProps, PopoverPlacement } from "./components/Popover";
 
+export { ChartTooltip } from "./components/ChartTooltip";
+export type { ChartTooltipProps, ChartTooltipDataItem } from "./components/ChartTooltip";
+
+export { InfoPopover } from "./components/InfoPopover";
+export type { InfoPopoverProps, InfoPopoverStep } from "./components/InfoPopover";
+
+export { CalendarPopover } from "./components/CalendarPopover";
+export type { CalendarPopoverProps, CalendarPopoverPlacement, CalendarPopoverField } from "./components/CalendarPopover";
+
 /* ─── Styles ─── */
 export { sprinkles } from "./styles/sprinkles.css";
 

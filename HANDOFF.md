@@ -11,7 +11,7 @@
 
 ---
 
-## 완료된 컴포넌트 (18개)
+## 완료된 컴포넌트 (21개)
 
 | # | 컴포넌트 | Zeplin | 커밋 |
 |---|---------|--------|------|
@@ -31,8 +31,11 @@
 | 14 | SweetAlert | 11) Modals (Sweet Alert) | 1826e4c (같이 포함됨) |
 | 15 | Pagination + PaginationCount | 12) Paginations | 31f7537 |
 | 16 | ProgressBar + StepBar | 14) Progress | 7440e6f |
-| 17 | Tooltip | 15) Tooltips & Popovers | (미커밋) |
-| 18 | Popover | 15) Tooltips & Popovers | (미커밋) |
+| 17 | Tooltip | 15) Tooltips & Popovers | a01d2f1 |
+| 18 | Popover | 15) Tooltips & Popovers | a01d2f1 |
+| 19 | ChartTooltip | 15) Tooltips (Chart) | (미커밋) |
+| 20 | InfoPopover | 15) Tooltips (Info Popovers) | (미커밋) |
+| 21 | CalendarPopover | 15) Tooltips (Calendar Popovers) | (미커밋) |
 
 ### 함께 생성된 유틸리티
 - `src/lib/Portal.tsx` — createPortal SSR-safe 래퍼
