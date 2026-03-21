@@ -11,7 +11,7 @@
 
 ---
 
-## 완료된 컴포넌트 (32개)
+## 완료된 컴포넌트 (33개)
 
 | # | 컴포넌트 | Zeplin | 커밋 |
 |---|---------|--------|------|
@@ -47,6 +47,7 @@
 | 30 | NumberInput | 24) Number Inputs | (미커밋) |
 | 31 | Slider + RangeSlider | 25) Sliders | (미커밋) |
 | 32 | Avatar + AvatarGroup | 26) Avatars | (미커밋) |
+| 33 | Widget + StatCell + StatGrid + QuickMenuItem + ScheduleItem | 28) Widgets | (미커밋) |
 
 ### 함께 생성된 유틸리티
 - `src/lib/Portal.tsx` — createPortal SSR-safe 래퍼

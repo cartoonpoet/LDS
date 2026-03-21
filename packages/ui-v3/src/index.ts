@@ -102,6 +102,16 @@ export type { SliderProps, RangeSliderProps } from "./components/Slider";
 export { Avatar, AvatarGroup } from "./components/Avatar";
 export type { AvatarProps, AvatarGroupProps, AvatarSize, AvatarStatus, AvatarColor } from "./components/Avatar";
 
+export { Widget, StatCell, StatGrid, QuickMenuItem, ScheduleItem } from "./components/Widget";
+export type {
+  WidgetProps,
+  StatCellProps,
+  StatGridProps,
+  QuickMenuItemProps,
+  ScheduleItemProps,
+  StatValueColor,
+} from "./components/Widget";
+
 /* ─── Styles ─── */
 export { sprinkles } from "./styles/sprinkles.css";
 
