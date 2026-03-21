@@ -11,7 +11,7 @@
 
 ---
 
-## 완료된 컴포넌트 (31개)
+## 완료된 컴포넌트 (32개)
 
 | # | 컴포넌트 | Zeplin | 커밋 |
 |---|---------|--------|------|
@@ -46,6 +46,7 @@
 | 29 | FileUploadArea + FileThumbnail + FileItem + FileAttachBadge | 23) File Uploads | (미커밋) |
 | 30 | NumberInput | 24) Number Inputs | (미커밋) |
 | 31 | Slider + RangeSlider | 25) Sliders | (미커밋) |
+| 32 | Avatar + AvatarGroup | 26) Avatars | (미커밋) |
 
 ### 함께 생성된 유틸리티
 - `src/lib/Portal.tsx` — createPortal SSR-safe 래퍼
@@ -63,7 +64,7 @@ Zeplin 스타일가이드에서 아직 구현하지 않은 항목들:
 | ~~13) Tooltips~~ | ~~Tooltip~~ | ✅ 완료 |
 | 15) Spinners | Spinner/Loading | |
 | 16) Breadcrumbs | Breadcrumb | |
-| 17) Avatar | Avatar | |
+| ~~17) Avatar~~ | ~~Avatar~~ | ✅ 완료 (Free Style Avatar 제외) |
 | ~~18) Input & Inputgroups~~ | ~~Input, InputGroup~~ | ✅ 완료 (에디터 제외) |
 | ~~19) Select~~ | ~~Select 추가 변형~~ | ✅ TagSelect로 완료 |
 | 20) Textarea | Textarea | 폼 컴포넌트 |

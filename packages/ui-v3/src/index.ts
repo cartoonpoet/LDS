@@ -99,6 +99,9 @@ export type { NumberInputProps, NumberInputSize } from "./components/NumberInput
 export { Slider, RangeSlider } from "./components/Slider";
 export type { SliderProps, RangeSliderProps } from "./components/Slider";
 
+export { Avatar, AvatarGroup } from "./components/Avatar";
+export type { AvatarProps, AvatarGroupProps, AvatarSize, AvatarStatus, AvatarColor } from "./components/Avatar";
+
 /* ─── Styles ─── */
 export { sprinkles } from "./styles/sprinkles.css";
 
