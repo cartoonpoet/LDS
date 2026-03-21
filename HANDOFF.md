@@ -11,7 +11,7 @@
 
 ---
 
-## 완료된 컴포넌트 (33개)
+## 완료된 컴포넌트 (34개)
 
 | # | 컴포넌트 | Zeplin | 커밋 |
 |---|---------|--------|------|
@@ -48,6 +48,7 @@
 | 31 | Slider + RangeSlider | 25) Sliders | (미커밋) |
 | 32 | Avatar + AvatarGroup | 26) Avatars | (미커밋) |
 | 33 | Widget + StatCell + StatGrid + QuickMenuItem + ScheduleItem | 28) Widgets | (미커밋) |
+| 34 | DataTable | 30) DataTables (@tanstack/react-table) | (미커밋) |
 
 ### 함께 생성된 유틸리티
 - `src/lib/Portal.tsx` — createPortal SSR-safe 래퍼
@@ -73,7 +74,7 @@ Zeplin 스타일가이드에서 아직 구현하지 않은 항목들:
 | ~~22) Radio~~ | ~~Radio~~ | ✅ 완료 |
 | ~~23) Switch/Toggle~~ | ~~Switch~~ | ✅ 완료 |
 | ~~24) DatePicker~~ | ~~DatePicker~~ | ✅ 완료 (DatePicker + DateRangePicker) |
-| 25) Table | Table | 복잡도 높음 |
+| ~~25) Table~~ | ~~DataTable~~ | ✅ 완료 (@tanstack/react-table) |
 | 11) Modals 후속 | ~~Popover~~, FloatingModal, FullScreenModal | Popover ✅ 완료, 나머지 후속 |
 
 > Zeplin 스타일가이드 URL에서 component ID를 넣어 확인 가능:
