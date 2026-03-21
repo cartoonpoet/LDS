@@ -83,6 +83,16 @@ export type { RadioProps, RadioSize, RadioVariant, RadioGroupProps } from "./com
 export { DatePicker, DateRangePicker } from "./components/DatePicker";
 export type { DatePickerProps, DateRangePickerProps } from "./components/DatePicker";
 
+export { FileUploadArea, FileThumbnail, FileItem, FileAttachBadge } from "./components/FileUpload";
+export type {
+  FileUploadAreaProps,
+  FileThumbnailProps,
+  FileItemProps,
+  FileAttachBadgeProps,
+  ThumbnailLayout,
+  ThumbnailSize,
+} from "./components/FileUpload";
+
 /* ─── Styles ─── */
 export { sprinkles } from "./styles/sprinkles.css";
 

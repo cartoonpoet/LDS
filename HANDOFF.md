@@ -11,7 +11,7 @@
 
 ---
 
-## 완료된 컴포넌트 (28개)
+## 완료된 컴포넌트 (29개)
 
 | # | 컴포넌트 | Zeplin | 커밋 |
 |---|---------|--------|------|
@@ -43,6 +43,7 @@
 | 26 | Checkbox | 21) Checkboxes | (미커밋) |
 | 27 | Radio + RadioGroup | 22) Radios | (미커밋) |
 | 28 | DatePicker + DateRangePicker | 22) Date & Time Pickers | (미커밋) |
+| 29 | FileUploadArea + FileThumbnail + FileItem + FileAttachBadge | 23) File Uploads | (미커밋) |
 
 ### 함께 생성된 유틸리티
 - `src/lib/Portal.tsx` — createPortal SSR-safe 래퍼
