@@ -93,6 +93,9 @@ export type {
   ThumbnailSize,
 } from "./components/FileUpload";
 
+export { NumberInput } from "./components/NumberInput";
+export type { NumberInputProps, NumberInputSize } from "./components/NumberInput";
+
 /* ─── Styles ─── */
 export { sprinkles } from "./styles/sprinkles.css";
 
