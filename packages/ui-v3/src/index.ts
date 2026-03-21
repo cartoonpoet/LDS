@@ -112,6 +112,9 @@ export type {
   StatValueColor,
 } from "./components/Widget";
 
+export { DataTable } from "./components/DataTable";
+export type { DataTableProps } from "./components/DataTable";
+
 /* ─── Styles ─── */
 export { sprinkles } from "./styles/sprinkles.css";
 
