@@ -96,6 +96,9 @@ export type {
 export { NumberInput } from "./components/NumberInput";
 export type { NumberInputProps, NumberInputSize } from "./components/NumberInput";
 
+export { Slider, RangeSlider } from "./components/Slider";
+export type { SliderProps, RangeSliderProps } from "./components/Slider";
+
 /* ─── Styles ─── */
 export { sprinkles } from "./styles/sprinkles.css";
 
