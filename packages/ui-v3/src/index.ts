@@ -80,6 +80,9 @@ export type { CheckboxProps, CheckboxSize } from "./components/Checkbox";
 export { Radio, RadioGroup } from "./components/Radio";
 export type { RadioProps, RadioSize, RadioVariant, RadioGroupProps } from "./components/Radio";
 
+export { DatePicker, DateRangePicker } from "./components/DatePicker";
+export type { DatePickerProps, DateRangePickerProps } from "./components/DatePicker";
+
 /* ─── Styles ─── */
 export { sprinkles } from "./styles/sprinkles.css";
 

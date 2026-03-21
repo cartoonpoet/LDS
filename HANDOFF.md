@@ -11,7 +11,7 @@
 
 ---
 
-## 완료된 컴포넌트 (27개)
+## 완료된 컴포넌트 (28개)
 
 | # | 컴포넌트 | Zeplin | 커밋 |
 |---|---------|--------|------|
@@ -42,6 +42,7 @@
 | 25 | Switch | 20) Switches | (미커밋) |
 | 26 | Checkbox | 21) Checkboxes | (미커밋) |
 | 27 | Radio + RadioGroup | 22) Radios | (미커밋) |
+| 28 | DatePicker + DateRangePicker | 22) Date & Time Pickers | (미커밋) |
 
 ### 함께 생성된 유틸리티
 - `src/lib/Portal.tsx` — createPortal SSR-safe 래퍼
@@ -66,7 +67,7 @@ Zeplin 스타일가이드에서 아직 구현하지 않은 항목들:
 | ~~21) Checkbox~~ | ~~Checkbox~~ | ✅ 완료 |
 | ~~22) Radio~~ | ~~Radio~~ | ✅ 완료 |
 | ~~23) Switch/Toggle~~ | ~~Switch~~ | ✅ 완료 |
-| 24) DatePicker | DatePicker | 복잡도 높음 |
+| ~~24) DatePicker~~ | ~~DatePicker~~ | ✅ 완료 (DatePicker + DateRangePicker) |
 | 25) Table | Table | 복잡도 높음 |
 | 11) Modals 후속 | ~~Popover~~, FloatingModal, FullScreenModal | Popover ✅ 완료, 나머지 후속 |
 
