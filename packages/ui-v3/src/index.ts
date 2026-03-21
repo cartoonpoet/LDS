@@ -80,6 +80,38 @@ export type { CheckboxProps, CheckboxSize } from "./components/Checkbox";
 export { Radio, RadioGroup } from "./components/Radio";
 export type { RadioProps, RadioSize, RadioVariant, RadioGroupProps } from "./components/Radio";
 
+export { DatePicker, DateRangePicker } from "./components/DatePicker";
+export type { DatePickerProps, DateRangePickerProps } from "./components/DatePicker";
+
+export { FileUploadArea, FileThumbnail, FileItem, FileAttachBadge } from "./components/FileUpload";
+export type {
+  FileUploadAreaProps,
+  FileThumbnailProps,
+  FileItemProps,
+  FileAttachBadgeProps,
+  ThumbnailLayout,
+  ThumbnailSize,
+} from "./components/FileUpload";
+
+export { NumberInput } from "./components/NumberInput";
+export type { NumberInputProps, NumberInputSize } from "./components/NumberInput";
+
+export { Slider, RangeSlider } from "./components/Slider";
+export type { SliderProps, RangeSliderProps } from "./components/Slider";
+
+export { Avatar, AvatarGroup } from "./components/Avatar";
+export type { AvatarProps, AvatarGroupProps, AvatarSize, AvatarStatus, AvatarColor } from "./components/Avatar";
+
+export { Widget, StatCell, StatGrid, QuickMenuItem, ScheduleItem } from "./components/Widget";
+export type {
+  WidgetProps,
+  StatCellProps,
+  StatGridProps,
+  QuickMenuItemProps,
+  ScheduleItemProps,
+  StatValueColor,
+} from "./components/Widget";
+
 /* ─── Styles ─── */
 export { sprinkles } from "./styles/sprinkles.css";
 
