@@ -126,6 +126,7 @@ export const thBordered = style({
 export const checkboxCell = style({
   width: 62,
   textAlign: "center",
+  verticalAlign: "middle",
   padding: `0 ${themeVars.spacing.x5}`,
 });
 
