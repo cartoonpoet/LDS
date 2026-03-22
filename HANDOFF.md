@@ -11,7 +11,7 @@
 
 ---
 
-## 완료된 컴포넌트 (34개)
+## 완료된 컴포넌트 (35개)
 
 | # | 컴포넌트 | Zeplin | 커밋 |
 |---|---------|--------|------|
@@ -49,6 +49,7 @@
 | 32 | Avatar + AvatarGroup | 26) Avatars | (미커밋) |
 | 33 | Widget + StatCell + StatGrid + QuickMenuItem + ScheduleItem | 28) Widgets | (미커밋) |
 | 34 | DataTable | 30) DataTables (@tanstack/react-table) | (미커밋) |
+| 35 | TreeView | 38) Tree View (계층 구조 트리) | (미커밋) |
 
 ### 함께 생성된 유틸리티
 - `src/lib/Portal.tsx` — createPortal SSR-safe 래퍼
