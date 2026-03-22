@@ -10,6 +10,8 @@ export const wrapper = style({
   cursor: "pointer",
   userSelect: "none",
   fontFamily: themeVars.font.family,
+  position: "relative",
+  verticalAlign: "middle",
 });
 
 export const wrapperDisabled = style({
