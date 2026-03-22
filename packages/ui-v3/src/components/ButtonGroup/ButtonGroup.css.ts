@@ -8,12 +8,13 @@ const action = semanticColorRoles.action;
 export const root = recipe({
   base: {
     display: "inline-flex",
-    borderRadius: themeVars.radius.sm,
-    overflow: "hidden",
   },
   variants: {
     variant: {
-      fill: {},
+      fill: {
+        borderRadius: themeVars.radius.sm,
+        overflow: "hidden",
+      },
       outline: {},
     },
     size: {
@@ -69,8 +70,17 @@ export const item = recipe({
         color: action.primary.default,
         border: `1px solid ${action.primary.default}`,
         marginLeft: -1,
+        borderRadius: 0,
         selectors: {
-          "&:first-child": { marginLeft: 0 },
+          "&:first-child": {
+            marginLeft: 0,
+            borderTopLeftRadius: themeVars.radius.sm,
+            borderBottomLeftRadius: themeVars.radius.sm,
+          },
+          "&:last-child": {
+            borderTopRightRadius: themeVars.radius.sm,
+            borderBottomRightRadius: themeVars.radius.sm,
+          },
           "&:hover:not([data-active='true'])": {
             backgroundColor: action.primary.subtle,
           },
