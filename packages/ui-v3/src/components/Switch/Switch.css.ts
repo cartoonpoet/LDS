@@ -1,6 +1,6 @@
 import { style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
-import { semanticColorRoles, themeVars } from "@lds/tokens";
+import { semanticColorRoles, themeVars, grayPalette } from "@lds/tokens";
 
 /* ─── wrapper (label + switch) ─── */
 export const wrapper = style({
@@ -22,7 +22,7 @@ export const label = style({
   fontSize: themeVars.font.sizeMd,
   fontWeight: themeVars.font.weightMedium,
   lineHeight: "21px",
-  color: "rgb(0, 0, 0)",
+  color: semanticColorRoles.text.primary,
 });
 
 /* ─── track ─── */
@@ -43,7 +43,7 @@ export const track = recipe({
         backgroundColor: semanticColorRoles.action.primary.default,
       },
       false: {
-        backgroundColor: "rgb(209, 209, 209)",
+        backgroundColor: grayPalette[300],
       },
     },
     disabled: {
@@ -66,7 +66,7 @@ export const knob = recipe({
     position: "absolute",
     top: "50%",
     borderRadius: "50%",
-    backgroundColor: "rgb(255, 255, 255)",
+    backgroundColor: semanticColorRoles.surface.canvas,
     boxShadow: "0 1px 3px rgba(0, 0, 0, 0.15)",
     transition: "left 200ms ease",
   },

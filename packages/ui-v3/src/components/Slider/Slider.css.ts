@@ -69,10 +69,10 @@ export const valueBadge = style({
   minWidth: 39,
   height: 22,
   padding: `0 ${themeVars.spacing.x1}`,
-  borderRadius: "5px",
+  borderRadius: themeVars.radius.sm,
   backgroundColor: grayPalette[200],
-  fontSize: "12px",
-  fontWeight: "600",
+  fontSize: themeVars.font.sizeSm,
+  fontWeight: themeVars.font.weightBold,
   lineHeight: "22px",
   color: grayPalette[800],
   textAlign: "center",
@@ -105,7 +105,7 @@ export const labelsRow = style({
 });
 
 export const scaleLabel = style({
-  fontSize: "11px",
+  fontSize: themeVars.font.sizeSm,
   fontWeight: themeVars.font.weightRegular,
   color: grayPalette[300],
   textAlign: "center",

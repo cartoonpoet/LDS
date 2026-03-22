@@ -1,6 +1,6 @@
 import { style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
-import { semanticColorRoles, themeVars, grayPalette, opacityPalette } from "@lds/tokens";
+import { semanticColorRoles, themeVars, grayPalette, opacityPalette, greenPalette, redPalette, yellowPalette, cyanPalette } from "@lds/tokens";
 
 /* ─── overlay (backdrop) ─── */
 export const overlay = style({
@@ -63,10 +63,10 @@ export const intentIconColor = recipe({
   },
   variants: {
     intent: {
-      warning: { color: "#f0af23" },
-      success: { color: "#28c76f" },
-      danger: { color: "#ea5455" },
-      info: { color: "#00cfe8" },
+      warning: { color: yellowPalette[400] },
+      success: { color: greenPalette[400] },
+      danger: { color: redPalette[400] },
+      info: { color: cyanPalette[400] },
     },
   },
   defaultVariants: {

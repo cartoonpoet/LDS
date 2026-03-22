@@ -27,7 +27,7 @@ export const uploadAreaInner = style({
   gap: themeVars.spacing.x5,
   padding: `${themeVars.spacing.x5} ${themeVars.spacing.x6}`,
   backgroundColor: semanticColorRoles.surface.canvas,
-  borderRadius: "7px",
+  borderRadius: themeVars.radius.md,
   fontFamily: themeVars.font.family,
 });
 
@@ -51,7 +51,7 @@ export const uploadTitle = style({
 });
 
 export const uploadDescription = style({
-  fontSize: "13px",
+  fontSize: themeVars.font.sizeMd,
   fontWeight: themeVars.font.weightMedium,
   lineHeight: "18px",
   color: grayPalette[700],
@@ -71,7 +71,7 @@ export const attachButton = style({
   height: 38,
   padding: `0 ${themeVars.spacing.x4}`,
   border: `1px solid ${grayPalette[600]}`,
-  borderRadius: "5px",
+  borderRadius: themeVars.radius.sm,
   backgroundColor: semanticColorRoles.surface.canvas,
   fontSize: themeVars.font.sizeMd,
   fontWeight: themeVars.font.weightMedium,
@@ -91,10 +91,10 @@ export const primaryButton = style({
   height: 38,
   padding: `0 ${themeVars.spacing.x4}`,
   border: "none",
-  borderRadius: "5px",
+  borderRadius: themeVars.radius.sm,
   backgroundColor: semanticColorRoles.action.primary.default,
   fontSize: themeVars.font.sizeMd,
-  fontWeight: "600",
+  fontWeight: themeVars.font.weightBold,
   fontFamily: themeVars.font.family,
   color: semanticColorRoles.text.inverse,
   cursor: "pointer",
@@ -119,7 +119,7 @@ export const attachedList = style({
 export const thumbnail = recipe({
   base: {
     position: "relative",
-    borderRadius: "5px",
+    borderRadius: themeVars.radius.sm,
     overflow: "hidden",
     border: `1px solid ${semanticColorRoles.border.subtle}`,
     flexShrink: 0,
@@ -191,8 +191,8 @@ export const thumbnailActionBtn = style({
 });
 
 export const thumbnailFilename = style({
-  fontSize: "11px",
-  fontWeight: "600",
+  fontSize: themeVars.font.sizeSm,
+  fontWeight: themeVars.font.weightBold,
   color: semanticColorRoles.text.inverse,
   overflow: "hidden",
   textOverflow: "ellipsis",
@@ -211,7 +211,7 @@ export const fileItem = recipe({
     justifyContent: "space-between",
     padding: themeVars.spacing.x3,
     border: `1px solid ${semanticColorRoles.border.subtle}`,
-    borderRadius: "5px",
+    borderRadius: themeVars.radius.sm,
     backgroundColor: semanticColorRoles.surface.canvas,
     fontFamily: themeVars.font.family,
     transition: "border-color 150ms ease",
@@ -246,7 +246,7 @@ export const fileIconBox = style({
   width: 32,
   height: 32,
   flexShrink: 0,
-  borderRadius: "5px",
+  borderRadius: themeVars.radius.sm,
   backgroundColor: opacityPalette.light,
   color: grayPalette[600],
 });
@@ -259,8 +259,8 @@ export const fileInfo = style({
 });
 
 export const fileName = style({
-  fontSize: "13px",
-  fontWeight: "600",
+  fontSize: themeVars.font.sizeMd,
+  fontWeight: themeVars.font.weightBold,
   color: semanticColorRoles.text.heading,
   overflow: "hidden",
   textOverflow: "ellipsis",
@@ -268,7 +268,7 @@ export const fileName = style({
 });
 
 export const fileMeta = style({
-  fontSize: "11px",
+  fontSize: themeVars.font.sizeSm,
   fontWeight: themeVars.font.weightMedium,
   color: grayPalette[700],
 });
@@ -304,7 +304,7 @@ export const badge = style({
   border: `1px solid ${semanticColorRoles.border.subtle}`,
   borderRadius: themeVars.radius.sm,
   backgroundColor: semanticColorRoles.surface.canvas,
-  fontSize: "13px",
+  fontSize: themeVars.font.sizeMd,
   fontWeight: themeVars.font.weightMedium,
   color: semanticColorRoles.text.heading,
   fontFamily: themeVars.font.family,
@@ -346,8 +346,8 @@ export const selectedPill = style({
   padding: `0 ${themeVars.spacing.x2}`,
   borderRadius: 17,
   backgroundColor: semanticColorRoles.action.primary.default,
-  fontSize: "11px",
-  fontWeight: "600",
+  fontSize: themeVars.font.sizeSm,
+  fontWeight: themeVars.font.weightBold,
   color: semanticColorRoles.text.inverse,
   fontFamily: themeVars.font.family,
 });

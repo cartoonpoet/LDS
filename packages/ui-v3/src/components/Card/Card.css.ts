@@ -8,7 +8,7 @@ export const root = recipe({
     position: "relative",
     backgroundColor: semanticColorRoles.surface.canvas,
     borderRadius: themeVars.radius.md,
-    boxShadow: "0 4px 24px rgba(0, 0, 0, 0.06)",
+    boxShadow: themeVars.shadow.raised,
     fontFamily: themeVars.font.family,
     color: semanticColorRoles.text.primary,
   },
@@ -37,7 +37,7 @@ export const header = style({
 });
 
 export const headerTitle = style({
-  fontSize: "15px",
+  fontSize: themeVars.font.sizeLg,
   fontWeight: themeVars.font.weightMedium,
   color: semanticColorRoles.text.heading,
   lineHeight: 1.6,

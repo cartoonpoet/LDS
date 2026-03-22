@@ -62,7 +62,7 @@ export const card = style({
   backgroundColor: semanticColorRoles.surface.canvas,
   borderRadius: themeVars.radius.md,
   border: `1px solid ${grayPalette[200]}`,
-  boxShadow: "0 4px 16px rgba(0, 0, 0, 0.08)",
+  boxShadow: themeVars.shadow.raised,
   overflow: "hidden",
   width: 276,
   display: "flex",
@@ -72,7 +72,7 @@ export const card = style({
 /* ─── header bar (accent blue) ─── */
 export const header = style({
   backgroundColor: semanticColorRoles.action.primary.default,
-  padding: `8px ${themeVars.spacing.x4}`,
+  padding: `${themeVars.spacing.x2} ${themeVars.spacing.x4}`,
   minHeight: 38,
   display: "flex",
   alignItems: "center",
@@ -80,10 +80,10 @@ export const header = style({
 
 export const headerTitle = style({
   fontFamily: themeVars.font.family,
-  fontSize: "15px",
+  fontSize: themeVars.font.sizeLg,
   fontWeight: themeVars.font.weightMedium,
   lineHeight: "24px",
-  color: "rgb(255, 255, 255)",
+  color: semanticColorRoles.text.inverse,
 });
 
 /* ─── body ─── */
@@ -118,9 +118,9 @@ export const primaryBtn = style({
   borderRadius: themeVars.radius.sm,
   border: "none",
   fontFamily: themeVars.font.family,
-  fontSize: "11px",
+  fontSize: themeVars.font.sizeSm,
   fontWeight: themeVars.font.weightMedium,
-  color: "rgb(255, 255, 255)",
+  color: semanticColorRoles.text.inverse,
   cursor: "pointer",
   transition: "opacity 150ms ease",
   selectors: {
@@ -138,7 +138,7 @@ export const outlineBtn = style({
   borderRadius: themeVars.radius.sm,
   border: `1px solid ${semanticColorRoles.action.primary.default}`,
   fontFamily: themeVars.font.family,
-  fontSize: "11px",
+  fontSize: themeVars.font.sizeSm,
   fontWeight: themeVars.font.weightMedium,
   color: semanticColorRoles.action.primary.default,
   cursor: "pointer",

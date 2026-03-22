@@ -26,7 +26,7 @@ export const thead = style({
 export const th = style({
   height: 42,
   padding: `0 ${themeVars.spacing.x6}`,
-  fontSize: "13px",
+  fontSize: themeVars.font.sizeMd,
   fontWeight: themeVars.font.weightBold,
   lineHeight: "42px",
   color: semanticColorRoles.text.heading,

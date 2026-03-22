@@ -29,11 +29,11 @@ export const root = recipe({
 
 /* ─── header (date/category — default only) ─── */
 export const header = style({
-  padding: `7px 10px`,
-  fontSize: "12px",
-  fontWeight: 700,
+  padding: "7px 10px",
+  fontSize: themeVars.font.sizeSm,
+  fontWeight: themeVars.font.weightBold,
   lineHeight: "18px",
-  color: "rgb(17, 21, 42)",
+  color: semanticColorRoles.text.heading,
 });
 
 /* ─── divider (default only) ─── */
@@ -44,10 +44,10 @@ export const divider = style({
 
 /* ─── body row ─── */
 export const body = style({
-  padding: `7px 10px`,
+  padding: "7px 10px",
   display: "flex",
   flexDirection: "column",
-  gap: 4,
+  gap: themeVars.spacing.x1,
 });
 
 /* ─── single data row ─── */
@@ -68,14 +68,14 @@ export const dot = style({
 /* ─── label text ─── */
 export const label = recipe({
   base: {
-    fontSize: "12px",
-    fontWeight: 600,
+    fontSize: themeVars.font.sizeSm,
+    fontWeight: themeVars.font.weightBold,
     lineHeight: "18px",
   },
   variants: {
     variant: {
-      default: { color: "rgb(76, 84, 105)" },
-      pie: { color: "rgb(255, 255, 255)" },
+      default: { color: grayPalette[800] },
+      pie: { color: semanticColorRoles.text.inverse },
     },
   },
   defaultVariants: { variant: "default" },
@@ -84,14 +84,14 @@ export const label = recipe({
 /* ─── value text ─── */
 export const value = recipe({
   base: {
-    fontSize: "12px",
-    fontWeight: 700,
+    fontSize: themeVars.font.sizeSm,
+    fontWeight: themeVars.font.weightBold,
     lineHeight: "18px",
   },
   variants: {
     variant: {
-      default: { color: "rgb(76, 84, 105)" },
-      pie: { color: "rgb(255, 255, 255)" },
+      default: { color: grayPalette[800] },
+      pie: { color: semanticColorRoles.text.inverse },
     },
   },
   defaultVariants: { variant: "default" },

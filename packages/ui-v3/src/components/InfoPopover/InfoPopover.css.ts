@@ -1,5 +1,5 @@
 import { style } from "@vanilla-extract/css";
-import { semanticColorRoles, themeVars, grayPalette } from "@lds/tokens";
+import { semanticColorRoles, themeVars, grayPalette, opacityPalette } from "@lds/tokens";
 
 /* ─── wrapper (anchor) ─── */
 export const wrapper = style({
@@ -13,13 +13,13 @@ export const card = style({
   bottom: "100%",
   left: "50%",
   transform: "translateX(-50%)",
-  marginBottom: 8,
+  marginBottom: themeVars.spacing.x2,
   zIndex: 1100,
   display: "flex",
   flexDirection: "column",
   backgroundColor: semanticColorRoles.surface.canvas,
   borderRadius: themeVars.radius.md,
-  boxShadow: "0 4px 16px rgba(0, 0, 0, 0.08)",
+  boxShadow: themeVars.shadow.raised,
   overflow: "hidden",
 });
 
@@ -29,16 +29,16 @@ export const header = style({
   alignItems: "center",
   padding: `0 ${themeVars.spacing.x4}`,
   height: 45,
-  backgroundColor: "rgb(76, 84, 105)",
+  backgroundColor: grayPalette[800],
   borderRadius: `${themeVars.radius.md} ${themeVars.radius.md} 0 0`,
 });
 
 export const headerText = style({
   fontFamily: themeVars.font.family,
-  fontSize: "15px",
+  fontSize: themeVars.font.sizeLg,
   fontWeight: themeVars.font.weightMedium,
   lineHeight: "24px",
-  color: "rgb(255, 255, 255)",
+  color: semanticColorRoles.text.inverse,
 });
 
 /* ─── steps body ─── */
@@ -64,7 +64,7 @@ export const stepIcon = style({
   width: 38,
   height: 38,
   borderRadius: themeVars.radius.md,
-  backgroundColor: "rgba(158, 167, 184, 0.12)",
+  backgroundColor: opacityPalette.light,
   flexShrink: 0,
 });
 
@@ -73,7 +73,7 @@ export const stepLabel = style({
   fontSize: themeVars.font.sizeMd,
   fontWeight: themeVars.font.weightMedium,
   lineHeight: "17px",
-  color: "rgb(76, 84, 105)",
+  color: grayPalette[800],
   whiteSpace: "nowrap",
 });
 
@@ -85,6 +85,6 @@ export const stepArrow = style({
   width: 20,
   height: 20,
   flexShrink: 0,
-  color: "rgb(76, 84, 105)",
+  color: grayPalette[800],
   margin: `0 ${themeVars.spacing.x1}`,
 });

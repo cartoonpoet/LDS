@@ -62,8 +62,8 @@ export const pageButton = recipe({
     border: "none",
     borderRadius: 29,
     backgroundColor: "transparent",
-    fontSize: "13px",
-    fontWeight: 500,
+    fontSize: themeVars.font.sizeMd,
+    fontWeight: themeVars.font.weightMedium,
     fontFamily: themeVars.font.family,
     color: semanticColorRoles.text.primary,
     cursor: "pointer",
@@ -83,8 +83,8 @@ export const pageButton = recipe({
       true: {
         backgroundColor: semanticColorRoles.action.primary.default,
         color: semanticColorRoles.text.inverse,
-        fontSize: "14px",
-        fontWeight: 600,
+        fontSize: themeVars.font.sizeMd,
+        fontWeight: themeVars.font.weightBold,
         selectors: {
           "&:hover": {
             backgroundColor: semanticColorRoles.action.primary.hover,
@@ -103,12 +103,12 @@ export const totalCount = style({
   display: "inline-flex",
   alignItems: "center",
   gap: 2,
-  fontSize: "13px",
-  fontWeight: 500,
+  fontSize: themeVars.font.sizeMd,
+  fontWeight: themeVars.font.weightMedium,
   fontFamily: themeVars.font.family,
   color: semanticColorRoles.text.primary,
 });
 
 export const totalCountNumber = style({
-  fontWeight: 600,
+  fontWeight: themeVars.font.weightBold,
 });

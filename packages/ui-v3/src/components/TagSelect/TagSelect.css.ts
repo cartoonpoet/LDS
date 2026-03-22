@@ -5,7 +5,7 @@ import { semanticColorRoles, themeVars, grayPalette } from "@lds/tokens";
 export const root = style({
   display: "flex",
   flexDirection: "column",
-  gap: 8,
+  gap: themeVars.spacing.x2,
   fontFamily: themeVars.font.family,
   width: "100%",
 });
@@ -14,13 +14,13 @@ export const root = style({
 export const trigger = style({
   display: "flex",
   alignItems: "center",
-  gap: 8,
+  gap: themeVars.spacing.x2,
   width: "100%",
   height: 38,
   padding: "0 14px",
   backgroundColor: semanticColorRoles.surface.canvas,
   borderRadius: themeVars.radius.sm,
-  border: `1px solid rgb(235, 233, 241)`,
+  border: `1px solid ${semanticColorRoles.border.subtle}`,
   boxSizing: "border-box",
   cursor: "pointer",
   transition: "border-color 150ms ease",
@@ -38,13 +38,13 @@ export const triggerInput = style({
   outline: "none",
   backgroundColor: "transparent",
   fontFamily: "inherit",
-  fontSize: "13px",
+  fontSize: themeVars.font.sizeMd,
   fontWeight: themeVars.font.weightRegular,
   color: semanticColorRoles.text.primary,
   lineHeight: "22px",
   padding: 0,
   "::placeholder": {
-    color: "rgb(98, 111, 134)",
+    color: semanticColorRoles.text.placeholder,
   },
 });
 
@@ -62,19 +62,19 @@ export const triggerIcon = style({
 export const tags = style({
   display: "flex",
   flexWrap: "wrap",
-  gap: 4,
+  gap: themeVars.spacing.x1,
 });
 
 export const tag = style({
   display: "inline-flex",
   alignItems: "center",
-  gap: 4,
+  gap: themeVars.spacing.x1,
   height: 24,
   padding: "0 10px",
   borderRadius: 30,
   border: `1px solid ${semanticColorRoles.action.primary.default}`,
   backgroundColor: "transparent",
-  fontSize: "13px",
+  fontSize: themeVars.font.sizeMd,
   fontWeight: themeVars.font.weightRegular,
   color: semanticColorRoles.action.primary.default,
   whiteSpace: "nowrap",
@@ -107,24 +107,24 @@ export const menu = style({
   zIndex: 1000,
   backgroundColor: semanticColorRoles.surface.canvas,
   borderRadius: themeVars.radius.md,
-  boxShadow: "0 4px 16px rgba(0, 0, 0, 0.12)",
+  boxShadow: themeVars.shadow.raised,
   maxHeight: 200,
   overflowY: "auto",
-  padding: "4px 0",
+  padding: `${themeVars.spacing.x1} 0`,
 });
 
 export const option = style({
   display: "flex",
   alignItems: "center",
-  gap: 8,
+  gap: themeVars.spacing.x2,
   width: "100%",
-  padding: "6px 12px",
+  padding: `6px ${themeVars.spacing.x3}`,
   minHeight: 32,
   border: "none",
   backgroundColor: "transparent",
   cursor: "pointer",
   fontFamily: "inherit",
-  fontSize: "13px",
+  fontSize: themeVars.font.sizeMd,
   fontWeight: themeVars.font.weightRegular,
   color: semanticColorRoles.text.primary,
   textAlign: "left",
@@ -132,7 +132,7 @@ export const option = style({
   transition: "background-color 100ms ease",
   selectors: {
     "&:hover": {
-      backgroundColor: "rgba(33, 81, 236, 0.06)",
+      backgroundColor: semanticColorRoles.action.primary.subtle,
     },
   },
 });
@@ -153,5 +153,5 @@ export const optionCheck = style({
 export const optionCheckSelected = style({
   backgroundColor: semanticColorRoles.action.primary.default,
   borderColor: semanticColorRoles.action.primary.default,
-  color: "rgb(255, 255, 255)",
+  color: semanticColorRoles.text.inverse,
 });

@@ -1,12 +1,12 @@
 import { style, globalStyle } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
-import { semanticColorRoles, themeVars, grayPalette } from "@lds/tokens";
+import { semanticColorRoles, themeVars, grayPalette, greenPalette, redPalette } from "@lds/tokens";
 
 /* ─── field wrapper (label + input + helper) ─── */
 export const field = style({
   display: "flex",
   flexDirection: "column",
-  gap: 8,
+  gap: themeVars.spacing.x2,
   fontFamily: themeVars.font.family,
 });
 
@@ -20,14 +20,14 @@ export const labelRow = style({
 export const labelGroup = style({
   display: "inline-flex",
   alignItems: "center",
-  gap: 4,
+  gap: themeVars.spacing.x1,
 });
 
 export const label = style({
-  fontSize: "13px",
-  fontWeight: 600,
+  fontSize: themeVars.font.sizeMd,
+  fontWeight: themeVars.font.weightBold,
   lineHeight: "16px",
-  color: "rgb(0, 0, 0)",
+  color: semanticColorRoles.text.primary,
 });
 
 export const requiredDot = style({
@@ -39,10 +39,10 @@ export const requiredDot = style({
 });
 
 export const caption = style({
-  fontSize: "13px",
+  fontSize: themeVars.font.sizeMd,
   fontWeight: themeVars.font.weightMedium,
   lineHeight: "18px",
-  color: "rgb(0, 0, 0)",
+  color: semanticColorRoles.text.primary,
 });
 
 /* ─── input box ─── */
@@ -50,13 +50,13 @@ export const inputWrapper = recipe({
   base: {
     display: "flex",
     alignItems: "center",
-    gap: 8,
+    gap: themeVars.spacing.x2,
     width: "100%",
     backgroundColor: semanticColorRoles.surface.canvas,
     borderRadius: themeVars.radius.sm,
     border: `1px solid ${grayPalette[400]}`,
     fontFamily: themeVars.font.family,
-    fontSize: "13px",
+    fontSize: themeVars.font.sizeMd,
     fontWeight: themeVars.font.weightMedium,
     color: semanticColorRoles.text.primary,
     boxSizing: "border-box",
@@ -64,7 +64,7 @@ export const inputWrapper = recipe({
   },
   variants: {
     size: {
-      small: { height: 30, padding: "0 8px" },
+      small: { height: 30, padding: `0 ${themeVars.spacing.x2}` },
       medium: { height: 38, padding: "0 14px" },
       large: { height: 46, padding: "0 14px" },
     },
@@ -82,13 +82,13 @@ export const inputWrapper = recipe({
         boxShadow: themeVars.shadow.focus,
       },
       success: {
-        borderColor: "rgb(40, 199, 111)",
+        borderColor: semanticColorRoles.border.success,
       },
       warning: {
-        borderColor: "rgb(234, 84, 85)",
+        borderColor: semanticColorRoles.border.danger,
       },
       disabled: {
-        backgroundColor: "rgb(238, 239, 242)",
+        backgroundColor: semanticColorRoles.surface.disabled,
         cursor: "not-allowed",
         pointerEvents: "none" as const,
       },
@@ -107,16 +107,16 @@ export const input = style({
   fontFamily: "inherit",
   fontSize: "inherit",
   fontWeight: "inherit",
-  color: "rgb(0, 0, 0)",
+  color: semanticColorRoles.text.primary,
   lineHeight: "22px",
   padding: 0,
   "::placeholder": {
-    color: "rgb(98, 111, 134)",
+    color: semanticColorRoles.text.placeholder,
   },
 });
 
 globalStyle(`${input}:disabled::placeholder`, {
-  color: "rgb(209, 209, 209)",
+  color: semanticColorRoles.text.disabled,
 });
 
 /* ─── left / right icon ─── */
@@ -142,11 +142,11 @@ export const iconSlot = recipe({
 export const suffix = style({
   display: "inline-flex",
   alignItems: "center",
-  gap: 4,
+  gap: themeVars.spacing.x1,
   flexShrink: 0,
-  fontSize: "13px",
+  fontSize: themeVars.font.sizeMd,
   fontWeight: themeVars.font.weightMedium,
-  color: "rgb(0, 0, 0)",
+  color: semanticColorRoles.text.primary,
   whiteSpace: "nowrap",
 });
 
@@ -154,23 +154,23 @@ export const suffixDivider = style({
   width: 1,
   height: 16,
   backgroundColor: grayPalette[200],
-  marginRight: 4,
+  marginRight: themeVars.spacing.x1,
 });
 
 /* ─── helper text ─── */
 export const helper = recipe({
   base: {
-    fontSize: "13px",
-    fontWeight: 600,
+    fontSize: themeVars.font.sizeMd,
+    fontWeight: themeVars.font.weightBold,
     lineHeight: "16px",
   },
   variants: {
     state: {
-      default: { color: "rgb(98, 111, 134)" },
-      active: { color: "rgb(98, 111, 134)" },
-      success: { color: "rgb(27, 196, 125)" },
-      warning: { color: "rgb(234, 84, 85)" },
-      disabled: { color: "rgb(98, 111, 134)" },
+      default: { color: semanticColorRoles.text.tertiary },
+      active: { color: semanticColorRoles.text.tertiary },
+      success: { color: greenPalette[500] },
+      warning: { color: redPalette[500] },
+      disabled: { color: semanticColorRoles.text.tertiary },
     },
   },
   defaultVariants: { state: "default" },
@@ -183,7 +183,7 @@ export const multiWrapper = recipe({
     display: "flex",
     alignItems: "flex-start",
     flexWrap: "wrap",
-    gap: 4,
+    gap: themeVars.spacing.x1,
     width: "100%",
     minHeight: 38,
     backgroundColor: semanticColorRoles.surface.canvas,
@@ -202,7 +202,7 @@ export const multiWrapper = recipe({
   variants: {
     disabled: {
       true: {
-        backgroundColor: "rgb(238, 239, 242)",
+        backgroundColor: semanticColorRoles.surface.disabled,
         cursor: "not-allowed",
         pointerEvents: "none" as const,
       },
@@ -215,14 +215,14 @@ export const multiWrapper = recipe({
 export const badge = style({
   display: "inline-flex",
   alignItems: "center",
-  gap: 4,
+  gap: themeVars.spacing.x1,
   height: 24,
   padding: "0 10px",
   borderRadius: 30,
   border: `1px solid rgba(33, 81, 236, 0.3)`,
   backgroundColor: "rgba(33, 81, 236, 0.06)",
-  fontSize: "13px",
-  fontWeight: 600,
+  fontSize: themeVars.font.sizeMd,
+  fontWeight: themeVars.font.weightBold,
   color: semanticColorRoles.action.primary.default,
   whiteSpace: "nowrap",
 });
@@ -248,13 +248,13 @@ export const multiInput = style({
   outline: "none",
   backgroundColor: "transparent",
   fontFamily: "inherit",
-  fontSize: "13px",
+  fontSize: themeVars.font.sizeMd,
   fontWeight: themeVars.font.weightMedium,
-  color: "rgb(0, 0, 0)",
+  color: semanticColorRoles.text.primary,
   lineHeight: "24px",
   padding: 0,
   "::placeholder": {
-    color: "rgb(98, 111, 134)",
+    color: semanticColorRoles.text.placeholder,
   },
 });
 
