@@ -25,12 +25,14 @@ export interface ToastProps extends HTMLAttributes<HTMLDivElement> {
   time?: string;
   /** 본문 설명 (2-row) */
   description?: string;
-  /** 프로그레스 바 표시 */
+  /** 프로그레스 바 표시 (수동 제어용) */
   showProgress?: boolean;
-  /** 프로그레스 퍼센트 (0-100) */
+  /** 프로그레스 퍼센트 (0-100, 수동 제어용) */
   progress?: number;
   /** 자동 닫기 시간 (ms, 0이면 비활성) */
   duration?: number;
+  /** 호버 시 자동 닫기 일시정지 */
+  pauseOnHover?: boolean;
   /** 닫기 콜백 */
   onClose?: () => void;
 }
@@ -77,8 +79,11 @@ const defaultIcons: Record<ToastIntent, ReactNode> = {
  *
  * - `intent`: info / success / warning / error
  * - `title` + `description`: 1줄 또는 2줄
- * - `showProgress` + `progress`: 하단 프로그레스 바
+ * - `showProgress` + `progress`: 하단 프로그레스 바 (수동 제어)
  * - `duration`: 자동 닫기 (기본 5000ms, 0이면 비활성)
+ * - `pauseOnHover`: 호버 시 자동 닫기 일시정지 (기본 true)
+ * - 자동 닫기 시 하단에 카운트다운 게이지 바 표시
+ * - 닫힐 때 슬라이드 아웃 애니메이션
  */
 export function Toast({
   intent = "info",
@@ -89,22 +94,97 @@ export function Toast({
   showProgress = false,
   progress = 0,
   duration = 5000,
+  pauseOnHover = true,
   onClose,
   className,
   ...rest
 }: ToastProps) {
+  const [isExiting, setIsExiting] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const remainingRef = useRef(duration);
+  const startTimeRef = useRef(Date.now());
+  const countdownRef = useRef<HTMLDivElement>(null);
 
+  const hasAutoDismiss = duration > 0 && !!onClose;
+
+  const startTimer = useCallback(() => {
+    if (!hasAutoDismiss) return;
+    startTimeRef.current = Date.now();
+    timerRef.current = setTimeout(() => {
+      setIsExiting(true);
+    }, remainingRef.current);
+  }, [hasAutoDismiss]);
+
+  const pauseTimer = useCallback(() => {
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+      timerRef.current = null;
+    }
+    const elapsed = Date.now() - startTimeRef.current;
+    remainingRef.current = Math.max(0, remainingRef.current - elapsed);
+
+    // Pause the countdown bar CSS animation
+    if (countdownRef.current) {
+      countdownRef.current.style.animationPlayState = "paused";
+    }
+  }, []);
+
+  const resumeTimer = useCallback(() => {
+    if (countdownRef.current) {
+      countdownRef.current.style.animationPlayState = "running";
+    }
+    startTimer();
+  }, [startTimer]);
+
+  // Start auto-dismiss timer
   useEffect(() => {
-    if (duration <= 0 || !onClose) return;
-    timerRef.current = setTimeout(onClose, duration);
+    if (!hasAutoDismiss) return;
+    remainingRef.current = duration;
+    startTimer();
     return () => {
       if (timerRef.current) clearTimeout(timerRef.current);
     };
-  }, [duration, onClose]);
+  }, [duration, hasAutoDismiss, startTimer]);
+
+  // Handle hover pause
+  const handleMouseEnter = useCallback(() => {
+    if (!pauseOnHover || !hasAutoDismiss) return;
+    setIsPaused(true);
+    pauseTimer();
+  }, [pauseOnHover, hasAutoDismiss, pauseTimer]);
+
+  const handleMouseLeave = useCallback(() => {
+    if (!pauseOnHover || !hasAutoDismiss) return;
+    setIsPaused(false);
+    resumeTimer();
+  }, [pauseOnHover, hasAutoDismiss, resumeTimer]);
+
+  // Handle exit animation end
+  const handleAnimationEnd = useCallback(
+    (e: React.AnimationEvent) => {
+      if (isExiting && onClose) {
+        onClose();
+      }
+    },
+    [isExiting, onClose],
+  );
+
+  // Manual close with exit animation
+  const handleClose = useCallback(() => {
+    if (timerRef.current) clearTimeout(timerRef.current);
+    setIsExiting(true);
+  }, []);
 
   return (
-    <div className={cx(s.root, className)} role="alert" {...rest}>
+    <div
+      className={cx(s.root({ exiting: isExiting }), className)}
+      role="alert"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      onAnimationEnd={handleAnimationEnd}
+      {...rest}
+    >
       {/* Top row */}
       <div className={s.top}>
         <div className={s.icon({ intent })}>
@@ -115,7 +195,7 @@ export function Toast({
           {time && <span className={s.time}>{time}</span>}
         </div>
         {onClose && (
-          <button type="button" className={s.closeBtn} onClick={onClose} aria-label="닫기">
+          <button type="button" className={s.closeBtn} onClick={handleClose} aria-label="닫기">
             <CloseIcon />
           </button>
         )}
@@ -124,12 +204,23 @@ export function Toast({
       {/* Body */}
       {description && <div className={s.body}>{description}</div>}
 
-      {/* Progress bar */}
+      {/* Manual progress bar */}
       {showProgress && (
         <div className={s.progressTrack}>
           <div
             className={s.progressFill({ intent })}
             style={{ width: `${Math.min(100, Math.max(0, progress))}%` }}
+          />
+        </div>
+      )}
+
+      {/* Auto-dismiss countdown bar */}
+      {hasAutoDismiss && !showProgress && (
+        <div className={s.countdownTrack}>
+          <div
+            ref={countdownRef}
+            className={s.countdownFill({ intent })}
+            style={{ animationDuration: `${duration}ms` }}
           />
         </div>
       )}

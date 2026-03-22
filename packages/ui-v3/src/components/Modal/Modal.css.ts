@@ -82,7 +82,7 @@ export const closeButton = style({
   cursor: "pointer",
   color: semanticColorRoles.text.primary,
   flexShrink: 0,
-  boxShadow: themeVars.shadow.raised,
+  boxShadow: "0 3px 8px rgba(0, 0, 0, 0.2)",
   transition: "background-color 150ms ease",
   selectors: {
     "&:hover": {
@@ -97,7 +97,7 @@ export const closeButton = style({
 
 /* ─── body ─── */
 export const body = style({
-  padding: `${themeVars.spacing.x4} ${themeVars.spacing.x6}`,
+  padding: `18px ${themeVars.spacing.x6}`,
   overflowY: "auto",
   flex: 1,
   fontSize: themeVars.font.sizeMd,
@@ -111,9 +111,8 @@ export const footer = style({
   display: "flex",
   alignItems: "center",
   justifyContent: "flex-end",
-  gap: themeVars.spacing.x2,
-  padding: `0 ${themeVars.spacing.x6}`,
-  minHeight: 77,
+  gap: 14,
+  padding: `18px ${themeVars.spacing.x6} 21px`,
   borderTop: `1px solid ${semanticColorRoles.border.subtle}`,
   flexShrink: 0,
 });

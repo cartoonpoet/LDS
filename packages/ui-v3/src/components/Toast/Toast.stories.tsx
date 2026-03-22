@@ -29,6 +29,11 @@ import { Toast, ToastContainer } from ".";
  *   <Toast title="알림" intent="success" />
  * </ToastContainer>
  * ```
+ *
+ * ### 인터렉티브 기능
+ * - **자동 닫기 카운트다운**: `duration` 설정 시 하단에 게이지 바가 줄어들며 자동 닫힘
+ * - **호버 일시정지**: `pauseOnHover` (기본 true) — 호버 시 타이머 및 게이지 일시정지
+ * - **슬라이드 아웃**: 닫힐 때 부드러운 슬라이드 + 페이드 아웃 애니메이션
  */
 const meta: Meta<typeof Toast> = {
   title: "Components/Toast",
@@ -75,7 +80,7 @@ export const TwoRow: Story = {
   render: (args) => <Toast {...args} onClose={() => alert("close")} />,
 };
 
-/** 1줄 + 프로그레스 바 */
+/** 1줄 + 프로그레스 바 (수동) */
 export const OneRowWithProgress: Story = {
   args: {
     title: "Toast Title",
@@ -87,7 +92,7 @@ export const OneRowWithProgress: Story = {
   render: (args) => <Toast {...args} onClose={() => alert("close")} />,
 };
 
-/** 2줄 + 프로그레스 바 */
+/** 2줄 + 프로그레스 바 (수동) */
 export const TwoRowWithProgress: Story = {
   args: {
     title: "Toast Title",
@@ -114,14 +119,40 @@ export const Intents: Story = {
   ),
 };
 
-/** 인터랙티브 — 추가/삭제 */
+/** 자동 닫기 + 카운트다운 바 (호버하면 일시정지) */
+export const AutoDismissCountdown: Story = {
+  render: () => {
+    const [visible, setVisible] = useState(true);
+
+    return (
+      <div>
+        {!visible && (
+          <button type="button" onClick={() => setVisible(true)} style={{ marginBottom: 12 }}>
+            다시 표시
+          </button>
+        )}
+        {visible && (
+          <Toast
+            title="5초 후 자동 닫기"
+            description="마우스를 올리면 타이머가 멈춥니다."
+            intent="info"
+            duration={5000}
+            pauseOnHover
+            onClose={() => setVisible(false)}
+          />
+        )}
+      </div>
+    );
+  },
+};
+
+/** 인터랙티브 — 추가/삭제 (카운트다운 바 + 슬라이드 애니메이션) */
 export const Interactive: Story = {
   render: () => {
     const [toasts, setToasts] = useState<
       { id: number; title: string; intent: "info" | "success" | "warning" | "error" }[]
     >([]);
 
-    let nextId = 0;
     const add = (intent: "info" | "success" | "warning" | "error") => {
       const id = Date.now();
       setToasts((prev) => [
@@ -146,6 +177,7 @@ export const Interactive: Story = {
               title={t.title}
               intent={t.intent}
               duration={5000}
+              pauseOnHover
               onClose={() => remove(t.id)}
             />
           ))}

@@ -2,20 +2,46 @@ import { style, keyframes } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 import { semanticColorRoles, themeVars, grayPalette, greenPalette, yellowPalette, redPalette, opacityPalette } from "@lds/tokens";
 
+/* ─── keyframes ─── */
+
 const slideIn = keyframes({
-  from: { opacity: 0, transform: "translateY(-8px)" },
-  to: { opacity: 1, transform: "translateY(0)" },
+  from: { opacity: 0, transform: "translateX(100%)" },
+  to: { opacity: 1, transform: "translateX(0)" },
+});
+
+const slideOut = keyframes({
+  from: { opacity: 1, transform: "translateX(0)", maxHeight: 200 },
+  "70%": { opacity: 0, transform: "translateX(100%)", maxHeight: 200 },
+  to: { opacity: 0, transform: "translateX(100%)", maxHeight: 0, marginBottom: 0, padding: 0 },
+});
+
+const countdown = keyframes({
+  from: { width: "100%" },
+  to: { width: "0%" },
 });
 
 /* ─── root ─── */
-export const root = style({
-  width: 380,
-  borderRadius: themeVars.radius.sm,
-  backgroundColor: semanticColorRoles.surface.canvas,
-  boxShadow: themeVars.shadow.raised,
-  overflow: "hidden",
-  animation: `${slideIn} 200ms ease`,
-  fontFamily: themeVars.font.family,
+export const root = recipe({
+  base: {
+    width: 380,
+    borderRadius: themeVars.radius.sm,
+    backgroundColor: semanticColorRoles.surface.canvas,
+    boxShadow: themeVars.shadow.raised,
+    overflow: "hidden",
+    fontFamily: themeVars.font.family,
+    pointerEvents: "auto",
+  },
+  variants: {
+    exiting: {
+      false: {
+        animation: `${slideIn} 300ms ease`,
+      },
+      true: {
+        animation: `${slideOut} 400ms ease forwards`,
+      },
+    },
+  },
+  defaultVariants: { exiting: false },
 });
 
 /* ─── top row (icon + title + close) ─── */
@@ -106,7 +132,7 @@ export const body = style({
   color: semanticColorRoles.text.primary,
 });
 
-/* ─── progress bar ─── */
+/* ─── manual progress bar ─── */
 export const progressTrack = style({
   height: 5,
   backgroundColor: opacityPalette.primary,
@@ -116,6 +142,29 @@ export const progressFill = recipe({
   base: {
     height: "100%",
     transition: "width 100ms linear",
+  },
+  variants: {
+    intent: {
+      info: { backgroundColor: semanticColorRoles.action.primary.default },
+      success: { backgroundColor: greenPalette[400] },
+      warning: { backgroundColor: yellowPalette[400] },
+      error: { backgroundColor: redPalette[400] },
+    },
+  },
+  defaultVariants: { intent: "info" },
+});
+
+/* ─── auto-dismiss countdown progress bar ─── */
+export const countdownTrack = style({
+  height: 4,
+  backgroundColor: opacityPalette.primary,
+  overflow: "hidden",
+});
+
+export const countdownFill = recipe({
+  base: {
+    height: "100%",
+    animation: `${countdown} linear forwards`,
   },
   variants: {
     intent: {
