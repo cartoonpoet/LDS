@@ -48,7 +48,7 @@ export const header = style({
   alignItems: "center",
   justifyContent: "space-between",
   gap: themeVars.spacing.x2,
-  padding: `0 10px 0 ${themeVars.spacing.x6}`,
+  padding: `0 ${themeVars.spacing.x3} 0 ${themeVars.spacing.x6}`,
   height: 54,
   backgroundColor: opacityPalette.light,
   flexShrink: 0,
@@ -82,7 +82,7 @@ export const closeButton = style({
   cursor: "pointer",
   color: semanticColorRoles.text.primary,
   flexShrink: 0,
-  boxShadow: "0 3px 8px rgba(0, 0, 0, 0.1)",
+  boxShadow: themeVars.shadow.raised,
   transition: "background-color 150ms ease",
   selectors: {
     "&:hover": {
