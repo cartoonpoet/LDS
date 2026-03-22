@@ -48,8 +48,8 @@ export const header = style({
   alignItems: "center",
   justifyContent: "space-between",
   gap: themeVars.spacing.x2,
-  padding: `0 ${themeVars.spacing.x4}`,
-  minHeight: 48,
+  padding: `0 ${themeVars.spacing.x3} 0 ${themeVars.spacing.x6}`,
+  height: 54,
   backgroundColor: opacityPalette.light,
   flexShrink: 0,
 });
@@ -82,6 +82,7 @@ export const closeButton = style({
   cursor: "pointer",
   color: semanticColorRoles.text.primary,
   flexShrink: 0,
+  boxShadow: themeVars.shadow.raised,
   transition: "background-color 150ms ease",
   selectors: {
     "&:hover": {
@@ -96,7 +97,7 @@ export const closeButton = style({
 
 /* ─── body ─── */
 export const body = style({
-  padding: themeVars.spacing.x4,
+  padding: `${themeVars.spacing.x4} ${themeVars.spacing.x6}`,
   overflowY: "auto",
   flex: 1,
   fontSize: themeVars.font.sizeMd,
@@ -111,8 +112,8 @@ export const footer = style({
   alignItems: "center",
   justifyContent: "flex-end",
   gap: themeVars.spacing.x2,
-  padding: themeVars.spacing.x4,
+  padding: `0 ${themeVars.spacing.x6}`,
   minHeight: 77,
-  borderTop: `1px solid ${grayPalette[400]}`,
+  borderTop: `1px solid ${semanticColorRoles.border.subtle}`,
   flexShrink: 0,
 });

@@ -115,6 +115,12 @@ export type {
 export { DataTable } from "./components/DataTable";
 export type { DataTableProps } from "./components/DataTable";
 
+export { Mention } from "./components/Mention";
+export type { MentionProps } from "./components/Mention";
+
+export { TreeView } from "./components/TreeView";
+export type { TreeViewProps, TreeNode, TreeNodeColumn, TreeViewSize } from "./components/TreeView";
+
 /* ─── Styles ─── */
 export { sprinkles } from "./styles/sprinkles.css";
 
