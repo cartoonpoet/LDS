@@ -36,7 +36,8 @@ export const box = recipe({
     justifyContent: "center",
     borderRadius: 3,
     flexShrink: 0,
-    transition: "background-color 150ms ease, border-color 150ms ease",
+    boxSizing: "border-box",
+    transition: "background-color 150ms ease, box-shadow 150ms ease",
   },
   variants: {
     size: {
@@ -47,11 +48,11 @@ export const box = recipe({
     checked: {
       true: {
         backgroundColor: semanticColorRoles.action.primary.default,
-        border: "none",
+        boxShadow: "none",
       },
       false: {
         backgroundColor: semanticColorRoles.surface.canvas,
-        border: `1.5px solid ${grayPalette[500]}`,
+        boxShadow: `inset 0 0 0 1.5px ${grayPalette[500]}`,
       },
     },
     disabled: {
@@ -64,7 +65,7 @@ export const box = recipe({
       variants: { checked: false, disabled: true },
       style: {
         backgroundColor: grayPalette[200],
-        border: "none",
+        boxShadow: "none",
       },
     },
     {
