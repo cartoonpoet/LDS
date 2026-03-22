@@ -30,7 +30,7 @@ export const row = recipe({
     size: {
       medium: {
         height: 28,
-        fontSize: "13px",
+        fontSize: themeVars.font.sizeMd,
         fontWeight: themeVars.font.weightMedium,
       },
       small: {
@@ -160,7 +160,7 @@ export const leading = style({
   display: "inline-flex",
   alignItems: "center",
   flexShrink: 0,
-  gap: 4,
+  gap: themeVars.spacing.x1,
   paddingLeft: themeVars.spacing.x2,
 });
 
@@ -168,7 +168,7 @@ export const leading = style({
 export const textZone = style({
   display: "inline-flex",
   alignItems: "center",
-  gap: 4,
+  gap: themeVars.spacing.x1,
   flex: 1,
   minWidth: 0,
   overflow: "hidden",

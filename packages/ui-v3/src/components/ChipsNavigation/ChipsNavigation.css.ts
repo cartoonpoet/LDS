@@ -1,6 +1,6 @@
 import { style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
-import { semanticColorRoles, themeVars, darkPalette } from "@lds/tokens";
+import { semanticColorRoles, themeVars, grayPalette, darkPalette } from "@lds/tokens";
 
 /* ─── container ─── */
 export const root = style({
@@ -13,7 +13,7 @@ export const root = style({
 export const divider = style({
   width: 1,
   height: 20,
-  backgroundColor: "#CFD5E1",
+  backgroundColor: grayPalette[400],
   flexShrink: 0,
 });
 
@@ -32,7 +32,7 @@ export const chip = recipe({
     display: "inline-flex",
     alignItems: "center",
     justifyContent: "center",
-    gap: 4,
+    gap: themeVars.spacing.x1,
     height: 26,
     padding: `0 ${themeVars.spacing.x2}`,
     border: "none",

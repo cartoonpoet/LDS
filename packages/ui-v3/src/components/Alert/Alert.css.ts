@@ -107,7 +107,7 @@ export const actionButton = recipe({
     alignItems: "center",
     justifyContent: "center",
     padding: `${themeVars.spacing.x1} ${themeVars.spacing.x3}`,
-    borderRadius: "5px",
+    borderRadius: themeVars.radius.sm,
     border: "none",
     cursor: "pointer",
     fontFamily: themeVars.font.family,

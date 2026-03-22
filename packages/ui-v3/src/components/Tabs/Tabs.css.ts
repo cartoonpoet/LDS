@@ -65,7 +65,7 @@ export const tabItem = recipe({
     size: {
       large: {
         height: 48,
-        fontSize: "15px",
+        fontSize: themeVars.font.sizeLg,
       },
       medium: {
         height: 40,
@@ -99,7 +99,7 @@ export const badge = recipe({
         color: semanticColorRoles.action.primary.default,
       },
       false: {
-        backgroundColor: "rgba(0, 0, 0, 0.12)",
+        backgroundColor: opacityPalette.black,
         color: semanticColorRoles.text.primary,
       },
     },

@@ -5,6 +5,9 @@ import {
   themeVars,
   grayPalette,
   opacityPalette,
+  greenPalette,
+  redPalette,
+  yellowPalette,
 } from "@lds/tokens";
 
 /* ═══════════════════════════════════════════
@@ -17,7 +20,7 @@ export const widget = style({
   backgroundColor: semanticColorRoles.surface.canvas,
   border: `1px solid ${semanticColorRoles.border.subtle}`,
   borderRadius: themeVars.radius.md,
-  boxShadow: "0 4px 24px rgba(0, 0, 0, 0.06)",
+  boxShadow: themeVars.shadow.raised,
   fontFamily: themeVars.font.family,
   overflow: "hidden",
 });
@@ -107,7 +110,7 @@ export const statCell = recipe({
     flexDirection: "column",
     gap: themeVars.spacing.x2,
     padding: themeVars.spacing.x3,
-    borderRadius: "5px",
+    borderRadius: themeVars.radius.sm,
     backgroundColor: `rgba(158, 167, 184, 0.03)`,
     fontFamily: themeVars.font.family,
     flex: 1,
@@ -126,8 +129,8 @@ export const statCell = recipe({
 });
 
 export const statLabel = style({
-  fontSize: "13px",
-  fontWeight: "600",
+  fontSize: themeVars.font.sizeMd,
+  fontWeight: themeVars.font.weightBold,
   lineHeight: "18px",
   color: grayPalette[600],
 });
@@ -142,9 +145,9 @@ export const statValue = recipe({
     color: {
       primary: { color: semanticColorRoles.action.primary.default },
       heading: { color: semanticColorRoles.text.heading },
-      success: { color: "#1bc47d" },
-      danger: { color: "#ea5455" },
-      warning: { color: "#f0af23" },
+      success: { color: greenPalette[500] },
+      danger: { color: redPalette[500] },
+      warning: { color: yellowPalette[500] },
     },
   },
   defaultVariants: { color: "primary" },
@@ -192,7 +195,7 @@ export const quickMenuIcon = style({
 
 export const quickMenuLabel = style({
   fontSize: themeVars.font.sizeMd,
-  fontWeight: "600",
+  fontWeight: themeVars.font.weightBold,
   color: semanticColorRoles.text.heading,
   textAlign: "center",
   whiteSpace: "nowrap",
@@ -219,7 +222,7 @@ export const scheduleTop = style({
 });
 
 export const scheduleDate = style({
-  fontSize: "13px",
+  fontSize: themeVars.font.sizeMd,
   fontWeight: themeVars.font.weightBold,
   lineHeight: "18px",
   color: semanticColorRoles.text.heading,
@@ -233,7 +236,7 @@ export const scheduleTitle = style({
 });
 
 export const scheduleBody = style({
-  fontSize: "13px",
+  fontSize: themeVars.font.sizeMd,
   fontWeight: themeVars.font.weightMedium,
   lineHeight: "18px",
   color: grayPalette[800],
@@ -254,7 +257,7 @@ export const tableHeader = style({
 });
 
 export const tableHeaderCell = style({
-  fontSize: "13px",
+  fontSize: themeVars.font.sizeMd,
   fontWeight: themeVars.font.weightBold,
   color: semanticColorRoles.text.heading,
   letterSpacing: "1px",
@@ -275,7 +278,7 @@ export const tableRow = style({
 });
 
 export const tableCell = style({
-  fontSize: "13px",
+  fontSize: themeVars.font.sizeMd,
   fontWeight: themeVars.font.weightMedium,
   lineHeight: "18px",
   color: semanticColorRoles.text.heading,

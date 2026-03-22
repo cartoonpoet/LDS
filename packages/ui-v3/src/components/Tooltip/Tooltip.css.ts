@@ -1,6 +1,6 @@
 import { style, keyframes } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
-import { themeVars } from "@lds/tokens";
+import { semanticColorRoles, themeVars, darkPalette } from "@lds/tokens";
 
 const fadeIn = keyframes({
   from: { opacity: 0 },
@@ -30,28 +30,28 @@ export const tooltip = recipe({
         left: "50%",
         transform: "translateX(-50%)",
         flexDirection: "column",
-        marginBottom: 4,
+        marginBottom: themeVars.spacing.x1,
       },
       bottom: {
         top: "100%",
         left: "50%",
         transform: "translateX(-50%)",
         flexDirection: "column-reverse",
-        marginTop: 4,
+        marginTop: themeVars.spacing.x1,
       },
       left: {
         right: "100%",
         top: "50%",
         transform: "translateY(-50%)",
         flexDirection: "row",
-        marginRight: 4,
+        marginRight: themeVars.spacing.x1,
       },
       right: {
         left: "100%",
         top: "50%",
         transform: "translateY(-50%)",
         flexDirection: "row-reverse",
-        marginLeft: 4,
+        marginLeft: themeVars.spacing.x1,
       },
     },
   },
@@ -60,7 +60,7 @@ export const tooltip = recipe({
 
 /* ─── tooltip body (dark box) ─── */
 export const body = style({
-  backgroundColor: "rgb(52, 52, 52)",
+  backgroundColor: darkPalette[700],
   borderRadius: themeVars.radius.md,
   padding: `5px ${themeVars.spacing.x3}`,
   maxWidth: 280,
@@ -70,20 +70,20 @@ export const body = style({
 /* ─── single-line content ─── */
 export const content = style({
   fontFamily: themeVars.font.family,
-  fontSize: "13px",
+  fontSize: themeVars.font.sizeMd,
   fontWeight: themeVars.font.weightMedium,
   lineHeight: "18px",
-  color: "rgb(255, 255, 255)",
+  color: semanticColorRoles.text.inverse,
 });
 
 /* ─── title (2-row variant) ─── */
 export const title = style({
   fontFamily: themeVars.font.family,
-  fontSize: "13px",
-  fontWeight: 600,
+  fontSize: themeVars.font.sizeMd,
+  fontWeight: themeVars.font.weightBold,
   lineHeight: "16px",
-  color: "rgb(255, 255, 255)",
-  marginBottom: 4,
+  color: semanticColorRoles.text.inverse,
+  marginBottom: themeVars.spacing.x1,
 });
 
 /* ─── arrow shapes ─── */
@@ -100,22 +100,22 @@ export const arrow = recipe({
       top: {
         borderLeft: "5.5px solid transparent",
         borderRight: "5.5px solid transparent",
-        borderTop: "5px solid rgb(52, 52, 52)",
+        borderTop: `5px solid ${darkPalette[700]}`,
       },
       bottom: {
         borderLeft: "5.5px solid transparent",
         borderRight: "5.5px solid transparent",
-        borderBottom: "5px solid rgb(52, 52, 52)",
+        borderBottom: `5px solid ${darkPalette[700]}`,
       },
       left: {
         borderTop: "4.5px solid transparent",
         borderBottom: "4.5px solid transparent",
-        borderLeft: "5px solid rgb(52, 52, 52)",
+        borderLeft: `5px solid ${darkPalette[700]}`,
       },
       right: {
         borderTop: "4.5px solid transparent",
         borderBottom: "4.5px solid transparent",
-        borderRight: "5px solid rgb(52, 52, 52)",
+        borderRight: `5px solid ${darkPalette[700]}`,
       },
     },
   },

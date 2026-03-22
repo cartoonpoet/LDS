@@ -1,6 +1,6 @@
 import { style, keyframes } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
-import { semanticColorRoles, themeVars, grayPalette, opacityPalette } from "@lds/tokens";
+import { semanticColorRoles, themeVars, grayPalette, opacityPalette, greenPalette, redPalette, yellowPalette, cyanPalette } from "@lds/tokens";
 
 /* ─── ProgressBar ─── */
 
@@ -27,10 +27,10 @@ export const progressBar = recipe({
   variants: {
     color: {
       primary: { backgroundColor: semanticColorRoles.action.primary.default },
-      success: { backgroundColor: "#28c76f" },
-      danger: { backgroundColor: "#ea5455" },
-      warning: { backgroundColor: "#f0af23" },
-      info: { backgroundColor: "#00cfe8" },
+      success: { backgroundColor: greenPalette[400] },
+      danger: { backgroundColor: redPalette[400] },
+      warning: { backgroundColor: yellowPalette[400] },
+      info: { backgroundColor: cyanPalette[400] },
     },
     striped: {
       true: {
@@ -58,8 +58,8 @@ export const animated = style({
 export const progressValue = style({
   position: "absolute",
   right: 4,
-  fontSize: "12px",
-  fontWeight: 400,
+  fontSize: themeVars.font.sizeSm,
+  fontWeight: themeVars.font.weightRegular,
   fontFamily: themeVars.font.family,
   color: semanticColorRoles.text.inverse,
   lineHeight: 1,

@@ -108,7 +108,7 @@ export const label = recipe({
   variants: {
     size: {
       small: { fontSize: themeVars.font.sizeSm, lineHeight: "16px" },
-      medium: { fontSize: "13px", lineHeight: "18px" },
+      medium: { fontSize: themeVars.font.sizeMd, lineHeight: "18px" },
       large: { fontSize: themeVars.font.sizeMd, lineHeight: "21px" },
     },
     disabled: {

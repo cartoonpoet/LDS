@@ -1,6 +1,6 @@
 import { style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
-import { semanticColorRoles, themeVars, grayPalette } from "@lds/tokens";
+import { semanticColorRoles, themeVars, grayPalette, opacityPalette } from "@lds/tokens";
 
 /* ─── wrapper ─── */
 export const wrapper = style({
@@ -57,7 +57,7 @@ export const card = style({
   backgroundColor: semanticColorRoles.surface.canvas,
   borderRadius: themeVars.radius.md,
   border: `1px solid ${grayPalette[200]}`,
-  boxShadow: "0 4px 16px rgba(0, 0, 0, 0.08)",
+  boxShadow: themeVars.shadow.raised,
   overflow: "hidden",
   display: "flex",
   flexDirection: "column",
@@ -104,7 +104,7 @@ export const header = style({
   display: "flex",
   alignItems: "flex-start",
   justifyContent: "space-between",
-  padding: `${themeVars.spacing.x4} 20px`,
+  padding: `${themeVars.spacing.x4} ${themeVars.spacing.x5}`,
   gap: themeVars.spacing.x3,
 });
 
@@ -123,7 +123,7 @@ export const headerBadge = style({
   padding: `1px ${themeVars.spacing.x2}`,
   height: 20,
   borderRadius: 17,
-  backgroundColor: "rgba(33, 81, 236, 0.12)",
+  backgroundColor: opacityPalette.primary,
   fontFamily: themeVars.font.family,
   fontSize: themeVars.font.sizeMd,
   fontWeight: themeVars.font.weightMedium,
@@ -136,7 +136,7 @@ export const headerTitle = style({
   fontSize: "18px",
   fontWeight: themeVars.font.weightMedium,
   lineHeight: "22px",
-  color: "rgb(17, 21, 42)",
+  color: semanticColorRoles.text.heading,
 });
 
 export const closeBtn = style({
@@ -149,14 +149,14 @@ export const closeBtn = style({
   border: "none",
   backgroundColor: "transparent",
   cursor: "pointer",
-  color: "rgb(0, 0, 0)",
+  color: semanticColorRoles.text.primary,
   flexShrink: 0,
 });
 
 /* ─── divider ─── */
 export const divider = style({
   height: 1,
-  backgroundColor: "rgb(235, 233, 241)",
+  backgroundColor: grayPalette[200],
   margin: `0 1px`,
 });
 
@@ -166,7 +166,7 @@ export const badgesRow = style({
   alignItems: "center",
   flexWrap: "wrap",
   gap: themeVars.spacing.x1,
-  padding: `${themeVars.spacing.x3} 20px`,
+  padding: `${themeVars.spacing.x3} ${themeVars.spacing.x5}`,
 });
 
 /* ─── list group ─── */
@@ -174,7 +174,7 @@ export const listGroup = style({
   display: "flex",
   flexDirection: "column",
   gap: themeVars.spacing.x2,
-  padding: `${themeVars.spacing.x3} 20px`,
+  padding: `${themeVars.spacing.x3} ${themeVars.spacing.x5}`,
 });
 
 export const listItem = style({
@@ -187,18 +187,18 @@ export const listLabel = style({
   width: 80,
   flexShrink: 0,
   fontFamily: themeVars.font.family,
-  fontSize: "13px",
-  fontWeight: 600,
+  fontSize: themeVars.font.sizeMd,
+  fontWeight: themeVars.font.weightBold,
   lineHeight: "18px",
-  color: "rgb(158, 167, 184)",
+  color: grayPalette[500],
 });
 
 export const listValue = style({
   fontFamily: themeVars.font.family,
-  fontSize: "13px",
+  fontSize: themeVars.font.sizeMd,
   fontWeight: themeVars.font.weightRegular,
   lineHeight: "18px",
-  color: "rgb(0, 0, 0)",
+  color: semanticColorRoles.text.primary,
   flex: 1,
   minWidth: 0,
 });
@@ -208,7 +208,7 @@ export const footer = style({
   display: "flex",
   alignItems: "center",
   gap: themeVars.spacing.x2,
-  padding: `${themeVars.spacing.x4} 20px`,
+  padding: `${themeVars.spacing.x4} ${themeVars.spacing.x5}`,
 });
 
 export const primaryBtn = style({
@@ -224,7 +224,7 @@ export const primaryBtn = style({
   fontFamily: themeVars.font.family,
   fontSize: themeVars.font.sizeMd,
   fontWeight: themeVars.font.weightMedium,
-  color: "rgb(255, 255, 255)",
+  color: semanticColorRoles.text.inverse,
   cursor: "pointer",
   transition: "opacity 150ms ease",
   selectors: {

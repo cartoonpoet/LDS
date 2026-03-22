@@ -67,7 +67,7 @@ export const weekdays = style({
 });
 
 export const weekdayLabel = style({
-  fontSize: "13px",
+  fontSize: themeVars.font.sizeMd,
   fontWeight: themeVars.font.weightMedium,
   color: semanticColorRoles.text.primary,
   textAlign: "center",

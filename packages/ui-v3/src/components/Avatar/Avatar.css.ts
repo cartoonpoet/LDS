@@ -8,6 +8,7 @@ import {
   redPalette,
   yellowPalette,
   cyanPalette,
+  opacityPalette,
 } from "@lds/tokens";
 
 /* ─── avatar base ─── */
@@ -61,7 +62,7 @@ export const labelCircle = recipe({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    fontWeight: "600",
+    fontWeight: themeVars.font.weightBold,
     textAlign: "center",
   },
   variants: {
@@ -87,7 +88,7 @@ export const labelCircle = recipe({
         color: cyanPalette[200],
       },
       secondary: {
-        backgroundColor: `rgba(130, 134, 139, 0.12)`,
+        backgroundColor: opacityPalette.secondary,
         color: grayPalette[600],
       },
     },

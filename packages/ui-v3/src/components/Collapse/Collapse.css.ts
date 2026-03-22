@@ -25,14 +25,14 @@ export const root = recipe({
     {
       variants: { variant: "shadow", expanded: true },
       style: {
-        borderRadius: 4,
+        borderRadius: themeVars.radius.sm,
         boxShadow: "0 0 8px rgba(0, 0, 0, 0.08)",
       },
     },
     {
       variants: { variant: "shadow", expanded: false },
       style: {
-        borderRadius: 4,
+        borderRadius: themeVars.radius.sm,
       },
     },
     /* Border: always bordered */
@@ -52,14 +52,14 @@ export const root = recipe({
     {
       variants: { variant: "margin", expanded: true },
       style: {
-        borderRadius: 4,
+        borderRadius: themeVars.radius.sm,
         boxShadow: "0 0 8px rgba(0, 0, 0, 0.08)",
       },
     },
     {
       variants: { variant: "margin", expanded: false },
       style: {
-        borderRadius: 4,
+        borderRadius: themeVars.radius.sm,
         boxShadow: "0 2px 15px rgba(0, 0, 0, 0.06)",
       },
     },
@@ -82,7 +82,7 @@ export const header = recipe({
     backgroundColor: "transparent",
     cursor: "pointer",
     fontFamily: themeVars.font.family,
-    fontSize: "15px",
+    fontSize: themeVars.font.sizeLg,
     fontWeight: themeVars.font.weightMedium,
     color: semanticColorRoles.text.heading,
     lineHeight: 1.6,
