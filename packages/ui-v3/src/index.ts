@@ -118,6 +118,9 @@ export type { DataTableProps } from "./components/DataTable";
 export { Mention } from "./components/Mention";
 export type { MentionProps } from "./components/Mention";
 
+export { Skeleton } from "./components/Skeleton";
+export type { SkeletonProps, SkeletonVariant, SkeletonContentProps } from "./components/Skeleton";
+
 export { Spinner } from "./components/Spinner";
 export type { SpinnerProps, SpinnerSize, SpinnerColor } from "./components/Spinner";
 
