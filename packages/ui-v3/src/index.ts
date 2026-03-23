@@ -118,6 +118,9 @@ export type { DataTableProps } from "./components/DataTable";
 export { Mention } from "./components/Mention";
 export type { MentionProps } from "./components/Mention";
 
+export { Spinner } from "./components/Spinner";
+export type { SpinnerProps, SpinnerSize, SpinnerColor } from "./components/Spinner";
+
 export { TreeView } from "./components/TreeView";
 export type { TreeViewProps, TreeNode, TreeNodeColumn, TreeViewSize } from "./components/TreeView";
 
