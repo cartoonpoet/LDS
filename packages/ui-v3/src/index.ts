@@ -132,3 +132,7 @@ export { sprinkles } from "./styles/sprinkles.css";
 
 /* ─── Utilities ─── */
 export { cx } from "./lib/cx";
+
+/* ─── Theme / Tokens (re-exported from @lds/tokens) ─── */
+export { lightThemeClass, themeVars, createLdsThemeVars } from "@lds/tokens";
+export type { LdsThemeInput } from "@lds/tokens";

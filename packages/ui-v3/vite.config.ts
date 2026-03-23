@@ -9,8 +9,9 @@ export default defineConfig({
     react(),
     vanillaExtractPlugin(),
     dts({
-      include: ["src"],
-      exclude: ["src/**/*.stories.tsx", "src/**/*.test.tsx"]
+      include: ["src", "../tokens/src"],
+      exclude: ["src/**/*.stories.tsx", "src/**/*.test.tsx", "src/test/**"],
+      copyDtsFiles: true,
     })
   ],
   resolve: {
@@ -25,7 +26,7 @@ export default defineConfig({
       fileName: "index"
     },
     rollupOptions: {
-      external: ["react", "react-dom"]
+      external: ["react", "react-dom", "react/jsx-runtime", "@tanstack/react-table"]
     }
   }
 });
