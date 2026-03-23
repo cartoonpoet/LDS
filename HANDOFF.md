@@ -1,17 +1,17 @@
 # LDS 디자인 시스템 — 작업 핸드오프
 
-> 2026-03-20 작업 기준. 집에서 이어서 할 때 이 파일을 Claude에게 전달하세요.
+> 2026-03-23 작업 기준. 다른 컴퓨터에서 이어서 할 때 이 파일을 Claude에게 전달하세요.
 > "HANDOFF.md 읽고 이어서 작업해줘" 하면 됩니다.
 
 ## 프로젝트 위치
 - 레포: `github.com/cartoonpoet/LDS`
-- 브랜치: `yeoni/design-system-setup`
+- 브랜치: `main` (기존 `yeoni/design-system-setup` 브랜치는 PR #7로 머지 완료)
 - 패키지: `packages/ui-v3/src/`
 - Zeplin 스타일가이드: `https://app.zeplin.io/styleguide/639bef141f03481409421455`
 
 ---
 
-## 완료된 컴포넌트 (36개)
+## 완료된 컴포넌트 (38개)
 
 | # | 컴포넌트 | Zeplin | 커밋 |
 |---|---------|--------|------|
@@ -27,30 +27,32 @@
 | 10 | Collapse | 8) Collapse | 453d984 |
 | 11 | Dropdown | 19) Select | 5943dc1 |
 | 12 | ListGroup | 10) List groups | 1826e4c |
-| 13 | Modal + ModalHeader/Body/Footer | 11) Modals (표준 4사이즈) | 1826e4c (같이 포함됨) |
-| 14 | SweetAlert | 11) Modals (Sweet Alert) | 1826e4c (같이 포함됨) |
+| 13 | Modal + ModalHeader/Body/Footer | 11) Modals (표준 4사이즈) | 1826e4c |
+| 14 | SweetAlert | 11) Modals (Sweet Alert) | 1826e4c |
 | 15 | Pagination + PaginationCount | 12) Paginations | 31f7537 |
 | 16 | ProgressBar + StepBar | 14) Progress | 7440e6f |
 | 17 | Tooltip | 15) Tooltips & Popovers | a01d2f1 |
 | 18 | Popover | 15) Tooltips & Popovers | a01d2f1 |
-| 19 | ChartTooltip | 15) Tooltips (Chart) | (미커밋) |
-| 20 | InfoPopover | 15) Tooltips (Info Popovers) | (미커밋) |
-| 21 | CalendarPopover | 15) Tooltips (Calendar Popovers) | (미커밋) |
-| 22 | Toast + ToastContainer | 17) Bootstrap Toasts & Toastr | (미커밋) |
-| 23 | Input + InputGroup + MultiSelect | 18) Input & Inputgroups | (미커밋) |
-| 24 | TagSelect | 19) Selects | (미커밋) |
-| 25 | Switch | 20) Switches | (미커밋) |
-| 26 | Checkbox | 21) Checkboxes | (미커밋) |
-| 27 | Radio + RadioGroup | 22) Radios | (미커밋) |
-| 28 | DatePicker + DateRangePicker | 22) Date & Time Pickers | (미커밋) |
-| 29 | FileUploadArea + FileThumbnail + FileItem + FileAttachBadge | 23) File Uploads | (미커밋) |
-| 30 | NumberInput | 24) Number Inputs | (미커밋) |
-| 31 | Slider + RangeSlider | 25) Sliders | (미커밋) |
-| 32 | Avatar + AvatarGroup | 26) Avatars | (미커밋) |
-| 33 | Widget + StatCell + StatGrid + QuickMenuItem + ScheduleItem | 28) Widgets | (미커밋) |
-| 34 | DataTable | 30) DataTables (@tanstack/react-table) | (미커밋) |
-| 35 | TreeView | 38) Tree View (계층 구조 트리) | (미커밋) |
-| 36 | Mention | 인라인 멘션 태그 (@사용자) | (미커밋) |
+| 19 | ChartTooltip | 15) Tooltips (Chart) | 718b530 (PR 머지) |
+| 20 | InfoPopover | 15) Tooltips (Info Popovers) | 718b530 |
+| 21 | CalendarPopover | 15) Tooltips (Calendar Popovers) | 718b530 |
+| 22 | Toast + ToastContainer | 17) Bootstrap Toasts & Toastr | 718b530 |
+| 23 | Input + InputGroup + MultiSelect | 18) Input & Inputgroups | 718b530 |
+| 24 | TagSelect | 19) Selects | 718b530 |
+| 25 | Switch | 20) Switches | 718b530 |
+| 26 | Checkbox | 21) Checkboxes | 718b530 |
+| 27 | Radio + RadioGroup | 22) Radios | 718b530 |
+| 28 | DatePicker + DateRangePicker | 22) Date & Time Pickers | 718b530 |
+| 29 | FileUploadArea + FileThumbnail + FileItem + FileAttachBadge | 23) File Uploads | 718b530 |
+| 30 | NumberInput | 24) Number Inputs | 718b530 |
+| 31 | Slider + RangeSlider | 25) Sliders | 718b530 |
+| 32 | Avatar + AvatarGroup | 26) Avatars | 718b530 |
+| 33 | Widget + StatCell + StatGrid + QuickMenuItem + ScheduleItem | 28) Widgets | 718b530 |
+| 34 | DataTable | 30) DataTables (@tanstack/react-table) | 718b530 |
+| 35 | TreeView | 38) Tree View (계층 구조 트리) | 718b530 |
+| 36 | Mention | 인라인 멘션 태그 (@사용자) | 718b530 |
+| 37 | **Spinner** | 15) Spinners | eac3798 |
+| 38 | **Skeleton** (+ Skeleton.Content) | 자체 디자인 | 055872e |
 
 ### 함께 생성된 유틸리티
 - `src/lib/Portal.tsx` — createPortal SSR-safe 래퍼
@@ -59,28 +61,60 @@
 
 ---
 
-## 남은 Zeplin 컴포넌트 (미구현)
+## 테스트 코드 (2026-03-23 완료)
 
-Zeplin 스타일가이드에서 아직 구현하지 않은 항목들:
+**41개 테스트 파일, 272개 테스트** — 전체 통과 ✅
+
+- 스택: Vitest 4.1.0 + @testing-library/react 16.3.2 + @testing-library/user-event + jsdom 28.1.0
+- 공통 헬퍼: `src/test/utils.tsx` (`renderWithUser` — render + userEvent.setup())
+- 커밋: `f4bae15`
+
+| 배치 | 대상 | 테스트 수 |
+|------|------|----------|
+| 0 | cx, Portal, useFocusTrap | 12 |
+| 1 | Button, Checkbox, Switch, Radio | 31 |
+| 2 | Input, InputGroup, MultiSelect, NumberInput | 23 |
+| 3 | Dropdown, Collapse/CollapseGroup | 21 |
+| 4 | Modal, SweetAlert | 22 |
+| 5 | Popover, Tooltip, Toast | 24 |
+| 6 | Alert, Avatar, Skeleton, Spinner, Mention, Card | 33 |
+| 7 | Tabs, ButtonTab, NavigationTab, Pagination, ButtonGroup, IconButtonGroup, ChipsNavigation | 27 |
+| 8 | DatePicker/DateRangePicker, Slider/RangeSlider, TagSelect, FileUpload | 33 |
+| 9 | Widget, TreeView, DataTable, CalendarPopover, InfoPopover, Progress, ListGroup, ChartTooltip | 46 |
+
+### 테스트 기술 참고사항
+- **Tooltip**: `fireEvent.mouseEnter/Leave` + `act(() => vi.advanceTimersByTime())` (fake timers + React state flush)
+- **Toast**: jsdom에서 animationend 미발생 → exiting 상태 검증으로 대체
+- **DatePicker**: `fireEvent.click()` 사용 (userEvent + fake timers 충돌 회피)
+- **TagSelect**: `fireEvent.focus()` 사용 (onFocus + trigger onClick 동시 발생 시 toggle 문제 회피)
+- **Slider/RangeSlider**: jsdom 한계로 드래그 시뮬레이션 스킵, 렌더링/disabled/값 표시만 검증
+
+---
+
+## CI / 배포
+
+- **Vercel 자동 배포**: `apps/storybook` → Vercel 연결
+- **테스트 게이트**: `vercel.json`의 `buildCommand`에서 `pnpm --filter @lds/ui-v3 test`를 먼저 실행. 테스트 실패 시 배포 중단.
+- 커밋: `d4d11aa`
+
+---
+
+## 스토리북 문서
+
+- **테마 가이드**: `src/components/Theming.stories.tsx` — 브랜드 컬러 커스터마이징 방법 문서화
+  - `createLdsThemeVars()`로 런타임 CSS 변수 오버라이드
+  - 5개 프리셋 예시 (Law.ai, Green, Purple, Orange, Scourt Blue)
+  - 커밋: `c20198d`
+
+---
+
+## 남은 Zeplin 컴포넌트 (미구현)
 
 | Zeplin 번호 | 이름 | 비고 |
 |-------------|------|------|
-| ~~13) Tooltips~~ | ~~Tooltip~~ | ✅ 완료 |
-| 15) Spinners | Spinner/Loading | |
 | 16) Breadcrumbs | Breadcrumb | |
-| ~~17) Avatar~~ | ~~Avatar~~ | ✅ 완료 (Free Style Avatar 제외) |
-| ~~18) Input & Inputgroups~~ | ~~Input, InputGroup~~ | ✅ 완료 (에디터 제외) |
-| ~~19) Select~~ | ~~Select 추가 변형~~ | ✅ TagSelect로 완료 |
 | 20) Textarea | Textarea | 폼 컴포넌트 |
-| ~~21) Checkbox~~ | ~~Checkbox~~ | ✅ 완료 |
-| ~~22) Radio~~ | ~~Radio~~ | ✅ 완료 |
-| ~~23) Switch/Toggle~~ | ~~Switch~~ | ✅ 완료 |
-| ~~24) DatePicker~~ | ~~DatePicker~~ | ✅ 완료 (DatePicker + DateRangePicker) |
-| ~~25) Table~~ | ~~DataTable~~ | ✅ 완료 (@tanstack/react-table) |
-| 11) Modals 후속 | ~~Popover~~, FloatingModal, FullScreenModal | Popover ✅ 완료, 나머지 후속 |
-
-> Zeplin 스타일가이드 URL에서 component ID를 넣어 확인 가능:
-> `https://app.zeplin.io/styleguide/639bef141f03481409421455/component/{COMPONENT_ID}`
+| 11) Modals 후속 | FloatingModal, FullScreenModal | |
 
 ---
 
@@ -92,6 +126,7 @@ packages/ui-v3/src/components/{ComponentName}/
   {ComponentName}.css.ts    — vanilla-extract 스타일
   index.tsx                 — 컴포넌트 코드
   {ComponentName}.stories.tsx — Storybook 스토리
+  {ComponentName}.test.tsx  — Vitest 단위 테스트
 ```
 
 ### 스타일 패턴 (vanilla-extract)
@@ -124,6 +159,27 @@ export function {ComponentName}({ className, ...rest }: {ComponentName}Props) {
 }
 ```
 
+### 테스트 패턴
+```tsx
+import { describe, it, expect, vi } from "vitest";
+import { renderWithUser, screen } from "../../test/utils";
+import { ComponentName } from ".";
+
+describe("ComponentName", () => {
+  it("renders correctly", () => {
+    renderWithUser(<ComponentName />);
+    expect(screen.getByRole("...")).toBeInTheDocument();
+  });
+
+  it("calls callback on interaction", async () => {
+    const onChange = vi.fn();
+    const { user } = renderWithUser(<ComponentName onChange={onChange} />);
+    await user.click(screen.getByText("..."));
+    expect(onChange).toHaveBeenCalledWith("...");
+  });
+});
+```
+
 ### Storybook 패턴
 ```tsx
 import type { Meta, StoryObj } from "@storybook/react";
@@ -141,10 +197,6 @@ const meta: Meta<typeof Component> = {
 };
 // JSDoc으로 상세 문서 + Template Code 포함
 ```
-
-### Compound 패턴 (Card, Modal처럼 서브컴포넌트가 있는 경우)
-- 간편 API: props로 header/footer 전달
-- Compound: `<ModalHeader>`, `<ModalBody>`, `<ModalFooter>` 직접 조합
 
 ### 토큰 참조
 | 용도 | 토큰 |
@@ -166,12 +218,35 @@ const meta: Meta<typeof Component> = {
 
 ### 검증
 ```bash
+# 타입 체크
 npx tsc --noEmit -p packages/ui-v3/tsconfig.json
+
+# 테스트 실행
+cd packages/ui-v3 && pnpm test
+
+# 특정 컴포넌트만 테스트
+npx vitest run src/components/Button/Button.test.tsx
 ```
 
 ### 커밋 컨벤션
 ```
 feat: {컴포넌트명} 컴포넌트 개발
+test: {대상} 테스트 추가
+docs: {내용} 문서 추가
+ci: {내용} CI 설정
+```
+
+---
+
+## 최근 커밋 이력
+
+```
+d4d11aa ci: Vercel 배포 전 테스트 통과 필수 설정
+f4bae15 test: 전체 컴포넌트 단위 테스트 추가 (41파일, 272개 테스트)
+055872e feat: Skeleton 컴포넌트 개발 (rect/circle/text + Skeleton.Content 래퍼)
+c20198d docs: 브랜드 컬러 커스터마이징 테마 가이드 스토리북 추가
+718b530 Merge pull request #7 from cartoonpoet/yeoni/design-system-setup
+eac3798 feat: Spinner 컴포넌트 개발
 ```
 
 ---
@@ -179,15 +254,20 @@ feat: {컴포넌트명} 컴포넌트 개발
 ## 이어서 작업하는 법
 
 ```bash
-cd ~/Documents/GitHub/LDS   # 또는 집 컴퓨터 경로
+cd ~/Documents/GitHub/LDS   # 또는 해당 컴퓨터 경로
 git pull
 ```
 
 그 다음 Claude에게:
 ```
-HANDOFF.md 읽고, Zeplin 스타일가이드에서 다음 컴포넌트 개발해줘
-https://app.zeplin.io/styleguide/639bef141f03481409421455/component/{ID}
+HANDOFF.md 읽고, 이어서 작업해줘
 ```
+
+### 다음 작업 후보
+1. **남은 컴포넌트 개발**: Breadcrumb, Textarea, FloatingModal, FullScreenModal
+2. **Zeplin MCP 연결**: `claude mcp add zeplin --env ZEPLIN_ACCESS_TOKEN={토큰} -- npx -y @zeplin/mcp-server@latest`
+3. **컴포넌트 라이브러리 빌드/배포**: npm publish 준비
+4. **GitHub Actions CI**: PR 단위 테스트 자동화 (현재는 Vercel 빌드 시에만 실행)
 
 ---
 
