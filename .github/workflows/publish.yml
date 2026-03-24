@@ -1,5 +1,7 @@
-name: Publish @lawkit/ui
+name: Publish @lawkit/ui (tag)
 
+# 태그 push 시에만 동작 (수동 배포용 백업)
+# 메인 배포 흐름은 Vercel buildCommand에서 처리됨
 on:
   push:
     tags:

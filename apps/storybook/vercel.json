@@ -1,6 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "installCommand": "pnpm install",
-  "buildCommand": "cd ../.. && pnpm --filter @lds/ui-v3 test && cd apps/storybook && pnpm run build",
+  "buildCommand": "cd ../.. && pnpm --filter @lawkit/ui test && pnpm --filter @lawkit/ui build && node scripts/publish-if-new.mjs && cd apps/storybook && pnpm run build",
   "outputDirectory": "storybook-static"
 }
