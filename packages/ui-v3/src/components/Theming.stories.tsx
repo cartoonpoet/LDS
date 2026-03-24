@@ -146,7 +146,7 @@ function ComponentShowcase() {
  * });
  *
  * <div className={lightThemeClass} style={brandTheme}>
- *   <Button>녹색 브랜드 버튼</Button>  {/* 자동으로 녹색 */}
+ *   <Button>녹색 브랜드 버튼</Button>  // 자동으로 녹색
  * </div>
  * ```
  *
