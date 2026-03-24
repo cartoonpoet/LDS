@@ -41,7 +41,13 @@ function SortArrowIcon() {
    Types
    ═══════════════════════════════════════════ */
 
-export type { ColumnDef, SortingState, RowSelectionState };
+export type {   
+  ColumnDef,
+  SortingState,
+  RowSelectionState,
+  OnChangeFn,
+  Row, 
+};
 
 export interface DataTableProps<T> extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
   /** 테이블 데이터 */
