@@ -212,12 +212,7 @@ export type {
 } from "./components/Widget";
 
 export { DataTable } from "./components/DataTable";
-export type {
-  DataTableProps,
-  ColumnDef,
-  RowSelectionState,
-  SortingState,
-} from "./components/DataTable";
+export type * from "./components/DataTable";
 
 export { Mention } from "./components/Mention";
 export type { MentionProps } from "./components/Mention";

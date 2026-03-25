@@ -41,13 +41,7 @@ function SortArrowIcon() {
    Types
    ═══════════════════════════════════════════ */
 
-export type {   
-  ColumnDef,
-  SortingState,
-  RowSelectionState,
-  OnChangeFn,
-  Row, 
-};
+export * from '@tanstack/react-table'
 
 export interface DataTableProps<T> extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
   /** 테이블 데이터 */
