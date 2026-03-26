@@ -231,6 +231,9 @@ export type {
   SpinnerColor,
 } from "./components/Spinner";
 
+export { Icon } from "./components/Icon";
+export type { IconName, IconProps, IconSize } from "./components/Icon";
+
 export { TreeView } from "./components/TreeView";
 export type {
   TreeViewProps,
