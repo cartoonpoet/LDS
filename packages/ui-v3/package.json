@@ -1,6 +1,6 @@
 {
   "name": "@lawkit/ui",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "type": "module",
   "description": "LDS Design System — React component library with design tokens",
   "main": "./dist/index.js",
@@ -23,7 +23,13 @@
   "publishConfig": {
     "access": "public"
   },
-  "keywords": ["react", "design-system", "components", "ui", "lawkit"],
+  "keywords": [
+    "react",
+    "design-system",
+    "components",
+    "ui",
+    "lawkit"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/cartoonpoet/LDS.git",
