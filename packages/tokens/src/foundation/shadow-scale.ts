@@ -1,4 +1,5 @@
 export const defaultShadowTokens = {
   focus: "0 0 0 3px rgba(47, 91, 255, 0.14)",
-  raised: "0 6px 16px rgba(17, 24, 39, 0.08)"
+  raised: "0 6px 16px rgba(17, 24, 39, 0.08)",
+  modal: "0 4px 15px rgba(44, 63, 88, 0.35)"
 } as const;

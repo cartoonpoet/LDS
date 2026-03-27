@@ -24,7 +24,7 @@ export const card = recipe({
     maxHeight: "90vh",
     backgroundColor: semanticColorRoles.surface.canvas,
     borderRadius: themeVars.radius.md,
-    boxShadow: themeVars.shadow.raised,
+    boxShadow: themeVars.shadow.modal,
     fontFamily: themeVars.font.family,
     color: semanticColorRoles.text.primary,
     overflow: "hidden",

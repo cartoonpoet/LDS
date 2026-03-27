@@ -62,6 +62,7 @@ export const themeVars = createThemeContract({
   },
   shadow: {
     focus: null,
-    raised: null
+    raised: null,
+    modal: null
   }
 });
