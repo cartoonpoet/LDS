@@ -20,7 +20,6 @@ export const popover = recipe({
     zIndex: 1100,
     display: "flex",
     alignItems: "center",
-    animation: `${fadeIn} 150ms ease`,
   },
   variants: {
     placement: {
@@ -59,6 +58,7 @@ export const popover = recipe({
 
 /* ─── card (white box) ─── */
 export const card = style({
+  animation: `${fadeIn} 150ms ease`,
   backgroundColor: semanticColorRoles.surface.canvas,
   borderRadius: themeVars.radius.md,
   border: `1px solid ${grayPalette[200]}`,
