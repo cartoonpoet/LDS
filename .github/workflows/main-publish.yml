@@ -45,9 +45,16 @@ jobs:
       - name: Bump version
         id: version
         run: |
-          cd packages/ui-v3
-          NEW_VERSION=$(npm version ${{ steps.bump.outputs.type }} --no-git-tag-version)
-          echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
+          CURRENT=$(node -p "require('./packages/ui-v3/package.json').version")
+          NEW=$(node -e "
+            const [major, minor, patch] = '$CURRENT'.split('.').map(Number);
+            const type = '${{ steps.bump.outputs.type }}';
+            if (type === 'major') process.stdout.write((major+1)+'.0.0');
+            else if (type === 'minor') process.stdout.write(major+'.'+(minor+1)+'.0');
+            else process.stdout.write(major+'.'+minor+'.'+(patch+1));
+          ")
+          jq --arg v "$NEW" '.version = $v' packages/ui-v3/package.json > /tmp/pkg.json && mv /tmp/pkg.json packages/ui-v3/package.json
+          echo "new_version=v$NEW" >> $GITHUB_OUTPUT
 
       - name: Commit & tag
         run: |
