@@ -3,8 +3,8 @@ import { recipe } from "@vanilla-extract/recipes";
 import { semanticColorRoles, themeVars, grayPalette } from "@lds/tokens";
 
 const fadeIn = keyframes({
-  from: { opacity: 0, transform: "scale(0.95)" },
-  to: { opacity: 1, transform: "scale(1)" },
+  from: { opacity: 0 },
+  to: { opacity: 1 },
 });
 
 /* ─── wrapper (anchor) ─── */
