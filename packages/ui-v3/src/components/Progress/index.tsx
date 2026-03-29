@@ -1,6 +1,8 @@
 import type { ReactNode, HTMLAttributes } from "react";
 import { cx } from "../../lib/cx";
 import * as s from "./Progress.css";
+import type { IconName } from "../Icon/types";
+import { iconRegistry } from "../Icon/registry";
 
 /* ─── ProgressBar Types ─── */
 export type ProgressColor = "primary" | "success" | "danger" | "warning" | "info";
@@ -34,8 +36,8 @@ export interface StepItem {
   label: string;
   /** 단계 상태 */
   status: StepStatus;
-  /** 커스텀 아이콘 */
-  icon?: ReactNode;
+  /** 커스텀 아이콘 — 아이콘 이름(string) 또는 ReactNode */
+  icon?: Exclude<ReactNode, string> | IconName;
 }
 
 export interface StepBarProps extends HTMLAttributes<HTMLDivElement> {
@@ -115,6 +117,19 @@ export function ProgressBar({
   );
 }
 
+/* ─── Icon resolver ─── */
+function resolveIcon(icon: StepItem["icon"], status: StepStatus) {
+  if (icon == null) {
+    const DefaultIcon = defaultStepIcons[status];
+    return <DefaultIcon />;
+  }
+  if (typeof icon === "string") {
+    const RegistryIcon = iconRegistry[icon as IconName];
+    return <RegistryIcon width={20} height={20} />;
+  }
+  return icon;
+}
+
 /* ─── StepBar Component ─── */
 export function StepBar({
   steps,
@@ -123,24 +138,21 @@ export function StepBar({
 }: StepBarProps) {
   return (
     <div className={cx(s.stepBarRoot, className)} {...rest}>
-      {steps.map((step, i) => {
-        const DefaultIcon = defaultStepIcons[step.status];
-        return (
-          <div key={i} className={s.stepItem}>
-            {i > 0 && (
-              <span className={s.stepArrow}>
-                <ChevronRightIcon />
-              </span>
-            )}
-            <span className={s.stepIcon({ status: step.status })}>
-              {step.icon ?? <DefaultIcon />}
+      {steps.map((step, i) => (
+        <div key={i} className={s.stepItem}>
+          {i > 0 && (
+            <span className={s.stepArrow}>
+              <ChevronRightIcon />
             </span>
-            <span className={s.stepLabel({ status: step.status })}>
-              {step.label}
-            </span>
-          </div>
-        );
-      })}
+          )}
+          <span className={s.stepIcon({ status: step.status })}>
+            {resolveIcon(step.icon, step.status)}
+          </span>
+          <span className={s.stepLabel({ status: step.status })}>
+            {step.label}
+          </span>
+        </div>
+      ))}
     </div>
   );
 }

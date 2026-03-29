@@ -127,6 +127,20 @@ export const StepBarContractConcluded: Story = {
   ),
 };
 
+/** 7a) StepBar — 아이콘 이름 사용 */
+export const StepBarWithIcons: Story = {
+  render: () => (
+    <StepBar
+      steps={[
+        { label: "사본 등록", status: "completed", icon: "filePlus" },
+        { label: "법무검토", status: "active", icon: "feather" },
+        { label: "체결 품의", status: "scheduled", icon: "checkCircle" },
+        { label: "전자서명", status: "scheduled", icon: "autoSign" },
+      ]}
+    />
+  ),
+};
+
 /** 7) StepBar — 계약 검토 (긴 프로세스) */
 export const StepBarReviewOfContracts: Story = {
   render: () => (

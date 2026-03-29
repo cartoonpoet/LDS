@@ -41,4 +41,23 @@ describe("StepBar", () => {
     expect(screen.getByText("Review")).toBeInTheDocument();
     expect(screen.getByText("Done")).toBeInTheDocument();
   });
+
+  it("renders icon from registry when icon is a string name", () => {
+    const steps = [{ label: "Step 1", status: "completed" as const, icon: "filePlus" as const }];
+    renderWithUser(<StepBar steps={steps} />);
+    expect(screen.getByText("Step 1")).toBeInTheDocument();
+  });
+
+  it("renders custom ReactNode icon", () => {
+    const Custom = () => <span data-testid="custom">*</span>;
+    const steps = [{ label: "Step 1", status: "active" as const, icon: <Custom /> }];
+    renderWithUser(<StepBar steps={steps} />);
+    expect(screen.getByTestId("custom")).toBeInTheDocument();
+  });
+
+  it("falls back to default status icons when no icon specified", () => {
+    const steps = [{ label: "Step 1", status: "completed" as const }];
+    renderWithUser(<StepBar steps={steps} />);
+    expect(screen.getByText("Step 1")).toBeInTheDocument();
+  });
 });
