@@ -72,54 +72,6 @@ const checkOptions = [
  *   disabled?: boolean;
  * }
  * ```
- *
- * ### Template Code
- * ```tsx
- * // 기본 단일 선택
- * <Dropdown
- *   options={[
- *     { value: "1y", label: "지난 1년" },
- *     { value: "3y", label: "지난 3년" },
- *     { value: "5y", label: "지난 5년" },
- *   ]}
- *   placeholder="기간 선택"
- *   onChange={(val) => console.log(val)}
- * />
- *
- * // 크기 변형
- * <Dropdown size="small" options={options} placeholder="Small" />
- * <Dropdown size="medium" options={options} placeholder="Medium" />
- * <Dropdown size="large" options={options} placeholder="Large" />
- *
- * // 아이콘 포함
- * <Dropdown icon={<CalendarIcon />} options={options} placeholder="날짜 선택" />
- *
- * // Multi Level (설명 포함 옵션)
- * <Dropdown
- *   options={[
- *     { value: "add", label: "결재자 추가", description: "문서에 결재자를 추가합니다." },
- *     { value: "approve", label: "결재하기", description: "선택한 문서를 결재합니다." },
- *   ]}
- * />
- *
- * // Multi Check (다중 선택)
- * <Dropdown
- *   multiple
- *   panelHeader="부서 선택"
- *   options={[
- *     { value: "sales", label: "영업팀" },
- *     { value: "dev", label: "개발팀" },
- *   ]}
- *   onChange={(values) => console.log(values)}
- * />
- *
- * // Controlled
- * const [value, setValue] = useState("1y");
- * <Dropdown options={options} value={value} onChange={setValue} />
- *
- * // 비활성화
- * <Dropdown options={options} disabled />
- * ```
  */
 const meta: Meta<typeof Dropdown> = {
   title: "Components/Dropdown",
@@ -146,6 +98,49 @@ const meta: Meta<typeof Dropdown> = {
 };
 export default meta;
 type Story = StoryObj<typeof Dropdown>;
+
+export const TemplateCode: Story = {
+  name: "Template Code",
+  args: { size: "medium", options: sampleOptions, placeholder: "기간 선택" },
+  parameters: {
+    docs: {
+      source: {
+        code: `import { useState } from "react";
+import { Dropdown } from "@lds/ui-v3";
+
+// 기본 단일 선택
+<Dropdown
+  options={[
+    { value: "1y", label: "지난 1년" },
+    { value: "3y", label: "지난 3년" },
+  ]}
+  placeholder="기간 선택"
+  onChange={(val) => console.log(val)}
+/>
+
+// Multi Level (설명 포함)
+<Dropdown
+  options={[
+    { value: "add", label: "결재자 추가", description: "문서에 결재자를 추가합니다." },
+  ]}
+/>
+
+// Multi Check (다중 선택)
+<Dropdown
+  multiple
+  panelHeader="부서 선택"
+  options={[{ value: "sales", label: "영업팀" }, { value: "dev", label: "개발팀" }]}
+  onChange={(values) => console.log(values)}
+/>
+
+// Controlled
+const [value, setValue] = useState("1y");
+<Dropdown options={options} value={value} onChange={setValue} />
+`,
+      },
+    },
+  },
+};
 
 /** 기본 — Medium 크기 */
 export const Default: Story = {

@@ -5,24 +5,6 @@ import { DatePicker, DateRangePicker } from ".";
 
 /**
  * **DatePicker** — 날짜 및 날짜 범위 선택 캘린더
- *
- * ### 사용법
- * ```tsx
- * import { DatePicker, DateRangePicker } from "@lds/ui-v3";
- *
- * // 단일 날짜 선택
- * <DatePicker value={date} onChange={setDate} />
- *
- * // 시간 포함
- * <DatePicker value={date} onChange={setDate} showTime />
- *
- * // 날짜 범위 선택
- * <DateRangePicker
- *   startDate={start}
- *   endDate={end}
- *   onChange={({ start, end }) => { setStart(start); setEnd(end); }}
- * />
- * ```
  */
 const meta: Meta<typeof DatePicker> = {
   title: "Components/DatePicker",
@@ -42,6 +24,46 @@ const meta: Meta<typeof DatePicker> = {
 
 export default meta;
 type Story = StoryObj<typeof DatePicker>;
+
+export const TemplateCode: Story = {
+  name: "Template Code",
+  render: () => {
+    const [date, setDate] = useState<Date | null>(new Date());
+    return <DatePicker value={date} onChange={setDate} />;
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `import { useState } from "react";
+import { DatePicker, DateRangePicker } from "@lds/ui-v3";
+
+function MyPage() {
+  const [date, setDate] = useState<Date | null>(new Date());
+  const [start, setStart] = useState<Date | null>(null);
+  const [end, setEnd] = useState<Date | null>(null);
+
+  return (
+    <>
+      {/* 단일 날짜 선택 */}
+      <DatePicker value={date} onChange={setDate} />
+
+      {/* 시간 포함 */}
+      <DatePicker value={date} onChange={setDate} showTime />
+
+      {/* 날짜 범위 선택 */}
+      <DateRangePicker
+        startDate={start}
+        endDate={end}
+        onChange={({ start, end }) => { setStart(start); setEnd(end); }}
+      />
+    </>
+  );
+}
+`,
+      },
+    },
+  },
+};
 
 /** 기본 날짜 선택 */
 export const Default: Story = {

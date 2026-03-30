@@ -30,22 +30,6 @@ import { lightThemeClass } from "@lds/tokens";
  *   disabled?: boolean; // 비활성화 여부
  * }
  * ```
- *
- * ### Template Code
- * ```tsx
- * const [tab, setTab] = useState("tab1");
- *
- * <ButtonTab
- *   items={[
- *     { value: "tab1", label: "Tab 1" },
- *     { value: "tab2", label: "Tab 2" },
- *     { value: "tab3", label: "Tab 3", disabled: true },
- *     { value: "tab4", label: "Tab 4" },
- *   ]}
- *   value={tab}
- *   onChange={setTab}
- * />
- * ```
  */
 const meta: Meta<typeof ButtonTab> = {
   title: "Components/ButtonTab",
@@ -67,6 +51,33 @@ const itemsWithDisabled = [
   { value: "tab3", label: "Tab 3", disabled: true },
   { value: "tab4", label: "Tab 4" },
 ];
+
+export const TemplateCode: Story = {
+  name: "Template Code",
+  args: { items, value: "tab2" },
+  parameters: {
+    docs: {
+      source: {
+        code: `import { useState } from "react";
+import { ButtonTab } from "@lds/ui-v3";
+
+const [tab, setTab] = useState("tab1");
+
+<ButtonTab
+  items={[
+    { value: "tab1", label: "Tab 1" },
+    { value: "tab2", label: "Tab 2" },
+    { value: "tab3", label: "Tab 3", disabled: true },
+    { value: "tab4", label: "Tab 4" },
+  ]}
+  value={tab}
+  onChange={setTab}
+/>
+`,
+      },
+    },
+  },
+};
 
 export const Default: Story = {
   args: { items, value: "tab2" },

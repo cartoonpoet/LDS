@@ -1,6 +1,6 @@
 # LDS 디자인 시스템 — 작업 핸드오프
 
-> 2026-03-23 작업 기준. 다른 컴퓨터에서 이어서 할 때 이 파일을 Claude에게 전달하세요.
+> 2026-03-30 작업 기준. 다른 컴퓨터에서 이어서 할 때 이 파일을 Claude에게 전달하세요.
 > "HANDOFF.md 읽고 이어서 작업해줘" 하면 됩니다.
 
 ## 프로젝트 위치
@@ -105,6 +105,33 @@
   - `createLdsThemeVars()`로 런타임 CSS 변수 오버라이드
   - 5개 프리셋 예시 (Law.ai, Green, Purple, Orange, Scourt Blue)
   - 커밋: `c20198d`
+
+---
+
+## 스토리북 Template Code 스토리 (2026-03-30 완료)
+
+**38개 전체 컴포넌트**에 `TemplateCode` 스토리 추가 완료.
+
+### 목적
+- JSDoc 안에 묻혀있던 템플릿 코드를 전용 스토리로 분리
+- Storybook 사이드바에서 "Template Code"로 바로 접근 가능
+- `parameters.docs.source.code`로 복사 버튼 내장 (추가 애드온 불필요)
+- AI와 개발자 모두 쉽게 복붙 가능
+
+### 변경 내용 (파일당)
+1. `export const TemplateCode: Story` 추가 — `type Story` 선언 바로 다음, 첫 번째 스토리 앞에 배치
+2. JSDoc의 `### 사용법` / `### Template Code` 섹션 제거 (중복 제거)
+3. JSDoc의 Import, Props, 설명은 유지
+
+### 패턴 (3단계)
+- **Tier 1** (args 기반): Alert, Avatar, Button, ButtonGroup, Card, ChartTooltip, ChipsNavigation, IconButtonGroup, ListGroup, Mention, Pagination, Popover, Progress, Skeleton, Spinner, Tooltip
+- **Tier 2** (render + useState): ButtonTab, CalendarPopover, Checkbox, Collapse, DatePicker, Dropdown, FileUpload, InfoPopover, Input, Modal, NavigationTab, NumberInput, Radio, Slider, SweetAlert, Switch, Tabs, TagSelect, Toast
+- **Tier 3** (복잡 데이터): DataTable, TreeView, Widget
+- **스킵**: Theming.stories.tsx (가이드 문서)
+
+### 기술 참고
+- `preview.tsx`에 이미 `docs.codePanel: true` 설정됨 → 설정/빌드 변경 없음
+- `name: "Template Code"` 설정으로 사이드바에 표시명 통일
 
 ---
 
@@ -241,12 +268,12 @@ ci: {내용} CI 설정
 ## 최근 커밋 이력
 
 ```
+c87f9c9 chore: release v0.1.8 [skip ci]
+c7c490e docs(ui-v3): Icon 스토리북 추가 — 갤러리 및 사이즈 비교
+06bbb3d chore: release v0.1.7 [skip ci]
+eee8eee feat(ui-v3): StepBar 아이콘 레지스트리 연동 및 icon string name 지원
 d4d11aa ci: Vercel 배포 전 테스트 통과 필수 설정
 f4bae15 test: 전체 컴포넌트 단위 테스트 추가 (41파일, 272개 테스트)
-055872e feat: Skeleton 컴포넌트 개발 (rect/circle/text + Skeleton.Content 래퍼)
-c20198d docs: 브랜드 컬러 커스터마이징 테마 가이드 스토리북 추가
-718b530 Merge pull request #7 from cartoonpoet/yeoni/design-system-setup
-eac3798 feat: Spinner 컴포넌트 개발
 ```
 
 ---

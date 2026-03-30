@@ -5,35 +5,6 @@ import { Toast, ToastContainer } from ".";
 
 /**
  * **Toast** — 알림 토스트 메시지
- *
- * ### 사용법
- * ```tsx
- * import { Toast, ToastContainer } from "@lds/ui-v3";
- *
- * // 1-row
- * <Toast title="Toast Title" intent="info" onClose={() => {}} />
- *
- * // 2-row + progress
- * <Toast
- *   title="Toast Title"
- *   time="11 mins ago"
- *   description="상세 설명 텍스트"
- *   showProgress
- *   progress={67}
- *   intent="info"
- *   onClose={() => {}}
- * />
- *
- * // Container로 위치 지정
- * <ToastContainer position="top-right">
- *   <Toast title="알림" intent="success" />
- * </ToastContainer>
- * ```
- *
- * ### 인터렉티브 기능
- * - **자동 닫기 카운트다운**: `duration` 설정 시 하단에 게이지 바가 줄어들며 자동 닫힘
- * - **호버 일시정지**: `pauseOnHover` (기본 true) — 호버 시 타이머 및 게이지 일시정지
- * - **슬라이드 아웃**: 닫힐 때 부드러운 슬라이드 + 페이드 아웃 애니메이션
  */
 const meta: Meta<typeof Toast> = {
   title: "Components/Toast",
@@ -56,6 +27,54 @@ const meta: Meta<typeof Toast> = {
 
 export default meta;
 type Story = StoryObj<typeof Toast>;
+
+export const TemplateCode: Story = {
+  name: "Template Code",
+  args: {
+    title: "Toast Title",
+    intent: "info",
+    duration: 0,
+  },
+  render: (args) => <Toast {...args} onClose={() => alert("close")} />,
+  parameters: {
+    docs: {
+      source: {
+        code: `import { Toast, ToastContainer } from "@lds/ui-v3";
+
+// 1-row
+<Toast title="Toast Title" intent="info" onClose={() => {}} />
+
+// 2-row + progress
+<Toast
+  title="Toast Title"
+  time="11 mins ago"
+  description="상세 설명 텍스트"
+  showProgress
+  progress={67}
+  intent="info"
+  onClose={() => {}}
+/>
+
+// 자동 닫기 (5초) + 호버 일시정지
+<Toast
+  title="5초 후 자동 닫기"
+  intent="info"
+  duration={5000}
+  pauseOnHover
+  onClose={() => {}}
+/>
+
+// Container로 위치 지정
+<ToastContainer position="top-right">
+  <Toast title="알림" intent="success" onClose={() => {}} />
+</ToastContainer>
+
+// Intent 종류: "info" | "success" | "warning" | "error"
+`,
+      },
+    },
+  },
+};
 
 /** 1줄 (제목만) */
 export const OneRow: Story = {

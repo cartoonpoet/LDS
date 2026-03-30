@@ -36,49 +36,6 @@ import { lightThemeClass } from "@lds/tokens";
  * | `CardHeader` | `children`, `actions?`, `className?` | 헤더 영역 (divider 포함) |
  * | `CardBody` | `children`, `className?` | 본문 영역 |
  * | `CardFooter` | `children`, `className?` | 푸터 영역 (divider 포함) |
- *
- * ### Template Code
- * ```tsx
- * // 간편 API — 헤더만
- * <Card header="헤더" title="카드 타이틀">
- *   <p>카드 본문 텍스트</p>
- * </Card>
- *
- * // 간편 API — 헤더 + 푸터
- * <Card header="헤더" title="카드 타이틀" footer="푸터">
- *   <p>카드 본문 텍스트</p>
- * </Card>
- *
- * // Bordered 변형 + 헤더 액션
- * <Card
- *   header="결재선"
- *   bordered
- *   headerActions={
- *     <div style={{ display: "flex", gap: 8 }}>
- *       <Button variant="outline" color="secondary" size="small">결재의견 추가</Button>
- *       <Button size="small">결재하기</Button>
- *     </div>
- *   }
- * >
- *   <p>결재선 콘텐츠</p>
- * </Card>
- *
- * // Compound 패턴 — 자유 레이아웃
- * <Card bordered>
- *   <CardHeader actions={<Button size="small">액션</Button>}>
- *     커스텀 헤더
- *   </CardHeader>
- *   <CardBody>
- *     <p>본문 콘텐츠</p>
- *   </CardBody>
- *   <CardFooter>커스텀 푸터</CardFooter>
- * </Card>
- *
- * // Body만 (헤더/푸터 없음)
- * <Card>
- *   <p>심플 카드</p>
- * </Card>
- * ```
  */
 const meta: Meta<typeof Card> = {
   title: "Components/Card",
@@ -102,6 +59,63 @@ const meta: Meta<typeof Card> = {
 };
 export default meta;
 type Story = StoryObj<typeof Card>;
+
+export const TemplateCode: Story = {
+  name: "Template Code",
+  args: {
+    header: "헤더",
+    title: "카드 타이틀",
+    children: <p style={{ margin: 0 }}>카드 본문 텍스트</p>,
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `import { Card, CardHeader, CardBody, CardFooter } from "@lds/ui-v3";
+
+// 간편 API — 헤더만
+<Card header="헤더" title="카드 타이틀">
+  <p>카드 본문 텍스트</p>
+</Card>
+
+// 간편 API — 헤더 + 푸터
+<Card header="헤더" title="카드 타이틀" footer="푸터">
+  <p>카드 본문 텍스트</p>
+</Card>
+
+// Bordered 변형 + 헤더 액션
+<Card
+  header="결재선"
+  bordered
+  headerActions={
+    <div style={{ display: "flex", gap: 8 }}>
+      <Button variant="outline" color="secondary" size="small">결재의견 추가</Button>
+      <Button size="small">결재하기</Button>
+    </div>
+  }
+>
+  <p>결재선 콘텐츠</p>
+</Card>
+
+// Compound 패턴 — 자유 레이아웃
+<Card bordered>
+  <CardHeader actions={<Button size="small">액션</Button>}>
+    커스텀 헤더
+  </CardHeader>
+  <CardBody>
+    <p>본문 콘텐츠</p>
+  </CardBody>
+  <CardFooter>커스텀 푸터</CardFooter>
+</Card>
+
+// Body만 (헤더/푸터 없음)
+<Card>
+  <p>심플 카드</p>
+</Card>
+`,
+      },
+    },
+  },
+};
 
 /** 헤더만 있는 카드 */
 export const HeaderOnly: Story = {

@@ -5,14 +5,6 @@ import { Switch } from ".";
 
 /**
  * **Switch** — 토글 스위치
- *
- * ### 사용법
- * ```tsx
- * import { Switch } from "@lds/ui-v3";
- *
- * <Switch label="Label" checked={on} onCheckedChange={setOn} />
- * <Switch size="small" checked={on} onCheckedChange={setOn} />
- * ```
  */
 const meta: Meta<typeof Switch> = {
   title: "Components/Switch",
@@ -32,6 +24,38 @@ const meta: Meta<typeof Switch> = {
 
 export default meta;
 type Story = StoryObj<typeof Switch>;
+
+export const TemplateCode: Story = {
+  name: "Template Code",
+  render: () => {
+    const [on, setOn] = useState(false);
+    return <Switch label="Label" checked={on} onCheckedChange={setOn} />;
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `import { useState } from "react";
+import { Switch } from "@lds/ui-v3";
+
+const [on, setOn] = useState(false);
+
+// 기본
+<Switch label="알림 받기" checked={on} onCheckedChange={setOn} />
+
+// Small
+<Switch size="small" checked={on} onCheckedChange={setOn} />
+
+// 라벨 없이
+<Switch checked={on} onCheckedChange={setOn} />
+
+// 비활성화
+<Switch label="Disabled" disabled />
+<Switch label="Disabled On" checked disabled />
+`,
+      },
+    },
+  },
+};
 
 /** Medium — Off */
 export const MediumOff: Story = {

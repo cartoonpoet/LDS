@@ -5,14 +5,6 @@ import { NumberInput } from ".";
 
 /**
  * **NumberInput** — 숫자 입력 스테퍼
- *
- * ### 사용법
- * ```tsx
- * import { NumberInput } from "@lds/ui-v3";
- *
- * <NumberInput value={count} onChange={setCount} />
- * <NumberInput size="large" value={qty} onChange={setQty} min={1} max={99} step={1} />
- * ```
  */
 const meta: Meta<typeof NumberInput> = {
   title: "Components/NumberInput",
@@ -35,6 +27,38 @@ const meta: Meta<typeof NumberInput> = {
 
 export default meta;
 type Story = StoryObj<typeof NumberInput>;
+
+export const TemplateCode: Story = {
+  name: "Template Code",
+  render: () => {
+    const [v, setV] = useState(50);
+    return <NumberInput value={v} onChange={setV} />;
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `import { useState } from "react";
+import { NumberInput } from "@lds/ui-v3";
+
+const [count, setCount] = useState(50);
+
+// 기본
+<NumberInput value={count} onChange={setCount} />
+
+// 사이즈
+<NumberInput size="small" value={count} onChange={setCount} />
+<NumberInput size="large" value={count} onChange={setCount} />
+
+// Min / Max / Step
+<NumberInput value={count} onChange={setCount} min={0} max={100} step={5} />
+
+// 비활성화
+<NumberInput value={50} disabled />
+`,
+      },
+    },
+  },
+};
 
 /** 기본 (Medium) */
 export const Default: Story = {

@@ -4,21 +4,6 @@ import { Tooltip } from ".";
 
 /**
  * **Tooltip** — 마우스 호버 시 부가 정보를 보여주는 다크 툴팁
- *
- * ### 사용법
- * ```tsx
- * import { Tooltip } from "@lds/ui-v3";
- *
- * // 1-row (기본)
- * <Tooltip content="Tooltip right" placement="right">
- *   <button>Hover me</button>
- * </Tooltip>
- *
- * // 2-row (제목 + 내용)
- * <Tooltip title="이법무(법무팀)" content={"bmlee3@humaxit.com\n010-1234-5678"} placement="right">
- *   <span>이법무</span>
- * </Tooltip>
- * ```
  */
 const meta: Meta<typeof Tooltip> = {
   title: "Components/Tooltip",
@@ -51,6 +36,39 @@ const meta: Meta<typeof Tooltip> = {
 
 export default meta;
 type Story = StoryObj<typeof Tooltip>;
+
+export const TemplateCode: Story = {
+  name: "Template Code",
+  args: {
+    content: "Tooltip",
+    placement: "top",
+  },
+  render: (args) => (
+    <Tooltip {...args}>
+      <button type="button" style={{ padding: "8px 16px", borderRadius: 6, border: "1px solid #ccc", background: "#fff", cursor: "pointer" }}>
+        Hover me
+      </button>
+    </Tooltip>
+  ),
+  parameters: {
+    docs: {
+      source: {
+        code: `import { Tooltip } from "@lds/ui-v3";
+
+// 1-row (기본)
+<Tooltip content="Tooltip right" placement="right">
+  <button>Hover me</button>
+</Tooltip>
+
+// 2-row (제목 + 내용)
+<Tooltip title="이법무(법무팀)" content={"bmlee3@humaxit.com\\n010-1234-5678"} placement="right">
+  <span>이법무</span>
+</Tooltip>
+`,
+      },
+    },
+  },
+};
 
 const SampleButton = ({ children }: { children: string }) => (
   <button

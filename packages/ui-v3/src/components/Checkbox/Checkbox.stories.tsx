@@ -5,15 +5,6 @@ import { Checkbox } from ".";
 
 /**
  * **Checkbox** — 체크박스 폼 컨트롤
- *
- * ### 사용법
- * ```tsx
- * import { Checkbox } from "@lds/ui-v3";
- *
- * <Checkbox label="동의합니다" checked={agreed} onCheckedChange={setAgreed} />
- * <Checkbox size="small" label="소형" />
- * <Checkbox size="large" label="대형" disabled />
- * ```
  */
 const meta: Meta<typeof Checkbox> = {
   title: "Components/Checkbox",
@@ -33,6 +24,29 @@ const meta: Meta<typeof Checkbox> = {
 
 export default meta;
 type Story = StoryObj<typeof Checkbox>;
+
+export const TemplateCode: Story = {
+  name: "Template Code",
+  render: () => {
+    const [checked, setChecked] = useState(false);
+    return <Checkbox label="동의합니다" checked={checked} onCheckedChange={setChecked} />;
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `import { useState } from "react";
+import { Checkbox } from "@lds/ui-v3";
+
+const [checked, setChecked] = useState(false);
+
+<Checkbox label="동의합니다" checked={checked} onCheckedChange={setChecked} />
+<Checkbox size="small" label="소형" />
+<Checkbox size="large" label="대형" disabled />
+`,
+      },
+    },
+  },
+};
 
 /** 기본 (Medium) */
 export const Default: Story = {

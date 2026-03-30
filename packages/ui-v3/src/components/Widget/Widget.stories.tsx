@@ -10,18 +10,6 @@ import {
 
 /**
  * **Widget** — 대시보드 위젯 컴포넌트 모음
- *
- * ### 사용법
- * ```tsx
- * import { Widget, StatCell, StatGrid, QuickMenuItem, ScheduleItem } from "@lds/ui-v3";
- *
- * <Widget title="통계" badge={5} collapsible>
- *   <StatGrid>
- *     <StatCell label="건수" value={120} />
- *     <StatCell label="완료" value={80} valueColor="success" />
- *   </StatGrid>
- * </Widget>
- * ```
  */
 const meta: Meta<typeof Widget> = {
   title: "Components/Widget",
@@ -41,6 +29,61 @@ const meta: Meta<typeof Widget> = {
 
 export default meta;
 type Story = StoryObj<typeof Widget>;
+
+export const TemplateCode: Story = {
+  name: "Template Code",
+  render: () => (
+    <Widget title="라이선스 현황">
+      <StatGrid>
+        <StatCell label="전체" value={120} valueColor="heading" />
+        <StatCell label="사용중" value={98} valueColor="primary" active />
+        <StatCell label="만료 예정" value={15} valueColor="warning" />
+        <StatCell label="만료" value={7} valueColor="danger" />
+      </StatGrid>
+    </Widget>
+  ),
+  parameters: {
+    docs: {
+      source: {
+        code: `import { Widget, StatCell, StatGrid, QuickMenuItem, ScheduleItem } from "@lds/ui-v3";
+
+// 통계 위젯
+<Widget title="라이선스 현황">
+  <StatGrid>
+    <StatCell label="전체" value={120} valueColor="heading" />
+    <StatCell label="사용중" value={98} valueColor="primary" active />
+    <StatCell label="만료 예정" value={15} valueColor="warning" />
+    <StatCell label="만료" value={7} valueColor="danger" />
+  </StatGrid>
+</Widget>
+
+// 접기/펼치기 + 뱃지
+<Widget title="공지사항" badge={3} collapsible>
+  <p>내용</p>
+</Widget>
+
+// 퀵 메뉴
+<Widget title="퀵 메뉴">
+  <div style={{ display: "flex", gap: 8 }}>
+    <QuickMenuItem icon={<FileIcon />} label="계약" />
+    <QuickMenuItem icon={<FileIcon />} label="소송" />
+  </div>
+</Widget>
+
+// 일정 리스트
+<Widget title="최근 일정" badge={6} collapsible>
+  <ScheduleItem date="2025.03.21" title="계약 검토 회의" body="A사 라이선스 계약 검토" />
+</Widget>
+
+// Flush (테이블 스타일, 패딩 제거)
+<Widget title="최근 문서" badge={12} flush>
+  {/* 테이블 컨텐츠 */}
+</Widget>
+`,
+      },
+    },
+  },
+};
 
 /** 통계 위젯 */
 export const Statistics: Story = {

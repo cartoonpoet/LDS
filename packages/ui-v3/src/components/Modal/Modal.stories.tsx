@@ -25,23 +25,6 @@ import { lightThemeClass } from "@lds/tokens";
  * | `footer` | `ReactNode` | - | 푸터 콘텐츠 (간편 API) |
  * | `disableBackdropClose` | `boolean` | `false` | backdrop 클릭 닫기 비활성 |
  * | `disableEscapeClose` | `boolean` | `false` | Escape 키 닫기 비활성 |
- *
- * ### Template Code
- * ```tsx
- * // 간편 API
- * <Modal open={isOpen} onClose={close} size="medium" title="모달 제목"
- *   footer={<><Button variant="outline" color="secondary">취소</Button><Button>저장</Button></>}
- * >
- *   <p>모달 본문</p>
- * </Modal>
- *
- * // Compound 패턴
- * <Modal open={isOpen} onClose={close} size="xlarge">
- *   <ModalHeader>커스텀 헤더</ModalHeader>
- *   <ModalBody><p>본문</p></ModalBody>
- *   <ModalFooter><Button>확인</Button></ModalFooter>
- * </Modal>
- * ```
  */
 const meta: Meta<typeof Modal> = {
   title: "Components/Modal",
@@ -63,6 +46,72 @@ const meta: Meta<typeof Modal> = {
 };
 export default meta;
 type Story = StoryObj<typeof Modal>;
+
+export const TemplateCode: Story = {
+  name: "Template Code",
+  render: () => {
+    const [open, setOpen] = useState(false);
+    return (
+      <>
+        <Button onClick={() => setOpen(true)}>모달 열기</Button>
+        <Modal
+          open={open}
+          onClose={() => setOpen(false)}
+          title="제목"
+          footer={
+            <>
+              <Button variant="outline" color="secondary" onClick={() => setOpen(false)}>취소</Button>
+              <Button onClick={() => setOpen(false)}>저장</Button>
+            </>
+          }
+        >
+          <p style={{ margin: 0 }}>본문</p>
+        </Modal>
+      </>
+    );
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `import { useState } from "react";
+import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from "@lds/ui-v3";
+
+function MyPage() {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>모달 열기</Button>
+
+      {/* 간편 API */}
+      <Modal
+        open={open}
+        onClose={() => setOpen(false)}
+        size="medium"
+        title="모달 제목"
+        footer={
+          <>
+            <Button variant="outline" color="secondary">취소</Button>
+            <Button>저장</Button>
+          </>
+        }
+      >
+        <p>모달 본문</p>
+      </Modal>
+
+      {/* Compound 패턴 */}
+      <Modal open={open} onClose={() => setOpen(false)} size="xlarge">
+        <ModalHeader>커스텀 헤더</ModalHeader>
+        <ModalBody><p>본문</p></ModalBody>
+        <ModalFooter><Button>확인</Button></ModalFooter>
+      </Modal>
+    </>
+  );
+}
+`,
+      },
+    },
+  },
+};
 
 /** Small (508px) */
 export const Small: Story = {

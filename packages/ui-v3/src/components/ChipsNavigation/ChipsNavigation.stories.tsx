@@ -32,40 +32,6 @@ import { lightThemeClass } from "@lds/tokens";
  *   label: string; // 표시 텍스트
  * }
  * ```
- *
- * ### Template Code
- * ```tsx
- * // 단일 선택
- * const [filter, setFilter] = useState<string | string[]>("");
- *
- * <ChipsNavigation
- *   items={[
- *     { value: "opt1", label: "Option 1" },
- *     { value: "opt2", label: "Option 2" },
- *     { value: "opt3", label: "Option 3" },
- *   ]}
- *   value={filter}
- *   onChange={setFilter}
- * />
- *
- * // 다중 선택
- * const [filters, setFilters] = useState<string | string[]>([]);
- *
- * <ChipsNavigation
- *   items={items}
- *   value={filters}
- *   onChange={setFilters}
- *   multiple
- * />
- *
- * // "All" 텍스트 커스텀
- * <ChipsNavigation
- *   items={items}
- *   value={filter}
- *   onChange={setFilter}
- *   allLabel="전체"
- * />
- * ```
  */
 const meta: Meta<typeof ChipsNavigation> = {
   title: "Components/ChipsNavigation",
@@ -84,6 +50,51 @@ const items = Array.from({ length: 10 }, (_, i) => ({
   value: `opt${i + 1}`,
   label: `Option ${i + 1}`,
 }));
+
+export const TemplateCode: Story = {
+  name: "Template Code",
+  args: { items, value: "" },
+  parameters: {
+    docs: {
+      source: {
+        code: `import { useState } from "react";
+import { ChipsNavigation } from "@lds/ui-v3";
+
+// 단일 선택
+const [filter, setFilter] = useState<string | string[]>("");
+
+<ChipsNavigation
+  items={[
+    { value: "opt1", label: "Option 1" },
+    { value: "opt2", label: "Option 2" },
+    { value: "opt3", label: "Option 3" },
+  ]}
+  value={filter}
+  onChange={setFilter}
+/>
+
+// 다중 선택
+const [filters, setFilters] = useState<string | string[]>([]);
+
+<ChipsNavigation
+  items={items}
+  value={filters}
+  onChange={setFilters}
+  multiple
+/>
+
+// "All" 텍스트 커스텀
+<ChipsNavigation
+  items={items}
+  value={filter}
+  onChange={setFilter}
+  allLabel="전체"
+/>
+`,
+      },
+    },
+  },
+};
 
 /** 아무것도 선택하지 않은 상태 (All 활성) */
 export const Default: Story = {

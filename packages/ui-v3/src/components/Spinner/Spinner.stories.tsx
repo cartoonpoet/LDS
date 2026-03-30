@@ -12,14 +12,6 @@ import { Spinner } from ".";
  * - `md` (20px) — 기본
  * - `lg` (32px) — 섹션 로딩
  * - `xl` (48px) — 페이지 로딩
- *
- * ### Template Code
- * ```tsx
- * import { Spinner } from "@lds/ui-v3";
- *
- * <Spinner />
- * <Spinner size="lg" label="로딩 중..." />
- * ```
  */
 const meta: Meta<typeof Spinner> = {
   title: "Components/Spinner",
@@ -47,6 +39,31 @@ const meta: Meta<typeof Spinner> = {
 
 export default meta;
 type Story = StoryObj<typeof Spinner>;
+
+export const TemplateCode: Story = {
+  name: "Template Code",
+  args: {},
+  parameters: {
+    docs: {
+      source: {
+        code: `import { Spinner } from "@lds/ui-v3";
+
+// 기본
+<Spinner />
+
+// 크기 변경
+<Spinner size="lg" />
+
+// 라벨 포함
+<Spinner size="lg" label="로딩 중..." />
+
+// 흰색 (어두운 배경용)
+<Spinner color="white" />
+`,
+      },
+    },
+  },
+};
 
 export const Default: Story = {};
 

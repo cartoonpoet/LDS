@@ -4,20 +4,6 @@ import { Avatar, AvatarGroup } from ".";
 
 /**
  * **Avatar** — 사용자 프로필 아바타
- *
- * ### 사용법
- * ```tsx
- * import { Avatar, AvatarGroup } from "@lds/ui-v3";
- *
- * <Avatar src="/photo.jpg" status="online" />
- * <Avatar system />
- * <Avatar initials="PI" color="success" />
- *
- * <AvatarGroup>
- *   <Avatar src="/a.jpg" size="sm" />
- *   <Avatar src="/b.jpg" size="sm" />
- * </AvatarGroup>
- * ```
  */
 const meta: Meta<typeof Avatar> = {
   title: "Components/Avatar",
@@ -37,6 +23,43 @@ const meta: Meta<typeof Avatar> = {
 
 export default meta;
 type Story = StoryObj<typeof Avatar>;
+
+export const TemplateCode: Story = {
+  name: "Template Code",
+  render: () => (
+    <div style={{ display: "flex", gap: 16, alignItems: "center" }}>
+      <Avatar src="https://placehold.co/80x80/2151ec/ffffff?text=U" size="md" />
+      <Avatar system size="md" />
+      <Avatar initials="PI" color="success" size="md" />
+    </div>
+  ),
+  parameters: {
+    docs: {
+      source: {
+        code: `import { Avatar, AvatarGroup } from "@lds/ui-v3";
+
+// Photo 아바타
+<Avatar src="/photo.jpg" size="md" />
+
+// System 아바타
+<Avatar system />
+
+// 이니셜 아바타
+<Avatar initials="PI" color="success" />
+
+// 상태 표시
+<Avatar src="/photo.jpg" status="online" />
+
+// 아바타 그룹
+<AvatarGroup>
+  <Avatar src="/a.jpg" size="sm" />
+  <Avatar src="/b.jpg" size="sm" />
+</AvatarGroup>
+`,
+      },
+    },
+  },
+};
 
 const PHOTO = "https://placehold.co/80x80/2151ec/ffffff?text=U";
 

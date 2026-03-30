@@ -4,29 +4,6 @@ import { CalendarPopover } from ".";
 
 /**
  * **CalendarPopover** — 캘린더 일정 상세 카드 팝오버
- *
- * ### 사용법
- * ```tsx
- * import { CalendarPopover } from "@lds/ui-v3";
- *
- * // 계약 검토 (Basic)
- * <CalendarPopover
- *   badge="계약검토"
- *   title="휴맥스이브이 법무시스템 Law.ai 공급 계약"
- *   fields={[
- *     { label: "관리번호", value: "C20221108-0001" },
- *     { label: "상대계약자", value: "휴맥스이브이" },
- *     { label: "요청자", value: "박영업" },
- *     { label: "법무팀 담당자", value: "이법무" },
- *     { label: "수정일", value: "2023-06-13" },
- *   ]}
- *   primaryText="일정 수정"
- *   secondaryText="사건 바로가기"
- *   placement="right"
- * >
- *   <button>6/15</button>
- * </CalendarPopover>
- * ```
  */
 const meta: Meta<typeof CalendarPopover> = {
   title: "Components/CalendarPopover",
@@ -114,6 +91,51 @@ const Badge = ({
     },
   };
   return <span style={styles[variant]}>{children}</span>;
+};
+
+export const TemplateCode: Story = {
+  name: "Template Code",
+  args: {
+    badge: "계약검토",
+    title: "휴맥스이브이 법무시스템 Law.ai 공급 계약",
+    placement: "right",
+    primaryText: "일정 수정",
+    secondaryText: "사건 바로가기",
+    fields: [
+      { label: "관리번호", value: "C20221108-0001" },
+      { label: "상대계약자", value: "휴맥스이브이" },
+    ],
+  },
+  render: (args) => (
+    <CalendarPopover {...args}>
+      <CalendarCell>15</CalendarCell>
+    </CalendarPopover>
+  ),
+  parameters: {
+    docs: {
+      source: {
+        code: `import { CalendarPopover } from "@lds/ui-v3";
+
+<CalendarPopover
+  badge="계약검토"
+  title="휴맥스이브이 법무시스템 Law.ai 공급 계약"
+  fields={[
+    { label: "관리번호", value: "C20221108-0001" },
+    { label: "상대계약자", value: "휴맥스이브이" },
+    { label: "요청자", value: "박영업" },
+    { label: "법무팀 담당자", value: "이법무" },
+    { label: "수정일", value: "2023-06-13" },
+  ]}
+  primaryText="일정 수정"
+  secondaryText="사건 바로가기"
+  placement="right"
+>
+  <button>6/15</button>
+</CalendarPopover>
+`,
+      },
+    },
+  },
 };
 
 /** 계약 검토 (Basic) */

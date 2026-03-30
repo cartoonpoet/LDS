@@ -114,27 +114,6 @@ const folderNodes: TreeNode[] = [
 
 /**
  * **TreeView** — 계층 구조 트리 컴포넌트
- *
- * ### 사용법
- * ```tsx
- * import { TreeView } from "@lds/ui-v3";
- * import type { TreeNode } from "@lds/ui-v3";
- *
- * const nodes: TreeNode[] = [
- *   {
- *     id: "1",
- *     label: "상위 마스터",
- *     columns: [
- *       { text: "C20190301", type: "code" },
- *       { text: "계약 제목", type: "title" },
- *       { text: "2019-01-03", type: "date" },
- *     ],
- *     children: [...]
- *   },
- * ];
- *
- * <TreeView nodes={nodes} onNodeSelect={(node) => console.log(node.id)} />
- * ```
  */
 const meta: Meta<typeof TreeView> = {
   title: "Components/TreeView",
@@ -154,6 +133,61 @@ const meta: Meta<typeof TreeView> = {
 
 export default meta;
 type Story = StoryObj<typeof TreeView>;
+
+export const TemplateCode: Story = {
+  name: "Template Code",
+  render: () => (
+    <TreeView
+      nodes={contractNodes}
+      defaultExpandedIds={["root", "master-1"]}
+    />
+  ),
+  parameters: {
+    docs: {
+      source: {
+        code: `import { TreeView } from "@lds/ui-v3";
+import type { TreeNode } from "@lds/ui-v3";
+
+const nodes: TreeNode[] = [
+  {
+    id: "root",
+    label: "상위 마스터",
+    labelColor: "primary",
+    columns: [
+      { text: "C20190301", type: "code" },
+      { text: "계약 제목", type: "title" },
+      { text: "2019-01-03", type: "date" },
+    ],
+    children: [
+      {
+        id: "child-1",
+        label: "하위",
+        labelColor: "secondary",
+        columns: [
+          { text: "C20190301-01", type: "code" },
+          { text: "하위 계약 제목", type: "title" },
+          { text: "2020-01-03", type: "date" },
+        ],
+      },
+    ],
+  },
+];
+
+// 기본
+<TreeView nodes={nodes} defaultExpandedIds={["root"]} />
+
+// 노드 선택
+<TreeView
+  nodes={nodes}
+  defaultExpandedIds={["root"]}
+  selectedId={selectedId}
+  onNodeSelect={(node) => setSelectedId(node.id)}
+/>
+`,
+      },
+    },
+  },
+};
 
 /** 계약 트리 (Zeplin 원본 디자인) */
 export const ContractTree: Story = {

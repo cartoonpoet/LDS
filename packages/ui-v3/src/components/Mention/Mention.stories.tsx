@@ -4,13 +4,6 @@ import { Mention } from ".";
 
 /**
  * **Mention** — 인라인 멘션 태그
- *
- * ### 사용법
- * ```tsx
- * import { Mention } from "@lds/ui-v3";
- *
- * <p>검토자: <Mention name="나담당" /> 님이 확인 중입니다.</p>
- * ```
  */
 const meta: Meta<typeof Mention> = {
   title: "Components/Mention",
@@ -30,6 +23,31 @@ const meta: Meta<typeof Mention> = {
 
 export default meta;
 type Story = StoryObj<typeof Mention>;
+
+export const TemplateCode: Story = {
+  name: "Template Code",
+  args: { name: "나담당" },
+  parameters: {
+    docs: {
+      source: {
+        code: `import { Mention } from "@lds/ui-v3";
+
+// 기본 멘션
+<Mention name="나담당" />
+
+// 문장 내 사용
+<p>검토자: <Mention name="나담당" /> 님이 확인 중입니다.</p>
+
+// 여러 멘션
+<div style={{ display: "flex", gap: 8 }}>
+  <Mention name="김철수" />
+  <Mention name="이영희" />
+</div>
+`,
+      },
+    },
+  },
+};
 
 /** 기본 */
 export const Default: Story = {

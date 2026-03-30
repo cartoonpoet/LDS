@@ -29,21 +29,6 @@ import { lightThemeClass } from "@lds/tokens";
  * | `cancelLabel` | `string` | - | 취소 버튼 라벨 |
  * | `onCancel` | `() => void` | - | 취소 핸들러 |
  *
- * ### Template Code
- * ```tsx
- * <SweetAlert
- *   open={isOpen}
- *   onClose={close}
- *   intent="warning"
- *   title="정말 삭제하시겠습니까?"
- *   confirmLabel="삭제"
- *   onConfirm={handleDelete}
- *   cancelLabel="취소"
- *   onCancel={close}
- * >
- *   <p>삭제된 데이터는 복구할 수 없습니다.</p>
- * </SweetAlert>
- * ```
  */
 const meta: Meta<typeof SweetAlert> = {
   title: "Components/SweetAlert",
@@ -66,6 +51,58 @@ const meta: Meta<typeof SweetAlert> = {
 };
 export default meta;
 type Story = StoryObj<typeof SweetAlert>;
+
+export const TemplateCode: Story = {
+  name: "Template Code",
+  render: () => {
+    const [open, setOpen] = useState(false);
+    return (
+      <>
+        <Button onClick={() => setOpen(true)}>SweetAlert 열기</Button>
+        <SweetAlert
+          open={open}
+          onClose={() => setOpen(false)}
+          intent="warning"
+          title="정말 삭제하시겠습니까?"
+          confirmLabel="삭제"
+          onConfirm={() => setOpen(false)}
+          cancelLabel="취소"
+          onCancel={() => setOpen(false)}
+        >
+          <p style={{ margin: 0 }}>삭제된 데이터는 복구할 수 없습니다.</p>
+        </SweetAlert>
+      </>
+    );
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `import { useState } from "react";
+import { SweetAlert, Button } from "@lds/ui-v3";
+
+const [open, setOpen] = useState(false);
+
+<Button onClick={() => setOpen(true)}>삭제</Button>
+
+<SweetAlert
+  open={open}
+  onClose={() => setOpen(false)}
+  intent="warning"
+  title="정말 삭제하시겠습니까?"
+  confirmLabel="삭제"
+  onConfirm={handleDelete}
+  cancelLabel="취소"
+  onCancel={() => setOpen(false)}
+>
+  <p>삭제된 데이터는 복구할 수 없습니다.</p>
+</SweetAlert>
+
+// Intent 종류: "warning" | "success" | "danger" | "info"
+`,
+      },
+    },
+  },
+};
 
 /** Warning (기본) — 삭제 확인 */
 export const Warning: Story = {

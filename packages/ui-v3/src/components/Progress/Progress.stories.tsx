@@ -26,32 +26,6 @@ import { lightThemeClass } from "@lds/tokens";
  * | Prop | Type | Description |
  * |------|------|-------------|
  * | `steps` | `StepItem[]` | 단계 목록 ({ label, status, icon? }) |
- *
- * ### Template Code
- * ```tsx
- * // Basic
- * <ProgressBar value={75} />
- *
- * // With value label
- * <ProgressBar value={75} showValue />
- *
- * // Striped + animated
- * <ProgressBar value={60} striped animated />
- *
- * // Multiple bars
- * <ProgressBar segments={[
- *   { value: 30, color: "primary", label: "30%" },
- *   { value: 45, color: "warning", label: "45%" },
- *   { value: 15, color: "danger", label: "15%" },
- * ]} />
- *
- * // StepBar
- * <StepBar steps={[
- *   { label: "임시 저장", status: "completed" },
- *   { label: "법무검토 중", status: "active" },
- *   { label: "계약 종료", status: "scheduled" },
- * ]} />
- * ```
  */
 const meta: Meta<typeof ProgressBar> = {
   title: "Components/Progress",
@@ -67,6 +41,42 @@ const meta: Meta<typeof ProgressBar> = {
 };
 export default meta;
 type Story = StoryObj<typeof ProgressBar>;
+
+export const TemplateCode: Story = {
+  name: "Template Code",
+  render: () => <ProgressBar value={75} showValue />,
+  parameters: {
+    docs: {
+      source: {
+        code: `import { ProgressBar, StepBar } from "@lds/ui-v3";
+
+// Basic
+<ProgressBar value={75} />
+
+// With value label
+<ProgressBar value={75} showValue />
+
+// Striped + animated
+<ProgressBar value={60} striped animated />
+
+// Multiple bars
+<ProgressBar segments={[
+  { value: 30, color: "primary", label: "30%" },
+  { value: 45, color: "warning", label: "45%" },
+  { value: 15, color: "danger", label: "15%" },
+]} />
+
+// StepBar
+<StepBar steps={[
+  { label: "임시 저장", status: "completed" },
+  { label: "법무검토 중", status: "active" },
+  { label: "계약 종료", status: "scheduled" },
+]} />
+`,
+      },
+    },
+  },
+};
 
 /** 1) Default Progress — 값 표시 */
 export const DefaultProgress: Story = {

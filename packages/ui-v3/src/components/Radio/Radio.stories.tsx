@@ -5,22 +5,6 @@ import { Radio, RadioGroup } from ".";
 
 /**
  * **Radio** — 라디오 버튼 + RadioGroup
- *
- * ### 사용법
- * ```tsx
- * import { Radio, RadioGroup } from "@lds/ui-v3";
- *
- * <RadioGroup value={selected} onChange={setSelected}>
- *   <Radio value="a" label="Option A" />
- *   <Radio value="b" label="Option B" />
- * </RadioGroup>
- *
- * // Customized 변형 (테두리 스타일)
- * <RadioGroup variant="customized" value={v} onChange={setV}>
- *   <Radio value="x" label="X" />
- *   <Radio value="y" label="Y" />
- * </RadioGroup>
- * ```
  */
 const meta: Meta<typeof Radio> = {
   title: "Components/Radio",
@@ -41,6 +25,56 @@ const meta: Meta<typeof Radio> = {
 
 export default meta;
 type Story = StoryObj<typeof Radio>;
+
+export const TemplateCode: Story = {
+  name: "Template Code",
+  render: () => {
+    const [value, setValue] = useState("a");
+    return (
+      <RadioGroup value={value} onChange={setValue}>
+        <Radio value="a" label="Option A" />
+        <Radio value="b" label="Option B" />
+        <Radio value="c" label="Option C" />
+      </RadioGroup>
+    );
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `import { useState } from "react";
+import { Radio, RadioGroup } from "@lds/ui-v3";
+
+const [selected, setSelected] = useState("a");
+
+// Basic
+<RadioGroup value={selected} onChange={setSelected}>
+  <Radio value="a" label="Option A" />
+  <Radio value="b" label="Option B" />
+  <Radio value="c" label="Option C" />
+</RadioGroup>
+
+// Customized 변형 (테두리 스타일)
+<RadioGroup variant="customized" value={selected} onChange={setSelected}>
+  <Radio value="a" label="Option A" />
+  <Radio value="b" label="Option B" />
+</RadioGroup>
+
+// 수직 정렬
+<RadioGroup value={selected} onChange={setSelected} vertical>
+  <Radio value="a" label="Option A" />
+  <Radio value="b" label="Option B" />
+</RadioGroup>
+
+// 사이즈
+<RadioGroup size="small" value={selected} onChange={setSelected}>
+  <Radio value="a" label="Small A" />
+  <Radio value="b" label="Small B" />
+</RadioGroup>
+`,
+      },
+    },
+  },
+};
 
 /** RadioGroup — Basic */
 export const BasicGroup: Story = {

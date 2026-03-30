@@ -40,45 +40,6 @@ const PlusIcon = () => (
  * }
  * ```
  *
- * ### Template Code
- * ```tsx
- * const [tab, setTab] = useState("tab1");
- *
- * // 기본 탭
- * <Tabs
- *   items={[
- *     { value: "tab1", label: "Tab 1" },
- *     { value: "tab2", label: "Tab 2" },
- *     { value: "tab3", label: "Tab 3" },
- *   ]}
- *   value={tab}
- *   onChange={setTab}
- * />
- *
- * // Badge 탭
- * <Tabs
- *   items={[
- *     { value: "tab1", label: "Tab 1", badge: 12 },
- *     { value: "tab2", label: "Tab 2", badge: 9 },
- *     { value: "tab3", label: "Tab 3", badge: 3 },
- *   ]}
- *   value={tab}
- *   onChange={setTab}
- *   size="medium"
- * />
- *
- * // Action 버튼 포함
- * <Tabs
- *   items={items}
- *   value={tab}
- *   onChange={setTab}
- *   action={{
- *     label: "Add Tab",
- *     icon: <PlusIcon />,
- *     onClick: handleAddTab,
- *   }}
- * />
- * ```
  */
 const meta: Meta<typeof Tabs> = {
   title: "Components/Tabs",
@@ -95,6 +56,71 @@ const meta: Meta<typeof Tabs> = {
 };
 export default meta;
 type Story = StoryObj<typeof Tabs>;
+
+export const TemplateCode: Story = {
+  name: "Template Code",
+  render: () => {
+    const [value, setValue] = useState("tab1");
+    return (
+      <Tabs
+        items={[
+          { value: "tab1", label: "Tab 1" },
+          { value: "tab2", label: "Tab 2" },
+          { value: "tab3", label: "Tab 3" },
+        ]}
+        value={value}
+        onChange={setValue}
+      />
+    );
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `import { useState } from "react";
+import { Tabs } from "@lds/ui-v3";
+import type { TabItem } from "@lds/ui-v3";
+
+const [tab, setTab] = useState("tab1");
+
+// 기본 탭
+<Tabs
+  items={[
+    { value: "tab1", label: "Tab 1" },
+    { value: "tab2", label: "Tab 2" },
+    { value: "tab3", label: "Tab 3" },
+  ]}
+  value={tab}
+  onChange={setTab}
+/>
+
+// Badge 탭
+<Tabs
+  items={[
+    { value: "tab1", label: "Tab 1", badge: 12 },
+    { value: "tab2", label: "Tab 2", badge: 9 },
+    { value: "tab3", label: "Tab 3", badge: 3 },
+  ]}
+  value={tab}
+  onChange={setTab}
+  size="medium"
+/>
+
+// Action 버튼 포함
+<Tabs
+  items={items}
+  value={tab}
+  onChange={setTab}
+  action={{
+    label: "Add Tab",
+    icon: <PlusIcon />,
+    onClick: handleAddTab,
+  }}
+/>
+`,
+      },
+    },
+  },
+};
 
 const basicItems = [
   { value: "tab1", label: "Tab 1" },

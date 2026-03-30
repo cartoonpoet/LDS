@@ -4,23 +4,6 @@ import { InfoPopover } from ".";
 
 /**
  * **InfoPopover** — 프로세스 진행 상태를 스텝으로 표시하는 정보 팝오버
- *
- * ### 사용법
- * ```tsx
- * import { InfoPopover } from "@lds/ui-v3";
- *
- * <InfoPopover
- *   title="법무검토 중 외 3개"
- *   steps={[
- *     { label: "법무 검토 중" },
- *     { label: "요청자 검토 중" },
- *     { label: "계약서 검토 완료" },
- *     { label: "체결 품의 중" },
- *   ]}
- * >
- *   <span style={{ color: "#4C5469", cursor: "pointer" }}>법무검토 중 외 3개</span>
- * </InfoPopover>
- * ```
  */
 const meta: Meta<typeof InfoPopover> = {
   title: "Components/InfoPopover",
@@ -46,6 +29,46 @@ const meta: Meta<typeof InfoPopover> = {
 
 export default meta;
 type Story = StoryObj<typeof InfoPopover>;
+
+export const TemplateCode: Story = {
+  name: "Template Code",
+  args: {
+    title: "법무검토 중 외 3개",
+    steps: [
+      { label: "법무 검토 중" },
+      { label: "요청자 검토 중" },
+      { label: "계약서 검토 완료" },
+      { label: "체결 품의 중" },
+    ],
+  },
+  render: (args) => (
+    <InfoPopover {...args}>
+      <span style={{ color: "#4C5469", cursor: "pointer", textDecoration: "underline", fontSize: 14 }}>
+        법무검토 중 외 3개
+      </span>
+    </InfoPopover>
+  ),
+  parameters: {
+    docs: {
+      source: {
+        code: `import { InfoPopover } from "@lds/ui-v3";
+
+<InfoPopover
+  title="법무검토 중 외 3개"
+  steps={[
+    { label: "법무 검토 중" },
+    { label: "요청자 검토 중" },
+    { label: "계약서 검토 완료" },
+    { label: "체결 품의 중" },
+  ]}
+>
+  <span>법무검토 중 외 3개</span>
+</InfoPopover>
+`,
+      },
+    },
+  },
+};
 
 /** 기본 — 4단계 프로세스 */
 export const Default: Story = {

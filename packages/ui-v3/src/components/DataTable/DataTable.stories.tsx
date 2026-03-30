@@ -32,19 +32,6 @@ const columns: ColumnDef<User, any>[] = [
 
 /**
  * **DataTable** — @tanstack/react-table 기반 데이터 테이블
- *
- * ### 사용법
- * ```tsx
- * import { DataTable } from "@lds/ui-v3";
- * import type { ColumnDef } from "@tanstack/react-table";
- *
- * const columns: ColumnDef<Item>[] = [
- *   { accessorKey: "name", header: "이름" },
- *   { accessorKey: "email", header: "이메일" },
- * ];
- *
- * <DataTable data={items} columns={columns} />
- * ```
  */
 const meta: Meta<typeof DataTable> = {
   title: "Components/DataTable",
@@ -64,6 +51,64 @@ const meta: Meta<typeof DataTable> = {
 
 export default meta;
 type Story = StoryObj<typeof DataTable>;
+
+export const TemplateCode: Story = {
+  name: "Template Code",
+  render: () => <DataTable data={sampleData} columns={columns} />,
+  parameters: {
+    docs: {
+      source: {
+        code: `import { useState } from "react";
+import { DataTable } from "@lds/ui-v3";
+import type { ColumnDef, SortingState, RowSelectionState } from "@tanstack/react-table";
+
+// 1. 데이터 타입 정의
+interface User {
+  id: number;
+  name: string;
+  email: string;
+  role: string;
+  status: string;
+}
+
+// 2. 컬럼 정의
+const columns: ColumnDef<User>[] = [
+  { accessorKey: "id", header: "번호", size: 80 },
+  { accessorKey: "name", header: "이름" },
+  { accessorKey: "email", header: "이메일" },
+  { accessorKey: "role", header: "역할", size: 120 },
+  { accessorKey: "status", header: "상태", size: 100 },
+];
+
+// 3. 기본 사용
+<DataTable data={users} columns={columns} />
+
+// 4. 정렬 + 선택 + bordered
+function UserTable() {
+  const [sorting, setSorting] = useState<SortingState>([]);
+  const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
+
+  return (
+    <DataTable
+      data={users}
+      columns={columns}
+      selectable
+      bordered
+      sorting={sorting}
+      onSortingChange={setSorting}
+      rowSelection={rowSelection}
+      onRowSelectionChange={setRowSelection}
+      getRowId={(row) => String(row.id)}
+      onRowClick={(row) => console.log(row)}
+      emptyText="조회된 데이터가 없습니다."
+    />
+  );
+}
+`,
+      },
+    },
+  },
+};
 
 /** 기본 테이블 */
 export const Default: Story = {

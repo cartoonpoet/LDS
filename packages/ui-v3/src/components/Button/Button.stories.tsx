@@ -32,36 +32,6 @@ const PieChartIcon = () => (
  * | `children` | `ReactNode` | - | 버튼 텍스트 |
  * | `className` | `string` | - | 추가 CSS 클래스 |
  * | `...rest` | `ButtonHTMLAttributes` | - | 네이티브 button 속성 전달 |
- *
- * ### Template Code
- * ```tsx
- * // 기본 버튼
- * <Button>확인</Button>
- *
- * // Outline 버튼
- * <Button variant="outline">취소</Button>
- *
- * // 색상 변경
- * <Button color="danger">삭제</Button>
- * <Button variant="outline" color="secondary">보류</Button>
- *
- * // 크기 변경
- * <Button size="small">작은 버튼</Button>
- * <Button size="large">큰 버튼</Button>
- *
- * // 아이콘 포함
- * <Button iconLeft={<MyIcon />}>아이콘 버튼</Button>
- * <Button iconRight={<ArrowIcon />}>다음</Button>
- *
- * // Pill 모양
- * <Button shape="round">라운드</Button>
- *
- * // 비활성화
- * <Button disabled>비활성화</Button>
- *
- * // 이벤트 핸들러
- * <Button onClick={handleSubmit}>제출</Button>
- * ```
  */
 const meta: Meta<typeof Button> = {
   title: "Components/Button",
@@ -95,6 +65,46 @@ const meta: Meta<typeof Button> = {
 };
 export default meta;
 type Story = StoryObj<typeof Button>;
+
+export const TemplateCode: Story = {
+  name: "Template Code",
+  args: { children: "버튼" },
+  parameters: {
+    docs: {
+      source: {
+        code: `import { Button } from "@lds/ui-v3";
+
+// 기본 버튼
+<Button>확인</Button>
+
+// Outline 버튼
+<Button variant="outline">취소</Button>
+
+// 색상 변경
+<Button color="danger">삭제</Button>
+<Button variant="outline" color="secondary">보류</Button>
+
+// 크기 변경
+<Button size="small">작은 버튼</Button>
+<Button size="large">큰 버튼</Button>
+
+// 아이콘 포함
+<Button iconLeft={<MyIcon />}>아이콘 버튼</Button>
+<Button iconRight={<ArrowIcon />}>다음</Button>
+
+// Pill 모양
+<Button shape="round">라운드</Button>
+
+// 비활성화
+<Button disabled>비활성화</Button>
+
+// 이벤트 핸들러
+<Button onClick={handleSubmit}>제출</Button>
+`,
+      },
+    },
+  },
+};
 
 export const Default: Story = {
   args: { children: "버튼" },

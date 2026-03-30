@@ -49,42 +49,6 @@ const HeartIcon = () => (
  * | `shadow` | 펼침 시 box-shadow + borderRadius 4px |
  * | `border` | 전체 1px border |
  * | `margin` | 분리형 shadow + borderRadius 4px, 그룹 시 간격 |
- *
- * ### Template Code
- * ```tsx
- * // 기본 (Uncontrolled)
- * <Collapse header="헤더">
- *   <p>접기/펼치기 콘텐츠</p>
- * </Collapse>
- *
- * // 초기 펼침
- * <Collapse header="헤더" defaultExpanded>
- *   <p>처음부터 펼쳐진 콘텐츠</p>
- * </Collapse>
- *
- * // Controlled
- * const [open, setOpen] = useState(false);
- * <Collapse header="헤더" expanded={open} onToggle={setOpen}>
- *   <p>콘텐츠</p>
- * </Collapse>
- *
- * // 스타일 변형
- * <Collapse variant="shadow" header="Shadow 스타일">콘텐츠</Collapse>
- * <Collapse variant="border" header="Border 스타일">콘텐츠</Collapse>
- * <Collapse variant="margin" header="Margin 스타일">콘텐츠</Collapse>
- *
- * // 우측 액션 아이콘
- * <Collapse header="헤더" action={<HeartIcon />}>
- *   콘텐츠
- * </Collapse>
- *
- * // 그룹 (아코디언 배치)
- * <CollapseGroup variant="margin">
- *   <Collapse variant="margin" header="패널 1">내용 1</Collapse>
- *   <Collapse variant="margin" header="패널 2">내용 2</Collapse>
- *   <Collapse variant="margin" header="패널 3">내용 3</Collapse>
- * </CollapseGroup>
- * ```
  */
 const meta: Meta<typeof Collapse> = {
   title: "Components/Collapse",
@@ -111,6 +75,47 @@ const meta: Meta<typeof Collapse> = {
 };
 export default meta;
 type Story = StoryObj<typeof Collapse>;
+
+export const TemplateCode: Story = {
+  name: "Template Code",
+  args: {
+    variant: "default",
+    header: "헤더",
+    children: "접기/펼치기 콘텐츠",
+    defaultExpanded: true,
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `import { useState } from "react";
+import { Collapse, CollapseGroup } from "@lds/ui-v3";
+
+// 기본 (Uncontrolled)
+<Collapse header="헤더">
+  <p>접기/펼치기 콘텐츠</p>
+</Collapse>
+
+// Controlled
+const [open, setOpen] = useState(false);
+<Collapse header="헤더" expanded={open} onToggle={setOpen}>
+  <p>콘텐츠</p>
+</Collapse>
+
+// 스타일 변형
+<Collapse variant="shadow" header="Shadow">콘텐츠</Collapse>
+<Collapse variant="border" header="Border">콘텐츠</Collapse>
+<Collapse variant="margin" header="Margin">콘텐츠</Collapse>
+
+// 그룹 (아코디언 배치)
+<CollapseGroup variant="margin">
+  <Collapse variant="margin" header="패널 1">내용 1</Collapse>
+  <Collapse variant="margin" header="패널 2">내용 2</Collapse>
+</CollapseGroup>
+`,
+      },
+    },
+  },
+};
 
 /** Default — 하단 border 스타일 */
 export const Default: Story = {

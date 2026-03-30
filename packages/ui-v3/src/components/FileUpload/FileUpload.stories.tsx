@@ -10,23 +10,6 @@ import {
 
 /**
  * **FileUpload** — 파일 업로드 관련 컴포넌트 모음
- *
- * ### 사용법
- * ```tsx
- * import {
- *   FileUploadArea,
- *   FileThumbnail,
- *   FileItem,
- *   FileAttachBadge,
- * } from "@lds/ui-v3";
- *
- * <FileUploadArea onFilesAdded={handleFiles}>
- *   {files.map(f => <FileItem key={f.name} filename={f.name} />)}
- * </FileUploadArea>
- *
- * <FileThumbnail src="/img.jpg" filename="photo.jpg" size="large" />
- * <FileAttachBadge filename="report.pdf" onRemove={() => {}} />
- * ```
  */
 const meta: Meta<typeof FileUploadArea> = {
   title: "Components/FileUpload",
@@ -46,6 +29,79 @@ const meta: Meta<typeof FileUploadArea> = {
 
 export default meta;
 type Story = StoryObj<typeof FileUploadArea>;
+
+export const TemplateCode: Story = {
+  name: "Template Code",
+  render: () => {
+    const [files, setFiles] = useState([
+      { name: "계약서_v3.docx", size: "2.4 MB" },
+    ]);
+    return (
+      <FileUploadArea
+        onFilesAdded={(newFiles) =>
+          setFiles((prev) => [
+            ...prev,
+            ...newFiles.map((f) => ({ name: f.name, size: `${(f.size / 1024 / 1024).toFixed(1)} MB` })),
+          ])
+        }
+      >
+        {files.map((f) => (
+          <FileItem
+            key={f.name}
+            filename={f.name}
+            fileMeta={f.size}
+            onDelete={() => setFiles((prev) => prev.filter((x) => x.name !== f.name))}
+          />
+        ))}
+      </FileUploadArea>
+    );
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `import { useState } from "react";
+import {
+  FileUploadArea,
+  FileThumbnail,
+  FileItem,
+  FileAttachBadge,
+} from "@lds/ui-v3";
+
+// 파일 업로드 영역 + 파일 목록
+const [files, setFiles] = useState([]);
+
+<FileUploadArea
+  onFilesAdded={(newFiles) =>
+    setFiles((prev) => [...prev, ...newFiles.map((f) => ({ name: f.name, size: f.size }))])
+  }
+>
+  {files.map((f) => (
+    <FileItem
+      key={f.name}
+      filename={f.name}
+      fileMeta={\`\${(f.size / 1024 / 1024).toFixed(1)} MB\`}
+      onDelete={() => setFiles((prev) => prev.filter((x) => x.name !== f.name))}
+    />
+  ))}
+</FileUploadArea>
+
+// 이미지 썸네일
+<FileThumbnail
+  src="/img.jpg"
+  filename="photo.jpg"
+  size="large"
+  layout="horizontal"
+  onDownload={() => {}}
+  onExpand={() => {}}
+/>
+
+// 파일 첨부 배지
+<FileAttachBadge filename="report.pdf" onRemove={() => {}} />
+`,
+      },
+    },
+  },
+};
 
 /** 기본 업로드 영역 (비어있음) */
 export const Default: Story = {

@@ -6,25 +6,6 @@ import type { MultiSelectItem } from ".";
 
 /**
  * **Input** — 텍스트 입력 필드 + InputGroup + MultiSelect
- *
- * ### 사용법
- * ```tsx
- * import { Input, InputGroup, MultiSelect } from "@lds/ui-v3";
- *
- * // 기본
- * <Input placeholder="이메일 입력" />
- *
- * // InputGroup (라벨 + 도움말)
- * <InputGroup label="Email" required helperText="유효한 이메일을 입력하세요">
- *   <Input placeholder="email@example.com" />
- * </InputGroup>
- *
- * // MultiSelect
- * <MultiSelect
- *   value={[{ key: "1", label: "User1" }]}
- *   onRemove={(key) => {}}
- * />
- * ```
  */
 const meta: Meta<typeof Input> = {
   title: "Components/Input",
@@ -48,6 +29,47 @@ const meta: Meta<typeof Input> = {
 
 export default meta;
 type Story = StoryObj<typeof Input>;
+
+export const TemplateCode: Story = {
+  name: "Template Code",
+  args: { placeholder: "Placeholder", inputSize: "medium" },
+  parameters: {
+    docs: {
+      source: {
+        code: `import { useState } from "react";
+import { Input, InputGroup, MultiSelect } from "@lds/ui-v3";
+import type { MultiSelectItem } from "@lds/ui-v3";
+
+// 기본
+<Input placeholder="이메일 입력" />
+
+// 사이즈
+<Input placeholder="Small" inputSize="small" />
+<Input placeholder="Medium" inputSize="medium" />
+<Input placeholder="Large" inputSize="large" />
+
+// 왼쪽 아이콘 + 접미사
+<Input placeholder="검색" leftIcon={<SearchIcon />} suffix={<span>Option ▾</span>} />
+
+// InputGroup (라벨 + 도움말 + 상태)
+<InputGroup label="Email" required helperText="유효한 이메일을 입력하세요" state="default">
+  <Input placeholder="email@example.com" />
+</InputGroup>
+
+// MultiSelect
+const [items, setItems] = useState<MultiSelectItem[]>([
+  { key: "1", label: "User Name1" },
+]);
+<MultiSelect
+  value={items}
+  onRemove={(key) => setItems((prev) => prev.filter((i) => i.key !== key))}
+  placeholder="검색..."
+/>
+`,
+      },
+    },
+  },
+};
 
 /* ─── Search Icon ─── */
 const SearchIcon = () => (

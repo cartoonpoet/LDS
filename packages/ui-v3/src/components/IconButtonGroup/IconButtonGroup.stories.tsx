@@ -54,22 +54,6 @@ const MenuIcon = () => (
  *   "aria-label": string; // 접근성 라벨 (필수)
  * }
  * ```
- *
- * ### Template Code
- * ```tsx
- * const [view, setView] = useState("card");
- *
- * <IconButtonGroup
- *   items={[
- *     { value: "card", icon: <CardIcon />, "aria-label": "카드 보기" },
- *     { value: "grid", icon: <GridIcon />, "aria-label": "그리드 보기" },
- *     { value: "list", icon: <MenuIcon />, "aria-label": "리스트 보기" },
- *   ]}
- *   value={view}
- *   onChange={setView}
- *   variant="fill"
- * />
- * ```
  */
 const meta: Meta<typeof IconButtonGroup> = {
   title: "Components/IconButtonGroup",
@@ -92,6 +76,33 @@ const items = [
   { value: "grid", icon: <GridIcon />, "aria-label": "그리드 보기" as const },
   { value: "menu", icon: <MenuIcon />, "aria-label": "리스트 보기" as const },
 ];
+
+export const TemplateCode: Story = {
+  name: "Template Code",
+  args: { items, value: "card", variant: "fill" },
+  parameters: {
+    docs: {
+      source: {
+        code: `import { useState } from "react";
+import { IconButtonGroup } from "@lds/ui-v3";
+
+const [view, setView] = useState("card");
+
+<IconButtonGroup
+  items={[
+    { value: "card", icon: <CardIcon />, "aria-label": "카드 보기" },
+    { value: "grid", icon: <GridIcon />, "aria-label": "그리드 보기" },
+    { value: "list", icon: <MenuIcon />, "aria-label": "리스트 보기" },
+  ]}
+  value={view}
+  onChange={setView}
+  variant="fill"
+/>
+`,
+      },
+    },
+  },
+};
 
 export const Fill: Story = {
   args: { items, value: "card", variant: "fill" },

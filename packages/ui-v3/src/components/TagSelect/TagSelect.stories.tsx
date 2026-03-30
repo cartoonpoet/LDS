@@ -5,21 +5,6 @@ import { TagSelect } from ".";
 
 /**
  * **TagSelect** — 드롭다운 셀렉트 + 선택 항목을 태그 뱃지로 표시
- *
- * ### 사용법
- * ```tsx
- * import { TagSelect } from "@lds/ui-v3";
- *
- * <TagSelect
- *   options={[
- *     { value: "1", label: "Option" },
- *     { value: "2", label: "Option" },
- *   ]}
- *   value={["1"]}
- *   onChange={(v) => setValue(v)}
- *   placeholder="Placeholder"
- * />
- * ```
  */
 const meta: Meta<typeof TagSelect> = {
   title: "Components/TagSelect",
@@ -39,6 +24,47 @@ const meta: Meta<typeof TagSelect> = {
 
 export default meta;
 type Story = StoryObj<typeof TagSelect>;
+
+export const TemplateCode: Story = {
+  name: "Template Code",
+  render: () => {
+    const [value, setValue] = useState<string[]>([]);
+    return (
+      <TagSelect
+        options={[
+          { value: "1", label: "Option A" },
+          { value: "2", label: "Option B" },
+          { value: "3", label: "Option C" },
+        ]}
+        value={value}
+        onChange={setValue}
+        placeholder="Placeholder"
+      />
+    );
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `import { useState } from "react";
+import { TagSelect } from "@lds/ui-v3";
+
+const [value, setValue] = useState<string[]>([]);
+
+<TagSelect
+  options={[
+    { value: "1", label: "Option A" },
+    { value: "2", label: "Option B" },
+    { value: "3", label: "Option C" },
+  ]}
+  value={value}
+  onChange={setValue}
+  placeholder="Placeholder"
+/>
+`,
+      },
+    },
+  },
+};
 
 const sampleOptions = [
   { value: "1", label: "Option A" },

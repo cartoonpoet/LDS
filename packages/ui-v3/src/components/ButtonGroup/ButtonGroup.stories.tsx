@@ -41,41 +41,6 @@ const InfoIcon = () => (
  *   icon?: ReactNode; // 좌측 아이콘 (선택)
  * }
  * ```
- *
- * ### Template Code
- * ```tsx
- * const [value, setValue] = useState("left");
- *
- * // 기본 Fill 스타일
- * <ButtonGroup
- *   items={[
- *     { value: "left", label: "Left" },
- *     { value: "center", label: "Center" },
- *     { value: "right", label: "Right" },
- *   ]}
- *   value={value}
- *   onChange={setValue}
- * />
- *
- * // Outline 스타일
- * <ButtonGroup
- *   items={items}
- *   value={value}
- *   onChange={setValue}
- *   variant="outline"
- * />
- *
- * // Small 사이즈 + 아이콘
- * <ButtonGroup
- *   items={[
- *     { value: "a", label: "옵션A", icon: <MyIcon /> },
- *     { value: "b", label: "옵션B", icon: <MyIcon /> },
- *   ]}
- *   value={value}
- *   onChange={setValue}
- *   size="small"
- * />
- * ```
  */
 const meta: Meta<typeof ButtonGroup> = {
   title: "Components/ButtonGroup",
@@ -103,6 +68,47 @@ const defaultItems = [
   { value: "center", label: "Center" },
   { value: "right", label: "Right" },
 ];
+
+export const TemplateCode: Story = {
+  name: "Template Code",
+  args: { items: defaultItems, value: "left", variant: "fill" },
+  parameters: {
+    docs: {
+      source: {
+        code: `import { useState } from "react";
+import { ButtonGroup } from "@lds/ui-v3";
+
+const [value, setValue] = useState("left");
+
+// 기본 Fill 스타일
+<ButtonGroup
+  items={[
+    { value: "left", label: "Left" },
+    { value: "center", label: "Center" },
+    { value: "right", label: "Right" },
+  ]}
+  value={value}
+  onChange={setValue}
+/>
+
+// Outline 스타일
+<ButtonGroup items={items} value={value} onChange={setValue} variant="outline" />
+
+// Small 사이즈 + 아이콘
+<ButtonGroup
+  items={[
+    { value: "a", label: "옵션A", icon: <MyIcon /> },
+    { value: "b", label: "옵션B", icon: <MyIcon /> },
+  ]}
+  value={value}
+  onChange={setValue}
+  size="small"
+/>
+`,
+      },
+    },
+  },
+};
 
 export const Fill: Story = {
   args: { items: defaultItems, value: "left", variant: "fill" },

@@ -25,37 +25,6 @@ import { lightThemeClass } from "@lds/tokens";
  * | `textButton` | `{ label: string; onClick?: MouseEventHandler }` | - | 텍스트 링크 버튼 |
  * | `actions` | `AlertAction[]` | - | 액션 버튼 목록 (승인/반려 등) |
  * | `className` | `string` | - | 추가 CSS 클래스 |
- *
- * ### Template Code
- * ```tsx
- * // 기본 사용
- * <Alert type="info" closable onClose={() => {}}>
- *   중요! 이것은 기본 알림입니다. 확인해주세요!
- * </Alert>
- *
- * // 제목 + 본문 (Expanded)
- * <Alert type="info" title="알림 제목" closable>
- *   이것은 확장된 알림입니다. 제목과 본문이 분리됩니다.
- * </Alert>
- *
- * // 텍스트 버튼 포함
- * <Alert type="info" textButton={{ label: "자세히 보기", onClick: handleClick }}>
- *   알림 메시지
- * </Alert>
- *
- * // 액션 버튼 포함 (승인/반려)
- * <Alert type="confirm" title="의견 검토 중" actions={[
- *   { label: "승인", intent: "primary", onClick: handleApprove },
- *   { label: "반려", intent: "warning", onClick: handleReject },
- * ]}>
- *   의견 검토 중 (검토자 : 김팀장)
- * </Alert>
- *
- * // 작은 사이즈
- * <Alert type="info" size="small">
- *   작은 사이즈 알림입니다.
- * </Alert>
- * ```
  */
 const meta: Meta<typeof Alert> = {
   title: "Components/Alert",
@@ -81,6 +50,51 @@ const meta: Meta<typeof Alert> = {
 };
 export default meta;
 type Story = StoryObj<typeof Alert>;
+
+export const TemplateCode: Story = {
+  name: "Template Code",
+  args: {
+    type: "info",
+    children: "중요! 이것은 기본 알림입니다. 확인해주세요!",
+    closable: true,
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `import { Alert } from "@lds/ui-v3";
+
+// 기본 사용
+<Alert type="info" closable onClose={() => {}}>
+  중요! 이것은 기본 알림입니다. 확인해주세요!
+</Alert>
+
+// 제목 + 본문 (Expanded)
+<Alert type="info" title="알림 제목" closable>
+  이것은 확장된 알림입니다. 제목과 본문이 분리됩니다.
+</Alert>
+
+// 텍스트 버튼 포함
+<Alert type="info" textButton={{ label: "자세히 보기", onClick: handleClick }}>
+  알림 메시지
+</Alert>
+
+// 액션 버튼 포함 (승인/반려)
+<Alert type="confirm" title="의견 검토 중" actions={[
+  { label: "승인", intent: "primary", onClick: handleApprove },
+  { label: "반려", intent: "warning", onClick: handleReject },
+]}>
+  의견 검토 중 (검토자 : 김팀장)
+</Alert>
+
+// 작은 사이즈
+<Alert type="info" size="small">
+  작은 사이즈 알림입니다.
+</Alert>
+`,
+      },
+    },
+  },
+};
 
 export const Info: Story = {
   args: {

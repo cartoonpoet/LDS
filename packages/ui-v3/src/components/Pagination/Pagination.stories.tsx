@@ -21,18 +21,6 @@ import { lightThemeClass } from "@lds/tokens";
  * | `onPageChange` | `(page: number) => void` | - | 페이지 변경 핸들러 |
  * | `visiblePages` | `number` | `7` | 표시할 페이지 번호 수 |
  * | `totalCount` | `number` | - | 전체 건수 (설정 시 "총 N건" 표시) |
- *
- * ### Template Code
- * ```tsx
- * // Basic
- * <Pagination page={page} totalPages={10} onPageChange={setPage} />
- *
- * // With Count
- * <Pagination page={page} totalPages={100} onPageChange={setPage} totalCount={1144} />
- *
- * // Count only
- * <PaginationCount totalCount={1144} />
- * ```
  */
 const meta: Meta<typeof Pagination> = {
   title: "Components/Pagination",
@@ -54,6 +42,39 @@ const meta: Meta<typeof Pagination> = {
 };
 export default meta;
 type Story = StoryObj<typeof Pagination>;
+
+export const TemplateCode: Story = {
+  name: "Template Code",
+  render: () => {
+    const [page, setPage] = useState(4);
+    return <Pagination page={page} totalPages={10} onPageChange={setPage} />;
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `import { useState } from "react";
+import { Pagination, PaginationCount } from "@lds/ui-v3";
+
+function MyPage() {
+  const [page, setPage] = useState(1);
+  return (
+    <>
+      {/* Basic */}
+      <Pagination page={page} totalPages={10} onPageChange={setPage} />
+
+      {/* With Count */}
+      <Pagination page={page} totalPages={100} onPageChange={setPage} totalCount={1144} />
+
+      {/* Count only */}
+      <PaginationCount totalCount={1144} />
+    </>
+  );
+}
+`,
+      },
+    },
+  },
+};
 
 /** Basic — 페이지 번호만 */
 export const Basic: Story = {

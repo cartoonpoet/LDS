@@ -41,31 +41,6 @@ const InfoIcon = () => (
  * }
  * ```
  *
- * ### Template Code
- * ```tsx
- * const [tab, setTab] = useState("overview");
- *
- * // 아이콘 + 라벨
- * <NavigationTab
- *   items={[
- *     { value: "overview", label: "Overview", icon: <InfoIcon /> },
- *     { value: "details", label: "Details", icon: <DetailIcon /> },
- *     { value: "settings", label: "Settings", icon: <SettingsIcon /> },
- *   ]}
- *   value={tab}
- *   onChange={setTab}
- * />
- *
- * // 텍스트만
- * <NavigationTab
- *   items={[
- *     { value: "a", label: "Overview" },
- *     { value: "b", label: "Details" },
- *   ]}
- *   value={tab}
- *   onChange={setTab}
- * />
- * ```
  */
 const meta: Meta<typeof NavigationTab> = {
   title: "Components/NavigationTab",
@@ -75,6 +50,57 @@ const meta: Meta<typeof NavigationTab> = {
 };
 export default meta;
 type Story = StoryObj<typeof NavigationTab>;
+
+export const TemplateCode: Story = {
+  name: "Template Code",
+  render: () => {
+    const [value, setValue] = useState("tab1");
+    return (
+      <NavigationTab
+        items={[
+          { value: "tab1", label: "Label", icon: <InfoIcon /> },
+          { value: "tab2", label: "Label", icon: <InfoIcon /> },
+          { value: "tab3", label: "Label", icon: <InfoIcon /> },
+        ]}
+        value={value}
+        onChange={setValue}
+      />
+    );
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `import { useState } from "react";
+import { NavigationTab } from "@lds/ui-v3";
+import type { NavigationTabItem } from "@lds/ui-v3";
+
+const [tab, setTab] = useState("overview");
+
+// 아이콘 + 라벨
+<NavigationTab
+  items={[
+    { value: "overview", label: "Overview", icon: <InfoIcon /> },
+    { value: "details", label: "Details", icon: <DetailIcon /> },
+    { value: "settings", label: "Settings", icon: <SettingsIcon /> },
+  ]}
+  value={tab}
+  onChange={setTab}
+/>
+
+// 텍스트만
+<NavigationTab
+  items={[
+    { value: "a", label: "Overview" },
+    { value: "b", label: "Details" },
+  ]}
+  value={tab}
+  onChange={setTab}
+/>
+`,
+      },
+    },
+  },
+};
 
 const items = [
   { value: "tab1", label: "Label", icon: <InfoIcon /> },

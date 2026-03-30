@@ -12,28 +12,6 @@ import { Skeleton } from ".";
  * - `rect` — 사각형 (카드, 이미지 영역)
  * - `circle` — 원형 (아바타)
  * - `text` — 텍스트 줄 (lines prop으로 줄 수 지정, 마지막 줄 60% 너비)
- *
- * ### Template Code
- * ```tsx
- * import { Skeleton } from "@lds/ui-v3";
- *
- * // 사각형
- * <Skeleton width={200} height={120} />
- *
- * // 원형 아바타
- * <Skeleton variant="circle" width={40} height={40} />
- *
- * // 텍스트 3줄
- * <Skeleton variant="text" lines={3} />
- *
- * // Skeleton.Content — 로딩 ↔ 콘텐츠 자동 전환
- * <Skeleton.Content
- *   loading={isLoading}
- *   fallback={<Skeleton variant="text" lines={3} />}
- * >
- *   <p>{data.content}</p>
- * </Skeleton.Content>
- * ```
  */
 const meta: Meta<typeof Skeleton> = {
   title: "Components/Skeleton",
@@ -56,6 +34,36 @@ const meta: Meta<typeof Skeleton> = {
 
 export default meta;
 type Story = StoryObj<typeof Skeleton>;
+
+export const TemplateCode: Story = {
+  name: "Template Code",
+  args: { width: 200, height: 120 },
+  parameters: {
+    docs: {
+      source: {
+        code: `import { Skeleton } from "@lds/ui-v3";
+
+// 사각형
+<Skeleton width={200} height={120} />
+
+// 원형 아바타
+<Skeleton variant="circle" width={40} height={40} />
+
+// 텍스트 3줄
+<Skeleton variant="text" lines={3} />
+
+// Skeleton.Content — 로딩 ↔ 콘텐츠 자동 전환
+<Skeleton.Content
+  loading={isLoading}
+  fallback={<Skeleton variant="text" lines={3} />}
+>
+  <p>{data.content}</p>
+</Skeleton.Content>
+`,
+      },
+    },
+  },
+};
 
 export const Default: Story = {
   args: { width: 200, height: 16 },

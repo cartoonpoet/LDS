@@ -4,27 +4,6 @@ import { Popover } from ".";
 
 /**
  * **Popover** — 클릭 시 표시되는 팝오버 카드
- *
- * ### 사용법
- * ```tsx
- * import { Popover } from "@lds/ui-v3";
- *
- * // 기본 (간편 API)
- * <Popover
- *   title="Popover Title"
- *   content="This is a very beautiful popover, show some love."
- *   confirmText="Read More"
- *   cancelText="Skip"
- *   placement="right"
- * >
- *   <button>Click me</button>
- * </Popover>
- *
- * // 커스텀 바디 (compound)
- * <Popover title="Custom" popoverBody={<MyCustomContent />} placement="bottom">
- *   <button>Click</button>
- * </Popover>
- * ```
  */
 const meta: Meta<typeof Popover> = {
   title: "Components/Popover",
@@ -57,6 +36,48 @@ const meta: Meta<typeof Popover> = {
 
 export default meta;
 type Story = StoryObj<typeof Popover>;
+
+export const TemplateCode: Story = {
+  name: "Template Code",
+  args: {
+    title: "Popover Title",
+    content: "This is a very beautiful popover, show some love.",
+    confirmText: "Read More",
+    cancelText: "Skip",
+    placement: "bottom",
+  },
+  render: (args) => (
+    <Popover {...args}>
+      <button type="button" style={{ padding: "8px 16px", borderRadius: 6, border: "1px solid #ccc", background: "#fff", cursor: "pointer" }}>
+        Click me
+      </button>
+    </Popover>
+  ),
+  parameters: {
+    docs: {
+      source: {
+        code: `import { Popover } from "@lds/ui-v3";
+
+// 기본 (간편 API)
+<Popover
+  title="Popover Title"
+  content="This is a very beautiful popover, show some love."
+  confirmText="Read More"
+  cancelText="Skip"
+  placement="right"
+>
+  <button>Click me</button>
+</Popover>
+
+// 커스텀 바디 (compound)
+<Popover title="Custom" popoverBody={<MyCustomContent />} placement="bottom">
+  <button>Click</button>
+</Popover>
+`,
+      },
+    },
+  },
+};
 
 const TriggerButton = ({ children }: { children: string }) => (
   <button

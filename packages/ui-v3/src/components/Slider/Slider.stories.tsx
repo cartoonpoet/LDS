@@ -5,14 +5,6 @@ import { Slider, RangeSlider } from ".";
 
 /**
  * **Slider** — 슬라이더 & 범위 슬라이더
- *
- * ### 사용법
- * ```tsx
- * import { Slider, RangeSlider } from "@lds/ui-v3";
- *
- * <Slider value={50} onChange={setValue} />
- * <RangeSlider value={[25, 75]} onChange={setRange} showTicks showLabels showValue />
- * ```
  */
 const meta: Meta<typeof Slider> = {
   title: "Components/Slider",
@@ -32,6 +24,44 @@ const meta: Meta<typeof Slider> = {
 
 export default meta;
 type Story = StoryObj<typeof Slider>;
+
+export const TemplateCode: Story = {
+  name: "Template Code",
+  render: () => {
+    const [v, setV] = useState(50);
+    return <Slider value={v} onChange={setV} showTicks showLabels showValue />;
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `import { useState } from "react";
+import { Slider, RangeSlider } from "@lds/ui-v3";
+
+const [value, setValue] = useState(50);
+const [range, setRange] = useState<[number, number]>([25, 75]);
+
+// 기본 슬라이더
+<Slider value={value} onChange={setValue} />
+
+// 틱 + 라벨 + 값 배지
+<Slider value={value} onChange={setValue} showTicks showLabels showValue />
+
+// Step 설정
+<Slider value={value} onChange={setValue} step={10} showTicks showLabels showValue />
+
+// 범위 슬라이더
+<RangeSlider value={range} onChange={setRange} showTicks />
+
+// 범위 슬라이더 + 라벨 + 값 배지
+<RangeSlider value={range} onChange={setRange} showTicks showLabels showValue />
+
+// 비활성화
+<Slider value={50} disabled showTicks showLabels />
+`,
+      },
+    },
+  },
+};
 
 /** 기본 슬라이더 */
 export const Default: Story = {

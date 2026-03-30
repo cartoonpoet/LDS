@@ -30,37 +30,6 @@ import { lightThemeClass } from "@lds/tokens";
  * | `trailing` | `ReactNode` | - | 우측 시간/뱃지 영역 |
  * | `onClick` | `() => void` | - | 클릭 핸들러 |
  * | `children` | `ReactNode` | - | 항목 콘텐츠 |
- *
- * ### Template Code
- * ```tsx
- * // Basic (간편 API)
- * <ListGroup items={["항목 1", "항목 2", "항목 3"]} />
- *
- * // Basic (Compound 패턴)
- * <ListGroup>
- *   <ListGroupItem>항목 1</ListGroupItem>
- *   <ListGroupItem>항목 2</ListGroupItem>
- * </ListGroup>
- *
- * // With Icon
- * <ListGroup>
- *   <ListGroupItem leading={<Icon />}>항목</ListGroupItem>
- * </ListGroup>
- *
- * // Custom Content + active
- * <ListGroupItem active trailing={<span>3일 전</span>}>
- *   <strong>제목</strong>
- *   <p>내용</p>
- * </ListGroupItem>
- *
- * // Bottom Sheet (MO)
- * <BottomSheet>
- *   <ListGroup variant="flush">
- *     <ListGroupItem leading={<span>🔏</span>}>인감 사용 신청</ListGroupItem>
- *     <ListGroupItem leading={<span>✕</span>} danger>계약 중단</ListGroupItem>
- *   </ListGroup>
- * </BottomSheet>
- * ```
  */
 const meta: Meta<typeof ListGroup> = {
   title: "Components/ListGroup",
@@ -83,6 +52,49 @@ const meta: Meta<typeof ListGroup> = {
 };
 export default meta;
 type Story = StoryObj<typeof ListGroup>;
+
+export const TemplateCode: Story = {
+  name: "Template Code",
+  args: {
+    items: ["전체", "계약심사", "입찰", "계약", "사후관리"],
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `import { ListGroup, ListGroupItem, BottomSheet } from "@lds/ui-v3";
+
+// Basic (간편 API)
+<ListGroup items={["항목 1", "항목 2", "항목 3"]} />
+
+// Basic (Compound 패턴)
+<ListGroup>
+  <ListGroupItem>항목 1</ListGroupItem>
+  <ListGroupItem>항목 2</ListGroupItem>
+</ListGroup>
+
+// With Icon
+<ListGroup>
+  <ListGroupItem leading={<Icon />}>항목</ListGroupItem>
+</ListGroup>
+
+// Custom Content + active
+<ListGroupItem active trailing={<span>3일 전</span>}>
+  <strong>제목</strong>
+  <p>내용</p>
+</ListGroupItem>
+
+// Bottom Sheet (MO)
+<BottomSheet>
+  <ListGroup variant="flush">
+    <ListGroupItem leading={<span>🔏</span>}>인감 사용 신청</ListGroupItem>
+    <ListGroupItem leading={<span>✕</span>} danger>계약 중단</ListGroupItem>
+  </ListGroup>
+</BottomSheet>
+`,
+      },
+    },
+  },
+};
 
 /* ─── Badge 아이콘 (20x20 원형) ─── */
 const Badge = ({ color = "#7367f0" }: { color?: string }) => (
