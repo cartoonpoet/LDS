@@ -165,8 +165,10 @@ export const iconRegistry = {
       <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
     </>
   ),
+} as const;
 
-  /* ─── Zeplin "34) icon" 컴포넌트 아이콘 ─── */
+/*
+  ─── 아래 29개는 실제 SVG 수령 후 추가 예정 ───
   docSearch: createIcon(
     <>
       <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -368,4 +370,4 @@ export const iconRegistry = {
       <path d="M16 3v18M13 6l3-3 3 3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
     </>
   ),
-} as const;
+*/
