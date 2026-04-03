@@ -1,11 +1,9 @@
-name: Publish @lawkit/ui (tag)
+name: Publish @lawkit/ui (manual)
 
-# 태그 push 시에만 동작 (수동 배포용 백업)
-# 메인 배포 흐름은 Vercel buildCommand에서 처리됨
+# 수동 배포용 백업 — main-publish.yml이 자동 배포를 처리하므로
+# 이 워크플로우는 수동으로만 실행 (Actions 탭 → Run workflow)
 on:
-  push:
-    tags:
-      - "v*"
+  workflow_dispatch:
 
 jobs:
   publish:
