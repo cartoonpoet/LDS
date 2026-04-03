@@ -166,23 +166,30 @@ export const statGrid = style({
    ═══════════════════════════════════════════ */
 
 export const quickMenuItem = style({
+  width: 150.8,
+  height: 104,
   display: "flex",
   flexDirection: "column",
-  padding: "22px 21px",
+  justifyContent: "center",
+  alignItems: "flex-start",
   gap: 10,
+  padding: "0 21px",
   borderRadius: 6,
   cursor: "pointer",
   border: `1px solid ${semanticColorRoles.border.subtle}`,
   backgroundColor: semanticColorRoles.surface.canvas,
+  boxSizing: "border-box",
   transition: "background 150ms ease, border-color 150ms ease",
   ":hover": {
-    background: `linear-gradient(to bottom, #2151ec, #6f8ef3)`,
+    backgroundImage: `linear-gradient(125deg, ${semanticColorRoles.action.primary.default} 0%, #6f8ef3 100%)`,
+    backgroundColor: "transparent",
     borderColor: "transparent",
   },
 });
 
 export const quickMenuItemActive = style({
-  background: `linear-gradient(to bottom, #2151ec, #6f8ef3)`,
+  backgroundImage: `linear-gradient(125deg, ${semanticColorRoles.action.primary.default} 0%, #6f8ef3 100%)`,
+  backgroundColor: "transparent",
   borderColor: "transparent",
 });
 
