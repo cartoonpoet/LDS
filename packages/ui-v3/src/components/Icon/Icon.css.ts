@@ -13,6 +13,10 @@ export const icon = recipe({
         height: "16px"
       },
       md: {
+        width: "20px",
+        height: "20px"
+      },
+      lg: {
         width: "24px",
         height: "24px"
       }

@@ -37,7 +37,7 @@ const meta: Meta<typeof Icon> = {
     },
     size: {
       control: "radio",
-      options: ["sm", "md"],
+      options: ["sm", "md", "lg"],
     },
   },
 };
@@ -77,11 +77,11 @@ export const Gallery: Story = {
   ),
 };
 
-/** sm / md 사이즈 비교 */
+/** sm / md / lg 사이즈 비교 */
 export const Sizes: Story = {
   render: () => (
     <div style={{ display: "flex", gap: 32, alignItems: "center" }}>
-      {(["sm", "md"] as const).map((size) => (
+      {(["sm", "md", "lg"] as const).map((size) => (
         <div key={size} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
           <Icon name="feather" size={size} />
           <span style={{ fontSize: 12, color: "#555" }}>{size}</span>
