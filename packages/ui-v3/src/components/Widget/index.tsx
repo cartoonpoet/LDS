@@ -198,42 +198,8 @@ export function StatGrid({
   );
 }
 
-/* ═══════════════════════════════════════════
-   QuickMenuItem
-   ═══════════════════════════════════════════ */
-
-export interface QuickMenuItemProps extends HTMLAttributes<HTMLDivElement> {
-  /** 아이콘 */
-  icon: ReactNode;
-  /** 라벨 */
-  label: string;
-  /** 활성(선택) 상태 */
-  active?: boolean;
-}
-
-/**
- * **QuickMenuItem**
- *
- * 퀵 메뉴 아이콘 항목. 그래디언트 원형 아이콘 + 라벨.
- *
- * ```tsx
- * <QuickMenuItem icon={<FileIcon />} label="계약" />
- * ```
- */
-export function QuickMenuItem({
-  icon,
-  label,
-  active = false,
-  className,
-  ...rest
-}: QuickMenuItemProps) {
-  return (
-    <div className={cx(s.quickMenuItem, active && s.quickMenuItemActive, className)} {...rest}>
-      <div className={cx(s.quickMenuIconWrapper, active && s.quickMenuIconWrapperActive)}>{icon}</div>
-      <span className={cx(s.quickMenuLabel, active && s.quickMenuLabelActive)}>{label}</span>
-    </div>
-  );
-}
+export { QuickMenuItem } from "../QuickMenu";
+export type { QuickMenuItemProps } from "../QuickMenu";
 
 /* ═══════════════════════════════════════════
    ScheduleItem

@@ -199,17 +199,18 @@ export {
   Widget,
   StatCell,
   StatGrid,
-  QuickMenuItem,
   ScheduleItem,
 } from "./components/Widget";
 export type {
   WidgetProps,
   StatCellProps,
   StatGridProps,
-  QuickMenuItemProps,
   ScheduleItemProps,
   StatValueColor,
 } from "./components/Widget";
+
+export { QuickMenuItem } from "./components/QuickMenu";
+export type { QuickMenuItemProps } from "./components/QuickMenu";
 
 export { DataTable } from "./components/DataTable";
 export type * from "./components/DataTable";
