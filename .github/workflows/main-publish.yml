@@ -89,20 +89,23 @@ jobs:
 
       - name: Notify success (Telegram)
         if: success()
+        env:
+          VERSION: ${{ steps.version.outputs.new_version }}
+          CHANGELOG: ${{ steps.changelog.outputs.logs }}
         run: |
-          TEXT="✅ @lawkit/ui ${{ steps.version.outputs.new_version }} npm 배포 완료
-
-${{ steps.changelog.outputs.logs }}"
+          TEXT=$(printf "✅ @lawkit/ui %s npm 배포 완료\n\n%s" "$VERSION" "$CHANGELOG")
           curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
             -d chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" \
             --data-urlencode "text=$TEXT"
 
       - name: Notify success (Slack)
         if: success()
+        env:
+          VERSION: ${{ steps.version.outputs.new_version }}
+          CHANGELOG: ${{ steps.changelog.outputs.logs }}
         run: |
-          PAYLOAD=$(jq -n --arg text "✅ @lawkit/ui ${{ steps.version.outputs.new_version }} npm 배포 완료
-
-${{ steps.changelog.outputs.logs }}" '{text: $text}')
+          TEXT=$(printf "✅ @lawkit/ui %s npm 배포 완료\n\n%s" "$VERSION" "$CHANGELOG")
+          PAYLOAD=$(jq -n --arg text "$TEXT" '{text: $text}')
           curl -s -X POST "${{ secrets.SLACK_WEBHOOK_URL }}" \
             -H "Content-Type: application/json" \
             -d "$PAYLOAD"
