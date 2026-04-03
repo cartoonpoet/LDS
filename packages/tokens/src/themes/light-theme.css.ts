@@ -1,4 +1,4 @@
-import { createTheme } from "@vanilla-extract/css";
+import { createTheme, globalStyle } from "@vanilla-extract/css";
 import { themeVars } from "../contracts/theme-contract.css";
 import { defaultColorTokens } from "../foundation/color-palette";
 import { defaultSpacingTokens } from "../foundation/spacing-scale";
@@ -15,3 +15,8 @@ export const defaultThemeValues = {
 };
 
 export const lightThemeClass = createTheme(themeVars, defaultThemeValues);
+
+globalStyle(`.${lightThemeClass}`, {
+  fontFamily: themeVars.font.family,
+  color: themeVars.color.textPrimary,
+});
