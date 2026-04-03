@@ -57,6 +57,19 @@ jobs:
           jq --arg v "$NEW" '.version = $v' packages/ui-v3/package.json > /tmp/pkg.json && mv /tmp/pkg.json packages/ui-v3/package.json
           echo "new_version=v$NEW" >> $GITHUB_OUTPUT
 
+      - name: Collect changelog
+        id: changelog
+        run: |
+          PREV_TAG=$(git tag --sort=-v:refname | grep '^v' | head -1)
+          if [ -n "$PREV_TAG" ]; then
+            LOGS=$(git log "${PREV_TAG}..HEAD" --pretty=format:"• %s" --no-merges | grep -v '\[skip ci\]' | head -10)
+          else
+            LOGS=$(git log --pretty=format:"• %s" --no-merges -5)
+          fi
+          echo "logs<<EOF" >> $GITHUB_OUTPUT
+          echo "$LOGS" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
       - name: Commit & tag
         run: |
           git config user.name "github-actions[bot]"
@@ -77,16 +90,22 @@ jobs:
       - name: Notify success (Telegram)
         if: success()
         run: |
+          TEXT="✅ @lawkit/ui ${{ steps.version.outputs.new_version }} npm 배포 완료
+
+${{ steps.changelog.outputs.logs }}"
           curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
             -d chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" \
-            -d text="✅ @lawkit/ui ${{ steps.version.outputs.new_version }} npm 배포 완료"
+            --data-urlencode "text=$TEXT"
 
       - name: Notify success (Slack)
         if: success()
         run: |
+          PAYLOAD=$(jq -n --arg text "✅ @lawkit/ui ${{ steps.version.outputs.new_version }} npm 배포 완료
+
+${{ steps.changelog.outputs.logs }}" '{text: $text}')
           curl -s -X POST "${{ secrets.SLACK_WEBHOOK_URL }}" \
             -H "Content-Type: application/json" \
-            -d '{"text":"✅ @lawkit/ui ${{ steps.version.outputs.new_version }} npm 배포 완료"}'
+            -d "$PAYLOAD"
 
       - name: Notify failure (Telegram)
         if: failure()
@@ -102,6 +121,7 @@ jobs:
         env:
           COMMIT_MSG: ${{ github.event.head_commit.message }}
         run: |
+          PAYLOAD=$(jq -n --arg text "❌ @lawkit/ui 배포 실패 — $COMMIT_MSG" '{text: $text}')
           curl -s -X POST "${{ secrets.SLACK_WEBHOOK_URL }}" \
             -H "Content-Type: application/json" \
-            --data-urlencode '{"text":"❌ @lawkit/ui 배포 실패 — '"$COMMIT_MSG"'"}'
+            -d "$PAYLOAD"
