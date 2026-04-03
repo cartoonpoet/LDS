@@ -1,8 +1,7 @@
 export const fontFamilyTokens = {
   pretendard: '"Pretendard", "Segoe UI", sans-serif',
-  malgunGothic: '"Malgun Gothic", "MalgunGothic", sans-serif'
+  malgunGothic: '"Malgun Gothic", "MalgunGothic", sans-serif',
 } as const;
-
 export const fontSizeScale = {
   8: "8px",
   9: "9px",
@@ -24,7 +23,7 @@ export const fontSizeScale = {
   49: "49px",
   63: "63px",
   77: "77px",
-  84: "84px"
+  84: "84px",
 } as const;
 
 export const lineHeightScale = {
@@ -47,7 +46,7 @@ export const lineHeightScale = {
   175: "1.75",
   180: "1.8",
   185: "1.85",
-  normal: "normal"
+  normal: "normal",
 } as const;
 
 export const letterSpacingScale = {
@@ -63,14 +62,14 @@ export const letterSpacingScale = {
   minus28: "-0.28px",
   minus20: "-0.2px",
   minus15: "-0.15px",
-  minus07: "-0.07px"
+  minus07: "-0.07px",
 } as const;
 
 export const fontWeightScale = {
   regular: "400",
   medium: "500",
   semibold: "600",
-  bold: "700"
+  bold: "700",
 } as const;
 
 export const defaultTypographyTokens = {
@@ -80,5 +79,5 @@ export const defaultTypographyTokens = {
   sizeLg: fontSizeScale[16],
   weightRegular: fontWeightScale.regular,
   weightMedium: fontWeightScale.medium,
-  weightBold: fontWeightScale.bold
+  weightBold: fontWeightScale.bold,
 } as const;
