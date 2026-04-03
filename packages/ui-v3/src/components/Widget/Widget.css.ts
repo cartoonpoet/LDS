@@ -4,7 +4,6 @@ import {
   semanticColorRoles,
   themeVars,
   grayPalette,
-  opacityPalette,
   greenPalette,
   redPalette,
   yellowPalette,
@@ -166,39 +165,64 @@ export const statGrid = style({
    QuickMenuItem
    ═══════════════════════════════════════════ */
 
-export const quickMenu = style({
+export const quickMenuItem = style({
   display: "flex",
   flexDirection: "column",
-  alignItems: "center",
-  gap: themeVars.spacing.x2,
-  padding: themeVars.spacing.x3,
-  borderRadius: themeVars.radius.md,
+  padding: "22px 21px",
+  gap: 10,
+  borderRadius: 6,
   cursor: "pointer",
-  transition: "background-color 150ms ease",
-  textDecoration: "none",
+  border: `1px solid ${semanticColorRoles.border.subtle}`,
+  backgroundColor: semanticColorRoles.surface.canvas,
+  transition: "background 150ms ease, border-color 150ms ease",
   ":hover": {
-    backgroundColor: opacityPalette.light,
+    background: `linear-gradient(to bottom, #2151ec, #6f8ef3)`,
+    borderColor: "transparent",
   },
 });
 
-export const quickMenuIcon = style({
+export const quickMenuItemActive = style({
+  background: `linear-gradient(to bottom, #2151ec, #6f8ef3)`,
+  borderColor: "transparent",
+});
+
+export const quickMenuIconWrapper = style({
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
   width: 32,
   height: 32,
   borderRadius: "50%",
-  background: `linear-gradient(135deg, #2151ec, #6f8ef3)`,
-  color: semanticColorRoles.text.inverse,
+  backgroundColor: "rgba(130, 134, 139, 0.12)",
   flexShrink: 0,
+  transition: "background-color 150ms ease",
+  selectors: {
+    [`${quickMenuItem}:hover &`]: {
+      backgroundColor: "#ffffff",
+    },
+  },
+});
+
+export const quickMenuIconWrapperActive = style({
+  backgroundColor: "#ffffff",
 });
 
 export const quickMenuLabel = style({
-  fontSize: themeVars.font.sizeMd,
-  fontWeight: themeVars.font.weightBold,
+  fontSize: 14,
+  fontWeight: 600,
+  lineHeight: "17px",
   color: semanticColorRoles.text.heading,
-  textAlign: "center",
   whiteSpace: "nowrap",
+  transition: "color 150ms ease",
+  selectors: {
+    [`${quickMenuItem}:hover &`]: {
+      color: "#ffffff",
+    },
+  },
+});
+
+export const quickMenuLabelActive = style({
+  color: "#ffffff",
 });
 
 /* ═══════════════════════════════════════════

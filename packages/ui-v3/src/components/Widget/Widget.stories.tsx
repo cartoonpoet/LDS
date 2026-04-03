@@ -124,7 +124,7 @@ export const QuickMenu: Story = {
     return (
       <Widget title="퀵 메뉴">
         <div style={{ display: "flex", gap: 8 }}>
-          <QuickMenuItem icon={<FileIcon />} label="계약" />
+          <QuickMenuItem icon={<FileIcon />} label="계약" active />
           <QuickMenuItem icon={<FileIcon />} label="소송" />
           <QuickMenuItem icon={<FileIcon />} label="프로젝트" />
           <QuickMenuItem icon={<FileIcon />} label="자문" />

@@ -207,6 +207,8 @@ export interface QuickMenuItemProps extends HTMLAttributes<HTMLDivElement> {
   icon: ReactNode;
   /** 라벨 */
   label: string;
+  /** 활성(선택) 상태 */
+  active?: boolean;
 }
 
 /**
@@ -221,13 +223,14 @@ export interface QuickMenuItemProps extends HTMLAttributes<HTMLDivElement> {
 export function QuickMenuItem({
   icon,
   label,
+  active = false,
   className,
   ...rest
 }: QuickMenuItemProps) {
   return (
-    <div className={cx(s.quickMenu, className)} {...rest}>
-      <div className={s.quickMenuIcon}>{icon}</div>
-      <span className={s.quickMenuLabel}>{label}</span>
+    <div className={cx(s.quickMenuItem, active && s.quickMenuItemActive, className)} {...rest}>
+      <div className={cx(s.quickMenuIconWrapper, active && s.quickMenuIconWrapperActive)}>{icon}</div>
+      <span className={cx(s.quickMenuLabel, active && s.quickMenuLabelActive)}>{label}</span>
     </div>
   );
 }
