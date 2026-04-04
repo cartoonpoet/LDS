@@ -12,6 +12,15 @@ const HeartIcon = () => (
   </svg>
 );
 
+const CategoryIcon = () => (
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="1" y="1" width="6" height="6" rx="1" stroke="currentColor" strokeWidth="1.2" />
+    <rect x="9" y="1" width="6" height="6" rx="1" stroke="currentColor" strokeWidth="1.2" />
+    <rect x="1" y="9" width="6" height="6" rx="1" stroke="currentColor" strokeWidth="1.2" />
+    <rect x="9" y="9" width="6" height="6" rx="1" stroke="currentColor" strokeWidth="1.2" />
+  </svg>
+);
+
 /**
  * ## Collapse
  *
@@ -228,5 +237,43 @@ export const GroupMargin: Story = {
       <Collapse variant="margin" header="패널 2" action={<HeartIcon />}>패널 2 내용입니다.</Collapse>
       <Collapse variant="margin" header="패널 3">패널 3 (아이콘 없음) 내용입니다.</Collapse>
     </CollapseGroup>
+  ),
+};
+
+/** togglePosition="right" — chevron이 우측에 위치 */
+export const ToggleRight: Story = {
+  args: {
+    variant: "border",
+    header: "헤더",
+    children: "접기/펼치기 콘텐츠",
+    togglePosition: "right",
+    defaultExpanded: true,
+  },
+};
+
+/** FAQ 스타일 — 좌측 카테고리 아이콘 + 우측 chevron (Zeplin FAQ 레이아웃 재현) */
+export const FAQExample: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+      {[
+        { q: "계약서 검토는 어떻게 진행되나요?", a: "계약서를 업로드하면 AI가 자동으로 주요 조항을 분석하고 위험 요소를 표시합니다." },
+        { q: "지원하는 문서 형식은 무엇인가요?", a: "PDF, DOCX, HWP 형식을 지원합니다." },
+        { q: "분석 결과는 얼마나 정확한가요?", a: "AI 분석은 법률 전문가의 검토를 보조하는 도구로 활용하시길 권장합니다." },
+      ].map(({ q, a }) => (
+        <Collapse
+          key={q}
+          variant="border"
+          togglePosition="right"
+          header={
+            <span style={{ display: "flex", alignItems: "center", gap: 12 }}>
+              <CategoryIcon />
+              {q}
+            </span>
+          }
+        >
+          {a}
+        </Collapse>
+      ))}
+    </div>
   ),
 };

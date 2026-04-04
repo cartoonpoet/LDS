@@ -69,6 +69,18 @@ describe("Collapse", () => {
     );
     expect(screen.getByText("Body text")).toBeInTheDocument();
   });
+
+  it("renders chevron after headerText when togglePosition is right", () => {
+    renderWithUser(
+      <Collapse header="Title" togglePosition="right">Content</Collapse>,
+    );
+    const button = screen.getByRole("button");
+    const children = Array.from(button.children);
+    const headerTextIndex = children.findIndex((el) => el.textContent === "Title");
+    const chevronIndex = children.findIndex((el) => el.querySelector("svg"));
+    expect(headerTextIndex).toBeGreaterThanOrEqual(0);
+    expect(chevronIndex).toBeGreaterThan(headerTextIndex);
+  });
 });
 
 describe("CollapseGroup", () => {

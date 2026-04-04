@@ -12,6 +12,8 @@ export interface CollapseProps {
   header: ReactNode;
   /** 우측 액션 아이콘 */
   action?: ReactNode;
+  /** chevron 위치 */
+  togglePosition?: "left" | "right";
   /** 펼침 상태 (controlled) */
   expanded?: boolean;
   /** 초기 펼침 상태 (uncontrolled) */
@@ -36,6 +38,7 @@ export function Collapse({
   variant = "default",
   header,
   action,
+  togglePosition = "left",
   expanded: controlledExpanded,
   defaultExpanded = false,
   onToggle,
@@ -60,11 +63,10 @@ export function Collapse({
         aria-expanded={expanded}
         onClick={toggle}
       >
-        <span className={s.chevron({ expanded })}>
-          <ChevronIcon />
-        </span>
+        {togglePosition !== "right" && <span className={s.chevron({ expanded })}><ChevronIcon /></span>}
         <span className={s.headerText}>{header}</span>
         {action && <span className={s.headerAction}>{action}</span>}
+        {togglePosition === "right" && <span className={s.chevron({ expanded })}><ChevronIcon /></span>}
       </button>
 
       <div className={s.content({ expanded })}>
