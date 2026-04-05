@@ -7,7 +7,7 @@ import {
 } from "@lds/tokens";
 
 export const quickMenuItem = style({
-  width: 150.8,
+  flex: 1,
   height: 104,
   display: "flex",
   flexDirection: "column",
