@@ -12,7 +12,7 @@ export const root = recipe({
     display: "inline-flex",
     alignItems: "center",
     justifyContent: "center",
-    gap: themeVars.spacing.x1,
+    gap: themeVars.spacing.x2,
     border: "none",
     cursor: "pointer",
     fontFamily: themeVars.font.family,
@@ -58,18 +58,15 @@ export const root = recipe({
 
     size: {
       small: {
-        height: 30,
-        padding: `0 ${themeVars.spacing.x2}`,
+        padding: `${themeVars.spacing.x2} ${themeVars.spacing.x4}`,
         fontSize: themeVars.font.sizeSm,
       },
       medium: {
-        height: 38,
-        padding: `0 ${themeVars.spacing.x3}`,
+        padding: `${themeVars.spacing.x3} ${themeVars.spacing.x5}`,
         fontSize: themeVars.font.sizeMd,
       },
       large: {
-        height: 46,
-        padding: `0 ${themeVars.spacing.x4}`,
+        padding: `${themeVars.spacing.x4} ${themeVars.spacing.x6}`,
         fontSize: themeVars.font.sizeLg,
       },
     },

@@ -25,7 +25,7 @@ const PieChartIcon = () => (
  * | `variant` | `"default" \| "outline"` | `"default"` | 버튼 스타일. default=Solid 채움, outline=테두리만 |
  * | `color` | `"primary" \| "secondary" \| "success" \| "danger" \| "warning" \| "info" \| "dark" \| "neutral"` | `"primary"` | 색상 테마 |
  * | `shape` | `"rounded" \| "round"` | `"rounded"` | 모양. rounded=5px, round=pill(9999px) |
- * | `size` | `"small" \| "medium" \| "large"` | `"medium"` | 크기 (30px / 38px / 46px) |
+ * | `size` | `"small" \| "medium" \| "large"` | `"medium"` | 크기 |
  * | `iconLeft` | `ReactNode` | - | 좌측 아이콘 |
  * | `iconRight` | `ReactNode` | - | 우측 아이콘 |
  * | `disabled` | `boolean` | `false` | 비활성화 |
@@ -57,7 +57,7 @@ const meta: Meta<typeof Button> = {
     size: {
       control: "select",
       options: ["small", "medium", "large"],
-      description: "크기. small=30px, medium=38px, large=46px",
+      description: "크기. small / medium / large",
     },
     disabled: { description: "비활성화 상태" },
     children: { description: "버튼 텍스트" },
