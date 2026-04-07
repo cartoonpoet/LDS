@@ -91,9 +91,8 @@ jobs:
         if: success()
         env:
           VERSION: ${{ steps.version.outputs.new_version }}
-          CHANGELOG: ${{ steps.changelog.outputs.logs }}
         run: |
-          TEXT=$(printf "✅ @lawkit/ui %s npm 배포 완료\n\n%s" "$VERSION" "$CHANGELOG")
+          TEXT="✅ @lawkit/ui $VERSION npm 배포 완료"
           curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
             -d chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" \
             --data-urlencode "text=$TEXT"
