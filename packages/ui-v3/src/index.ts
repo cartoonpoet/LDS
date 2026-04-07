@@ -28,6 +28,7 @@ export { RadioButtonGroup } from "./components/RadioButtonGroup";
 export type {
   RadioButtonGroupProps,
   RadioButtonGroupItem,
+  RadioButtonGroupVariant,
 } from "./components/RadioButtonGroup";
 
 export { ButtonTab } from "./components/ButtonTab";

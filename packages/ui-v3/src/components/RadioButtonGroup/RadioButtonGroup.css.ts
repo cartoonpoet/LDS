@@ -35,7 +35,6 @@ export const item = recipe({
     alignItems: "center",
     justifyContent: "center",
     gap: themeVars.spacing.x1,
-    border: `1px solid ${semanticColorRoles.border.subtle}`,
     borderRadius: themeVars.radius.sm,
     cursor: "pointer",
     fontFamily: themeVars.font.family,
@@ -45,8 +44,6 @@ export const item = recipe({
     transition:
       "background-color 150ms ease, color 150ms ease, border-color 150ms ease",
     flexShrink: 0,
-    backgroundColor: semanticColorRoles.surface.canvas,
-    color: semanticColorRoles.text.primary,
     selectors: {
       "&:focus-visible": {
         outline: "none",
@@ -54,12 +51,33 @@ export const item = recipe({
         zIndex: 1,
         position: "relative",
       },
-      "&:hover:not([aria-checked='true'])": {
-        backgroundColor: action.primary.subtle,
-      },
     },
   },
   variants: {
+    variant: {
+      /* neutral border, canvas bg — active: solid primary fill */
+      fill: {
+        border: `1px solid ${semanticColorRoles.border.subtle}`,
+        backgroundColor: semanticColorRoles.surface.canvas,
+        color: semanticColorRoles.text.primary,
+        selectors: {
+          "&:hover:not([aria-checked='true'])": {
+            backgroundColor: action.primary.subtle,
+          },
+        },
+      },
+      /* primary border, transparent bg, primary text — active: subtle tint */
+      outline: {
+        border: `1px solid ${action.primary.default}`,
+        backgroundColor: "transparent",
+        color: action.primary.default,
+        selectors: {
+          "&:hover:not([aria-checked='true'])": {
+            backgroundColor: action.primary.subtle,
+          },
+        },
+      },
+    },
     size: {
       small: {
         height: 31,
@@ -73,21 +91,34 @@ export const item = recipe({
       },
     },
     fullWidth: {
-      true: {
-        flex: 1,
-      },
+      true: { flex: 1 },
       false: {},
     },
     active: {
-      true: {
+      true: {},
+      false: {},
+    },
+  },
+  compoundVariants: [
+    {
+      variants: { variant: "fill", active: true },
+      style: {
         backgroundColor: action.primary.default,
         borderColor: action.primary.default,
         color: semanticColorRoles.text.inverse,
       },
-      false: {},
     },
-  },
+    {
+      variants: { variant: "outline", active: true },
+      style: {
+        backgroundColor: action.primary.subtleActive,
+        borderColor: action.primary.default,
+        color: action.primary.default,
+      },
+    },
+  ],
   defaultVariants: {
+    variant: "fill",
     size: "medium",
     fullWidth: false,
     active: false,

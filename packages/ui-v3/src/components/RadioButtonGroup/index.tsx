@@ -3,6 +3,8 @@ import { cx } from "../../lib/cx";
 import * as s from "./RadioButtonGroup.css";
 
 /* ─── Types ─── */
+export type RadioButtonGroupVariant = "fill" | "outline";
+
 export interface RadioButtonGroupItem {
   value: string;
   label: string;
@@ -13,6 +15,7 @@ export interface RadioButtonGroupProps {
   items: RadioButtonGroupItem[];
   value?: string;
   onChange?: (value: string) => void;
+  variant?: RadioButtonGroupVariant;
   size?: "small" | "medium";
   fullWidth?: boolean;
   gap?: number;
@@ -24,6 +27,7 @@ export const RadioButtonGroup = ({
   items,
   value,
   onChange,
+  variant = "fill",
   size = "medium",
   fullWidth = false,
   gap,
@@ -43,7 +47,7 @@ export const RadioButtonGroup = ({
             type="button"
             role="radio"
             aria-checked={isActive}
-            className={s.item({ size, fullWidth, active: isActive })}
+            className={s.item({ variant, size, fullWidth, active: isActive })}
             onClick={() => onChange?.(item.value)}
           >
             {item.icon && <span className={s.iconSlot}>{item.icon}</span>}

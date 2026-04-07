@@ -18,6 +18,11 @@ const meta: Meta<typeof RadioButtonGroup> = {
   decorators: [(Story) => <div className={lightThemeClass}><Story /></div>],
   tags: ["autodocs"],
   argTypes: {
+    variant: {
+      control: "select",
+      options: ["fill", "outline"],
+      description: "스타일. fill=neutral border + 활성 시 solid primary, outline=primary border + 활성 시 subtle tint",
+    },
     size: {
       control: "select",
       options: ["small", "medium"],
@@ -42,8 +47,12 @@ const defaultItems = [
   { value: "right", label: "Right" },
 ];
 
-export const Default: Story = {
-  args: { items: defaultItems, value: "left" },
+export const Fill: Story = {
+  args: { items: defaultItems, value: "left", variant: "fill", gap: 8 },
+};
+
+export const Outline: Story = {
+  args: { items: defaultItems, value: "left", variant: "outline", gap: 8 },
 };
 
 export const WithGap: Story = {

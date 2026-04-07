@@ -45,4 +45,11 @@ describe("RadioButtonGroup", () => {
     const radios = screen.getAllByRole("radio");
     expect(radios).toHaveLength(3);
   });
+
+  it("renders outline variant without error", () => {
+    renderWithUser(
+      <RadioButtonGroup items={items} value="b" variant="outline" onChange={() => {}} />,
+    );
+    expect(screen.getByText("Center").closest("button")).toHaveAttribute("aria-checked", "true");
+  });
 });
