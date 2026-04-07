@@ -84,18 +84,19 @@ export const item = recipe({
         },
       },
       /**
-       * subtle — inactive: neutral border + canvas bg + default text
-       *          active:  primary tint bg + primary border + primary text
-       *          (Zeplin "Custom Option" 선택 상태와 동일)
+       * subtle — inactive: secondary gray 테두리 + 거의 투명 bg + secondary gray 텍스트
+       *          active:  primary tint bg + primary 테두리 + primary 텍스트
+       *          (Zeplin "극비/일반" 비선택 ↔ "보안" 선택 디자인과 동일)
        */
       subtle: {
-        border: `1px solid ${semanticColorRoles.border.subtle}`,
-        backgroundColor: semanticColorRoles.surface.canvas,
-        color: semanticColorRoles.text.primary,
+        border: `1px solid ${action.secondary.subtle}`,
+        backgroundColor: "transparent",
+        color: semanticColorRoles.text.secondary,
         selectors: {
           "&:hover:not([aria-checked='true'])": {
             backgroundColor: action.primary.subtle,
             borderColor: action.primary.default,
+            color: action.primary.default,
           },
         },
       },
