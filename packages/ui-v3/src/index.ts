@@ -24,6 +24,12 @@ export type {
   ButtonGroupSize,
 } from "./components/ButtonGroup";
 
+export { RadioButtonGroup } from "./components/RadioButtonGroup";
+export type {
+  RadioButtonGroupProps,
+  RadioButtonGroupItem,
+} from "./components/RadioButtonGroup";
+
 export { ButtonTab } from "./components/ButtonTab";
 export type { ButtonTabProps, ButtonTabItem } from "./components/ButtonTab";
 
