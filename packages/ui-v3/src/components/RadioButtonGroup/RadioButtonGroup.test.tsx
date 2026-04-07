@@ -52,4 +52,11 @@ describe("RadioButtonGroup", () => {
     );
     expect(screen.getByText("Center").closest("button")).toHaveAttribute("aria-checked", "true");
   });
+
+  it("renders subtle variant without error", () => {
+    renderWithUser(
+      <RadioButtonGroup items={items} value="b" variant="subtle" onChange={() => {}} />,
+    );
+    expect(screen.getByText("Center").closest("button")).toHaveAttribute("aria-checked", "true");
+  });
 });

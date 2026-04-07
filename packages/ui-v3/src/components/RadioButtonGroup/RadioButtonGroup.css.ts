@@ -55,7 +55,10 @@ export const item = recipe({
   },
   variants: {
     variant: {
-      /* neutral border, canvas bg — active: solid primary fill */
+      /**
+       * fill — inactive: neutral border + canvas bg
+       *         active:  solid primary bg + inverse text
+       */
       fill: {
         border: `1px solid ${semanticColorRoles.border.subtle}`,
         backgroundColor: semanticColorRoles.surface.canvas,
@@ -66,7 +69,10 @@ export const item = recipe({
           },
         },
       },
-      /* primary border, transparent bg, primary text — active: subtle tint */
+      /**
+       * outline — inactive: primary border + transparent + primary text
+       *           active:  subtleActive tint + primary border + primary text
+       */
       outline: {
         border: `1px solid ${action.primary.default}`,
         backgroundColor: "transparent",
@@ -74,6 +80,22 @@ export const item = recipe({
         selectors: {
           "&:hover:not([aria-checked='true'])": {
             backgroundColor: action.primary.subtle,
+          },
+        },
+      },
+      /**
+       * subtle — inactive: neutral border + canvas bg + default text
+       *          active:  primary tint bg + primary border + primary text
+       *          (Zeplin "Custom Option" 선택 상태와 동일)
+       */
+      subtle: {
+        border: `1px solid ${semanticColorRoles.border.subtle}`,
+        backgroundColor: semanticColorRoles.surface.canvas,
+        color: semanticColorRoles.text.primary,
+        selectors: {
+          "&:hover:not([aria-checked='true'])": {
+            backgroundColor: action.primary.subtle,
+            borderColor: action.primary.default,
           },
         },
       },
@@ -100,6 +122,7 @@ export const item = recipe({
     },
   },
   compoundVariants: [
+    /* fill active */
     {
       variants: { variant: "fill", active: true },
       style: {
@@ -108,10 +131,20 @@ export const item = recipe({
         color: semanticColorRoles.text.inverse,
       },
     },
+    /* outline active */
     {
       variants: { variant: "outline", active: true },
       style: {
         backgroundColor: action.primary.subtleActive,
+        borderColor: action.primary.default,
+        color: action.primary.default,
+      },
+    },
+    /* subtle active */
+    {
+      variants: { variant: "subtle", active: true },
+      style: {
+        backgroundColor: action.primary.subtle,
         borderColor: action.primary.default,
         color: action.primary.default,
       },

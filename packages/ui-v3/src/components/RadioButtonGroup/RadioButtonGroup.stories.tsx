@@ -20,8 +20,9 @@ const meta: Meta<typeof RadioButtonGroup> = {
   argTypes: {
     variant: {
       control: "select",
-      options: ["fill", "outline"],
-      description: "스타일. fill=neutral border + 활성 시 solid primary, outline=primary border + 활성 시 subtle tint",
+      options: ["fill", "outline", "subtle"],
+      description:
+        "스타일. fill=solid primary 활성 | outline=항상 primary 테두리 | subtle=neutral 테두리 + 활성 시 primary tint",
     },
     size: {
       control: "select",
@@ -53,6 +54,10 @@ export const Fill: Story = {
 
 export const Outline: Story = {
   args: { items: defaultItems, value: "left", variant: "outline", gap: 8 },
+};
+
+export const Subtle: Story = {
+  args: { items: defaultItems, value: "left", variant: "subtle", gap: 8 },
 };
 
 export const WithGap: Story = {
