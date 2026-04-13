@@ -3,7 +3,7 @@ import { cx } from "../../lib/cx";
 import * as s from "./RadioButtonGroup.css";
 
 /* ─── Types ─── */
-export type RadioButtonGroupVariant = "fill" | "outline" | "subtle";
+export type RadioButtonGroupVariant = "fill" | "outline" | "subtle" | "secondary";
 
 export interface RadioButtonGroupItem {
   value: string;

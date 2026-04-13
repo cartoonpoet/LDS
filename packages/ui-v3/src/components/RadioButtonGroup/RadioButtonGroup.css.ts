@@ -100,6 +100,22 @@ export const item = recipe({
           },
         },
       },
+      /**
+       * secondary — inactive: secondary solid 테두리 + secondary 텍스트
+       *             active:  primary tint bg + primary 테두리 + primary 텍스트
+       */
+      secondary: {
+        border: `1px solid ${action.secondary.default}`,
+        backgroundColor: "transparent",
+        color: action.secondary.default,
+        selectors: {
+          "&:hover:not([aria-checked='true'])": {
+            backgroundColor: action.primary.subtle,
+            borderColor: action.primary.default,
+            color: action.primary.default,
+          },
+        },
+      },
     },
     size: {
       small: {
@@ -144,6 +160,15 @@ export const item = recipe({
     /* subtle active */
     {
       variants: { variant: "subtle", active: true },
+      style: {
+        backgroundColor: action.primary.subtle,
+        borderColor: action.primary.default,
+        color: action.primary.default,
+      },
+    },
+    /* secondary active */
+    {
+      variants: { variant: "secondary", active: true },
       style: {
         backgroundColor: action.primary.subtle,
         borderColor: action.primary.default,
