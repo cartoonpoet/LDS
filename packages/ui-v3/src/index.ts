@@ -1,4 +1,11 @@
 /* ─── Components ─── */
+export { AutoComplete } from "./components/AutoComplete";
+export type {
+  AutoCompleteProps,
+  AutoCompleteOption,
+  AutoCompleteSize,
+} from "./components/AutoComplete";
+
 export { Alert } from "./components/Alert";
 export type {
   AlertProps,
