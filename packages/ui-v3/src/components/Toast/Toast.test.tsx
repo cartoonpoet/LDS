@@ -1,6 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import React from "react";
 import { render, screen } from "../../test/utils";
+import userEvent from "@testing-library/user-event";
 import { Toast, ToastContainer } from ".";
 
 vi.mock("react-toastify", async (importOriginal) => {
@@ -186,6 +187,33 @@ describe("LDSToastContent", () => {
   it("showProgress=true이면 width 스타일로 progress가 렌더링된다", () => {
     const { container } = renderContent({ title: "알림", showProgress: true, progress: 67 });
     expect(container.querySelector('[style*="width: 67%"]')).not.toBeNull();
+  });
+
+  it("닫기 버튼 클릭 시 closeToast가 호출된다", async () => {
+    const mockCloseToast = vi.fn();
+    render(
+      <ToastContainer>
+        <Toast title="알림" onClose={vi.fn()} />
+      </ToastContainer>,
+    );
+    const renderFn = getToastRenderFn();
+    const element = renderFn({ closeToast: mockCloseToast });
+    render(element);
+    await userEvent.setup().click(screen.getByLabelText("닫기"));
+    expect(mockCloseToast).toHaveBeenCalledOnce();
+  });
+
+  it("커스텀 icon prop이 기본 아이콘 대신 렌더링된다", () => {
+    const customIcon = <span data-testid="custom-icon">★</span>;
+    render(
+      <ToastContainer>
+        <Toast title="알림" icon={customIcon} onClose={vi.fn()} />
+      </ToastContainer>,
+    );
+    const renderFn = getToastRenderFn();
+    const element = renderFn({ closeToast: vi.fn() });
+    render(element);
+    expect(screen.getByTestId("custom-icon")).toBeInTheDocument();
   });
 });
 
