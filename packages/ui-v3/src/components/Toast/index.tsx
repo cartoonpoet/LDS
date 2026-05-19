@@ -107,7 +107,7 @@ function LDSToastContent({
           {time && <span className={s.time}>{time}</span>}
         </div>
         {hasClose && (
-          <button type="button" className={s.closeBtn} onClick={closeToast} aria-label="닫기">
+          <button type="button" className={s.closeBtn} onClick={() => closeToast?.()} aria-label="닫기">
             <CloseIcon />
           </button>
         )}
@@ -178,7 +178,7 @@ export function Toast({
         icon: false,
         className: s.toastOverride,
         progressClassName: s.progressBar({ intent }),
-        hideProgressBar: showProgress,
+        hideProgressBar: showProgress || duration === 0 || !onClose,
       },
     );
     toastIdRef.current = id;
@@ -189,6 +189,7 @@ export function Toast({
         toastIdRef.current = null;
       }
     };
+  // Props are snapshot on mount. Dynamic prop changes are not reflected in a live toast.
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
