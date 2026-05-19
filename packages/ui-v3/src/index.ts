@@ -6,6 +6,15 @@ export type {
   AutoCompleteSize,
 } from "./components/AutoComplete";
 
+export { HStack, VStack } from "./components/Stack";
+export type {
+  HStackProps,
+  VStackProps,
+  StackGap,
+  StackAlign,
+  StackJustify,
+} from "./components/Stack";
+
 export { Alert } from "./components/Alert";
 export type {
   AlertProps,
