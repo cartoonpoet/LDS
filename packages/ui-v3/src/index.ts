@@ -6,15 +6,6 @@ export type {
   AutoCompleteSize,
 } from "./components/AutoComplete";
 
-export { HStack, VStack } from "./components/Stack";
-export type {
-  HStackProps,
-  VStackProps,
-  StackGap,
-  StackAlign,
-  StackJustify,
-} from "./components/Stack";
-
 export { Alert } from "./components/Alert";
 export type {
   AlertProps,
@@ -74,6 +65,15 @@ export type {
 
 export { Card, CardHeader, CardBody, CardFooter } from "./components/Card";
 export type { CardProps } from "./components/Card";
+
+export { HStack, VStack } from "./components/Stack";
+export type {
+  HStackProps,
+  VStackProps,
+  StackGap,
+  StackAlign,
+  StackJustify,
+} from "./components/Stack";
 
 export { Collapse, CollapseGroup } from "./components/Collapse";
 export type {
