@@ -17,6 +17,7 @@ export const root = style({
   backgroundColor: semanticColorRoles.surface.canvas,
   overflow: "hidden",
   fontFamily: themeVars.font.family,
+  pointerEvents: "auto",
 });
 
 /* ─── top row (icon + title + close) ─── */
