@@ -40,3 +40,23 @@ export function HStack({
     </div>
   );
 }
+
+export function VStack({
+  gap,
+  align,
+  justify,
+  className,
+  style,
+  children,
+  ...rest
+}: VStackProps) {
+  return (
+    <div
+      className={cx(s.stack({ direction: "column", align, justify }), className)}
+      style={gap ? { gap: themeVars.spacing[gap], ...style } : style}
+      {...rest}
+    >
+      {children}
+    </div>
+  );
+}
