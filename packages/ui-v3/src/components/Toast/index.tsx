@@ -1,8 +1,11 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useId, createContext, useContext } from "react";
 import type { ReactNode, HTMLAttributes } from "react";
 import { toast, ToastContainer as RTToastContainer } from "react-toastify";
 import type { Id, ToastContentProps } from "react-toastify";
 import * as s from "./Toast.css";
+
+/* ─── containerId context (docs 페이지 다중 컨테이너 충돌 방지) ─── */
+const ToastContainerIdContext = createContext<string | undefined>(undefined);
 
 /* ─── Types ─── */
 export type ToastIntent = "info" | "success" | "warning" | "error";
@@ -154,8 +157,11 @@ export function Toast({
   onClose,
 }: ToastProps) {
   const toastIdRef = useRef<Id | null>(null);
+  const isCleaningUpRef = useRef(false);
+  const containerId = useContext(ToastContainerIdContext);
 
   useEffect(() => {
+    isCleaningUpRef.current = false;
     const id = toast(
       ({ closeToast }: ToastContentProps) => (
         <LDSToastContent
@@ -171,13 +177,14 @@ export function Toast({
         />
       ),
       {
+        containerId,
         autoClose: duration === 0 || !onClose ? false : duration,
         pauseOnHover,
-        onClose,
+        // isCleaningUpRef 가드: 언마운트 시 dismiss로 인한 onClose 발화 방지
+        onClose: onClose ? () => { if (!isCleaningUpRef.current) onClose(); } : undefined,
         closeButton: false,
         icon: false,
-        className: s.toastOverride,
-        progressClassName: s.progressBar({ intent }),
+        className: s.toastOverride({ intent }),
         hideProgressBar: showProgress || duration === 0 || !onClose,
       },
     );
@@ -185,6 +192,7 @@ export function Toast({
 
     return () => {
       if (toastIdRef.current !== null) {
+        isCleaningUpRef.current = true;
         toast.dismiss(toastIdRef.current);
         toastIdRef.current = null;
       }
@@ -217,15 +225,17 @@ export interface ToastContainerProps {
  * ```
  */
 export function ToastContainer({ position = "top-right", children }: ToastContainerProps) {
+  const id = useId();
   return (
-    <>
+    <ToastContainerIdContext.Provider value={id}>
       {children}
       <RTToastContainer
+        containerId={id}
         position={position}
         closeButton={false}
         icon={false}
         style={{ width: 380 }}
       />
-    </>
+    </ToastContainerIdContext.Provider>
   );
 }

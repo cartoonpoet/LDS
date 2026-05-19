@@ -75,7 +75,7 @@ describe("Toast", () => {
     expect(options.pauseOnHover).toBe(false);
   });
 
-  it("onClose가 toast() 옵션으로 전달된다", () => {
+  it("onClose가 toast() 옵션으로 전달되고 호출 시 원본 onClose가 실행된다", () => {
     const onClose = vi.fn();
     render(
       <ToastContainer>
@@ -83,7 +83,9 @@ describe("Toast", () => {
       </ToastContainer>,
     );
     const options = vi.mocked(toast).mock.calls[0][1] as Record<string, unknown>;
-    expect(options.onClose).toBe(onClose);
+    expect(typeof options.onClose).toBe("function");
+    (options.onClose as () => void)();
+    expect(onClose).toHaveBeenCalledTimes(1);
   });
 
   it("언마운트 시 toast.dismiss()가 호출된다", () => {

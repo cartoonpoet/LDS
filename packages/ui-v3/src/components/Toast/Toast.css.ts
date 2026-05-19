@@ -1,4 +1,4 @@
-import { style } from "@vanilla-extract/css";
+import { style, createVar, globalStyle } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 import {
   semanticColorRoles,
@@ -9,6 +9,14 @@ import {
   redPalette,
   opacityPalette,
 } from "@lds/tokens";
+
+/* ─── react-toastify 카운트다운 바 색상 CSS 변수 ─── */
+export const progressColorVar = createVar();
+
+// react-toastify가 사용하는 기본 progress bar 배경을 CSS 변수로 오버라이드
+globalStyle(".Toastify__progress-bar-theme--light, .Toastify__progress-bar-theme--dark", {
+  background: progressColorVar,
+});
 
 /* ─── root ─── */
 export const root = style({
@@ -130,31 +138,23 @@ export const progressFill = recipe({
   defaultVariants: { intent: "info" },
 });
 
-/* ─── react-toastify wrapper override ─── */
-// react-toastify가 생성하는 wrapper div의 기본 스타일을 무력화
-export const toastOverride = style({
-  padding: 0,
-  margin: 0,
-  minHeight: "unset",
-  borderRadius: themeVars.radius.sm,
-  boxShadow: themeVars.shadow.raised,
-  backgroundColor: "transparent",
-  cursor: "default",
-});
-
-/* ─── react-toastify countdown progress bar ─── */
-// autoClose 카운트다운 바를 LDS 색상으로 오버라이드
-export const progressBar = recipe({
+/* ─── react-toastify wrapper override (intent별 카운트다운 바 색상 포함) ─── */
+export const toastOverride = recipe({
   base: {
-    height: 4,
-    opacity: 1,
+    padding: 0,
+    margin: 0,
+    minHeight: "unset",
+    borderRadius: themeVars.radius.sm,
+    boxShadow: themeVars.shadow.raised,
+    backgroundColor: "transparent",
+    cursor: "default",
   },
   variants: {
     intent: {
-      info: { background: semanticColorRoles.action.primary.default },
-      success: { background: greenPalette[400] },
-      warning: { background: yellowPalette[400] },
-      error: { background: redPalette[400] },
+      info: { vars: { [progressColorVar]: semanticColorRoles.action.primary.default } },
+      success: { vars: { [progressColorVar]: greenPalette[400] } },
+      warning: { vars: { [progressColorVar]: yellowPalette[400] } },
+      error: { vars: { [progressColorVar]: redPalette[400] } },
     },
   },
   defaultVariants: { intent: "info" },

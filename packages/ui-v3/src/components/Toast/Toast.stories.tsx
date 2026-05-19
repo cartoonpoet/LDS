@@ -1,7 +1,6 @@
 import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { lightThemeClass } from "@lds/tokens";
-import { ToastContainer as RTToastContainer } from "react-toastify";
 import { Toast, ToastContainer } from ".";
 
 /**
@@ -12,9 +11,8 @@ const meta: Meta<typeof Toast> = {
   component: Toast,
   decorators: [
     (Story) => (
-      <div className={lightThemeClass} style={{ padding: 24, backgroundColor: "#f2f4f6" }}>
+      <div className={lightThemeClass} style={{ padding: 24, backgroundColor: "#f2f4f6", minHeight: 120 }}>
         <Story />
-        <RTToastContainer />
       </div>
     ),
   ],
@@ -37,7 +35,11 @@ export const TemplateCode: Story = {
     intent: "info",
     duration: 0,
   },
-  render: (args) => <Toast {...args} onClose={() => alert("close")} />,
+  render: (args) => (
+    <ToastContainer position="bottom-left">
+      <Toast {...args} onClose={() => {}} />
+    </ToastContainer>
+  ),
   parameters: {
     docs: {
       source: {
@@ -85,7 +87,11 @@ export const OneRow: Story = {
     intent: "info",
     duration: 0,
   },
-  render: (args) => <Toast {...args} onClose={() => alert("close")} />,
+  render: (args) => (
+    <ToastContainer position="bottom-left">
+      <Toast {...args} onClose={() => {}} />
+    </ToastContainer>
+  ),
 };
 
 /** 2줄 (제목 + 설명) */
@@ -98,7 +104,11 @@ export const TwoRow: Story = {
     intent: "info",
     duration: 0,
   },
-  render: (args) => <Toast {...args} onClose={() => alert("close")} />,
+  render: (args) => (
+    <ToastContainer position="bottom-left">
+      <Toast {...args} onClose={() => {}} />
+    </ToastContainer>
+  ),
 };
 
 /** 1줄 + 프로그레스 바 (수동) */
@@ -110,7 +120,11 @@ export const OneRowWithProgress: Story = {
     progress: 67,
     duration: 0,
   },
-  render: (args) => <Toast {...args} onClose={() => alert("close")} />,
+  render: (args) => (
+    <ToastContainer position="bottom-left">
+      <Toast {...args} onClose={() => {}} />
+    </ToastContainer>
+  ),
 };
 
 /** 2줄 + 프로그레스 바 (수동) */
@@ -125,18 +139,22 @@ export const TwoRowWithProgress: Story = {
     progress: 67,
     duration: 0,
   },
-  render: (args) => <Toast {...args} onClose={() => alert("close")} />,
+  render: (args) => (
+    <ToastContainer position="bottom-left">
+      <Toast {...args} onClose={() => {}} />
+    </ToastContainer>
+  ),
 };
 
 /** Intent 비교 */
 export const Intents: Story = {
   render: () => (
-    <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+    <ToastContainer position="bottom-left">
       <Toast title="Info Toast" intent="info" duration={0} onClose={() => {}} />
       <Toast title="Success Toast" intent="success" duration={0} onClose={() => {}} />
       <Toast title="Warning Toast" intent="warning" duration={0} onClose={() => {}} />
       <Toast title="Error Toast" intent="error" duration={0} onClose={() => {}} />
-    </div>
+    </ToastContainer>
   ),
 };
 
@@ -146,7 +164,7 @@ export const AutoDismissCountdown: Story = {
     const [visible, setVisible] = useState(true);
 
     return (
-      <div>
+      <ToastContainer position="bottom-left">
         {!visible && (
           <button type="button" onClick={() => setVisible(true)} style={{ marginBottom: 12 }}>
             다시 표시
@@ -162,7 +180,7 @@ export const AutoDismissCountdown: Story = {
             onClose={() => setVisible(false)}
           />
         )}
-      </div>
+      </ToastContainer>
     );
   },
 };
