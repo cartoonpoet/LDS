@@ -1,67 +1,201 @@
-import { describe, it, expect, vi } from "vitest";
-import { render, screen, renderWithUser } from "../../test/utils";
-import { fireEvent, act } from "@testing-library/react";
+import { describe, it, expect, vi, beforeEach } from "vitest";
+import React from "react";
+import { render, screen } from "../../test/utils";
 import { Toast, ToastContainer } from ".";
 
+vi.mock("react-toastify", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("react-toastify")>();
+  const mockToastFn = vi.fn(() => "mock-toast-id" as import("react-toastify").Id);
+  (mockToastFn as unknown as { dismiss: ReturnType<typeof vi.fn> }).dismiss = vi.fn();
+  return {
+    ...actual,
+    toast: mockToastFn,
+  };
+});
+
+import { toast } from "react-toastify";
+
+beforeEach(() => {
+  vi.mocked(toast).mockClear();
+  (vi.mocked(toast) as unknown as { dismiss: ReturnType<typeof vi.fn> }).dismiss?.mockClear();
+});
+
+function getToastRenderFn() {
+  return vi.mocked(toast).mock.calls[0][0] as (props: { closeToast: () => void }) => React.ReactElement;
+}
+
 describe("Toast", () => {
-  it("renders title", () => {
-    render(<Toast title="알림" />);
-    expect(screen.getByText("알림")).toBeInTheDocument();
+  it("마운트 시 toast()를 1회 호출한다", () => {
+    render(
+      <ToastContainer>
+        <Toast title="알림" />
+      </ToastContainer>,
+    );
+    expect(toast).toHaveBeenCalledTimes(1);
   });
 
-  it("has role='alert'", () => {
-    render(<Toast title="알림" />);
-    expect(screen.getByRole("alert")).toBeInTheDocument();
+  it("null을 반환하므로 직접 DOM에 alert가 없다", () => {
+    const { container } = render(
+      <ToastContainer>
+        <Toast title="알림" />
+      </ToastContainer>,
+    );
+    // Toast trigger renders null; no alert directly in the container from the trigger
+    expect(container.querySelector('[role="alert"]')).toBeNull();
   });
 
-  it("renders description", () => {
-    render(<Toast title="알림" description="작업이 완료되었습니다." />);
+  it("duration=0이면 autoClose: false로 호출된다", () => {
+    render(
+      <ToastContainer>
+        <Toast title="알림" duration={0} />
+      </ToastContainer>,
+    );
+    const options = vi.mocked(toast).mock.calls[0][1] as Record<string, unknown>;
+    expect(options.autoClose).toBe(false);
+  });
+
+  it("duration=3000이면 autoClose: 3000으로 호출된다", () => {
+    render(
+      <ToastContainer>
+        <Toast title="알림" duration={3000} />
+      </ToastContainer>,
+    );
+    const options = vi.mocked(toast).mock.calls[0][1] as Record<string, unknown>;
+    expect(options.autoClose).toBe(3000);
+  });
+
+  it("pauseOnHover=false가 toast() 옵션으로 전달된다", () => {
+    render(
+      <ToastContainer>
+        <Toast title="알림" pauseOnHover={false} />
+      </ToastContainer>,
+    );
+    const options = vi.mocked(toast).mock.calls[0][1] as Record<string, unknown>;
+    expect(options.pauseOnHover).toBe(false);
+  });
+
+  it("onClose가 toast() 옵션으로 전달된다", () => {
+    const onClose = vi.fn();
+    render(
+      <ToastContainer>
+        <Toast title="알림" onClose={onClose} />
+      </ToastContainer>,
+    );
+    const options = vi.mocked(toast).mock.calls[0][1] as Record<string, unknown>;
+    expect(options.onClose).toBe(onClose);
+  });
+
+  it("언마운트 시 toast.dismiss()가 호출된다", () => {
+    const dismissSpy = vi.fn();
+    (vi.mocked(toast) as unknown as { dismiss: typeof dismissSpy }).dismiss = dismissSpy;
+
+    const { unmount } = render(
+      <ToastContainer>
+        <Toast title="알림" />
+      </ToastContainer>,
+    );
+    unmount();
+    expect(dismissSpy).toHaveBeenCalledWith("mock-toast-id");
+  });
+});
+
+describe("Toast — hideProgressBar 옵션", () => {
+  it("showProgress=false, duration=5000, onClose 있을 때 hideProgressBar=false", () => {
+    render(
+      <ToastContainer>
+        <Toast title="알림" showProgress={false} duration={5000} onClose={vi.fn()} />
+      </ToastContainer>,
+    );
+    const options = vi.mocked(toast).mock.calls[0][1] as Record<string, unknown>;
+    expect(options.hideProgressBar).toBe(false);
+  });
+
+  it("showProgress=true이면 hideProgressBar=true", () => {
+    render(
+      <ToastContainer>
+        <Toast title="알림" showProgress={true} duration={5000} onClose={vi.fn()} />
+      </ToastContainer>,
+    );
+    const options = vi.mocked(toast).mock.calls[0][1] as Record<string, unknown>;
+    expect(options.hideProgressBar).toBe(true);
+  });
+
+  it("duration=0이면 hideProgressBar=true", () => {
+    render(
+      <ToastContainer>
+        <Toast title="알림" showProgress={false} duration={0} onClose={vi.fn()} />
+      </ToastContainer>,
+    );
+    const options = vi.mocked(toast).mock.calls[0][1] as Record<string, unknown>;
+    expect(options.hideProgressBar).toBe(true);
+  });
+
+  it("onClose 없으면 hideProgressBar=true", () => {
+    render(
+      <ToastContainer>
+        <Toast title="알림" showProgress={false} duration={5000} />
+      </ToastContainer>,
+    );
+    const options = vi.mocked(toast).mock.calls[0][1] as Record<string, unknown>;
+    expect(options.hideProgressBar).toBe(true);
+  });
+});
+
+describe("LDSToastContent", () => {
+  function renderContent(props: Partial<Parameters<typeof Toast>[0]> & { title: string }) {
+    render(
+      <ToastContainer>
+        <Toast {...props} />
+      </ToastContainer>,
+    );
+    const renderFn = getToastRenderFn();
+    const element = renderFn({ closeToast: vi.fn() });
+    return render(element);
+  }
+
+  it("title이 렌더링된다", () => {
+    renderContent({ title: "알림 제목" });
+    expect(screen.getByText("알림 제목")).toBeInTheDocument();
+  });
+
+  it("description이 렌더링된다", () => {
+    renderContent({ title: "알림", description: "작업이 완료되었습니다." });
     expect(screen.getByText("작업이 완료되었습니다.")).toBeInTheDocument();
   });
 
-  it("renders time text", () => {
-    render(<Toast title="알림" time="3분 전" />);
+  it("time 텍스트가 렌더링된다", () => {
+    renderContent({ title: "알림", time: "3분 전" });
     expect(screen.getByText("3분 전")).toBeInTheDocument();
   });
 
-  it("renders close button when onClose is provided", () => {
-    render(<Toast title="알림" onClose={vi.fn()} />);
+  it("role=alert이 있다", () => {
+    renderContent({ title: "알림" });
+    expect(screen.getByRole("alert")).toBeInTheDocument();
+  });
+
+  it("onClose 있을 때 닫기 버튼이 렌더링된다", () => {
+    renderContent({ title: "알림", onClose: vi.fn() });
     expect(screen.getByLabelText("닫기")).toBeInTheDocument();
   });
 
-  it("does not render close button when onClose is absent", () => {
-    render(<Toast title="알림" />);
+  it("onClose 없을 때 닫기 버튼이 없다", () => {
+    renderContent({ title: "알림" });
     expect(screen.queryByLabelText("닫기")).not.toBeInTheDocument();
   });
 
-  it("enters exiting state on close button click", async () => {
-    const onClose = vi.fn();
-    const { user } = renderWithUser(<Toast title="알림" onClose={onClose} duration={0} />);
-    await user.click(screen.getByLabelText("닫기"));
-    // Close button sets isExiting=true, component re-renders with exit animation class
-    // In jsdom, CSS animations don't auto-fire, so we verify the close button triggers the flow
-    expect(screen.getByRole("alert")).toBeInTheDocument();
-  });
-
-  it("auto-dismisses after duration (timer fires)", () => {
-    vi.useFakeTimers();
-    const onClose = vi.fn();
-    render(<Toast title="알림" duration={3000} onClose={onClose} />);
-    act(() => { vi.advanceTimersByTime(3000); });
-    // Timer sets isExiting=true, component enters exit animation
-    // In real browser, animationEnd would fire and call onClose
-    expect(screen.getByRole("alert")).toBeInTheDocument();
-    vi.useRealTimers();
+  it("showProgress=true이면 width 스타일로 progress가 렌더링된다", () => {
+    const { container } = renderContent({ title: "알림", showProgress: true, progress: 67 });
+    expect(container.querySelector('[style*="width: 67%"]')).not.toBeNull();
   });
 });
 
 describe("ToastContainer", () => {
-  it("renders children via portal", () => {
+  it("children을 렌더링한다", () => {
     render(
       <ToastContainer>
-        <div data-testid="child">Child</div>
+        <div data-testid="child-node">Child</div>
       </ToastContainer>,
     );
-    expect(screen.getByTestId("child")).toBeInTheDocument();
+    expect(screen.getByTestId("child-node")).toBeInTheDocument();
   });
 });
