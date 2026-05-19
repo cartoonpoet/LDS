@@ -1,47 +1,22 @@
-import { style, keyframes } from "@vanilla-extract/css";
+import { style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
-import { semanticColorRoles, themeVars, grayPalette, greenPalette, yellowPalette, redPalette, opacityPalette } from "@lds/tokens";
-
-/* ─── keyframes ─── */
-
-const slideIn = keyframes({
-  from: { opacity: 0, transform: "translateX(100%)" },
-  to: { opacity: 1, transform: "translateX(0)" },
-});
-
-const slideOut = keyframes({
-  from: { opacity: 1, transform: "translateX(0)", maxHeight: 200 },
-  "70%": { opacity: 0, transform: "translateX(100%)", maxHeight: 200 },
-  to: { opacity: 0, transform: "translateX(100%)", maxHeight: 0, marginBottom: 0, padding: 0 },
-});
-
-const countdown = keyframes({
-  from: { width: "100%" },
-  to: { width: "0%" },
-});
+import {
+  semanticColorRoles,
+  themeVars,
+  grayPalette,
+  greenPalette,
+  yellowPalette,
+  redPalette,
+  opacityPalette,
+} from "@lds/tokens";
 
 /* ─── root ─── */
-export const root = recipe({
-  base: {
-    width: 380,
-    borderRadius: themeVars.radius.sm,
-    backgroundColor: semanticColorRoles.surface.canvas,
-    boxShadow: themeVars.shadow.raised,
-    overflow: "hidden",
-    fontFamily: themeVars.font.family,
-    pointerEvents: "auto",
-  },
-  variants: {
-    exiting: {
-      false: {
-        animation: `${slideIn} 300ms ease`,
-      },
-      true: {
-        animation: `${slideOut} 400ms ease forwards`,
-      },
-    },
-  },
-  defaultVariants: { exiting: false },
+export const root = style({
+  width: 380,
+  borderRadius: themeVars.radius.sm,
+  backgroundColor: semanticColorRoles.surface.canvas,
+  overflow: "hidden",
+  fontFamily: themeVars.font.family,
 });
 
 /* ─── top row (icon + title + close) ─── */
@@ -154,52 +129,32 @@ export const progressFill = recipe({
   defaultVariants: { intent: "info" },
 });
 
-/* ─── auto-dismiss countdown progress bar ─── */
-export const countdownTrack = style({
-  height: 4,
-  backgroundColor: opacityPalette.primary,
-  overflow: "hidden",
+/* ─── react-toastify wrapper override ─── */
+// react-toastify가 생성하는 wrapper div의 기본 스타일을 무력화
+export const toastOverride = style({
+  padding: 0,
+  margin: 0,
+  minHeight: "unset",
+  borderRadius: themeVars.radius.sm,
+  boxShadow: themeVars.shadow.raised,
+  backgroundColor: "transparent",
+  cursor: "default",
 });
 
-export const countdownFill = recipe({
+/* ─── react-toastify countdown progress bar ─── */
+// autoClose 카운트다운 바를 LDS 색상으로 오버라이드
+export const progressBar = recipe({
   base: {
-    height: "100%",
-    animation: `${countdown} linear forwards`,
+    height: 4,
+    opacity: 1,
   },
   variants: {
     intent: {
-      info: { backgroundColor: semanticColorRoles.action.primary.default },
-      success: { backgroundColor: greenPalette[400] },
-      warning: { backgroundColor: yellowPalette[400] },
-      error: { backgroundColor: redPalette[400] },
+      info: { background: semanticColorRoles.action.primary.default },
+      success: { background: greenPalette[400] },
+      warning: { background: yellowPalette[400] },
+      error: { background: redPalette[400] },
     },
   },
   defaultVariants: { intent: "info" },
-});
-
-/* ─── toast container (fixed position) ─── */
-export const container = recipe({
-  base: {
-    position: "fixed",
-    zIndex: 9999,
-    display: "flex",
-    flexDirection: "column",
-    gap: themeVars.spacing.x2,
-    pointerEvents: "none",
-  },
-  variants: {
-    position: {
-      "top-right": { top: themeVars.spacing.x4, right: themeVars.spacing.x4 },
-      "top-left": { top: themeVars.spacing.x4, left: themeVars.spacing.x4 },
-      "top-center": { top: themeVars.spacing.x4, left: "50%", transform: "translateX(-50%)" },
-      "bottom-right": { bottom: themeVars.spacing.x4, right: themeVars.spacing.x4 },
-      "bottom-left": { bottom: themeVars.spacing.x4, left: themeVars.spacing.x4 },
-      "bottom-center": { bottom: themeVars.spacing.x4, left: "50%", transform: "translateX(-50%)" },
-    },
-  },
-  defaultVariants: { position: "top-right" },
-});
-
-export const toastItem = style({
-  pointerEvents: "auto",
 });
