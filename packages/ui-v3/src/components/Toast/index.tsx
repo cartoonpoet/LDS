@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import type { ReactNode } from "react";
+import type { ReactNode, HTMLAttributes } from "react";
 import { toast, ToastContainer as RTToastContainer } from "react-toastify";
 import type { Id, ToastContentProps } from "react-toastify";
 import * as s from "./Toast.css";
@@ -14,7 +14,7 @@ export type ToastPosition =
   | "bottom-left"
   | "bottom-center";
 
-export interface ToastProps {
+export interface ToastProps extends HTMLAttributes<HTMLDivElement> {
   /** 아이콘 색상 의도 */
   intent?: ToastIntent;
   /** 커스텀 아이콘 (기본 제공) */
@@ -171,7 +171,7 @@ export function Toast({
         />
       ),
       {
-        autoClose: duration === 0 ? false : duration,
+        autoClose: duration === 0 || !onClose ? false : duration,
         pauseOnHover,
         onClose,
         closeButton: false,

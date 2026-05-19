@@ -58,7 +58,7 @@ describe("Toast", () => {
   it("duration=3000이면 autoClose: 3000으로 호출된다", () => {
     render(
       <ToastContainer>
-        <Toast title="알림" duration={3000} />
+        <Toast title="알림" duration={3000} onClose={vi.fn()} />
       </ToastContainer>,
     );
     const options = vi.mocked(toast).mock.calls[0][1] as Record<string, unknown>;

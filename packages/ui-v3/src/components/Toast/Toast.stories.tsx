@@ -1,6 +1,7 @@
 import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { lightThemeClass } from "@lds/tokens";
+import { ToastContainer as RTToastContainer } from "react-toastify";
 import { Toast, ToastContainer } from ".";
 
 /**
@@ -13,6 +14,7 @@ const meta: Meta<typeof Toast> = {
     (Story) => (
       <div className={lightThemeClass} style={{ padding: 24, backgroundColor: "#f2f4f6" }}>
         <Story />
+        <RTToastContainer />
       </div>
     ),
   ],
