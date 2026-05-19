@@ -1,7 +1,7 @@
-import { useState, useEffect, useCallback, useRef } from "react";
-import type { ReactNode, HTMLAttributes } from "react";
-import { cx } from "../../lib/cx";
-import { Portal } from "../../lib/Portal";
+import { useEffect, useRef } from "react";
+import type { ReactNode } from "react";
+import { toast, ToastContainer as RTToastContainer } from "react-toastify";
+import type { Id, ToastContentProps } from "react-toastify";
 import * as s from "./Toast.css";
 
 /* ─── Types ─── */
@@ -14,7 +14,7 @@ export type ToastPosition =
   | "bottom-left"
   | "bottom-center";
 
-export interface ToastProps extends HTMLAttributes<HTMLDivElement> {
+export interface ToastProps {
   /** 아이콘 색상 의도 */
   intent?: ToastIntent;
   /** 커스텀 아이콘 (기본 제공) */
@@ -58,7 +58,6 @@ const ErrorIcon = () => (
     <path d="M7 1a6 6 0 1 0 0 12A6 6 0 0 0 7 1Zm2.83 8.12a.5.5 0 0 1-.71.71L7 7.71 4.88 9.83a.5.5 0 0 1-.71-.71L6.29 7 4.17 4.88a.5.5 0 1 1 .71-.71L7 6.29l2.12-2.12a.5.5 0 0 1 .71.71L7.71 7l2.12 2.12Z" fill="currentColor" />
   </svg>
 );
-
 const CloseIcon = () => (
   <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M7 1 1 7M1 1l6 6" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
@@ -72,119 +71,32 @@ const defaultIcons: Record<ToastIntent, ReactNode> = {
   error: <ErrorIcon />,
 };
 
-/**
- * **Toast**
- *
- * 알림 토스트 메시지.
- *
- * - `intent`: info / success / warning / error
- * - `title` + `description`: 1줄 또는 2줄
- * - `showProgress` + `progress`: 하단 프로그레스 바 (수동 제어)
- * - `duration`: 자동 닫기 (기본 5000ms, 0이면 비활성)
- * - `pauseOnHover`: 호버 시 자동 닫기 일시정지 (기본 true)
- * - 자동 닫기 시 하단에 카운트다운 게이지 바 표시
- * - 닫힐 때 슬라이드 아웃 애니메이션
- */
-export function Toast({
-  intent = "info",
+/* ─── LDSToastContent (internal) ─── */
+interface LDSToastContentProps {
+  intent: ToastIntent;
+  icon?: ReactNode;
+  title: string;
+  time?: string;
+  description?: string;
+  showProgress?: boolean;
+  progress?: number;
+  hasClose: boolean;
+  closeToast?: () => void;
+}
+
+function LDSToastContent({
+  intent,
   icon,
   title,
   time,
   description,
-  showProgress = false,
-  progress = 0,
-  duration = 5000,
-  pauseOnHover = true,
-  onClose,
-  className,
-  ...rest
-}: ToastProps) {
-  const [isExiting, setIsExiting] = useState(false);
-  const [isPaused, setIsPaused] = useState(false);
-  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const remainingRef = useRef(duration);
-  const startTimeRef = useRef(Date.now());
-  const countdownRef = useRef<HTMLDivElement>(null);
-
-  const hasAutoDismiss = duration > 0 && !!onClose;
-
-  const startTimer = useCallback(() => {
-    if (!hasAutoDismiss) return;
-    startTimeRef.current = Date.now();
-    timerRef.current = setTimeout(() => {
-      setIsExiting(true);
-    }, remainingRef.current);
-  }, [hasAutoDismiss]);
-
-  const pauseTimer = useCallback(() => {
-    if (timerRef.current) {
-      clearTimeout(timerRef.current);
-      timerRef.current = null;
-    }
-    const elapsed = Date.now() - startTimeRef.current;
-    remainingRef.current = Math.max(0, remainingRef.current - elapsed);
-
-    // Pause the countdown bar CSS animation
-    if (countdownRef.current) {
-      countdownRef.current.style.animationPlayState = "paused";
-    }
-  }, []);
-
-  const resumeTimer = useCallback(() => {
-    if (countdownRef.current) {
-      countdownRef.current.style.animationPlayState = "running";
-    }
-    startTimer();
-  }, [startTimer]);
-
-  // Start auto-dismiss timer
-  useEffect(() => {
-    if (!hasAutoDismiss) return;
-    remainingRef.current = duration;
-    startTimer();
-    return () => {
-      if (timerRef.current) clearTimeout(timerRef.current);
-    };
-  }, [duration, hasAutoDismiss, startTimer]);
-
-  // Handle hover pause
-  const handleMouseEnter = useCallback(() => {
-    if (!pauseOnHover || !hasAutoDismiss) return;
-    setIsPaused(true);
-    pauseTimer();
-  }, [pauseOnHover, hasAutoDismiss, pauseTimer]);
-
-  const handleMouseLeave = useCallback(() => {
-    if (!pauseOnHover || !hasAutoDismiss) return;
-    setIsPaused(false);
-    resumeTimer();
-  }, [pauseOnHover, hasAutoDismiss, resumeTimer]);
-
-  // Handle exit animation end
-  const handleAnimationEnd = useCallback(
-    (e: React.AnimationEvent) => {
-      if (isExiting && onClose) {
-        onClose();
-      }
-    },
-    [isExiting, onClose],
-  );
-
-  // Manual close with exit animation
-  const handleClose = useCallback(() => {
-    if (timerRef.current) clearTimeout(timerRef.current);
-    setIsExiting(true);
-  }, []);
-
+  showProgress,
+  progress,
+  hasClose,
+  closeToast,
+}: LDSToastContentProps) {
   return (
-    <div
-      className={cx(s.root({ exiting: isExiting }), className)}
-      role="alert"
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      onAnimationEnd={handleAnimationEnd}
-      {...rest}
-    >
+    <div className={s.root} role="alert">
       {/* Top row */}
       <div className={s.top}>
         <div className={s.icon({ intent })}>
@@ -194,8 +106,8 @@ export function Toast({
           <span className={s.heading}>{title}</span>
           {time && <span className={s.time}>{time}</span>}
         </div>
-        {onClose && (
-          <button type="button" className={s.closeBtn} onClick={handleClose} aria-label="닫기">
+        {hasClose && (
+          <button type="button" className={s.closeBtn} onClick={closeToast} aria-label="닫기">
             <CloseIcon />
           </button>
         )}
@@ -209,18 +121,7 @@ export function Toast({
         <div className={s.progressTrack}>
           <div
             className={s.progressFill({ intent })}
-            style={{ width: `${Math.min(100, Math.max(0, progress))}%` }}
-          />
-        </div>
-      )}
-
-      {/* Auto-dismiss countdown bar */}
-      {hasAutoDismiss && !showProgress && (
-        <div className={s.countdownTrack}>
-          <div
-            ref={countdownRef}
-            className={s.countdownFill({ intent })}
-            style={{ animationDuration: `${duration}ms` }}
+            style={{ width: `${Math.min(100, Math.max(0, progress ?? 0))}%` }}
           />
         </div>
       )}
@@ -228,18 +129,85 @@ export function Toast({
   );
 }
 
+/**
+ * **Toast**
+ *
+ * 알림 토스트 메시지. react-toastify를 내부 엔진으로 사용.
+ *
+ * - `intent`: info / success / warning / error
+ * - `title` + `description`: 1줄 또는 2줄
+ * - `showProgress` + `progress`: 하단 프로그레스 바 (수동 제어)
+ * - `duration`: 자동 닫기 (기본 5000ms, 0이면 비활성)
+ * - `pauseOnHover`: 호버 시 자동 닫기 일시정지 (기본 true)
+ * - 자동 닫기 시 react-toastify 카운트다운 바 (intent 색상)
+ */
+export function Toast({
+  intent = "info",
+  icon,
+  title,
+  time,
+  description,
+  showProgress = false,
+  progress = 0,
+  duration = 5000,
+  pauseOnHover = true,
+  onClose,
+}: ToastProps) {
+  const toastIdRef = useRef<Id | null>(null);
+
+  useEffect(() => {
+    const id = toast(
+      ({ closeToast }: ToastContentProps) => (
+        <LDSToastContent
+          intent={intent}
+          icon={icon}
+          title={title}
+          time={time}
+          description={description}
+          showProgress={showProgress}
+          progress={progress}
+          hasClose={!!onClose}
+          closeToast={closeToast}
+        />
+      ),
+      {
+        autoClose: duration === 0 ? false : duration,
+        pauseOnHover,
+        onClose,
+        closeButton: false,
+        icon: false,
+        className: s.toastOverride,
+        progressClassName: s.progressBar({ intent }),
+        hideProgressBar: showProgress,
+      },
+    );
+    toastIdRef.current = id;
+
+    return () => {
+      if (toastIdRef.current !== null) {
+        toast.dismiss(toastIdRef.current);
+        toastIdRef.current = null;
+      }
+    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return null;
+}
+
 /* ─── ToastContainer ─── */
 export interface ToastContainerProps {
   /** 화면 위치 */
   position?: ToastPosition;
-  /** 토스트 목록 */
-  children: ReactNode;
+  /** 토스트 트리거 컴포넌트 목록 */
+  children?: ReactNode;
 }
 
 /**
  * **ToastContainer**
  *
  * 토스트를 화면 고정 위치에 렌더링하는 컨테이너.
+ * react-toastify의 ToastContainer를 래핑한다.
  *
  * ```tsx
  * <ToastContainer position="top-right">
@@ -249,10 +217,14 @@ export interface ToastContainerProps {
  */
 export function ToastContainer({ position = "top-right", children }: ToastContainerProps) {
   return (
-    <Portal>
-      <div className={s.container({ position })}>
-        {children}
-      </div>
-    </Portal>
+    <>
+      {children}
+      <RTToastContainer
+        position={position}
+        closeButton={false}
+        icon={false}
+        style={{ width: 380 }}
+      />
+    </>
   );
 }
