@@ -77,6 +77,7 @@ jobs:
           git add packages/ui-v3/package.json
           git commit -m "chore: release ${{ steps.version.outputs.new_version }} [skip ci]"
           git tag ${{ steps.version.outputs.new_version }}
+          git pull --rebase origin main
           git push origin main --follow-tags
 
       - name: Build
