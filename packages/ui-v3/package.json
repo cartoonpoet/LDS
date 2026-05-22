@@ -18,7 +18,9 @@
   ],
   "files": [
     "dist",
-    "README.md"
+    "README.md",
+    "CLAUDE.md",
+    "scripts"
   ],
   "publishConfig": {
     "access": "public"
@@ -50,7 +52,9 @@
     "prepublishOnly": "pnpm run build",
     "lint": "echo \"No lint configured yet\"",
     "check": "tsc --noEmit",
-    "test": "vitest run --config vitest.config.ts"
+    "test": "vitest run --config vitest.config.ts",
+    "docs": "node ../../scripts/generate-component-docs.mjs",
+    "postinstall": "node scripts/postinstall.js"
   },
   "devDependencies": {
     "@lds/tokens": "workspace:*",
