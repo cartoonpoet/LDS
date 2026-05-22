@@ -1,6 +1,9 @@
 import { existsSync, readFileSync, writeFileSync } from 'fs';
 import { join } from 'path';
 
+// 자기 자신 패키지 빌드 시에는 실행하지 않음
+if (process.env.npm_package_name === '@lawkit/ui') process.exit(0);
+
 // 소비 프로젝트 루트 (npm install 실행 위치)
 const projectRoot = process.cwd();
 
