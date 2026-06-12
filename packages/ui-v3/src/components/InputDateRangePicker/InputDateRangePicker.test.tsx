@@ -5,7 +5,7 @@ import "../../test/setup";
 import { renderWithUser, screen } from "../../test/utils";
 import { InputDateRangePicker, InputDateRangePickerSplit } from ".";
 
-function ControlledOneInput({
+const ControlledOneInput = ({
   initialStart = null,
   initialEnd = null,
   onChange,
@@ -13,7 +13,7 @@ function ControlledOneInput({
   initialStart?: Date | null;
   initialEnd?: Date | null;
   onChange?: (range: { start: Date | null; end: Date | null }) => void;
-}) {
+}) => {
   const [start, setStart] = useState<Date | null>(initialStart);
   const [end, setEnd] = useState<Date | null>(initialEnd);
   return (
@@ -27,9 +27,9 @@ function ControlledOneInput({
       }}
     />
   );
-}
+};
 
-function ControlledTwoInputs({
+const ControlledTwoInputs = ({
   initialStart = null,
   initialEnd = null,
   onChange,
@@ -37,7 +37,7 @@ function ControlledTwoInputs({
   initialStart?: Date | null;
   initialEnd?: Date | null;
   onChange?: (range: { start: Date | null; end: Date | null }) => void;
-}) {
+}) => {
   const [start, setStart] = useState<Date | null>(initialStart);
   const [end, setEnd] = useState<Date | null>(initialEnd);
   return (
@@ -51,8 +51,7 @@ function ControlledTwoInputs({
       }}
     />
   );
-}
-
+};
 describe("InputDateRangePicker", () => {
   it("renders one input without the calendar initially", () => {
     renderWithUser(<InputDateRangePicker startDate={null} endDate={null} />);
