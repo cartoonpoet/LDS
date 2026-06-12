@@ -3,6 +3,7 @@ import type { HTMLAttributes } from "react";
 import { cx } from "../../lib/cx";
 import { Input } from "../Input";
 import type { InputSize, InputState } from "../Input";
+import { Icon } from "../Icon";
 import { DatePicker } from "../DatePicker";
 import * as s from "./InputDatePicker.css";
 
@@ -11,43 +12,16 @@ import * as s from "./InputDatePicker.css";
    ═══════════════════════════════════════════ */
 
 /** Date → "yyyy-MM-dd" (빈 값이면 "") */
-export function formatYmd(date: Date | null | undefined): string {
+export const formatYmd = (date: Date | null | undefined): string => {
   if (!date) return "";
   const y = date.getFullYear();
   const m = String(date.getMonth() + 1).padStart(2, "0");
   const d = String(date.getDate()).padStart(2, "0");
   return `${y}-${m}-${d}`;
-}
+};
 
 /* ─── Calendar Icon ─── */
-function CalendarIcon() {
-  return (
-    <svg
-      width="16"
-      height="16"
-      viewBox="0 0 16 16"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      aria-hidden="true"
-    >
-      <rect
-        x="2"
-        y="3"
-        width="12"
-        height="11"
-        rx="2"
-        stroke="currentColor"
-        strokeWidth="1.3"
-      />
-      <path
-        d="M2 6.5h12M5.5 1.5v2.5M10.5 1.5v2.5"
-        stroke="currentColor"
-        strokeWidth="1.3"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
+const CalendarIcon = () => <Icon name="calendar" size="sm" />;
 
 /* ═══════════════════════════════════════════
    InputDatePicker (prototype)
@@ -90,7 +64,7 @@ export interface InputDatePickerProps
  * <InputDatePicker value={date} onChange={setDate} />
  * ```
  */
-export function InputDatePicker({
+export const InputDatePicker = ({
   value,
   onChange,
   placeholder = "날짜 선택",
@@ -101,7 +75,7 @@ export function InputDatePicker({
   maxDate,
   className,
   ...rest
-}: InputDatePickerProps) {
+}: InputDatePickerProps) => {
   const [open, setOpen] = useState(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
 

@@ -5,13 +5,13 @@ import { renderWithUser, screen } from "../../test/utils";
 import { InputDatePicker, formatYmd } from ".";
 
 /* 제어 컴포넌트 — 선택 후 input 값 반영 검증용 */
-function Controlled({
+const Controlled = ({
   initial = null,
   onChange,
 }: {
   initial?: Date | null;
   onChange?: (d: Date) => void;
-}) {
+}) => {
   const [date, setDate] = useState<Date | null>(initial);
   return (
     <InputDatePicker
@@ -22,8 +22,7 @@ function Controlled({
       }}
     />
   );
-}
-
+};
 describe("formatYmd", () => {
   it("formats a date as yyyy-MM-dd", () => {
     expect(formatYmd(new Date(2025, 5, 3))).toBe("2025-06-03");
