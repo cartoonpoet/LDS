@@ -46,6 +46,10 @@ export interface DateRangePickerProps
   endDate?: Date | null;
   /** 범위 변경 콜백 */
   onChange?: (range: { start: Date | null; end: Date | null }) => void;
+  /** 최소 선택 가능 날짜 */
+  minDate?: Date;
+  /** 최대 선택 가능 날짜 */
+  maxDate?: Date;
 }
 
 /* ═══════════════════════════════════════════
@@ -494,6 +498,8 @@ export function DateRangePicker({
   startDate,
   endDate,
   onChange,
+  minDate,
+  maxDate,
   className,
   ...rest
 }: DateRangePickerProps) {
@@ -554,6 +560,8 @@ export function DateRangePicker({
         year={leftYear}
         month={leftMonth}
         onPrevMonth={goToPrev}
+        minDate={minDate}
+        maxDate={maxDate}
         rangeStart={startDate}
         rangeEnd={endDate}
         onDateClick={handleDateClick}
@@ -565,6 +573,8 @@ export function DateRangePicker({
         year={rightYear}
         month={rightMonth}
         onNextMonth={goToNext}
+        minDate={minDate}
+        maxDate={maxDate}
         rangeStart={startDate}
         rangeEnd={endDate}
         onDateClick={handleDateClick}
