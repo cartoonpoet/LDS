@@ -3,60 +3,36 @@ import type { HTMLAttributes } from "react";
 import { cx } from "../../lib/cx";
 import { Input } from "../Input";
 import type { InputSize, InputState } from "../Input";
+import { Icon } from "../Icon";
 import { DateRangePicker } from "../DatePicker";
 import * as s from "./InputDateRangePicker.css";
 
-function formatYmd(date: Date | null | undefined): string {
+const formatYmd = (date: Date | null | undefined): string => {
   if (!date) return "";
   const y = date.getFullYear();
   const m = String(date.getMonth() + 1).padStart(2, "0");
   const d = String(date.getDate()).padStart(2, "0");
   return `${y}-${m}-${d}`;
-}
+};
 
-function formatRangeYmd(
+const formatRangeYmd = (
   startDate: Date | null | undefined,
   endDate: Date | null | undefined,
-): string {
+): string => {
   const start = formatYmd(startDate);
   const end = formatYmd(endDate);
   if (start && end) return `${start} ~ ${end}`;
   if (start) return `${start} ~`;
   if (end) return `~ ${end}`;
   return "";
-}
+};
 
-function CalendarIcon() {
-  return (
-    <svg
-      width="16"
-      height="16"
-      viewBox="0 0 16 16"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      aria-hidden="true"
-    >
-      <rect x="2" y="3" width="12" height="11" rx="2" stroke="currentColor" strokeWidth="1.3" />
-      <path
-        d="M2 6.5h12M5.5 1.5v2.5M10.5 1.5v2.5"
-        stroke="currentColor"
-        strokeWidth="1.3"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
+const CalendarIcon = () => <Icon name="calendar" size="sm" />;
 
-interface RangePickerBehaviorProps {
-  startDate?: Date | null;
-  endDate?: Date | null;
-  onChange?: (range: { start: Date | null; end: Date | null }) => void;
-  disabled?: boolean;
-  minDate?: Date;
-  maxDate?: Date;
-}
-
-function useRangePopover(onChange?: (range: { start: Date | null; end: Date | null }) => void, disabled = false) {
+const useRangePopover = (
+  onChange?: (range: { start: Date | null; end: Date | null }) => void,
+  disabled = false,
+) => {
   const [open, setOpen] = useState(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
 
@@ -74,24 +50,30 @@ function useRangePopover(onChange?: (range: { start: Date | null; end: Date | nu
 
   useEffect(() => {
     if (!open) return;
-    const handler = (e: MouseEvent) => {
-      if (wrapperRef.current && !wrapperRef.current.contains(e.target as Node)) setOpen(false);
+
+    const handleMouseDown = (event: MouseEvent) => {
+      if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
+        setOpen(false);
+      }
     };
-    document.addEventListener("mousedown", handler);
-    return () => document.removeEventListener("mousedown", handler);
+
+    document.addEventListener("mousedown", handleMouseDown);
+    return () => document.removeEventListener("mousedown", handleMouseDown);
   }, [open]);
 
   useEffect(() => {
     if (!open) return;
-    const handler = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setOpen(false);
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpen(false);
     };
-    document.addEventListener("keydown", handler);
-    return () => document.removeEventListener("keydown", handler);
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
   }, [open]);
 
-  return { open, setOpen, openCalendar, handleChange, wrapperRef };
-}
+  return { open, openCalendar, handleChange, wrapperRef };
+};
 
 export interface InputDateRangePickerProps extends Omit<HTMLAttributes<HTMLDivElement>, "onChange" | "defaultValue"> {
   startDate?: Date | null;
@@ -115,7 +97,7 @@ export interface InputDateRangePickerProps extends Omit<HTMLAttributes<HTMLDivEl
  * - 종료일 선택 완료 시 닫힘
  * - ESC / 바깥 클릭 → 닫힘
  */
-export function InputDateRangePicker({
+export const InputDateRangePicker = ({
   startDate,
   endDate,
   onChange,
@@ -127,7 +109,7 @@ export function InputDateRangePicker({
   maxDate,
   className,
   ...rest
-}: InputDateRangePickerProps) {
+}: InputDateRangePickerProps) => {
   const { open, openCalendar, handleChange, wrapperRef } = useRangePopover(onChange, disabled);
 
   return (
@@ -160,7 +142,7 @@ export function InputDateRangePicker({
       )}
     </div>
   );
-}
+};
 
 export interface InputDateRangePickerSplitProps
   extends Omit<HTMLAttributes<HTMLDivElement>, "onChange" | "defaultValue"> {
@@ -181,7 +163,7 @@ export interface InputDateRangePickerSplitProps
  *
  * Input 2개(시작일/종료일)로 범위를 보여주는 보조 variant입니다.
  */
-export function InputDateRangePickerSplit({
+export const InputDateRangePickerSplit = ({
   startDate,
   endDate,
   onChange,
@@ -194,7 +176,7 @@ export function InputDateRangePickerSplit({
   maxDate,
   className,
   ...rest
-}: InputDateRangePickerSplitProps) {
+}: InputDateRangePickerSplitProps) => {
   const { open, openCalendar, handleChange, wrapperRef } = useRangePopover(onChange, disabled);
 
   return (
@@ -241,4 +223,4 @@ export function InputDateRangePickerSplit({
       )}
     </div>
   );
-}
+};
