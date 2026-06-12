@@ -178,12 +178,26 @@ export type {
   RadioVariant,
   RadioGroupProps,
 } from "./components/Radio";
-
 export { DatePicker, DateRangePicker } from "./components/DatePicker";
 export type {
   DatePickerProps,
   DateRangePickerProps,
 } from "./components/DatePicker";
+
+export {
+  InputDatePicker,
+  formatYmd as formatInputDateYmd,
+} from "./components/InputDatePicker";
+export type { InputDatePickerProps } from "./components/InputDatePicker";
+
+export {
+  InputDateRangePicker,
+  InputDateRangePickerSplit,
+} from "./components/InputDateRangePicker";
+export type {
+  InputDateRangePickerProps,
+  InputDateRangePickerSplitProps,
+} from "./components/InputDateRangePicker";
 
 export {
   FileUploadArea,
