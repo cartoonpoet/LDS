@@ -21,8 +21,7 @@ export const root = recipe({
         gap: 0,
         padding: themeVars.spacing.x1,
         backgroundColor: grayPalette[100],
-        borderRadius: themeVars.radius.md,
-        overflow: "hidden",
+        borderRadius: 9999,
       },
     },
     size: {
@@ -95,7 +94,7 @@ export const item = recipe({
         },
       },
       segmented: {
-        borderRadius: 0,
+        borderRadius: 9999,
         backgroundColor: "transparent",
         color: semanticColorRoles.text.secondary,
         border: "1px solid transparent",
