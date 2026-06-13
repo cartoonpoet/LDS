@@ -20,9 +20,9 @@ const meta: Meta<typeof RadioButtonGroup> = {
   argTypes: {
     variant: {
       control: "select",
-      options: ["fill", "outline", "subtle", "secondary"],
+      options: ["fill", "outline", "subtle", "secondary", "segmented"],
       description:
-        "스타일. fill=solid primary 활성 | outline=항상 primary 테두리 | subtle=neutral 테두리 + 활성 시 primary tint | secondary=비선택 secondary + 선택 primary",
+        "스타일. fill=solid primary 활성 | outline=항상 primary 테두리 | subtle=neutral 테두리 + 활성 시 primary tint | secondary=비선택 secondary + 선택 primary | segmented=pill 세그먼트",
     },
     size: {
       control: "select",
@@ -64,8 +64,18 @@ export const Secondary: Story = {
   args: { items: defaultItems, value: "left", variant: "secondary", gap: 8 },
 };
 
-export const WithGap: Story = {
-  args: { items: defaultItems, value: "left", gap: 8 },
+export const Segmented: Story = {
+  name: "Segmented (Security)",
+  args: {
+    items: [
+      { value: "secret", label: "극비", icon: <InfoIcon /> },
+      { value: "shield", label: "보안", icon: <InfoIcon /> },
+      { value: "normal", label: "일반" },
+    ],
+    value: "shield",
+    variant: "segmented",
+    gap: 8,
+  },
 };
 
 export const FullWidth: Story = {
