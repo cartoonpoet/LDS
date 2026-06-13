@@ -170,7 +170,7 @@ export const SegmentedInteractive: Story = {
   render: () => {
     const [value, setValue] = useState("shield");
     return (
-      <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 16 }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
         <ButtonGroup
           items={[
             { value: "secret", label: "극비", icon: <SegmentedIcon name="secret" /> },
@@ -191,7 +191,7 @@ export const Interactive: Story = {
   render: () => {
     const [value, setValue] = useState("left");
     return (
-      <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 16 }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
         <ButtonGroup items={defaultItems} value={value} onChange={setValue} variant="fill" />
         <ButtonGroup items={defaultItems} value={value} onChange={setValue} variant="outline" />
         <p style={{ margin: 0 }}>Selected: <strong>{value}</strong></p>
