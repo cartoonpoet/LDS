@@ -94,7 +94,7 @@ export const item = recipe({
         },
       },
       segmented: {
-        borderRadius: 9999,
+        borderRadius: themeVars.radius.sm,
         backgroundColor: "transparent",
         color: semanticColorRoles.text.secondary,
         border: "1px solid transparent",
