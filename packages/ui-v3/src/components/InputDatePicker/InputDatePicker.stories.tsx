@@ -5,18 +5,16 @@ import { InputGroup } from "../Input";
 import { InputDatePicker, formatYmd } from ".";
 
 /**
- * **InputDatePicker** (프로토타입) — Input 박스 포커스/아이콘 클릭 시 캘린더가 팝오버로 열리는 날짜 선택 시안.
+ * **InputDatePicker** — Input 박스 포커스/아이콘 클릭 시 캘린더가 팝오버로 열리는 날짜 선택 컴포넌트.
  *
  * 기존 `DatePicker`(상시 노출 패널)와 달리, 평소에는 인풋만 보이고 상호작용 시에만 캘린더가 펼쳐집니다.
  *
  * - 포커스 / 클릭 → 캘린더 열림
  * - 날짜 선택 → 인풋에 `yyyy-MM-dd` 표시 후 닫힘
  * - ESC / 바깥 클릭 → 닫힘
- *
- * > ⚠️ 정식 라이브러리 export 전 검토용 시안입니다. (`@lds/ui-v3` 배럴 미포함)
  */
 const meta: Meta<typeof InputDatePicker> = {
-  title: "Prototypes/InputDatePicker",
+  title: "Components/InputDatePicker",
   component: InputDatePicker,
   decorators: [
     (Story) => (
