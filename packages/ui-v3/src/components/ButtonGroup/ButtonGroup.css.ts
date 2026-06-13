@@ -1,6 +1,6 @@
-import { style, globalStyle } from "@vanilla-extract/css";
+import { style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
-import { semanticColorRoles, themeVars } from "@lds/tokens";
+import { grayPalette, semanticColorRoles, themeVars } from "@lds/tokens";
 
 const action = semanticColorRoles.action;
 
@@ -16,6 +16,13 @@ export const root = recipe({
         overflow: "hidden",
       },
       outline: {},
+      segmented: {
+        alignItems: "center",
+        gap: 0,
+        padding: themeVars.spacing.x1,
+        backgroundColor: grayPalette[100],
+        borderRadius: 9999,
+      },
     },
     size: {
       small: {},
@@ -41,7 +48,7 @@ export const item = recipe({
     fontWeight: themeVars.font.weightMedium,
     textAlign: "center",
     lineHeight: 1,
-    transition: "background-color 150ms ease, color 150ms ease",
+    transition: "background-color 150ms ease, color 150ms ease, box-shadow 150ms ease, border-color 150ms ease",
     flexShrink: 0,
     selectors: {
       "&:focus-visible": {
@@ -86,6 +93,17 @@ export const item = recipe({
           },
         },
       },
+      segmented: {
+        borderRadius: 9999,
+        backgroundColor: "transparent",
+        color: semanticColorRoles.text.secondary,
+        border: "1px solid transparent",
+        selectors: {
+          "&:hover:not([data-active='true'])": {
+            color: semanticColorRoles.text.primary,
+          },
+        },
+      },
     },
     size: {
       small: {
@@ -115,6 +133,17 @@ export const item = recipe({
       variants: { variant: "outline", active: true },
       style: {
         backgroundColor: action.primary.subtle,
+      },
+    },
+    {
+      variants: { variant: "segmented", active: true },
+      style: {
+        backgroundColor: semanticColorRoles.surface.canvas,
+        color: action.primary.default,
+        borderColor: semanticColorRoles.border.subtle,
+        boxShadow: themeVars.shadow.raised,
+        position: "relative",
+        zIndex: 1,
       },
     },
   ],

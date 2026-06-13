@@ -3,7 +3,7 @@ import { cx } from "../../lib/cx";
 import * as s from "./ButtonGroup.css";
 
 /* ─── Types ─── */
-export type ButtonGroupVariant = "fill" | "outline";
+export type ButtonGroupVariant = "fill" | "outline" | "segmented";
 export type ButtonGroupSize = "small" | "medium";
 
 export interface ButtonGroupItem {

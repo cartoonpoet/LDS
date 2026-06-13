@@ -1,7 +1,8 @@
 import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import { ButtonGroup } from ".";
 import { lightThemeClass } from "@lds/tokens";
+import { Icon } from "../Icon";
+import { ButtonGroup } from ".";
 
 const InfoIcon = () => (
   <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -11,6 +12,8 @@ const InfoIcon = () => (
     />
   </svg>
 );
+
+const SegmentedIcon = ({ name }: { name: "secret" | "shield" }) => <Icon name={name} size="sm" />;
 
 /**
  * ## ButtonGroup
@@ -29,7 +32,7 @@ const InfoIcon = () => (
  * | `items` | `ButtonGroupItem[]` | **필수** | 버튼 아이템 목록 `{ value, label, icon? }` |
  * | `value` | `string` | - | 현재 선택된 값 |
  * | `onChange` | `(value: string) => void` | - | 선택 변경 핸들러 |
- * | `variant` | `"fill" \| "outline"` | `"fill"` | 스타일. fill=Solid 채움, outline=테두리 |
+ * | `variant` | `"fill" \| "outline" \| "segmented"` | `"fill"` | 스타일. segmented=pill 세그먼트 컨트롤 |
  * | `size` | `"small" \| "medium"` | `"medium"` | 크기. small=31px, medium=38px |
  * | `className` | `string` | - | 추가 CSS 클래스 |
  *
@@ -50,8 +53,8 @@ const meta: Meta<typeof ButtonGroup> = {
   argTypes: {
     variant: {
       control: "select",
-      options: ["fill", "outline"],
-      description: "스타일. fill=Solid 채움, outline=테두리",
+      options: ["fill", "outline", "segmented"],
+      description: "스타일. segmented=pill 세그먼트 컨트롤",
     },
     size: {
       control: "select",
@@ -147,6 +150,40 @@ export const WithIconsOutline: Story = {
     ],
     value: "left",
     variant: "outline",
+  },
+};
+
+export const Segmented: Story = {
+  name: "Segmented (Security)",
+  args: {
+    items: [
+      { value: "secret", label: "극비", icon: <SegmentedIcon name="secret" /> },
+      { value: "shield", label: "보안", icon: <SegmentedIcon name="shield" /> },
+      { value: "normal", label: "일반" },
+    ],
+    value: "shield",
+    variant: "segmented",
+  },
+};
+
+export const SegmentedInteractive: Story = {
+  render: () => {
+    const [value, setValue] = useState("shield");
+    return (
+      <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+        <ButtonGroup
+          items={[
+            { value: "secret", label: "극비", icon: <SegmentedIcon name="secret" /> },
+            { value: "shield", label: "보안", icon: <SegmentedIcon name="shield" /> },
+            { value: "normal", label: "일반" },
+          ]}
+          value={value}
+          onChange={setValue}
+          variant="segmented"
+        />
+        <p style={{ margin: 0 }}>Selected: <strong>{value}</strong></p>
+      </div>
+    );
   },
 };
 
