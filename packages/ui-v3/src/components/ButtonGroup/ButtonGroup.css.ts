@@ -21,8 +21,6 @@ export const root = recipe({
         gap: 0,
         padding: themeVars.spacing.x1,
         backgroundColor: grayPalette[100],
-        borderRadius: themeVars.radius.md,
-        overflow: "hidden",
       },
     },
     size: {
