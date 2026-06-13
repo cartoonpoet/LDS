@@ -24,7 +24,7 @@ export const formatYmd = (date: Date | null | undefined): string => {
 const CalendarIcon = () => <Icon name="calendar" size="sm" />;
 
 /* ═══════════════════════════════════════════
-   InputDatePicker (prototype)
+   InputDatePicker
    ═══════════════════════════════════════════ */
 
 export interface InputDatePickerProps
@@ -48,7 +48,7 @@ export interface InputDatePickerProps
 }
 
 /**
- * **InputDatePicker** (프로토타입)
+ * **InputDatePicker**
  *
  * Input 박스에 포커스하거나 캘린더 아이콘을 클릭하면 `DatePicker` 캘린더가
  * 팝오버로 펼쳐지는 날짜 선택 컴포넌트.

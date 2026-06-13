@@ -5,7 +5,7 @@ import { InputGroup } from "../Input";
 import { InputDateRangePicker, InputDateRangePickerSplit } from ".";
 
 const meta: Meta<typeof InputDateRangePicker> = {
-  title: "Prototypes/InputDateRangePicker",
+  title: "Components/InputDateRangePicker",
   component: InputDateRangePicker,
   decorators: [
     (Story) => (

@@ -88,7 +88,7 @@ export interface InputDateRangePickerProps extends Omit<HTMLAttributes<HTMLDivEl
 }
 
 /**
- * **InputDateRangePicker** (프로토타입)
+ * **InputDateRangePicker**
  *
  * 하나의 Input에 `yyyy-MM-dd ~ yyyy-MM-dd` 형태로 범위를 표시하는 기본안입니다.
  *
@@ -159,7 +159,7 @@ export interface InputDateRangePickerSplitProps
 }
 
 /**
- * **InputDateRangePickerSplit** (프로토타입)
+ * **InputDateRangePickerSplit**
  *
  * Input 2개(시작일/종료일)로 범위를 보여주는 보조 variant입니다.
  */
