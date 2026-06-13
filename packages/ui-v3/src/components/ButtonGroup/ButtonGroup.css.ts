@@ -142,6 +142,7 @@ export const item = recipe({
         backgroundColor: semanticColorRoles.surface.canvas,
         color: action.primary.default,
         borderColor: semanticColorRoles.border.subtle,
+        borderRadius: themeVars.radius.md,
         boxShadow: themeVars.shadow.raised,
         position: "relative",
         zIndex: 1,
