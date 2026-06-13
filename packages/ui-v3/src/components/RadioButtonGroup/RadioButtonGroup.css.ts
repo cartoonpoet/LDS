@@ -1,6 +1,6 @@
 import { style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
-import { semanticColorRoles, themeVars } from "@lds/tokens";
+import { grayPalette, semanticColorRoles, themeVars } from "@lds/tokens";
 
 const action = semanticColorRoles.action;
 
@@ -10,6 +10,19 @@ export const root = recipe({
     display: "inline-flex",
   },
   variants: {
+    variant: {
+      fill: {},
+      outline: {},
+      subtle: {},
+      secondary: {},
+      segmented: {
+        alignItems: "center",
+        gap: 0,
+        padding: themeVars.spacing.x1,
+        backgroundColor: grayPalette[100],
+        borderRadius: 9999,
+      },
+    },
     size: {
       small: {},
       medium: {},
@@ -42,7 +55,7 @@ export const item = recipe({
     textAlign: "center",
     lineHeight: 1,
     transition:
-      "background-color 150ms ease, color 150ms ease, border-color 150ms ease",
+      "background-color 150ms ease, color 150ms ease, border-color 150ms ease, box-shadow 150ms ease",
     flexShrink: 0,
     selectors: {
       "&:focus-visible": {
@@ -86,7 +99,6 @@ export const item = recipe({
       /**
        * subtle — inactive: secondary gray 테두리 + 거의 투명 bg + secondary gray 텍스트
        *          active:  primary tint bg + primary 테두리 + primary 텍스트
-       *          (Zeplin "극비/일반" 비선택 ↔ "보안" 선택 디자인과 동일)
        */
       subtle: {
         border: `1px solid ${action.secondary.subtle}`,
@@ -113,6 +125,17 @@ export const item = recipe({
             backgroundColor: action.primary.subtle,
             borderColor: action.primary.default,
             color: action.primary.default,
+          },
+        },
+      },
+      segmented: {
+        border: "1px solid transparent",
+        borderRadius: 9999,
+        backgroundColor: "transparent",
+        color: semanticColorRoles.text.secondary,
+        selectors: {
+          "&:hover:not([aria-checked='true'])": {
+            color: semanticColorRoles.text.primary,
           },
         },
       },
@@ -173,6 +196,17 @@ export const item = recipe({
         backgroundColor: action.primary.subtle,
         borderColor: action.primary.default,
         color: action.primary.default,
+      },
+    },
+    {
+      variants: { variant: "segmented", active: true },
+      style: {
+        backgroundColor: semanticColorRoles.surface.canvas,
+        borderColor: semanticColorRoles.border.subtle,
+        boxShadow: themeVars.shadow.raised,
+        color: action.primary.default,
+        position: "relative",
+        zIndex: 1,
       },
     },
   ],

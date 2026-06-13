@@ -59,4 +59,11 @@ describe("RadioButtonGroup", () => {
     );
     expect(screen.getByText("Center").closest("button")).toHaveAttribute("aria-checked", "true");
   });
+
+  it("renders segmented variant without error", () => {
+    renderWithUser(
+      <RadioButtonGroup items={items} value="b" variant="segmented" onChange={() => {}} />,
+    );
+    expect(screen.getByText("Center").closest("button")).toHaveAttribute("aria-checked", "true");
+  });
 });

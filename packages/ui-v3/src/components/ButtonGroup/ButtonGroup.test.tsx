@@ -27,4 +27,16 @@ describe("ButtonGroup", () => {
     await user.click(screen.getByText("Right"));
     expect(onChange).toHaveBeenCalledWith("c");
   });
+
+  it("supports segmented variant", async () => {
+    const onChange = vi.fn();
+    const { user } = renderWithUser(
+      <ButtonGroup items={items} value="b" onChange={onChange} variant="segmented" />,
+    );
+
+    expect(screen.getByText("Center").closest("button")).toHaveAttribute("aria-pressed", "true");
+
+    await user.click(screen.getByText("Right"));
+    expect(onChange).toHaveBeenCalledWith("c");
+  });
 });
