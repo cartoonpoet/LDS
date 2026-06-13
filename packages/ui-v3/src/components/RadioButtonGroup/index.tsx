@@ -3,7 +3,7 @@ import { cx } from "../../lib/cx";
 import * as s from "./RadioButtonGroup.css";
 
 /* ─── Types ─── */
-export type RadioButtonGroupVariant = "fill" | "outline" | "subtle" | "secondary" | "segmented";
+export type RadioButtonGroupVariant = "fill" | "outline" | "subtle" | "secondary";
 
 export interface RadioButtonGroupItem {
   value: string;
@@ -36,7 +36,7 @@ export const RadioButtonGroup = ({
   return (
     <div
       role="radiogroup"
-      className={cx(s.root({ variant, size, fullWidth }), className)}
+      className={cx(s.root({ size, fullWidth }), className)}
       style={gap !== undefined ? { gap } : undefined}
     >
       {items.map((item) => {
