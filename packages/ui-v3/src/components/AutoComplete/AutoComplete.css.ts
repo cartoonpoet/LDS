@@ -186,6 +186,35 @@ export const option = recipe({
   defaultVariants: { highlighted: false },
 });
 
+/* ─── rich option item (renderOption 사용 시) ─── */
+/* 내용은 renderOption이 채우므로 패딩 0, 하이라이트는 강한 색반전 대신 옅은 배경만 */
+export const richOption = recipe({
+  base: {
+    display: "block",
+    width: "100%",
+    padding: 0,
+    border: "none",
+    backgroundColor: "transparent",
+    cursor: "pointer",
+    textAlign: "left",
+    boxSizing: "border-box",
+    transition: "background-color 100ms ease",
+  },
+  variants: {
+    highlighted: {
+      true: { backgroundColor: grayPalette[100] },
+      false: {},
+    },
+  },
+  defaultVariants: { highlighted: false },
+});
+
+/* ─── dropdown footer slot (예: 신규 등록) ─── */
+export const footer = style({
+  borderTop: `1px solid ${grayPalette[200]}`,
+  listStyle: "none",
+});
+
 /* ─── no results ─── */
 export const noResult = style({
   padding: `6px ${themeVars.spacing.x3}`,

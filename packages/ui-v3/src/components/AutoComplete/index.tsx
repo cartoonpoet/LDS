@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, useCallback } from "react";
-import type { InputHTMLAttributes } from "react";
+import type { InputHTMLAttributes, ReactNode } from "react";
 import { cx } from "../../lib/cx";
 import * as s from "./AutoComplete.css";
 
@@ -33,6 +33,21 @@ export interface AutoCompleteProps
   noResultText?: string;
   /** wrapper className */
   className?: string;
+  /**
+   * 옵션 행 커스텀 렌더(리치 옵션). 주어지면 `label` 대신 이 결과를 행 내용으로 렌더한다.
+   * MUI `renderOption` / Ant `optionRender`와 같은 패턴.
+   */
+  renderOption?: (
+    option: AutoCompleteOption,
+    state: { highlighted: boolean; selected: boolean },
+  ) => ReactNode;
+  /** 드롭다운 하단 슬롯(예: "검색 결과에 없으면 신규 등록"). 결과 유무와 무관하게 표시된다. */
+  footer?: ReactNode;
+  /**
+   * multiple 모드에서 선택된 옵션을 목록에서 빼지 않고 유지한다(선택 표시·클릭 토글).
+   * 기본 false(선택 시 목록에서 제외하고 badge로만 표시).
+   */
+  showSelectedInList?: boolean;
 }
 
 /* ─── Icons ─── */
@@ -74,6 +89,9 @@ export function AutoComplete({
   noResultText = "검색 결과가 없습니다",
   placeholder,
   className,
+  renderOption,
+  footer,
+  showSelectedInList = false,
   ...rest
 }: AutoCompleteProps) {
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -102,7 +120,7 @@ export function AutoComplete({
 
   /* ─── filter options ─── */
   const filtered = options.filter((o) => {
-    if (multiple && selectedValues.includes(o.value)) return false;
+    if (multiple && !showSelectedInList && selectedValues.includes(o.value)) return false;
     if (!inputText) return true;
     return o.label.toLowerCase().includes(inputText.toLowerCase());
   });
@@ -124,9 +142,15 @@ export function AutoComplete({
       setHighlightIndex(-1);
 
       if (multiple) {
-        const next = [...selectedValues, option.value];
+        // showSelectedInList: 이미 선택된 항목 클릭 시 토글(제거), 아니면 추가
+        const isSelected = selectedValues.includes(option.value);
+        const next =
+          showSelectedInList && isSelected
+            ? selectedValues.filter((v) => v !== option.value)
+            : [...selectedValues, option.value];
         setInputText("");
-        setIsOpen(false);
+        // 선택 항목을 목록에 유지하는 모드면 연속 선택을 위해 패널을 닫지 않는다
+        if (!showSelectedInList) setIsOpen(false);
         onChange?.(next, option);
       } else {
         setInputText(option.label);
@@ -245,24 +269,37 @@ export function AutoComplete({
       {showPanel && (
         <ul className={s.panel} role="listbox">
           {filtered.length > 0 ? (
-            filtered.map((opt, idx) => (
-              <li
-                key={opt.value}
-                role="option"
-                aria-selected={selectedValues.includes(opt.value)}
-                className={s.option({ highlighted: idx === highlightIndex })}
-                onMouseEnter={() => setHighlightIndex(idx)}
-                onMouseLeave={() => setHighlightIndex(-1)}
-                onMouseDown={(e) => {
-                  e.preventDefault();
-                  handleSelect(opt);
-                }}
-              >
-                {opt.label}
-              </li>
-            ))
+            filtered.map((opt, idx) => {
+              const selected = selectedValues.includes(opt.value);
+              const highlighted = idx === highlightIndex;
+              return (
+                <li
+                  key={opt.value}
+                  role="option"
+                  aria-selected={selected}
+                  className={
+                    renderOption
+                      ? s.richOption({ highlighted })
+                      : s.option({ highlighted })
+                  }
+                  onMouseEnter={() => setHighlightIndex(idx)}
+                  onMouseLeave={() => setHighlightIndex(-1)}
+                  onMouseDown={(e) => {
+                    e.preventDefault();
+                    handleSelect(opt);
+                  }}
+                >
+                  {renderOption ? renderOption(opt, { highlighted, selected }) : opt.label}
+                </li>
+              );
+            })
           ) : (
             <li className={s.noResult}>{noResultText}</li>
+          )}
+          {footer != null && (
+            <li className={s.footer} onMouseDown={(e) => e.preventDefault()}>
+              {footer}
+            </li>
           )}
         </ul>
       )}
