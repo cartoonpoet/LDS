@@ -45,7 +45,7 @@ export interface AutoCompleteProps
   footer?: ReactNode;
   /**
    * multiple 모드에서 선택된 옵션을 목록에서 빼지 않고 유지한다(선택 표시·클릭 토글).
-   * 기본 false(선택 시 목록에서 제외하고 badge로만 표시).
+   * 기본 false(선택 시 목록에서 제외하고 badge로만 표시). dz
    */
   showSelectedInList?: boolean;
 }
