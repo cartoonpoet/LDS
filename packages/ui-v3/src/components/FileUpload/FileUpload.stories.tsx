@@ -138,6 +138,38 @@ export const WithFiles: Story = {
   },
 };
 
+/** variant="basic" — 점선 박스 (버튼 상단 · 좌측 설명) */
+export const Basic: Story = {
+  name: "Basic (점선 박스)",
+  render: () => {
+    const [files, setFiles] = useState([
+      { name: "SW공급계약서_v2.docx", size: "DOCX · 1.2MB" },
+    ]);
+    return (
+      <FileUploadArea
+        variant="basic"
+        accept=".docx,.hwp,.pdf"
+        description="파일을 여기에 드래그하거나 버튼을 클릭해 선택하세요. · 가능한 워드(.docx) 권장"
+        onFilesAdded={(newFiles) =>
+          setFiles((prev) => [
+            ...prev,
+            ...newFiles.map((f) => ({ name: f.name, size: `${(f.size / 1024 / 1024).toFixed(1)} MB` })),
+          ])
+        }
+      >
+        {files.map((f) => (
+          <FileItem
+            key={f.name}
+            filename={f.name}
+            fileMeta={f.size}
+            onDelete={() => setFiles((prev) => prev.filter((x) => x.name !== f.name))}
+          />
+        ))}
+      </FileUploadArea>
+    );
+  },
+};
+
 /** 이미지 썸네일 — 사이즈 비교 */
 export const Thumbnails: Story = {
   name: "Thumbnail Sizes",

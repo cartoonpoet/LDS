@@ -104,6 +104,8 @@ function ExpandIcon() {
    FileUploadArea
    ═══════════════════════════════════════════ */
 
+export type FileUploadAreaVariant = "ai" | "basic";
+
 export interface FileUploadAreaProps
   extends Omit<HTMLAttributes<HTMLDivElement>, "onChange"> {
   /** 파일 추가 콜백 */
@@ -114,6 +116,12 @@ export interface FileUploadAreaProps
   accept?: string;
   /** 추가 버튼 영역 */
   extra?: ReactNode;
+  /**
+   * 시각 변형.
+   * - `ai`(기본): 그래디언트 보더 + 'AI 파일 분석' 헤더 (중앙 정렬)
+   * - `basic`: 점선 박스 + 버튼 상단 · 좌측 설명
+   */
+  variant?: FileUploadAreaVariant;
   /** 첨부 파일 목록 (children) */
   children?: ReactNode;
 }
@@ -123,14 +131,13 @@ export interface FileUploadAreaProps
  *
  * 드래그 앤 드롭 파일 업로드 영역.
  *
- * - 그래디언트 보더 (cyan → primary blue)
- * - AI 아이콘 + 설명 텍스트
- * - 파일 첨부 버튼
+ * - `variant="ai"`(기본): 그래디언트 보더 + AI 아이콘 + 설명, 버튼 하단 중앙
+ * - `variant="basic"`: 점선 박스 + 회색 배경, '파일 첨부' 버튼 상단 · 좌측 정렬 설명
  * - children으로 첨부된 파일 목록 렌더링
  *
  * ```tsx
- * <FileUploadArea onFilesAdded={handleFiles} description="파일을 드래그하세요">
- *   {files.map(f => <FileItem key={f.name} filename={f.name} />)}
+ * <FileUploadArea variant="basic" onFilesAdded={handleFiles} description="파일을 드래그하세요">
+ *   {files.map(f => <FileItem key={f.name} filename={f.name} fileMeta="DOCX · 1.2MB" />)}
  * </FileUploadArea>
  * ```
  */
@@ -139,6 +146,7 @@ export function FileUploadArea({
   description = "파일을 이 영역에 드래그하거나 '파일 첨부' 버튼을 클릭하여 업로드하세요.",
   accept,
   extra,
+  variant = "ai",
   children,
   className,
   ...rest
@@ -174,15 +182,43 @@ export function FileUploadArea({
     [onFilesAdded],
   );
 
+  const openPicker = () => inputRef.current?.click();
+  const dragProps = {
+    style: isDragging ? { opacity: 0.85 } : undefined,
+    onDragOver: handleDragOver,
+    onDragLeave: handleDragLeave,
+    onDrop: handleDrop,
+  };
+  const hiddenInput = (
+    <input
+      ref={inputRef}
+      type="file"
+      accept={accept}
+      multiple
+      onChange={handleFileInput}
+      style={{ display: "none" }}
+    />
+  );
+
+  if (variant === "basic") {
+    return (
+      <div className={cx(s.uploadBasicArea, className)} {...dragProps} {...rest}>
+        <div className={s.uploadButtons}>
+          <button type="button" className={s.attachButton} onClick={openPicker}>
+            <FileIcon />
+            파일 첨부
+          </button>
+          {extra}
+        </div>
+        <span className={s.uploadBasicDescription}>{description}</span>
+        {children && <div className={s.uploadBasicList}>{children}</div>}
+        {hiddenInput}
+      </div>
+    );
+  }
+
   return (
-    <div
-      className={cx(s.uploadAreaOuter, className)}
-      style={isDragging ? { opacity: 0.85 } : undefined}
-      onDragOver={handleDragOver}
-      onDragLeave={handleDragLeave}
-      onDrop={handleDrop}
-      {...rest}
-    >
+    <div className={cx(s.uploadAreaOuter, className)} {...dragProps} {...rest}>
       <div className={s.uploadAreaInner}>
         <div className={s.uploadTextGroup}>
           <span className={s.uploadTitle}>
@@ -195,25 +231,14 @@ export function FileUploadArea({
         {children && <div className={s.attachedList}>{children}</div>}
 
         <div className={s.uploadButtons}>
-          <button
-            type="button"
-            className={s.attachButton}
-            onClick={() => inputRef.current?.click()}
-          >
+          <button type="button" className={s.attachButton} onClick={openPicker}>
             <FileIcon />
             파일 첨부
           </button>
           {extra}
         </div>
 
-        <input
-          ref={inputRef}
-          type="file"
-          accept={accept}
-          multiple
-          onChange={handleFileInput}
-          style={{ display: "none" }}
-        />
+        {hiddenInput}
       </div>
     </div>
   );

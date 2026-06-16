@@ -112,6 +112,39 @@ export const attachedList = style({
   flexWrap: "wrap",
 });
 
+/* ───────────────────────────────────────────
+   variant="basic" — 점선 박스 (버튼 상단 · 좌측 설명)
+   ─────────────────────────────────────────── */
+
+/** basic 외곽: 점선 테두리 + 회색 배경, 좌측 정렬 세로 스택 */
+export const uploadBasicArea = style({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "flex-start",
+  gap: themeVars.spacing.x3,
+  padding: themeVars.spacing.x5,
+  border: `1.5px dashed ${semanticColorRoles.border.strong}`,
+  borderRadius: themeVars.radius.lg,
+  backgroundColor: semanticColorRoles.surface.subtle,
+  fontFamily: themeVars.font.family,
+});
+
+/** basic 설명: 버튼 아래, 좌측 정렬, faint */
+export const uploadBasicDescription = style({
+  fontSize: themeVars.font.sizeSm,
+  fontWeight: themeVars.font.weightMedium,
+  lineHeight: "17px",
+  color: semanticColorRoles.text.tertiary,
+});
+
+/** basic 첨부 목록: 세로 스택 */
+export const uploadBasicList = style({
+  display: "flex",
+  flexDirection: "column",
+  gap: themeVars.spacing.x2,
+  width: "100%",
+});
+
 /* ═══════════════════════════════════════════
    FileThumbnail
    ═══════════════════════════════════════════ */

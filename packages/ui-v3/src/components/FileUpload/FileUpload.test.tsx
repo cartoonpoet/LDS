@@ -21,6 +21,35 @@ describe("FileUploadArea", () => {
     );
     expect(screen.getByText("child-content")).toBeInTheDocument();
   });
+
+  it("renders 'AI 파일 분석' header in default (ai) variant", () => {
+    renderWithUser(<FileUploadArea />);
+    expect(screen.getByText("AI 파일 분석")).toBeInTheDocument();
+  });
+
+  describe("variant='basic'", () => {
+    it("renders attach button and description", () => {
+      renderWithUser(
+        <FileUploadArea variant="basic" description="가능한 워드(.docx) 권장" />,
+      );
+      expect(screen.getByText("파일 첨부")).toBeInTheDocument();
+      expect(screen.getByText("가능한 워드(.docx) 권장")).toBeInTheDocument();
+    });
+
+    it("does not render the 'AI 파일 분석' header", () => {
+      renderWithUser(<FileUploadArea variant="basic" />);
+      expect(screen.queryByText("AI 파일 분석")).not.toBeInTheDocument();
+    });
+
+    it("renders children in attached list", () => {
+      renderWithUser(
+        <FileUploadArea variant="basic">
+          <span>basic-child</span>
+        </FileUploadArea>,
+      );
+      expect(screen.getByText("basic-child")).toBeInTheDocument();
+    });
+  });
 });
 
 describe("FileThumbnail", () => {
