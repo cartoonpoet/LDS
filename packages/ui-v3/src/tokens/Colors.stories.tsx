@@ -1,6 +1,17 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { lightThemeClass, semanticColorRoles } from "@lds/tokens";
-import { SectionTitle, ColorSwatchRow, type Swatch } from "./docHelpers";
+import {
+  lightThemeClass,
+  semanticColorRoles,
+  grayPalette,
+  bluePalette,
+  greenPalette,
+  redPalette,
+  yellowPalette,
+  cyanPalette,
+  darkPalette,
+  opacityPalette,
+} from "@lds/tokens";
+import { SectionTitle, ColorSwatchRow, PaletteStrip, type Swatch } from "./docHelpers";
 
 /* ─── Semantic Colors 데이터 ─── */
 /* value 라벨은 라이트 테마 기본값(defaultColorTokens) 기준 하드코딩 */
@@ -105,6 +116,15 @@ const statusRows: { name: string; swatches: Swatch[] }[] = [
   },
 ];
 
+const grayPaletteSteps = Object.entries(grayPalette).map(([key, value]) => ({ key, value }));
+const bluePaletteSteps = Object.entries(bluePalette).map(([key, value]) => ({ key, value }));
+const greenPaletteSteps = Object.entries(greenPalette).map(([key, value]) => ({ key, value }));
+const redPaletteSteps = Object.entries(redPalette).map(([key, value]) => ({ key, value }));
+const yellowPaletteSteps = Object.entries(yellowPalette).map(([key, value]) => ({ key, value }));
+const cyanPaletteSteps = Object.entries(cyanPalette).map(([key, value]) => ({ key, value }));
+const darkPaletteSteps = Object.entries(darkPalette).map(([key, value]) => ({ key, value }));
+const opacityPaletteSteps = Object.entries(opacityPalette).map(([key, value]) => ({ key, value }));
+
 /* ─── Meta ─── */
 
 /**
@@ -151,6 +171,21 @@ export const SemanticColors: Story = {
       {statusRows.map((r) => (
         <ColorSwatchRow key={r.name} name={r.name} swatches={r.swatches} />
       ))}
+    </div>
+  ),
+};
+
+export const PrimitiveColors: Story = {
+  render: () => (
+    <div>
+      <PaletteStrip name="grayPalette" steps={grayPaletteSteps} />
+      <PaletteStrip name="bluePalette" steps={bluePaletteSteps} />
+      <PaletteStrip name="greenPalette" steps={greenPaletteSteps} />
+      <PaletteStrip name="redPalette" steps={redPaletteSteps} />
+      <PaletteStrip name="yellowPalette" steps={yellowPaletteSteps} />
+      <PaletteStrip name="cyanPalette" steps={cyanPaletteSteps} />
+      <PaletteStrip name="darkPalette" steps={darkPaletteSteps} />
+      <PaletteStrip name="opacityPalette" steps={opacityPaletteSteps} />
     </div>
   ),
 };
