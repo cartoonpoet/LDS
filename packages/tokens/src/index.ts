@@ -2,6 +2,8 @@ export type { LdsColorTokens } from "./foundation/color-palette";
 export { defaultColorTokens, grayPalette, bluePalette, greenPalette, redPalette, yellowPalette, cyanPalette, darkPalette, opacityPalette, scourtPalette, bootstrapPalette, socialPalette } from "./foundation/color-palette";
 export type { LdsSpacingTokens } from "./foundation/spacing-scale";
 export { spacingScale, defaultSpacingTokens } from "./foundation/spacing-scale";
+export { defaultRadiusTokens } from "./foundation/radius-scale";
+export { defaultShadowTokens } from "./foundation/shadow-scale";
 export { fontFamilyTokens, fontSizeScale, lineHeightScale, fontWeightScale, letterSpacingScale } from "./foundation/typography-scale";
 export { semanticColorRoles } from "./semantic/color-roles";
 export { textStyles } from "./semantic/text-styles";
