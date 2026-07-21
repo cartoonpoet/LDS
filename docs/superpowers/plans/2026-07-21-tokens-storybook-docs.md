@@ -16,6 +16,7 @@
 - Primitive Colors 섹션은 `grayPalette` / `bluePalette` / `greenPalette` / `redPalette` / `yellowPalette` / `cyanPalette` / `darkPalette` / `opacityPalette`만 다룬다. `scourtPalette` / `bootstrapPalette` / `socialPalette`는 제외한다.
 - Typography 섹션은 `textStyles`의 13개 카테고리(`display`, `heading`, `appTitle`, `appLabel`, `appBody`, `bodyParagraph`, `input`, `placeholder`, `label`, `button`, `menu`, `table`, `viewer`, `mail`) 전부를 포함한다 — 생략 없음.
 - 테스트 정책: `docHelpers.tsx`의 각 컴포넌트는 `docHelpers.test.tsx`에서 Vitest + `@testing-library/react`(`renderWithUser`/`screen`, `packages/ui-v3/src/test/utils.tsx`)로 테스트한다. `Colors.stories.tsx` / `Typography.stories.tsx`는 데이터를 헬퍼에 꽂아 넣기만 하는 조립 코드이므로 별도 테스트 파일을 만들지 않는다 (로직은 이미 `docHelpers.test.tsx`가 커버) — 기존 `Theming.stories.tsx`도 스토리 파일 자체에는 테스트가 없는 것과 동일한 관례. 이 두 스토리 파일의 검증은 타입 체크 + 마지막 태스크의 Storybook 육안 확인으로 한다.
+- `docHelpers.tsx`의 컴포넌트 chrome(제목/캡션 텍스트 색상, 스와치 테두리 등)은 이 저장소의 "컴포넌트 개발 시 하드코딩 금지, `@lds/tokens` 토큰 사용" 관례를 따라 리터럴 hex 대신 `semanticColorRoles.text.heading` / `semanticColorRoles.text.tertiary` / `grayPalette[200]` / `grayPalette[800]`을 사용한다. 단, 스와치가 시각적으로 표시해야 하는 대상 색상 자체(`Swatch.color`, `PaletteStrip`의 `steps[].value`, `PresetRow`의 `preset`/`fallback` 값)는 문서화 대상 데이터이므로 이 규칙에서 제외된다.
 - 새 컬러 스와치의 값 라벨(hex/rgba 텍스트)은 런타임에 DOM에서 계산하지 않고 하드코딩한다 — `semanticColorRoles`의 값은 CSS 커스텀 프로퍼티 참조라 화면엔 정확히 칠해지지만 텍스트로 뽑아낼 수 없기 때문에, 라이트 테마 기본값(`defaultColorTokens`)을 기준으로 사람이 미리 적어둔 값을 표시한다. Primitive Colors와 Foundation Scale은 소스 상수를 `Object.entries()`로 그대로 순회하므로 하드코딩이 필요 없다.
 - **베이스라인 타입 에러 주의**: 이 작업을 시작하기 전에도 `npx tsc --noEmit -p packages/ui-v3/tsconfig.json`을 돌리면 기존 코드에서 아래 에러 1개가 이미 발생한다 (이 플랜과 무관, 손대지 않음):
   ```
@@ -145,7 +146,7 @@ git commit -m "refactor(ui-v3): 브랜드 프리셋 데이터를 brandPresets로
 - Create: `packages/ui-v3/src/tokens/docHelpers.tsx`
 
 **Interfaces:**
-- Consumes: 없음 (외부 데이터 의존 없는 순수 프레젠테이셔널 컴포넌트).
+- Consumes: `@lds/tokens`의 `semanticColorRoles`, `grayPalette` (컴포넌트 chrome 색상 전용 — 색상 하드코딩 금지 정책 때문. 스와치가 표시해야 하는 실제 색상 값 자체는 여전히 호출부에서 `Swatch`/`steps`/`preset` prop으로 전달받는다).
 - Produces:
   - `type Swatch = { label: string; color: string; value: string }`
   - `type TextStyleValue = { fontFamily: string; fontSize: string; fontWeight: string; lineHeight: string; letterSpacing: string }`
@@ -316,6 +317,8 @@ Expected: FAIL — `./docHelpers` 모듈을 찾을 수 없다는 에러 (파일�
 `packages/ui-v3/src/tokens/docHelpers.tsx`:
 
 ```tsx
+import { semanticColorRoles, grayPalette } from "@lds/tokens";
+
 export type Swatch = { label: string; color: string; value: string };
 
 export type TextStyleValue = {
@@ -332,7 +335,7 @@ export type BrandPresetInput = {
 
 export function SectionTitle({ children }: { children: string }) {
   return (
-    <h3 style={{ fontSize: 16, fontWeight: 700, color: "#11152a", margin: "32px 0 16px" }}>
+    <h3 style={{ fontSize: 16, fontWeight: 700, color: semanticColorRoles.text.heading, margin: "32px 0 16px" }}>
       {children}
     </h3>
   );
@@ -341,14 +344,14 @@ export function SectionTitle({ children }: { children: string }) {
 export function ColorSwatchRow({ name, swatches }: { name: string; swatches: Swatch[] }) {
   return (
     <div style={{ display: "flex", marginBottom: 20 }}>
-      <div style={{ width: 220, fontSize: 13, fontFamily: "monospace", color: "#11152a", paddingTop: 8 }}>
+      <div style={{ width: 220, fontSize: 13, fontFamily: "monospace", color: semanticColorRoles.text.heading, paddingTop: 8 }}>
         {name}
       </div>
       <div style={{ display: "flex", flex: 1, gap: 1 }}>
         {swatches.map((s) => (
           <div key={s.label} style={{ flex: 1 }}>
-            <div style={{ height: 48, backgroundColor: s.color, border: "1px solid #eeeff2" }} />
-            <div style={{ fontSize: 11, color: "#626f86", padding: "4px 0", textAlign: "center" }}>
+            <div style={{ height: 48, backgroundColor: s.color, border: `1px solid ${grayPalette[200]}` }} />
+            <div style={{ fontSize: 11, color: semanticColorRoles.text.tertiary, padding: "4px 0", textAlign: "center" }}>
               <div>{s.label}</div>
               <div style={{ fontFamily: "monospace" }}>{s.value}</div>
             </div>
@@ -362,12 +365,12 @@ export function ColorSwatchRow({ name, swatches }: { name: string; swatches: Swa
 export function PaletteStrip({ name, steps }: { name: string; steps: { key: string; value: string }[] }) {
   return (
     <div style={{ marginBottom: 24 }}>
-      <div style={{ fontSize: 13, fontFamily: "monospace", color: "#11152a", marginBottom: 4 }}>{name}</div>
+      <div style={{ fontSize: 13, fontFamily: "monospace", color: semanticColorRoles.text.heading, marginBottom: 4 }}>{name}</div>
       <div style={{ display: "flex", gap: 1 }}>
         {steps.map((s) => (
           <div key={s.key} style={{ flex: 1 }}>
-            <div style={{ height: 40, backgroundColor: s.value, border: "1px solid #eeeff2" }} />
-            <div style={{ fontSize: 10, color: "#626f86", textAlign: "center", padding: "4px 0" }}>
+            <div style={{ height: 40, backgroundColor: s.value, border: `1px solid ${grayPalette[200]}` }} />
+            <div style={{ fontSize: 10, color: semanticColorRoles.text.tertiary, textAlign: "center", padding: "4px 0" }}>
               <div>{s.key}</div>
               <div style={{ fontFamily: "monospace" }}>{s.value}</div>
             </div>
@@ -397,12 +400,12 @@ export function PresetRow({
   ];
   return (
     <div style={{ display: "flex", alignItems: "flex-start", marginBottom: 16 }}>
-      <div style={{ width: 160, fontSize: 14, color: "#11152a", paddingTop: 8 }}>{name}</div>
+      <div style={{ width: 160, fontSize: 14, color: semanticColorRoles.text.heading, paddingTop: 8 }}>{name}</div>
       <div style={{ display: "flex", gap: 1 }}>
         {states.map((s) => (
           <div key={s.label} style={{ width: 100 }}>
-            <div style={{ height: 40, backgroundColor: s.color, border: "1px solid #eeeff2" }} />
-            <div style={{ fontSize: 11, color: "#626f86", textAlign: "center", padding: "4px 0" }}>
+            <div style={{ height: 40, backgroundColor: s.color, border: `1px solid ${grayPalette[200]}` }} />
+            <div style={{ fontSize: 11, color: semanticColorRoles.text.tertiary, textAlign: "center", padding: "4px 0" }}>
               <div>{s.label}</div>
               <div style={{ fontFamily: "monospace" }}>{s.color}</div>
             </div>
@@ -416,8 +419,8 @@ export function PresetRow({
 export function ScaleTable({ title, rows }: { title: string; rows: { key: string; value: string }[] }) {
   return (
     <div style={{ marginBottom: 24 }}>
-      <h4 style={{ fontSize: 13, fontWeight: 700, color: "#11152a", margin: "0 0 8px" }}>{title}</h4>
-      <table style={{ borderCollapse: "collapse", fontSize: 12, color: "#4c5469" }}>
+      <h4 style={{ fontSize: 13, fontWeight: 700, color: semanticColorRoles.text.heading, margin: "0 0 8px" }}>{title}</h4>
+      <table style={{ borderCollapse: "collapse", fontSize: 12, color: grayPalette[800] }}>
         <tbody>
           {rows.map((r) => (
             <tr key={r.key}>
@@ -433,10 +436,10 @@ export function ScaleTable({ title, rows }: { title: string; rows: { key: string
 
 export function TextSpecimenRow({ name, value }: { name: string; value: TextStyleValue }) {
   return (
-    <div style={{ display: "flex", alignItems: "center", borderBottom: "1px solid #eeeff2", padding: "12px 0" }}>
+    <div style={{ display: "flex", alignItems: "center", borderBottom: `1px solid ${grayPalette[200]}`, padding: "12px 0" }}>
       <div style={{ width: 220, flexShrink: 0 }}>
-        <div style={{ fontSize: 13, fontFamily: "monospace", color: "#11152a" }}>{name}</div>
-        <div style={{ fontSize: 11, color: "#626f86" }}>
+        <div style={{ fontSize: 13, fontFamily: "monospace", color: semanticColorRoles.text.heading }}>{name}</div>
+        <div style={{ fontSize: 11, color: semanticColorRoles.text.tertiary }}>
           {value.fontSize} · {value.fontWeight} · lh {value.lineHeight} · ls {value.letterSpacing}
         </div>
       </div>
@@ -447,7 +450,7 @@ export function TextSpecimenRow({ name, value }: { name: string; value: TextStyl
           fontWeight: value.fontWeight,
           lineHeight: value.lineHeight,
           letterSpacing: value.letterSpacing,
-          color: "#11152a",
+          color: semanticColorRoles.text.heading,
         }}
       >
         Law Design System 컴포넌트 라이브러리
