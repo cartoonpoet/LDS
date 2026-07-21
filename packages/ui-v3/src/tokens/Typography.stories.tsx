@@ -12,10 +12,13 @@ import { SectionTitle, ScaleTable, TextStyleSection } from "./docHelpers";
 
 /* ─── Foundation Scale 데이터 ─── */
 
-const fontSizeRows = Object.entries(fontSizeScale).map(([key, value]) => ({ key, value }));
-const fontWeightRows = Object.entries(fontWeightScale).map(([key, value]) => ({ key, value }));
-const lineHeightRows = Object.entries(lineHeightScale).map(([key, value]) => ({ key, value }));
-const letterSpacingRows = Object.entries(letterSpacingScale).map(([key, value]) => ({ key, value }));
+const toRows = (scale: Record<string, string>) =>
+  Object.entries(scale).map(([key, value]) => ({ key, value }));
+
+const fontSizeRows = toRows(fontSizeScale);
+const fontWeightRows = toRows(fontWeightScale);
+const lineHeightRows = toRows(lineHeightScale);
+const letterSpacingRows = toRows(letterSpacingScale);
 
 /* ─── Meta ─── */
 

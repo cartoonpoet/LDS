@@ -118,14 +118,17 @@ const statusRows: { name: string; swatches: Swatch[] }[] = [
   },
 ];
 
-const grayPaletteSteps = Object.entries(grayPalette).map(([key, value]) => ({ key, value }));
-const bluePaletteSteps = Object.entries(bluePalette).map(([key, value]) => ({ key, value }));
-const greenPaletteSteps = Object.entries(greenPalette).map(([key, value]) => ({ key, value }));
-const redPaletteSteps = Object.entries(redPalette).map(([key, value]) => ({ key, value }));
-const yellowPaletteSteps = Object.entries(yellowPalette).map(([key, value]) => ({ key, value }));
-const cyanPaletteSteps = Object.entries(cyanPalette).map(([key, value]) => ({ key, value }));
-const darkPaletteSteps = Object.entries(darkPalette).map(([key, value]) => ({ key, value }));
-const opacityPaletteSteps = Object.entries(opacityPalette).map(([key, value]) => ({ key, value }));
+const toSteps = (palette: Record<string, string>) =>
+  Object.entries(palette).map(([key, value]) => ({ key, value }));
+
+const grayPaletteSteps = toSteps(grayPalette);
+const bluePaletteSteps = toSteps(bluePalette);
+const greenPaletteSteps = toSteps(greenPalette);
+const redPaletteSteps = toSteps(redPalette);
+const yellowPaletteSteps = toSteps(yellowPalette);
+const cyanPaletteSteps = toSteps(cyanPalette);
+const darkPaletteSteps = toSteps(darkPalette);
+const opacityPaletteSteps = toSteps(opacityPalette);
 
 /* ─── Meta ─── */
 
