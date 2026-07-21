@@ -7,7 +7,7 @@ import {
   letterSpacingScale,
   textStyles,
 } from "@lds/tokens";
-import { SectionTitle, ScaleTable } from "./docHelpers";
+import { SectionTitle, ScaleTable, TextStyleSection } from "./docHelpers";
 
 /* ─── Foundation Scale 데이터 ─── */
 
@@ -55,4 +55,60 @@ export const Overview: Story = {
       </div>
     </div>
   ),
+};
+
+export const Display: Story = {
+  render: () => <TextStyleSection title="Display" styles={textStyles.display} />,
+};
+
+export const Heading: Story = {
+  render: () => <TextStyleSection title="Heading" styles={textStyles.heading} />,
+};
+
+export const AppTitle: Story = {
+  render: () => <TextStyleSection title="App Title" styles={textStyles.appTitle} />,
+};
+
+export const AppLabel: Story = {
+  render: () => <TextStyleSection title="App Label" styles={textStyles.appLabel} />,
+};
+
+export const AppBody: Story = {
+  render: () => <TextStyleSection title="App Body" styles={textStyles.appBody} />,
+};
+
+export const BodyParagraph: Story = {
+  render: () => <TextStyleSection title="Body Paragraph" styles={textStyles.bodyParagraph} />,
+};
+
+export const Input: Story = {
+  render: () => <TextStyleSection title="Input" styles={textStyles.input} />,
+};
+
+export const Placeholder: Story = {
+  render: () => <TextStyleSection title="Placeholder" styles={textStyles.placeholder} />,
+};
+
+export const Label: Story = {
+  render: () => <TextStyleSection title="Label" styles={textStyles.label} />,
+};
+
+export const Button: Story = {
+  render: () => <TextStyleSection title="Button" styles={textStyles.button} />,
+};
+
+export const Menu: Story = {
+  render: () => <TextStyleSection title="Menu" styles={textStyles.menu} />,
+};
+
+export const Table: Story = {
+  render: () => <TextStyleSection title="Table" styles={textStyles.table} />,
+};
+
+export const Viewer: Story = {
+  render: () => <TextStyleSection title="Viewer" styles={textStyles.viewer} />,
+};
+
+export const Mail: Story = {
+  render: () => <TextStyleSection title="Mail" styles={textStyles.mail} />,
 };
