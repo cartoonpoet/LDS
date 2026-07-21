@@ -4,24 +4,25 @@
 
 **Goal:** Storybook 사이드바에 `Tokens/Colors`, `Tokens/Typography` 문서 페이지를 추가해 컬러 토큰(semantic + primitive + 브랜드 프리셋)과 타이포그래피 토큰(scale + 13개 semantic text style 카테고리)을 시각적으로 확인할 수 있게 한다.
 
-**Architecture:** 순수 문서 전용 Storybook 스토리 2개(`Colors.stories.tsx`, `Typography.stories.tsx`)를 새 폴더 `packages/ui-v3/src/tokens/`에 추가한다. 데이터는 새로 만들지 않고 기존 `@lds/tokens` export(`semanticColorRoles`, `grayPalette` 등, `textStyles`)를 그대로 읽어 렌더링한다. 컬러 스와치/텍스트 스펙시먼을 그리는 작은 프레젠테이셔널 컴포넌트를 각 스토리 파일 안에 로컬로 정의한다 (컴포넌트 라이브러리에 새 export를 추가하는 게 아니라 문서 전용이므로).
+**Architecture:** 순수 문서 전용 Storybook 스토리 2개(`Colors.stories.tsx`, `Typography.stories.tsx`)를 새 폴더 `packages/ui-v3/src/tokens/`에 추가한다. 데이터는 새로 만들지 않고 기존 `@lds/tokens` export(`semanticColorRoles`, `grayPalette` 등, `textStyles`)를 그대로 읽어 렌더링한다. 컬러 스와치/텍스트 스펙시먼을 그리는 프레젠테이셔널 컴포넌트는 `docHelpers.tsx`라는 별도의 (스토리가 아닌) 모듈로 뽑아서 유닛 테스트를 붙이고, 두 `.stories.tsx` 파일은 그 헬퍼에 데이터만 꽂아 넣는 얇은 조립 코드로 유지한다.
 
-**Tech Stack:** React, TypeScript, Storybook 8 (`@storybook/react-vite`, `addon-docs`), `@lds/tokens` 패키지.
+**Tech Stack:** React, TypeScript, Storybook 8 (`@storybook/react-vite`, `addon-docs`), Vitest + `@testing-library/react` (기존 컴포넌트 테스트와 동일 스택), `@lds/tokens` 패키지.
 
 ## Global Constraints
 
 - 새 스토리 파일은 `packages/ui-v3/src/**/*.stories.@(ts|tsx)`에 위치해야 Storybook에 스캔된다 (`apps/storybook/.storybook/main.ts:10`).
-- 화살표 함수만 사용 (`function` 키워드 금지) — 단, 기존 컴포넌트 관례상 이 저장소의 `.stories.tsx` 파일들은 함수 선언(`function X() {}`) 형태의 헬퍼 컴포넌트를 이미 쓰고 있으므로(`Theming.stories.tsx:49`) 이 문서 스토리도 동일 관례를 따른다.
+- `docHelpers.tsx`는 파일명이 `*.stories.tsx` 패턴이 아니므로 Storybook에 스캔되지 않는다 (의도된 동작 — 사이드바에 노출되면 안 되는 순수 렌더링 헬퍼이기 때문).
 - Semantic Colors 섹션은 `semanticColorRoles`의 `surface` / `text` / `border` / `action` / `status` 5개 그룹만 다룬다. `button` / `field` / `table` / `badge` / `chip` / `alert`와 `status.scourt`는 제외한다 (컴포넌트 전용 토큰이라 각 컴포넌트 스토리에서 확인 가능).
 - Primitive Colors 섹션은 `grayPalette` / `bluePalette` / `greenPalette` / `redPalette` / `yellowPalette` / `cyanPalette` / `darkPalette` / `opacityPalette`만 다룬다. `scourtPalette` / `bootstrapPalette` / `socialPalette`는 제외한다.
 - Typography 섹션은 `textStyles`의 13개 카테고리(`display`, `heading`, `appTitle`, `appLabel`, `appBody`, `bodyParagraph`, `input`, `placeholder`, `label`, `button`, `menu`, `table`, `viewer`, `mail`) 전부를 포함한다 — 생략 없음.
-- 이 저장소의 "문서 전용" 스토리(`Theming.stories.tsx`)는 별도 `.test.tsx` 파일이 없다. 이 두 파일도 동일하게 단위 테스트 파일을 만들지 않는다. 각 태스크의 검증은 `npx tsc --noEmit -p packages/ui-v3/tsconfig.json` 타입 체크로 하고, 마지막 태스크에서 실제 Storybook을 띄워 육안 검증한다.
+- 테스트 정책: `docHelpers.tsx`의 각 컴포넌트는 `docHelpers.test.tsx`에서 Vitest + `@testing-library/react`(`renderWithUser`/`screen`, `packages/ui-v3/src/test/utils.tsx`)로 테스트한다. `Colors.stories.tsx` / `Typography.stories.tsx`는 데이터를 헬퍼에 꽂아 넣기만 하는 조립 코드이므로 별도 테스트 파일을 만들지 않는다 (로직은 이미 `docHelpers.test.tsx`가 커버) — 기존 `Theming.stories.tsx`도 스토리 파일 자체에는 테스트가 없는 것과 동일한 관례. 이 두 스토리 파일의 검증은 타입 체크 + 마지막 태스크의 Storybook 육안 확인으로 한다.
 - 새 컬러 스와치의 값 라벨(hex/rgba 텍스트)은 런타임에 DOM에서 계산하지 않고 하드코딩한다 — `semanticColorRoles`의 값은 CSS 커스텀 프로퍼티 참조라 화면엔 정확히 칠해지지만 텍스트로 뽑아낼 수 없기 때문에, 라이트 테마 기본값(`defaultColorTokens`)을 기준으로 사람이 미리 적어둔 값을 표시한다. Primitive Colors와 Foundation Scale은 소스 상수를 `Object.entries()`로 그대로 순회하므로 하드코딩이 필요 없다.
 - **베이스라인 타입 에러 주의**: 이 작업을 시작하기 전에도 `npx tsc --noEmit -p packages/ui-v3/tsconfig.json`을 돌리면 기존 코드에서 아래 에러 1개가 이미 발생한다 (이 플랜과 무관, 손대지 않음):
   ```
   packages/ui-v3/src/test/utils.tsx(5,17): error TS2742: The inferred type of 'renderWithUser' cannot be named without a reference to '.pnpm/pretty-format@27.5.1/node_modules/pretty-format'. This is likely not portable. A type annotation is necessary.
   ```
-  각 태스크의 "타입 체크로 검증" 스텝에서 "에러 없이 종료"라 적었더라도, 실제로는 **이 에러 1개만 남고 새 에러가 추가되지 않았는지**를 기준으로 판단한다.
+  각 태스크의 타입 체크 스텝에서 "에러 없이 종료"라 적었더라도, 실제로는 **이 에러 1개만 남고 새 에러가 추가되지 않았는지**를 기준으로 판단한다.
+- **베이스라인 테스트 실행**: 새 테스트를 추가하기 전, `cd packages/ui-v3 && pnpm test`가 기존에 몇 개 테스트를 통과시키는지 한 번 확인해 기준선으로 삼는다 (새 테스트 실패와 기존 실패를 혼동하지 않기 위함).
 
 ---
 
@@ -31,6 +32,8 @@
 packages/tokens/src/index.ts                        ← Modify: letterSpacingScale export 추가
 packages/ui-v3/src/components/Theming.stories.tsx   ← Modify: brands → export const brandPresets
 packages/ui-v3/src/tokens/
+  docHelpers.tsx                                     ← Create: SectionTitle, ColorSwatchRow, PaletteStrip, PresetRow, ScaleTable, TextSpecimenRow, TextStyleSection
+  docHelpers.test.tsx                                ← Create
   Colors.stories.tsx                                 ← Create
   Typography.stories.tsx                             ← Create
 ```
@@ -43,7 +46,7 @@ packages/ui-v3/src/tokens/
 - Modify: `packages/tokens/src/index.ts:5`
 
 **Interfaces:**
-- Produces: `letterSpacingScale` (타입 `typeof import("./foundation/typography-scale").letterSpacingScale`)를 `@lds/tokens`에서 import 가능하게 함. 이후 Task 6에서 사용.
+- Produces: `letterSpacingScale` (타입 `typeof import("./foundation/typography-scale").letterSpacingScale`)를 `@lds/tokens`에서 import 가능하게 함. 이후 Task 7에서 사용.
 
 - [ ] **Step 1: export 추가**
 
@@ -73,7 +76,7 @@ git commit -m "feat(tokens): letterSpacingScale export 추가"
 - Modify: `packages/ui-v3/src/components/Theming.stories.tsx:15`, `:230`
 
 **Interfaces:**
-- Produces: `export const brandPresets: { "Law.ai (기본)": {}; "Green Brand": {...}; "Purple Brand": {...}; "Orange Brand": {...}; "Scourt Blue": {...} }` — Task 5(`Colors.stories.tsx`의 Presets 스토리)에서 `import { brandPresets } from "../components/Theming.stories"`로 사용.
+- Produces: `export const brandPresets: { "Law.ai (기본)": {}; "Green Brand": {...}; "Purple Brand": {...}; "Orange Brand": {...}; "Scourt Blue": {...} }` — Task 6(`Colors.stories.tsx`의 Presets 스토리)에서 `import { brandPresets } from "../components/Theming.stories"`로 사용.
 
 - [ ] **Step 1: `brands` const를 `export const brandPresets`로 이름 변경**
 
@@ -135,28 +138,199 @@ git commit -m "refactor(ui-v3): 브랜드 프리셋 데이터를 brandPresets로
 
 ---
 
-### Task 3: `Colors.stories.tsx` 생성 — Semantic Colors
+### Task 3: `docHelpers.tsx` 생성 — 토큰 문서용 렌더링 헬퍼 + 테스트
 
 **Files:**
-- Create: `packages/ui-v3/src/tokens/Colors.stories.tsx`
+- Create: `packages/ui-v3/src/tokens/docHelpers.test.tsx`
+- Create: `packages/ui-v3/src/tokens/docHelpers.tsx`
 
 **Interfaces:**
-- Consumes: `@lds/tokens`의 `lightThemeClass`, `semanticColorRoles`.
-- Produces: `ColorSwatchRow`, `SectionTitle` 컴포넌트와 `Swatch` 타입 — Task 4, 5에서 같은 파일 내 재사용.
+- Consumes: 없음 (외부 데이터 의존 없는 순수 프레젠테이셔널 컴포넌트).
+- Produces:
+  - `type Swatch = { label: string; color: string; value: string }`
+  - `type TextStyleValue = { fontFamily: string; fontSize: string; fontWeight: string; lineHeight: string; letterSpacing: string }`
+  - `type BrandPresetInput = { color?: { accentPrimary?: string; accentPrimaryHover?: string; accentPrimaryActive?: string } }`
+  - `SectionTitle({ children: string })`
+  - `ColorSwatchRow({ name: string, swatches: Swatch[] })`
+  - `PaletteStrip({ name: string, steps: { key: string; value: string }[] })`
+  - `PresetRow({ name: string, preset: BrandPresetInput, fallback: { accentPrimary: string; accentPrimaryHover: string; accentPrimaryActive: string } })`
+  - `ScaleTable({ title: string, rows: { key: string; value: string }[] })`
+  - `TextSpecimenRow({ name: string, value: TextStyleValue })`
+  - `TextStyleSection({ title: string, styles: Record<string, TextStyleValue> })`
 
-- [ ] **Step 1: 파일 생성 — 헬퍼 컴포넌트 + Semantic Colors 스토리**
+  Task 4, 5, 6, 7, 8에서 `Colors.stories.tsx` / `Typography.stories.tsx`가 이 모든 export를 사용한다.
 
-`packages/ui-v3/src/tokens/Colors.stories.tsx`:
+- [ ] **Step 1: 실패하는 테스트 작성**
+
+`packages/ui-v3/src/tokens/docHelpers.test.tsx`:
 
 ```tsx
-import type { Meta, StoryObj } from "@storybook/react";
-import { lightThemeClass, semanticColorRoles } from "@lds/tokens";
+import { describe, it, expect } from "vitest";
+import { renderWithUser, screen } from "../test/utils";
+import {
+  SectionTitle,
+  ColorSwatchRow,
+  PaletteStrip,
+  PresetRow,
+  ScaleTable,
+  TextSpecimenRow,
+  TextStyleSection,
+} from "./docHelpers";
 
-/* ─── 공통 렌더링 컴포넌트 ─── */
+describe("SectionTitle", () => {
+  it("renders the given text as a heading", () => {
+    renderWithUser(<SectionTitle>Surface</SectionTitle>);
+    expect(screen.getByRole("heading", { name: "Surface" })).toBeInTheDocument();
+  });
+});
 
-type Swatch = { label: string; color: string; value: string };
+describe("ColorSwatchRow", () => {
+  it("renders the token name and every swatch's label and value", () => {
+    renderWithUser(
+      <ColorSwatchRow
+        name="action.primary"
+        swatches={[
+          { label: "default", color: "#2151ec", value: "#2151ec" },
+          { label: "hover", color: "#2151ec", value: "#2151ec" },
+        ]}
+      />
+    );
+    expect(screen.getByText("action.primary")).toBeInTheDocument();
+    expect(screen.getByText("default")).toBeInTheDocument();
+    expect(screen.getByText("hover")).toBeInTheDocument();
+    expect(screen.getAllByText("#2151ec")).toHaveLength(2);
+  });
+});
 
-function SectionTitle({ children }: { children: string }) {
+describe("PaletteStrip", () => {
+  it("renders one column per step with its key and value", () => {
+    renderWithUser(
+      <PaletteStrip
+        name="grayPalette"
+        steps={[
+          { key: "0", value: "#ffffff" },
+          { key: "50", value: "#f2f4f6" },
+        ]}
+      />
+    );
+    expect(screen.getByText("grayPalette")).toBeInTheDocument();
+    expect(screen.getByText("0")).toBeInTheDocument();
+    expect(screen.getByText("#ffffff")).toBeInTheDocument();
+    expect(screen.getByText("50")).toBeInTheDocument();
+    expect(screen.getByText("#f2f4f6")).toBeInTheDocument();
+  });
+});
+
+describe("PresetRow", () => {
+  const fallback = {
+    accentPrimary: "#2151ec",
+    accentPrimaryHover: "#2151ec",
+    accentPrimaryActive: "#1739a5",
+  };
+
+  it("uses the preset's own colors when provided", () => {
+    renderWithUser(
+      <PresetRow
+        name="Green Brand"
+        preset={{ color: { accentPrimary: "#16a34a", accentPrimaryHover: "#15803d", accentPrimaryActive: "#166534" } }}
+        fallback={fallback}
+      />
+    );
+    expect(screen.getByText("Green Brand")).toBeInTheDocument();
+    expect(screen.getByText("#16a34a")).toBeInTheDocument();
+    expect(screen.getByText("#15803d")).toBeInTheDocument();
+    expect(screen.getByText("#166534")).toBeInTheDocument();
+  });
+
+  it("falls back to the default colors when the preset has no override", () => {
+    renderWithUser(<PresetRow name="Law.ai (기본)" preset={{}} fallback={fallback} />);
+    expect(screen.getByText("Law.ai (기본)")).toBeInTheDocument();
+    expect(screen.getAllByText("#2151ec")).toHaveLength(2);
+    expect(screen.getByText("#1739a5")).toBeInTheDocument();
+  });
+});
+
+describe("ScaleTable", () => {
+  it("renders the title and every row's key/value", () => {
+    renderWithUser(
+      <ScaleTable
+        title="fontSize"
+        rows={[
+          { key: "12", value: "12px" },
+          { key: "14", value: "14px" },
+        ]}
+      />
+    );
+    expect(screen.getByText("fontSize")).toBeInTheDocument();
+    expect(screen.getByText("12")).toBeInTheDocument();
+    expect(screen.getByText("12px")).toBeInTheDocument();
+  });
+});
+
+describe("TextSpecimenRow", () => {
+  it("renders the style name, its meta info, and applies the style to the sample text", () => {
+    renderWithUser(
+      <TextSpecimenRow
+        name="h1"
+        value={{
+          fontFamily: '"Pretendard", sans-serif',
+          fontSize: "28px",
+          fontWeight: "700",
+          lineHeight: "1.21",
+          letterSpacing: "normal",
+        }}
+      />
+    );
+    expect(screen.getByText("h1")).toBeInTheDocument();
+    expect(screen.getByText("28px · 700 · lh 1.21 · ls normal")).toBeInTheDocument();
+    const sample = screen.getByText("Law Design System 컴포넌트 라이브러리");
+    expect(sample).toHaveStyle({ fontSize: "28px", fontWeight: "700" });
+  });
+});
+
+describe("TextStyleSection", () => {
+  it("renders one specimen row per style key", () => {
+    renderWithUser(
+      <TextStyleSection
+        title="Heading"
+        styles={{
+          h1: { fontFamily: "Pretendard", fontSize: "28px", fontWeight: "700", lineHeight: "1.21", letterSpacing: "normal" },
+          h2: { fontFamily: "Pretendard", fontSize: "24px", fontWeight: "700", lineHeight: "1.21", letterSpacing: "normal" },
+        }}
+      />
+    );
+    expect(screen.getByRole("heading", { name: "Heading" })).toBeInTheDocument();
+    expect(screen.getByText("h1")).toBeInTheDocument();
+    expect(screen.getByText("h2")).toBeInTheDocument();
+  });
+});
+```
+
+- [ ] **Step 2: 테스트 실행 → 실패 확인**
+
+Run: `cd packages/ui-v3 && npx vitest run src/tokens/docHelpers.test.tsx`
+Expected: FAIL — `./docHelpers` 모듈을 찾을 수 없다는 에러 (파일이 아직 없음)
+
+- [ ] **Step 3: `docHelpers.tsx` 구현**
+
+`packages/ui-v3/src/tokens/docHelpers.tsx`:
+
+```tsx
+export type Swatch = { label: string; color: string; value: string };
+
+export type TextStyleValue = {
+  fontFamily: string;
+  fontSize: string;
+  fontWeight: string;
+  lineHeight: string;
+  letterSpacing: string;
+};
+
+export type BrandPresetInput = {
+  color?: { accentPrimary?: string; accentPrimaryHover?: string; accentPrimaryActive?: string };
+};
+
+export function SectionTitle({ children }: { children: string }) {
   return (
     <h3 style={{ fontSize: 16, fontWeight: 700, color: "#11152a", margin: "32px 0 16px" }}>
       {children}
@@ -164,7 +338,7 @@ function SectionTitle({ children }: { children: string }) {
   );
 }
 
-function ColorSwatchRow({ name, swatches }: { name: string; swatches: Swatch[] }) {
+export function ColorSwatchRow({ name, swatches }: { name: string; swatches: Swatch[] }) {
   return (
     <div style={{ display: "flex", marginBottom: 20 }}>
       <div style={{ width: 220, fontSize: 13, fontFamily: "monospace", color: "#11152a", paddingTop: 8 }}>
@@ -184,6 +358,152 @@ function ColorSwatchRow({ name, swatches }: { name: string; swatches: Swatch[] }
     </div>
   );
 }
+
+export function PaletteStrip({ name, steps }: { name: string; steps: { key: string; value: string }[] }) {
+  return (
+    <div style={{ marginBottom: 24 }}>
+      <div style={{ fontSize: 13, fontFamily: "monospace", color: "#11152a", marginBottom: 4 }}>{name}</div>
+      <div style={{ display: "flex", gap: 1 }}>
+        {steps.map((s) => (
+          <div key={s.key} style={{ flex: 1 }}>
+            <div style={{ height: 40, backgroundColor: s.value, border: "1px solid #eeeff2" }} />
+            <div style={{ fontSize: 10, color: "#626f86", textAlign: "center", padding: "4px 0" }}>
+              <div>{s.key}</div>
+              <div style={{ fontFamily: "monospace" }}>{s.value}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export function PresetRow({
+  name,
+  preset,
+  fallback,
+}: {
+  name: string;
+  preset: BrandPresetInput;
+  fallback: { accentPrimary: string; accentPrimaryHover: string; accentPrimaryActive: string };
+}) {
+  const primary = preset.color?.accentPrimary ?? fallback.accentPrimary;
+  const hover = preset.color?.accentPrimaryHover ?? fallback.accentPrimaryHover;
+  const active = preset.color?.accentPrimaryActive ?? fallback.accentPrimaryActive;
+  const states = [
+    { label: "default", color: primary },
+    { label: "hover", color: hover },
+    { label: "active", color: active },
+  ];
+  return (
+    <div style={{ display: "flex", alignItems: "flex-start", marginBottom: 16 }}>
+      <div style={{ width: 160, fontSize: 14, color: "#11152a", paddingTop: 8 }}>{name}</div>
+      <div style={{ display: "flex", gap: 1 }}>
+        {states.map((s) => (
+          <div key={s.label} style={{ width: 100 }}>
+            <div style={{ height: 40, backgroundColor: s.color, border: "1px solid #eeeff2" }} />
+            <div style={{ fontSize: 11, color: "#626f86", textAlign: "center", padding: "4px 0" }}>
+              <div>{s.label}</div>
+              <div style={{ fontFamily: "monospace" }}>{s.color}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export function ScaleTable({ title, rows }: { title: string; rows: { key: string; value: string }[] }) {
+  return (
+    <div style={{ marginBottom: 24 }}>
+      <h4 style={{ fontSize: 13, fontWeight: 700, color: "#11152a", margin: "0 0 8px" }}>{title}</h4>
+      <table style={{ borderCollapse: "collapse", fontSize: 12, color: "#4c5469" }}>
+        <tbody>
+          {rows.map((r) => (
+            <tr key={r.key}>
+              <td style={{ padding: "2px 12px 2px 0", fontFamily: "monospace" }}>{r.key}</td>
+              <td style={{ padding: "2px 0", fontFamily: "monospace" }}>{r.value}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+export function TextSpecimenRow({ name, value }: { name: string; value: TextStyleValue }) {
+  return (
+    <div style={{ display: "flex", alignItems: "center", borderBottom: "1px solid #eeeff2", padding: "12px 0" }}>
+      <div style={{ width: 220, flexShrink: 0 }}>
+        <div style={{ fontSize: 13, fontFamily: "monospace", color: "#11152a" }}>{name}</div>
+        <div style={{ fontSize: 11, color: "#626f86" }}>
+          {value.fontSize} · {value.fontWeight} · lh {value.lineHeight} · ls {value.letterSpacing}
+        </div>
+      </div>
+      <div
+        style={{
+          fontFamily: value.fontFamily,
+          fontSize: value.fontSize,
+          fontWeight: value.fontWeight,
+          lineHeight: value.lineHeight,
+          letterSpacing: value.letterSpacing,
+          color: "#11152a",
+        }}
+      >
+        Law Design System 컴포넌트 라이브러리
+      </div>
+    </div>
+  );
+}
+
+export function TextStyleSection({ title, styles }: { title: string; styles: Record<string, TextStyleValue> }) {
+  return (
+    <div style={{ marginBottom: 32 }}>
+      <SectionTitle>{title}</SectionTitle>
+      {Object.entries(styles).map(([key, value]) => (
+        <TextSpecimenRow key={key} name={key} value={value} />
+      ))}
+    </div>
+  );
+}
+```
+
+- [ ] **Step 4: 테스트 실행 → 통과 확인**
+
+Run: `npx vitest run src/tokens/docHelpers.test.tsx`
+Expected: PASS — 8개 `it` 전부 통과 (SectionTitle 1, ColorSwatchRow 1, PaletteStrip 1, PresetRow 2, ScaleTable 1, TextSpecimenRow 1, TextStyleSection 1)
+
+- [ ] **Step 5: 타입 체크로 검증**
+
+Run: `cd /Users/junhoson/Documents/GitHub/LDS && npx tsc --noEmit -p packages/ui-v3/tsconfig.json`
+Expected: 위 Global Constraints에 적은 베이스라인 `TS2742` 에러 1개만 남고, 새로운 에러는 추가되지 않음
+
+- [ ] **Step 6: Commit**
+
+```bash
+git add packages/ui-v3/src/tokens/docHelpers.tsx packages/ui-v3/src/tokens/docHelpers.test.tsx
+git commit -m "feat(ui-v3): 토큰 문서용 렌더링 헬퍼(docHelpers) 추가"
+```
+
+---
+
+### Task 4: `Colors.stories.tsx` 생성 — Semantic Colors
+
+**Files:**
+- Create: `packages/ui-v3/src/tokens/Colors.stories.tsx`
+
+**Interfaces:**
+- Consumes: `@lds/tokens`의 `lightThemeClass`, `semanticColorRoles`. Task 3의 `ColorSwatchRow`, `SectionTitle`, `Swatch` (from `./docHelpers`).
+- Produces: `Story` 타입 alias, `SemanticColors` 스토리 export. Task 5, 6에서 같은 파일에 스토리 추가.
+
+- [ ] **Step 1: 파일 생성**
+
+`packages/ui-v3/src/tokens/Colors.stories.tsx`:
+
+```tsx
+import type { Meta, StoryObj } from "@storybook/react";
+import { lightThemeClass, semanticColorRoles } from "@lds/tokens";
+import { SectionTitle, ColorSwatchRow, type Swatch } from "./docHelpers";
 
 /* ─── Semantic Colors 데이터 ─── */
 /* value 라벨은 라이트 테마 기본값(defaultColorTokens) 기준 하드코딩 */
@@ -353,14 +673,14 @@ git commit -m "docs(ui-v3): Tokens/Colors — Semantic Colors 스토리 추가"
 
 ---
 
-### Task 4: `Colors.stories.tsx`에 Primitive Colors 스토리 추가
+### Task 5: `Colors.stories.tsx`에 Primitive Colors 스토리 추가
 
 **Files:**
 - Modify: `packages/ui-v3/src/tokens/Colors.stories.tsx`
 
 **Interfaces:**
-- Consumes: Task 3의 `SectionTitle`. `@lds/tokens`의 `grayPalette`, `bluePalette`, `greenPalette`, `redPalette`, `yellowPalette`, `cyanPalette`, `darkPalette`, `opacityPalette`.
-- Produces: `PaletteStrip` 컴포넌트, `PrimitiveColors` 스토리.
+- Consumes: Task 3의 `PaletteStrip` (from `./docHelpers`). `@lds/tokens`의 `grayPalette`, `bluePalette`, `greenPalette`, `redPalette`, `yellowPalette`, `cyanPalette`, `darkPalette`, `opacityPalette`.
+- Produces: `PrimitiveColors` 스토리.
 
 - [ ] **Step 1: import 확장**
 
@@ -380,32 +700,10 @@ import {
   darkPalette,
   opacityPalette,
 } from "@lds/tokens";
+import { SectionTitle, ColorSwatchRow, PaletteStrip, type Swatch } from "./docHelpers";
 ```
 
-- [ ] **Step 2: `PaletteStrip` 컴포넌트 + 데이터 + 스토리 추가**
-
-`ColorSwatchRow` 컴포넌트 정의 바로 아래에 추가:
-
-```tsx
-function PaletteStrip({ name, steps }: { name: string; steps: { key: string; value: string }[] }) {
-  return (
-    <div style={{ marginBottom: 24 }}>
-      <div style={{ fontSize: 13, fontFamily: "monospace", color: "#11152a", marginBottom: 4 }}>{name}</div>
-      <div style={{ display: "flex", gap: 1 }}>
-        {steps.map((s) => (
-          <div key={s.key} style={{ flex: 1 }}>
-            <div style={{ height: 40, backgroundColor: s.value, border: "1px solid #eeeff2" }} />
-            <div style={{ fontSize: 10, color: "#626f86", textAlign: "center", padding: "4px 0" }}>
-              <div>{s.key}</div>
-              <div style={{ fontFamily: "monospace" }}>{s.value}</div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-```
+- [ ] **Step 2: 데이터 + 스토리 추가**
 
 `statusRows` 정의 바로 아래(Meta 정의 위)에 추가:
 
@@ -453,18 +751,18 @@ git commit -m "docs(ui-v3): Tokens/Colors — Primitive Colors 스토리 추가"
 
 ---
 
-### Task 5: `Colors.stories.tsx`에 Presets 스토리 추가
+### Task 6: `Colors.stories.tsx`에 Presets 스토리 추가
 
 **Files:**
 - Modify: `packages/ui-v3/src/tokens/Colors.stories.tsx`
 
 **Interfaces:**
-- Consumes: Task 2의 `brandPresets` (from `../components/Theming.stories`), `@lds/tokens`의 `defaultColorTokens`.
-- Produces: `PresetRow` 컴포넌트, `Presets` 스토리.
+- Consumes: Task 2의 `brandPresets` (from `../components/Theming.stories`). Task 3의 `PresetRow` (from `./docHelpers`). `@lds/tokens`의 `defaultColorTokens`.
+- Produces: `Presets` 스토리.
 
 - [ ] **Step 1: import 확장**
 
-`@lds/tokens` import에 `defaultColorTokens` 추가하고, `brandPresets` import 라인 추가:
+`@lds/tokens` import에 `defaultColorTokens` 추가하고, `brandPresets`·`PresetRow` import 라인 추가:
 
 ```tsx
 import {
@@ -480,43 +778,11 @@ import {
   opacityPalette,
   defaultColorTokens,
 } from "@lds/tokens";
+import { SectionTitle, ColorSwatchRow, PaletteStrip, PresetRow, type Swatch } from "./docHelpers";
 import { brandPresets } from "../components/Theming.stories";
 ```
 
-- [ ] **Step 2: `PresetRow` 컴포넌트 추가**
-
-`PaletteStrip` 컴포넌트 정의 바로 아래에 추가:
-
-```tsx
-function PresetRow({ name, preset }: { name: string; preset: (typeof brandPresets)[keyof typeof brandPresets] }) {
-  const primary = preset.color?.accentPrimary ?? defaultColorTokens.accentPrimary;
-  const hover = preset.color?.accentPrimaryHover ?? defaultColorTokens.accentPrimaryHover;
-  const active = preset.color?.accentPrimaryActive ?? defaultColorTokens.accentPrimaryActive;
-  const states = [
-    { label: "default", color: primary },
-    { label: "hover", color: hover },
-    { label: "active", color: active },
-  ];
-  return (
-    <div style={{ display: "flex", alignItems: "flex-start", marginBottom: 16 }}>
-      <div style={{ width: 160, fontSize: 14, color: "#11152a", paddingTop: 8 }}>{name}</div>
-      <div style={{ display: "flex", gap: 1 }}>
-        {states.map((s) => (
-          <div key={s.label} style={{ width: 100 }}>
-            <div style={{ height: 40, backgroundColor: s.color, border: "1px solid #eeeff2" }} />
-            <div style={{ fontSize: 11, color: "#626f86", textAlign: "center", padding: "4px 0" }}>
-              <div>{s.label}</div>
-              <div style={{ fontFamily: "monospace" }}>{s.color}</div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-```
-
-- [ ] **Step 3: `Presets` 스토리 추가**
+- [ ] **Step 2: `Presets` 스토리 추가**
 
 `export const PrimitiveColors: Story = { ... };` 바로 아래에 추가:
 
@@ -528,19 +794,19 @@ export const Presets: Story = {
         컴포넌트에 실제 적용된 예시는 <code>Guide/Theming → BrandComparison</code>에서 확인하세요.
       </p>
       {Object.entries(brandPresets).map(([name, preset]) => (
-        <PresetRow key={name} name={name} preset={preset} />
+        <PresetRow key={name} name={name} preset={preset} fallback={defaultColorTokens} />
       ))}
     </div>
   ),
 };
 ```
 
-- [ ] **Step 4: 타입 체크로 검증**
+- [ ] **Step 3: 타입 체크로 검증**
 
 Run: `npx tsc --noEmit -p packages/ui-v3/tsconfig.json`
 Expected: 위 Global Constraints에 적은 베이스라인 `TS2742` 에러 1개만 남고, 새로운 에러는 추가되지 않음
 
-- [ ] **Step 5: Commit**
+- [ ] **Step 4: Commit**
 
 ```bash
 git add packages/ui-v3/src/tokens/Colors.stories.tsx
@@ -549,14 +815,14 @@ git commit -m "docs(ui-v3): Tokens/Colors — Presets 스토리 추가"
 
 ---
 
-### Task 6: `Typography.stories.tsx` 생성 — Overview + Foundation Scale
+### Task 7: `Typography.stories.tsx` 생성 — Overview + Foundation Scale
 
 **Files:**
 - Create: `packages/ui-v3/src/tokens/Typography.stories.tsx`
 
 **Interfaces:**
-- Consumes: `@lds/tokens`의 `lightThemeClass`, `fontSizeScale`, `fontWeightScale`, `lineHeightScale`, `letterSpacingScale` (Task 1에서 export 추가됨), `textStyles`.
-- Produces: `SectionTitle`, `ScaleTable`, `TextSpecimenRow`, `TextStyleSection`, `TextStyleValue` 타입 — Task 7에서 같은 파일 내 재사용.
+- Consumes: `@lds/tokens`의 `lightThemeClass`, `fontSizeScale`, `fontWeightScale`, `lineHeightScale`, `letterSpacingScale` (Task 1에서 export 추가됨), `textStyles`. Task 3의 `SectionTitle`, `ScaleTable` (from `./docHelpers`).
+- Produces: `Story` 타입 alias, `Overview` 스토리 export. Task 8에서 같은 파일에 스토리 추가.
 
 - [ ] **Step 1: 파일 생성**
 
@@ -572,78 +838,7 @@ import {
   letterSpacingScale,
   textStyles,
 } from "@lds/tokens";
-
-/* ─── 공통 렌더링 컴포넌트 ─── */
-
-type TextStyleValue = {
-  fontFamily: string;
-  fontSize: string;
-  fontWeight: string;
-  lineHeight: string;
-  letterSpacing: string;
-};
-
-function SectionTitle({ children }: { children: string }) {
-  return (
-    <h3 style={{ fontSize: 16, fontWeight: 700, color: "#11152a", margin: "32px 0 16px" }}>
-      {children}
-    </h3>
-  );
-}
-
-function ScaleTable({ title, rows }: { title: string; rows: { key: string; value: string }[] }) {
-  return (
-    <div style={{ marginBottom: 24 }}>
-      <h4 style={{ fontSize: 13, fontWeight: 700, color: "#11152a", margin: "0 0 8px" }}>{title}</h4>
-      <table style={{ borderCollapse: "collapse", fontSize: 12, color: "#4c5469" }}>
-        <tbody>
-          {rows.map((r) => (
-            <tr key={r.key}>
-              <td style={{ padding: "2px 12px 2px 0", fontFamily: "monospace" }}>{r.key}</td>
-              <td style={{ padding: "2px 0", fontFamily: "monospace" }}>{r.value}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
-}
-
-function TextSpecimenRow({ name, value }: { name: string; value: TextStyleValue }) {
-  return (
-    <div style={{ display: "flex", alignItems: "center", borderBottom: "1px solid #eeeff2", padding: "12px 0" }}>
-      <div style={{ width: 220, flexShrink: 0 }}>
-        <div style={{ fontSize: 13, fontFamily: "monospace", color: "#11152a" }}>{name}</div>
-        <div style={{ fontSize: 11, color: "#626f86" }}>
-          {value.fontSize} · {value.fontWeight} · lh {value.lineHeight} · ls {value.letterSpacing}
-        </div>
-      </div>
-      <div
-        style={{
-          fontFamily: value.fontFamily,
-          fontSize: value.fontSize,
-          fontWeight: value.fontWeight,
-          lineHeight: value.lineHeight,
-          letterSpacing: value.letterSpacing,
-          color: "#11152a",
-        }}
-      >
-        Law Design System 컴포넌트 라이브러리
-      </div>
-    </div>
-  );
-}
-
-function TextStyleSection({ title, styles }: { title: string; styles: Record<string, TextStyleValue> }) {
-  return (
-    <div style={{ marginBottom: 32 }}>
-      <SectionTitle>{title}</SectionTitle>
-      {Object.entries(styles).map(([key, value]) => (
-        <TextSpecimenRow key={key} name={key} value={value} />
-      ))}
-    </div>
-  );
-}
+import { SectionTitle, ScaleTable } from "./docHelpers";
 
 /* ─── Foundation Scale 데이터 ─── */
 
@@ -708,16 +903,22 @@ git commit -m "docs(ui-v3): Tokens/Typography — Overview + Foundation Scale �
 
 ---
 
-### Task 7: `Typography.stories.tsx`에 13개 Semantic Text Style 스토리 추가
+### Task 8: `Typography.stories.tsx`에 13개 Semantic Text Style 스토리 추가
 
 **Files:**
 - Modify: `packages/ui-v3/src/tokens/Typography.stories.tsx`
 
 **Interfaces:**
-- Consumes: Task 6의 `TextStyleSection`, `textStyles` (전체 13개 카테고리: `display`, `heading`, `appTitle`, `appLabel`, `appBody`, `bodyParagraph`, `input`, `placeholder`, `label`, `button`, `menu`, `table`, `viewer`, `mail` — 각각 `Record<string, TextStyleValue>` 형태).
+- Consumes: Task 3의 `TextStyleSection` (from `./docHelpers`), `textStyles` (전체 13개 카테고리: `display`, `heading`, `appTitle`, `appLabel`, `appBody`, `bodyParagraph`, `input`, `placeholder`, `label`, `button`, `menu`, `table`, `viewer`, `mail` — 각각 `Record<string, TextStyleValue>` 형태).
 - Produces: `Display`, `Heading`, `AppTitle`, `AppLabel`, `AppBody`, `BodyParagraph`, `Input`, `Placeholder`, `Label`, `Button`, `Menu`, `Table`, `Viewer`, `Mail` 스토리.
 
-- [ ] **Step 1: 13개 스토리 추가**
+- [ ] **Step 1: import에 `TextStyleSection` 추가**
+
+```tsx
+import { SectionTitle, ScaleTable, TextStyleSection } from "./docHelpers";
+```
+
+- [ ] **Step 2: 13개 스토리 추가**
 
 `export const Overview: Story = { ... };` 바로 아래에 추가:
 
@@ -779,12 +980,12 @@ export const Mail: Story = {
 };
 ```
 
-- [ ] **Step 2: 타입 체크로 검증**
+- [ ] **Step 3: 타입 체크로 검증**
 
 Run: `npx tsc --noEmit -p packages/ui-v3/tsconfig.json`
 Expected: 위 Global Constraints에 적은 베이스라인 `TS2742` 에러 1개만 남고, 새로운 에러는 추가되지 않음
 
-- [ ] **Step 3: Commit**
+- [ ] **Step 4: Commit**
 
 ```bash
 git add packages/ui-v3/src/tokens/Typography.stories.tsx
@@ -793,30 +994,35 @@ git commit -m "docs(ui-v3): Tokens/Typography — 13개 Semantic Text Style 스�
 
 ---
 
-### Task 8: Storybook 실행 후 육안 검증 (최종)
+### Task 9: 전체 테스트 실행 + Storybook 육안 검증 (최종)
 
 **Files:** 없음 (검증 전용 태스크)
 
 **Interfaces:** 없음
 
-- [ ] **Step 1: Storybook 실행**
+- [ ] **Step 1: 전체 테스트 스위트 실행**
+
+Run: `cd packages/ui-v3 && pnpm test`
+Expected: 기존 테스트 전부 + `docHelpers.test.tsx`의 8개 테스트까지 모두 통과 (실패 0)
+
+- [ ] **Step 2: Storybook 실행**
 
 Run: `cd apps/storybook && pnpm storybook`
 Expected: 로컬 서버가 뜨고 (기본 `http://localhost:6006`) 브라우저가 자동으로 열리거나 URL이 출력됨
 
-- [ ] **Step 2: 사이드바 확인**
+- [ ] **Step 3: 사이드바 확인**
 
 브라우저에서 좌측 사이드바에 `Tokens` 그룹이 새로 생겼고, 그 안에 `Colors`, `Typography` 항목이 있는지 확인한다.
 
-- [ ] **Step 3: Colors 페이지 확인**
+- [ ] **Step 4: Colors 페이지 확인**
 
 `Tokens/Colors`를 열어 `SemanticColors`, `PrimitiveColors`, `Presets` 3개 스토리를 각각 클릭해 스와치가 올바른 색으로 렌더링되는지, 텍스트 라벨이 깨지지 않는지 확인한다.
 
-- [ ] **Step 4: Typography 페이지 확인**
+- [ ] **Step 5: Typography 페이지 확인**
 
 `Tokens/Typography`를 열어 `Overview`부터 `Mail`까지 14개 스토리를 각각 클릭해 텍스트 크기/굵기가 카테고리별로 달라지는지, 한글이 깨지지 않는지 확인한다.
 
-- [ ] **Step 5: 서버 종료**
+- [ ] **Step 6: 서버 종료**
 
 Storybook 개발 서버를 `Ctrl+C`로 종료한다.
 
@@ -824,6 +1030,6 @@ Storybook 개발 서버를 `Ctrl+C`로 종료한다.
 
 ## Self-Review 결과
 
-- **Spec coverage**: 설계 문서의 3개 섹션(Semantic/Primitive/Presets — Colors, Overview/Foundation Scale/13개 카테고리 — Typography) 모두 Task 3~7에 매핑됨. `letterSpacingScale` export 누락 이슈(설계 검토 중 발견)는 Task 1로 별도 처리.
+- **Spec coverage**: 설계 문서의 3개 섹션(Semantic/Primitive/Presets — Colors, Overview/Foundation Scale/13개 카테고리 — Typography) 모두 Task 4~8에 매핑됨. `letterSpacingScale` export 누락 이슈(설계 검토 중 발견)는 Task 1로 별도 처리. 렌더링 헬퍼에 유닛 테스트를 요구하는 사용자 피드백을 반영해 Task 3(`docHelpers` + TDD)을 추가하고 Task 4~8은 그 헬퍼를 소비하도록 재구성.
 - **Placeholder scan**: 모든 스텝에 완전한 코드 포함, "TODO"/"similar to" 없음.
-- **Type consistency**: `Swatch`, `TextStyleValue` 타입과 `ColorSwatchRow`/`PaletteStrip`/`PresetRow`/`TextSpecimenRow`/`TextStyleSection` 함수 시그니처가 Task 3~7 전체에서 동일하게 사용됨. `brandPresets` 이름이 Task 2(정의)와 Task 5(사용) 간 일치.
+- **Type consistency**: `Swatch`, `TextStyleValue`, `BrandPresetInput` 타입과 `ColorSwatchRow`/`PaletteStrip`/`PresetRow`/`ScaleTable`/`TextSpecimenRow`/`TextStyleSection` 함수 시그니처가 Task 3(정의)부터 Task 4~8(사용)까지 동일하게 유지됨. `brandPresets` 이름이 Task 2(정의)와 Task 6(사용) 간 일치. `PresetRow`가 `BrandPresetInput`(옵셔널 `color`)을 받도록 설계해, `brandPresets`의 5개 원소(하나는 `{}`, 나머지는 `{color:{...}}`)가 유니온 타입 프로퍼티 접근 에러 없이 그대로 전달 가능함을 확인.
