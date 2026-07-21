@@ -10,8 +10,10 @@ import {
   cyanPalette,
   darkPalette,
   opacityPalette,
+  defaultColorTokens,
 } from "@lds/tokens";
-import { SectionTitle, ColorSwatchRow, PaletteStrip, type Swatch } from "./docHelpers";
+import { SectionTitle, ColorSwatchRow, PaletteStrip, PresetRow, type Swatch } from "./docHelpers";
+import { brandPresets } from "../components/Theming.stories";
 
 /* ─── Semantic Colors 데이터 ─── */
 /* value 라벨은 라이트 테마 기본값(defaultColorTokens) 기준 하드코딩 */
@@ -186,6 +188,19 @@ export const PrimitiveColors: Story = {
       <PaletteStrip name="cyanPalette" steps={cyanPaletteSteps} />
       <PaletteStrip name="darkPalette" steps={darkPaletteSteps} />
       <PaletteStrip name="opacityPalette" steps={opacityPaletteSteps} />
+    </div>
+  ),
+};
+
+export const Presets: Story = {
+  render: () => (
+    <div>
+      <p style={{ fontSize: 13, color: "#626f86", marginBottom: 16 }}>
+        컴포넌트에 실제 적용된 예시는 <code>Guide/Theming → BrandComparison</code>에서 확인하세요.
+      </p>
+      {Object.entries(brandPresets).map(([name, preset]) => (
+        <PresetRow key={name} name={name} preset={preset} fallback={defaultColorTokens} />
+      ))}
     </div>
   ),
 };
