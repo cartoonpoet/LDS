@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Storybook 사이드바에 `Tokens/Colors`, `Tokens/Typography` 문서 페이지를 추가해 컬러 토큰(semantic + primitive + 브랜드 프리셋)과 타이포그래피 토큰(scale + 13개 semantic text style 카테고리)을 시각적으로 확인할 수 있게 한다.
+**Goal:** Storybook 사이드바에 `Tokens/Colors`, `Tokens/Typography` 문서 페이지를 추가해 컬러 토큰(semantic + primitive + 브랜드 프리셋)과 타이포그래피 토큰(scale + 14개 semantic text style 카테고리)을 시각적으로 확인할 수 있게 한다.
 
 **Architecture:** 순수 문서 전용 Storybook 스토리 2개(`Colors.stories.tsx`, `Typography.stories.tsx`)를 새 폴더 `packages/ui-v3/src/tokens/`에 추가한다. 데이터는 새로 만들지 않고 기존 `@lds/tokens` export(`semanticColorRoles`, `grayPalette` 등, `textStyles`)를 그대로 읽어 렌더링한다. 컬러 스와치/텍스트 스펙시먼을 그리는 프레젠테이셔널 컴포넌트는 `docHelpers.tsx`라는 별도의 (스토리가 아닌) 모듈로 뽑아서 유닛 테스트를 붙이고, 두 `.stories.tsx` 파일은 그 헬퍼에 데이터만 꽂아 넣는 얇은 조립 코드로 유지한다.
 
@@ -14,7 +14,7 @@
 - `docHelpers.tsx`는 파일명이 `*.stories.tsx` 패턴이 아니므로 Storybook에 스캔되지 않는다 (의도된 동작 — 사이드바에 노출되면 안 되는 순수 렌더링 헬퍼이기 때문).
 - Semantic Colors 섹션은 `semanticColorRoles`의 `surface` / `text` / `border` / `action` / `status` 5개 그룹만 다룬다. `button` / `field` / `table` / `badge` / `chip` / `alert`와 `status.scourt`는 제외한다 (컴포넌트 전용 토큰이라 각 컴포넌트 스토리에서 확인 가능).
 - Primitive Colors 섹션은 `grayPalette` / `bluePalette` / `greenPalette` / `redPalette` / `yellowPalette` / `cyanPalette` / `darkPalette` / `opacityPalette`만 다룬다. `scourtPalette` / `bootstrapPalette` / `socialPalette`는 제외한다.
-- Typography 섹션은 `textStyles`의 13개 카테고리(`display`, `heading`, `appTitle`, `appLabel`, `appBody`, `bodyParagraph`, `input`, `placeholder`, `label`, `button`, `menu`, `table`, `viewer`, `mail`) 전부를 포함한다 — 생략 없음.
+- Typography 섹션은 `textStyles`의 14개 카테고리(`display`, `heading`, `appTitle`, `appLabel`, `appBody`, `bodyParagraph`, `input`, `placeholder`, `label`, `button`, `menu`, `table`, `viewer`, `mail`) 전부를 포함한다 — 생략 없음.
 - 테스트 정책: `docHelpers.tsx`의 각 컴포넌트는 `docHelpers.test.tsx`에서 Vitest + `@testing-library/react`(`renderWithUser`/`screen`, `packages/ui-v3/src/test/utils.tsx`)로 테스트한다. `Colors.stories.tsx` / `Typography.stories.tsx`는 데이터를 헬퍼에 꽂아 넣기만 하는 조립 코드이므로 별도 테스트 파일을 만들지 않는다 (로직은 이미 `docHelpers.test.tsx`가 커버) — 기존 `Theming.stories.tsx`도 스토리 파일 자체에는 테스트가 없는 것과 동일한 관례. 이 두 스토리 파일의 검증은 타입 체크 + 마지막 태스크의 Storybook 육안 확인으로 한다.
 - `docHelpers.tsx`의 컴포넌트 chrome(제목/캡션 텍스트 색상, 스와치 테두리 등)은 이 저장소의 "컴포넌트 개발 시 하드코딩 금지, `@lds/tokens` 토큰 사용" 관례를 따라 리터럴 hex 대신 `semanticColorRoles.text.heading` / `semanticColorRoles.text.tertiary` / `grayPalette[200]` / `grayPalette[800]`을 사용한다. 단, 스와치가 시각적으로 표시해야 하는 대상 색상 자체(`Swatch.color`, `PaletteStrip`의 `steps[].value`, `PresetRow`의 `preset`/`fallback` 값)는 문서화 대상 데이터이므로 이 규칙에서 제외된다.
 - 새 컬러 스와치의 값 라벨(hex/rgba 텍스트)은 런타임에 DOM에서 계산하지 않고 하드코딩한다 — `semanticColorRoles`의 값은 CSS 커스텀 프로퍼티 참조라 화면엔 정확히 칠해지지만 텍스트로 뽑아낼 수 없기 때문에, 라이트 테마 기본값(`defaultColorTokens`)을 기준으로 사람이 미리 적어둔 값을 표시한다. Primitive Colors와 Foundation Scale은 소스 상수를 `Object.entries()`로 그대로 순회하므로 하드코딩이 필요 없다.
@@ -22,7 +22,7 @@
   ```
   packages/ui-v3/src/test/utils.tsx(5,17): error TS2742: The inferred type of 'renderWithUser' cannot be named without a reference to '.pnpm/pretty-format@27.5.1/node_modules/pretty-format'. This is likely not portable. A type annotation is necessary.
   ```
-  각 태스크의 타입 체크 스텝에서 "에러 없이 종료"라 적었더라도, 실제로는 **이 에러 1개만 남고 새 에러가 추가되지 않았는지**를 기준으로 판단한다.
+  각 태스크의 타입 체크 스텝에서 "에러 없이 종료"라 적었더라도, 실제로는 **이 에러 1개만 남고 새 에러가 추가되지 않았는지**를 기준으로 판단한다. 이 baseline은 어디까지나 `-p packages/ui-v3/tsconfig.json`(즉 `*.stories.tsx`/`*.test.tsx`를 제외한 범위)로 한정된 것이다 — 그 exclude를 없앤 임시 tsconfig로 확인하면 `AutoComplete.stories.tsx`, `Theming.stories.tsx`에도 이 플랜과 무관한 기존 에러가 별도로 있다(둘 다 이 플랜 시작 전부터 있던 것이며, 이 플랜의 범위 밖이라 손대지 않는다). Task 8처럼 스토리 파일을 직접 만지는 태스크는 이 exclude 범위 밖 검증(임시 tsconfig)도 함께 수행해 새 파일 자체의 타입 안전성을 확인한다.
 - **베이스라인 테스트 실행**: 새 테스트를 추가하기 전, `cd packages/ui-v3 && pnpm test`가 기존에 몇 개 테스트를 통과시키는지 한 번 확인해 기준선으로 삼는다 (새 테스트 실패와 기존 실패를 혼동하지 않기 위함).
 
 ---
@@ -59,7 +59,7 @@ export { fontFamilyTokens, fontSizeScale, lineHeightScale, fontWeightScale, lett
 
 - [ ] **Step 2: 타입 체크로 검증**
 
-Run: `cd /Users/junhoson/Documents/GitHub/LDS && npx tsc --noEmit -p packages/tokens/tsconfig.json`
+Run (from repo root): `npx tsc --noEmit -p packages/tokens/tsconfig.json`
 Expected: 에러 없이 종료 (exit code 0) — 이 tsconfig(`packages/tokens`)에는 ui-v3의 베이스라인 에러가 해당하지 않는다
 
 - [ ] **Step 3: Commit**
@@ -478,7 +478,7 @@ Expected: PASS — 8개 `it` 전부 통과 (SectionTitle 1, ColorSwatchRow 1, Pa
 
 - [ ] **Step 5: 타입 체크로 검증**
 
-Run: `cd /Users/junhoson/Documents/GitHub/LDS && npx tsc --noEmit -p packages/ui-v3/tsconfig.json`
+Run (저장소 루트에서 — 직전 스텝에서 `packages/ui-v3`로 이동했다면 `cd ../..`로 복귀): `npx tsc --noEmit -p packages/ui-v3/tsconfig.json`
 Expected: 위 Global Constraints에 적은 베이스라인 `TS2742` 에러 1개만 남고, 새로운 에러는 추가되지 않음
 
 - [ ] **Step 6: Commit**
@@ -1023,7 +1023,7 @@ Expected: 로컬 서버가 뜨고 (기본 `http://localhost:6006`) 브라우저�
 
 - [ ] **Step 5: Typography 페이지 확인**
 
-`Tokens/Typography`를 열어 `Overview`부터 `Mail`까지 14개 스토리를 각각 클릭해 텍스트 크기/굵기가 카테고리별로 달라지는지, 한글이 깨지지 않는지 확인한다.
+`Tokens/Typography`를 열어 `Overview`부터 `Mail`까지 15개 스토리(Overview 1개 + 카테고리 14개)를 각각 클릭해 텍스트 크기/굵기가 카테고리별로 달라지는지, 한글이 깨지지 않는지 확인한다.
 
 - [ ] **Step 6: 서버 종료**
 
@@ -1033,6 +1033,7 @@ Storybook 개발 서버를 `Ctrl+C`로 종료한다.
 
 ## Self-Review 결과
 
-- **Spec coverage**: 설계 문서의 3개 섹션(Semantic/Primitive/Presets — Colors, Overview/Foundation Scale/13개 카테고리 — Typography) 모두 Task 4~8에 매핑됨. `letterSpacingScale` export 누락 이슈(설계 검토 중 발견)는 Task 1로 별도 처리. 렌더링 헬퍼에 유닛 테스트를 요구하는 사용자 피드백을 반영해 Task 3(`docHelpers` + TDD)을 추가하고 Task 4~8은 그 헬퍼를 소비하도록 재구성.
+- **Spec coverage**: 설계 문서의 3개 섹션(Semantic/Primitive/Presets — Colors, Overview/Foundation Scale/14개 카테고리 — Typography) 모두 Task 4~8에 매핑됨. `letterSpacingScale` export 누락 이슈(설계 검토 중 발견)는 Task 1로 별도 처리. 렌더링 헬퍼에 유닛 테스트를 요구하는 사용자 피드백을 반영해 Task 3(`docHelpers` + TDD)을 추가하고 Task 4~8은 그 헬퍼를 소비하도록 재구성.
 - **Placeholder scan**: 모든 스텝에 완전한 코드 포함, "TODO"/"similar to" 없음.
 - **Type consistency**: `Swatch`, `TextStyleValue`, `BrandPresetInput` 타입과 `ColorSwatchRow`/`PaletteStrip`/`PresetRow`/`ScaleTable`/`TextSpecimenRow`/`TextStyleSection` 함수 시그니처가 Task 3(정의)부터 Task 4~8(사용)까지 동일하게 유지됨. `brandPresets` 이름이 Task 2(정의)와 Task 6(사용) 간 일치. `PresetRow`가 `BrandPresetInput`(옵셔널 `color`)을 받도록 설계해, `brandPresets`의 5개 원소(하나는 `{}`, 나머지는 `{color:{...}}`)가 유니온 타입 프로퍼티 접근 에러 없이 그대로 전달 가능함을 확인.
+- **PR #15 리뷰(CodeRabbit) 반영**: 카테고리 개수 오기(13→14, Task 7/8이 실제로 만든 것은 항상 14개였고 텍스트 표기만 틀렸음 — Task 8·commit 메시지처럼 이미 커밋된 내용을 그대로 인용하는 부분은 역사적 기록으로 남기고, Goal/Global Constraints/Self-Review처럼 앞으로 참고할 서술만 정정), Typography Step 5의 "14개 스토리" → "15개 스토리"(Overview 1 + 카테고리 14) 산술 오류, 베이스라인 타입 에러 설명의 범위 명확화(`-p packages/ui-v3/tsconfig.json` 한정이라는 점과 그 exclude를 없애면 `AutoComplete.stories.tsx`/`Theming.stories.tsx`에 별도의 기존 에러가 있다는 점 — 둘 다 이 플랜 범위 밖), 절대경로 커맨드를 저장소 루트 기준 상대 표기로 교체, `Colors.stories.tsx`/`Typography.stories.tsx`의 반복되는 `Object.entries(...).map(...)` 매핑을 `toSteps`/`toRows` 헬퍼로 추출하는 리팩터를 반영함.

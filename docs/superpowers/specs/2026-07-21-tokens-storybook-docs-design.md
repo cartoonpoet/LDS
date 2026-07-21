@@ -46,7 +46,7 @@ packages/ui-v3/src/tokens/
 - 단일 값 토큰(예: `surface.canvas`, `text.primary`): 스와치 1개 + 값 라벨(hex 또는 대응 foundation 토큰명)
 - 상태가 여러 개인 토큰(`action.primary` → default/hover/active/subtle, `status.success` → text/fill/border): 참고 링크의 `bg.brand` 처럼 여러 스와치를 가로로 나란히 붙이고 각각 상태 라벨 표기
 
-값 라벨은 하드코딩한다 (런타임 DOM 계산 없이): 리터럴 hex/rgba면 그대로 표기하고, `themeVars.color.X` 참조면 대응하는 `defaultColorTokens`의 키 이름(예: `accentPrimary`)을 표기한다.
+값 라벨은 하드코딩한다 (런타임 DOM 계산 없이): 리터럴 hex/rgba면 그대로 표기하고, `themeVars.color.X` 참조면 대응하는 `defaultColorTokens`의 키 이름(예: `accentPrimary`)을 표기한다. 이 방식은 `defaultColorTokens`(또는 참조하는 팔레트)의 실제 값이 바뀌면 문서의 라벨 텍스트가 자동으로 따라가지 않고 수동 갱신이 필요하다는 트레이드오프를 갖는다 — CSS 커스텀 프로퍼티는 런타임에 텍스트로 역참조할 수 없어 이 방식을 택했다. 이 드리프트 위험을 자동으로 잡아주는 별도 검증(예: 값 라벨과 `defaultColorTokens`를 비교하는 테스트)은 이번 범위에 포함하지 않는다 — 문서 전용 페이지에 그 정도 커버리지를 추가하는 비용 대비 이득이 낮다고 판단했기 때문이며, 향후 토큰 값이 자주 바뀌는 것으로 확인되면 재고할 수 있다.
 
 ### 섹션 2 — Primitive Colors
 gray(0~900) / blue(100~700) / green / red / yellow / cyan / dark / opacity 팔레트를 각각 가로 스와치 스트립으로 렌더링. 각 스와치 아래 키(단계 번호 또는 이름)와 hex/rgba 값을 표기.
@@ -67,7 +67,7 @@ function PaletteStrip({ name, steps }: { name: string; steps: { key: string; val
 
 ### 데이터 소스
 - `fontFamilyTokens`, `fontSizeScale`, `fontWeightScale`, `lineHeightScale`, `letterSpacingScale` (foundation)
-- `textStyles` (semantic) — 전체 13개 카테고리 모두 포함: `display`, `heading`, `appTitle`, `appLabel`, `appBody`, `bodyParagraph`, `input`, `placeholder`, `label`, `button`, `menu`, `table`, `viewer`, `mail`
+- `textStyles` (semantic) — 전체 14개 카테고리 모두 포함: `display`, `heading`, `appTitle`, `appLabel`, `appBody`, `bodyParagraph`, `input`, `placeholder`, `label`, `button`, `menu`, `table`, `viewer`, `mail`
 
 ### 섹션 1 — 소개
 - Pretendard(기본 UI 폰트) / Malgun Gothic(viewer·mail 컨텍스트 전용) 안내 문구
@@ -76,10 +76,10 @@ function PaletteStrip({ name, steps }: { name: string; steps: { key: string; val
 - fontSize / fontWeight / lineHeight / letterSpacing 값을 각각 간단한 표로 나열 (토큰명 → 실제 값)
 
 ### 섹션 3 — Semantic Text Styles
-`textStyles`의 13개 카테고리를 순서대로 섹션으로 나누고, 각 카테고리 안의 모든 variant를 한 행씩 렌더링:
+`textStyles`의 14개 카테고리를 순서대로 섹션으로 나누고, 각 카테고리 안의 모든 variant를 한 행씩 렌더링:
 - 좌측: 크기(px) + weight/lineHeight/letterSpacing 메타 정보
 - 우측: 해당 스타일이 실제 적용된 텍스트 샘플 (`style={{ fontFamily, fontSize, fontWeight, lineHeight, letterSpacing }}`)
-- 샘플 문구는 카테고리 폰트 패밀리에 맞춰 통일된 한 두 문장 사용 (Pretendard 계열 vs Malgun Gothic 계열 구분)
+- 샘플 문구는 모든 variant에 동일한 한 문장을 사용한다 (문구 자체를 Pretendard용/Malgun Gothic용으로 따로 만들지 않음). `fontFamily`는 `textStyles`의 각 variant 값을 그대로 인라인 스타일에 적용하므로, `viewer`/`mail`처럼 원래 Malgun Gothic을 쓰는 카테고리는 같은 문구라도 실제로 Malgun Gothic으로 렌더링된다 — 폰트 패밀리 구분은 문구가 아니라 적용되는 스타일로 이루어진다.
 
 ### 공통 렌더링 컴포넌트
 ```tsx
@@ -91,7 +91,12 @@ function TextStyleSection({ title, styles }: { title: string; styles: Record<str
 
 ## 테스트
 
-문서 전용 스토리이므로 별도 테스트 파일은 만들지 않는다 (기존 `Theming.stories.tsx`도 테스트 없음). `npx tsc --noEmit -p packages/ui-v3/tsconfig.json`으로 타입 체크만 확인한다.
+두 단계로 나눈다:
+
+- **`docHelpers.tsx`의 렌더링 헬퍼**(`ColorSwatch`, `ColorSwatchRow`, `PaletteStrip`, `PresetRow`, `TextSpecimenRow`, `TextStyleSection` 등): `docHelpers.test.tsx`에서 Vitest + `@testing-library/react`(`renderWithUser`/`screen`)로 실제 렌더링 결과를 검증하는 단위 테스트를 둔다. 스와치/텍스트 스펙시먼을 그리는 로직이 여기 모여 있으므로, 테스트 커버리지도 여기 집중된다.
+- **`Colors.stories.tsx` / `Typography.stories.tsx`**: 위 헬퍼에 데이터를 꽂아 넣기만 하는 조립 코드이므로 별도 테스트 파일은 만들지 않는다 (기존 `Theming.stories.tsx`도 스토리 파일 자체에는 테스트가 없는 것과 동일한 관례). 검증은 `npx tsc --noEmit -p packages/ui-v3/tsconfig.json` 타입 체크 + Storybook 육안 확인으로 한다.
+
+(최초 설계 시점에는 "문서 전용 스토리이므로 테스트를 만들지 않는다"로 스코프를 잡았으나, 브레인스토밍 중 사용자 피드백을 받아 렌더링 헬퍼에는 유닛 테스트를 두는 쪽으로 조정했다. 위 내용이 실제로 반영된 최종 방침이다.)
 
 ---
 

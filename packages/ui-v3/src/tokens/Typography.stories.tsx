@@ -26,7 +26,7 @@ const letterSpacingRows = toRows(letterSpacingScale);
  * ## Typography
  *
  * LDS는 기본 UI 폰트로 **Pretendard**를 사용하고, 문서 뷰어·메일 컨텍스트에서는 **Malgun Gothic**을 사용합니다.
- * `textStyles`에 정의된 13개 카테고리(display, heading, appTitle, appLabel, appBody, bodyParagraph, input,
+ * `textStyles`에 정의된 14개 카테고리(display, heading, appTitle, appLabel, appBody, bodyParagraph, input,
  * placeholder, label, button, menu, table, viewer, mail)를 실제 스타일이 적용된 텍스트로 확인할 수 있습니다.
  */
 const meta: Meta = {
