@@ -12,7 +12,7 @@ import { Tabs } from "./Tabs";
 
 /* ─── 브랜드 프리셋 ─── */
 
-const brands = {
+export const brandPresets = {
   "Law.ai (기본)": {},
   "Green Brand": {
     color: {
@@ -227,7 +227,7 @@ export const Default: StoryObj = {
 export const BrandComparison: StoryObj = {
   render: () => (
     <div style={{ display: "flex", flexDirection: "column", gap: 32 }}>
-      {Object.entries(brands).map(([name, themeInput]) => {
+      {Object.entries(brandPresets).map(([name, themeInput]) => {
         const vars = Object.keys(themeInput).length > 0
           ? createLdsThemeVars(themeInput)
           : undefined;
