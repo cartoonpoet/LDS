@@ -27,6 +27,11 @@ const preview: Preview = {
       source: {
         type: "dynamic"
       }
+    },
+    options: {
+      storySort: {
+        order: ["Guide", "Tokens", "Components"]
+      }
     }
   }
 };
