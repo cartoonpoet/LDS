@@ -8,6 +8,9 @@ import {
   ScaleTable,
   TextSpecimenRow,
   TextStyleSection,
+  SpacingBar,
+  RadiusSwatch,
+  ShadowSwatch,
 } from "./docHelpers";
 
 describe("SectionTitle", () => {
@@ -135,5 +138,37 @@ describe("TextStyleSection", () => {
     expect(screen.getByRole("heading", { name: "Heading" })).toBeInTheDocument();
     expect(screen.getByText("h1")).toBeInTheDocument();
     expect(screen.getByText("h2")).toBeInTheDocument();
+  });
+});
+
+describe("SpacingBar", () => {
+  it("renders the name and value, and scales the bar width to 4x the px value", () => {
+    renderWithUser(<SpacingBar name="x1" value="4px" />);
+    expect(screen.getByText("x1")).toBeInTheDocument();
+    expect(screen.getByText("4px")).toBeInTheDocument();
+    expect(screen.getByTestId("spacing-bar")).toHaveStyle({ width: "16px" });
+  });
+
+  it("scales a larger value to a proportionally wider bar", () => {
+    renderWithUser(<SpacingBar name="x6" value="24px" />);
+    expect(screen.getByTestId("spacing-bar")).toHaveStyle({ width: "96px" });
+  });
+});
+
+describe("RadiusSwatch", () => {
+  it("renders the name, value, and applies the border-radius to the swatch", () => {
+    renderWithUser(<RadiusSwatch name="sm" value="4px" />);
+    expect(screen.getByText("sm")).toBeInTheDocument();
+    expect(screen.getByText("4px")).toBeInTheDocument();
+    expect(screen.getByTestId("radius-swatch")).toHaveStyle({ borderRadius: "4px" });
+  });
+});
+
+describe("ShadowSwatch", () => {
+  it("renders the name, value, and applies the box-shadow to the swatch", () => {
+    renderWithUser(<ShadowSwatch name="raised" value="0 6px 16px rgba(17, 24, 39, 0.08)" />);
+    expect(screen.getByText("raised")).toBeInTheDocument();
+    expect(screen.getByText("0 6px 16px rgba(17, 24, 39, 0.08)")).toBeInTheDocument();
+    expect(screen.getByTestId("shadow-swatch")).toHaveStyle({ boxShadow: "0 6px 16px rgba(17, 24, 39, 0.08)" });
   });
 });

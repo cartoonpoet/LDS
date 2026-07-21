@@ -150,3 +150,62 @@ export function TextStyleSection({ title, styles }: { title: string; styles: Rec
     </div>
   );
 }
+
+export function SpacingBar({ name, value }: { name: string; value: string }) {
+  const px = parseFloat(value);
+  const barWidth = px * 4;
+  return (
+    <div style={{ display: "flex", alignItems: "center", marginBottom: 12 }}>
+      <div style={{ width: 60, fontSize: 13, fontFamily: "monospace", color: semanticColorRoles.text.heading }}>
+        {name}
+      </div>
+      <div
+        data-testid="spacing-bar"
+        style={{ height: 16, width: barWidth, backgroundColor: semanticColorRoles.action.primary.default }}
+      />
+      <div style={{ marginLeft: 12, fontSize: 12, fontFamily: "monospace", color: semanticColorRoles.text.tertiary }}>
+        {value}
+      </div>
+    </div>
+  );
+}
+
+export function RadiusSwatch({ name, value }: { name: string; value: string }) {
+  return (
+    <div style={{ display: "inline-flex", flexDirection: "column", alignItems: "center", marginRight: 24 }}>
+      <div
+        data-testid="radius-swatch"
+        style={{ width: 48, height: 48, borderRadius: value, backgroundColor: semanticColorRoles.action.primary.default }}
+      />
+      <div style={{ fontSize: 12, color: semanticColorRoles.text.heading, marginTop: 8, fontFamily: "monospace" }}>
+        {name}
+      </div>
+      <div style={{ fontSize: 11, color: semanticColorRoles.text.tertiary, fontFamily: "monospace" }}>{value}</div>
+    </div>
+  );
+}
+
+export function ShadowSwatch({ name, value }: { name: string; value: string }) {
+  return (
+    <div style={{ display: "inline-flex", flexDirection: "column", alignItems: "center", marginRight: 32, padding: 16 }}>
+      <div
+        data-testid="shadow-swatch"
+        style={{ width: 64, height: 64, backgroundColor: semanticColorRoles.surface.canvas, boxShadow: value }}
+      />
+      <div style={{ fontSize: 12, color: semanticColorRoles.text.heading, marginTop: 16, fontFamily: "monospace" }}>
+        {name}
+      </div>
+      <div
+        style={{
+          fontSize: 10,
+          color: semanticColorRoles.text.tertiary,
+          fontFamily: "monospace",
+          textAlign: "center",
+          maxWidth: 160,
+        }}
+      >
+        {value}
+      </div>
+    </div>
+  );
+}
