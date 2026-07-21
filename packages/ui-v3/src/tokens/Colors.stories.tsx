@@ -195,7 +195,7 @@ export const PrimitiveColors: Story = {
 export const Presets: Story = {
   render: () => (
     <div>
-      <p style={{ fontSize: 13, color: "#626f86", marginBottom: 16 }}>
+      <p style={{ fontSize: 13, color: semanticColorRoles.text.tertiary, marginBottom: 16 }}>
         컴포넌트에 실제 적용된 예시는 <code>Guide/Theming → BrandComparison</code>에서 확인하세요.
       </p>
       {Object.entries(brandPresets).map(([name, preset]) => (

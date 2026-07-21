@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import {
   lightThemeClass,
+  semanticColorRoles,
   fontSizeScale,
   fontWeightScale,
   lineHeightScale,
@@ -43,7 +44,7 @@ type Story = StoryObj;
 export const Overview: Story = {
   render: () => (
     <div>
-      <p style={{ fontSize: 13, color: "#626f86", marginBottom: 24 }}>
+      <p style={{ fontSize: 13, color: semanticColorRoles.text.tertiary, marginBottom: 24 }}>
         기본 UI 폰트: <strong>Pretendard</strong> · 뷰어/메일 전용: <strong>Malgun Gothic</strong>
       </p>
       <SectionTitle>Foundation Scale</SectionTitle>
