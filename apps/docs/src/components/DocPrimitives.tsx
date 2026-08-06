@@ -158,7 +158,6 @@ export function AlertShowcase() {
         결재선이 최신 조직도 기준으로 다시 정렬되었습니다.
       </Alert>
       <Alert
-        button
         layout="expanded"
         primaryAction={{ label: "Review now", tone: "primary" }}
         secondaryAction={{ label: "Later", tone: "warning" }}

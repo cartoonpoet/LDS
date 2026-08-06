@@ -1,16 +1,27 @@
-import { DocsLayout } from "../src/components/DocsLayout";
-import { docsRegistry } from "../src/lib/docs";
+import Link from "next/link";
+import { SubFooter } from "../src/components/site/Shell";
 
 export default function NotFoundPage() {
-  const fallback = docsRegistry[0];
-
   return (
-    <DocsLayout currentSlug={fallback.slug} entry={fallback}>
-      <div className="docs-page-card">
-        <p className="docs-kicker">문서 없음</p>
-        <h1>요청한 문서를 찾을 수 없습니다</h1>
-        <p className="docs-summary">현재 LDS 문서 트리에는 해당 페이지가 등록되어 있지 않습니다.</p>
+    <main className="page subpage page-fade">
+      <div className="doc-shell two-col" style={{ gridTemplateColumns: "1fr" }}>
+        <div className="doc-main">
+          <div className="breadcrumb">404</div>
+          <h1 className="doc-title">페이지를 찾을 수 없어요</h1>
+          <p className="doc-desc">주소가 바뀌었거나 아직 준비 중인 페이지예요. 홈에서 다시 시작해 보세요.</p>
+          <div className="next-cards">
+            <Link className="next-card" href="/">
+              <b>홈으로 →</b>
+              <span>LDS 브랜드 필름과 라이브 컴포넌트 데모를 만나보세요.</span>
+            </Link>
+            <Link className="next-card" href="/components">
+              <b>Components 보기 →</b>
+              <span>48개 컴포넌트를 갤러리에서 한눈에 둘러봐요.</span>
+            </Link>
+          </div>
+        </div>
       </div>
-    </DocsLayout>
+      <SubFooter />
+    </main>
   );
 }

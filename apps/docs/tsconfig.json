@@ -37,6 +37,11 @@
     "mdx-components.tsx"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "src/components/DocPrimitives.tsx",
+    "src/components/DocsLayout.tsx",
+    "src/components/docs",
+    "src/lib/docs.tsx",
+    "src/content"
   ]
 }
