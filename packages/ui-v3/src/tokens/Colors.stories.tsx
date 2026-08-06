@@ -13,7 +13,7 @@ import {
   defaultColorTokens,
 } from "@lds/tokens";
 import { SectionTitle, ColorSwatchRow, PaletteStrip, PresetRow, type Swatch } from "./docHelpers";
-import { brandPresets } from "../components/Theming.stories";
+import { brandPresets } from "../components/Theming.presets";
 
 /* ─── Semantic Colors 데이터 ─── */
 /* value 라벨은 라이트 테마 기본값(defaultColorTokens) 기준 하드코딩 */

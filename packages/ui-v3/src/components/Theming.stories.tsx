@@ -9,40 +9,7 @@ import { Spinner } from "./Spinner";
 import { Alert } from "./Alert";
 import { ProgressBar } from "./Progress";
 import { Tabs } from "./Tabs";
-
-/* ─── 브랜드 프리셋 ─── */
-
-export const brandPresets = {
-  "Law.ai (기본)": {},
-  "Green Brand": {
-    color: {
-      accentPrimary: "#16a34a",
-      accentPrimaryHover: "#15803d",
-      accentPrimaryActive: "#166534",
-    },
-  },
-  "Purple Brand": {
-    color: {
-      accentPrimary: "#7c3aed",
-      accentPrimaryHover: "#6d28d9",
-      accentPrimaryActive: "#5b21b6",
-    },
-  },
-  "Orange Brand": {
-    color: {
-      accentPrimary: "#ea580c",
-      accentPrimaryHover: "#c2410c",
-      accentPrimaryActive: "#9a3412",
-    },
-  },
-  "Scourt Blue": {
-    color: {
-      accentPrimary: "#003399",
-      accentPrimaryHover: "#002b80",
-      accentPrimaryActive: "#001f5c",
-    },
-  },
-} as const;
+import { brandPresets } from "./Theming.presets";
 
 /* ─── 공통 데모 컴포넌트 ─── */
 
