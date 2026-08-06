@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import { CodeEnhancer } from "../src/components/site/CodeEnhancer";
 import { SiteNav } from "../src/components/site/SiteNav";
 import "./globals.css";
 
@@ -22,6 +23,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body>
         <SiteNav />
         {children}
+        <CodeEnhancer />
       </body>
     </html>
   );

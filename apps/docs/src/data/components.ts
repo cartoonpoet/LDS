@@ -1,5 +1,6 @@
 import { COMPONENT_LIST } from "./component-list";
 import { COMPONENT_PREVIEWS } from "./component-previews";
+import { COMPONENT_USAGE } from "./component-usage";
 
 export type PropRow = readonly [name: string, type: string, defaultValue: string, description: string];
 
@@ -8,78 +9,80 @@ export type ComponentEntry = {
   name: string;
   desc: string;
   previewHtml: string;
-  usageHtml: string;
+  /** 실전 템플릿 코드 (raw TSX — 렌더 시 하이라이트) */
+  usageCode: string;
   props: readonly PropRow[];
 };
 
-const DEFAULT_PROPS: readonly PropRow[] = [
-  ["size", '"sm" | "md" | "lg"', '"md"', "컴포넌트 크기"],
-  ["disabled", "boolean", "false", "비활성화 여부"],
-  ["className", "string", "—", "추가 클래스"]
-] as const;
+/** 공통 최소 표 — 컴포넌트별 실제 API는 Usage 템플릿 코드가 기준 */
+const DEFAULT_PROPS: readonly PropRow[] = [["className", "string", "—", "추가 클래스"]] as const;
 
+/** packages/ui-v3 실제 Props 인터페이스 기준 */
 const RICH_PROPS: Record<string, readonly PropRow[]> = {
   button: [
-    ["variant", '"solid" | "outline" | "ghost"', '"solid"', "시각적 위계"],
-    ["size", '"sm" | "md" | "lg"', '"md"', "버튼 크기"],
-    ["color", '"accent" | "neutral" | "danger"', '"accent"', "의미 색상"],
-    ["disabled", "boolean", "false", "비활성화 여부"],
-    ["iconLeft", "ReactNode", "—", "텍스트 앞 아이콘"],
-    ["iconRight", "ReactNode", "—", "텍스트 뒤 아이콘"]
-  ],
-  input: [
-    ["label", "string", "—", "필드 라벨"],
-    ["placeholder", "string", "—", "입력 힌트"],
-    ["error", "string", "—", "오류 메시지 (있으면 오류 상태)"],
-    ["size", '"sm" | "md" | "lg"', '"md"', "필드 크기"],
+    ["variant", '"default" | "outline"', '"default"', "버튼 스타일 변형"],
+    ["color", '"primary" | "secondary" | "success" | "danger" | "warning" | "info" | "dark" | "neutral"', '"primary"', "색상 테마"],
+    ["shape", '"rounded" | "round"', '"rounded"', "모양 (rounded: 5px / round: pill)"],
+    ["size", '"small" | "medium" | "large"', '"medium"', "크기"],
+    ["iconLeft", "ReactNode", "—", "좌측 아이콘"],
+    ["iconRight", "ReactNode", "—", "우측 아이콘"],
     ["disabled", "boolean", "false", "비활성화 여부"]
   ],
+  input: [
+    ["inputSize", '"small" | "medium" | "large"', '"medium"', "사이즈 — 30 / 38 / 46px"],
+    ["state", '"default" | "active" | "success" | "warning" | "disabled"', '"default"', "상태 (테두리 색 등)"],
+    ["leftIcon", "ReactNode", "—", "왼쪽 아이콘"],
+    ["rightIcon", "ReactNode", "—", "오른쪽 아이콘"],
+    ["suffix", "ReactNode", "—", "오른쪽 접미사 (단위 텍스트, 드롭다운 등)"],
+    ["placeholder", "string", "—", "입력 힌트 (네이티브)"]
+  ],
   checkbox: [
-    ["checked", "boolean", "—", "제어 값"],
-    ["defaultChecked", "boolean", "false", "비제어 초기 값"],
-    ["indeterminate", "boolean", "false", "부분 선택 상태"],
-    ["disabled", "boolean", "false", "비활성화 여부"],
-    ["onChange", "(checked: boolean) => void", "—", "변경 핸들러"]
+    ["size", '"small" | "medium" | "large"', '"medium"', "사이즈 — 12 / 14 / 18px"],
+    ["checked", "boolean", "false", "체크 상태"],
+    ["label", "string", "—", "라벨 텍스트"],
+    ["onCheckedChange", "(checked: boolean) => void", "—", "변경 핸들러"],
+    ["disabled", "boolean", "false", "비활성화 여부 (네이티브)"]
   ],
   switch: [
-    ["checked", "boolean", "—", "제어 값"],
-    ["size", '"sm" | "md"', '"md"', "스위치 크기"],
-    ["disabled", "boolean", "false", "비활성화 여부"],
-    ["onChange", "(checked: boolean) => void", "—", "변경 핸들러"]
+    ["size", '"small" | "medium"', '"medium"', "사이즈 — 32×18 / 42×24"],
+    ["checked", "boolean", "false", "체크 상태"],
+    ["label", "string", "—", "왼쪽 라벨 텍스트"],
+    ["onCheckedChange", "(checked: boolean) => void", "—", "변경 핸들러"],
+    ["disabled", "boolean", "false", "비활성화 여부 (네이티브)"]
   ],
   tabs: [
-    ["items", "TabItem[]", "—", "탭 목록"],
-    ["value", "string", "—", "선택된 탭 키"],
-    ["variant", '"underline" | "pill"', '"underline"', "탭 모양"],
-    ["onChange", "(value: string) => void", "—", "변경 핸들러"]
+    ["items", "TabItem[] — { value, label, badge? }", "—", "탭 목록"],
+    ["value", "string", "—", "현재 활성화된 값"],
+    ["onChange", "(value: string) => void", "—", "값 변경 핸들러"],
+    ["size", '"large" | "medium"', '"large"', "크기"],
+    ["action", "{ label, icon?, onClick? }", "—", "액션 버튼 (예: Add Tab)"]
   ],
   datatable: [
-    ["columns", "Column&lt;T&gt;[]", "—", "컬럼 정의"],
-    ["data", "T[]", "—", "행 데이터"],
-    ["selectable", "boolean", "false", "행 선택 체크박스"],
-    ["pagination", "boolean", "true", "페이지네이션 표시"],
-    ["onRowClick", "(row: T) => void", "—", "행 클릭 핸들러"]
+    ["data", "T[]", "—", "테이블 데이터"],
+    ["columns", "ColumnDef&lt;T&gt;[]", "—", "@tanstack/react-table 컬럼 정의"],
+    ["selectable", "boolean", "false", "행 선택 체크박스 표시"],
+    ["bordered", "boolean", "false", "세로 구분선 표시"],
+    ["onRowClick", "(row: T) => void", "—", "행 클릭 콜백"],
+    ["emptyText", "ReactNode", "—", "데이터 없을 때 표시 메시지"],
+    ["getRowId", "(row: T) => string", "—", "행 고유 ID 반환 함수"]
   ]
 };
 
 const BUTTON_PREVIEW = `<div class="btn-rows"><div class="btn-row"><button class="lds-btn md solid">계약 생성</button><button class="lds-btn md outline">임시 저장</button><button class="lds-btn md ghost">취소</button><button class="lds-btn md danger">삭제</button></div><div class="btn-row"><button class="lds-btn sm solid">Small</button><button class="lds-btn md solid">Medium</button><button class="lds-btn lg solid">Large</button></div><div class="btn-row"><button class="lds-btn md solid is-disabled">비활성</button><button class="lds-btn md outline is-disabled">비활성</button></div></div>`;
 
-const BUTTON_USAGE = `<span class="tk-kw">import</span> { <span class="tk-fn">Button</span> } <span class="tk-kw">from</span> <span class="tk-str">"@lds/ui-v3"</span>;
+const fallbackUsage = (name: string) => `import { ${name} } from "@lds/ui-v3";
 
-&lt;<span class="tk-tag">Button</span> <span class="tk-attr">variant</span>=<span class="tk-str">"solid"</span> <span class="tk-attr">size</span>=<span class="tk-str">"md"</span>&gt;계약 생성&lt;/<span class="tk-tag">Button</span>&gt;
-&lt;<span class="tk-tag">Button</span> <span class="tk-attr">variant</span>=<span class="tk-str">"outline"</span>&gt;취소&lt;/<span class="tk-tag">Button</span>&gt;`;
-
-const defaultUsage = (name: string) =>
-  `<span class="tk-kw">import</span> { <span class="tk-fn">${name}</span> } <span class="tk-kw">from</span> <span class="tk-str">"@lds/ui-v3"</span>;
-
-&lt;<span class="tk-tag">${name}</span> /&gt;`;
+<${name} />`;
 
 export const COMPONENTS: ComponentEntry[] = COMPONENT_LIST.map(entry => ({
   slug: entry.slug,
   name: entry.name,
   desc: entry.desc,
-  previewHtml: entry.slug === "button" ? BUTTON_PREVIEW : COMPONENT_PREVIEWS[entry.slug] ?? `<div class="p-generic">${entry.name}</div>`,
-  usageHtml: entry.slug === "button" ? BUTTON_USAGE : defaultUsage(entry.name),
+  previewHtml:
+    entry.slug === "button"
+      ? BUTTON_PREVIEW
+      : COMPONENT_PREVIEWS[entry.slug] ?? `<div class="p-generic">${entry.name}</div>`,
+  usageCode: COMPONENT_USAGE[entry.slug] ?? fallbackUsage(entry.name),
   props: RICH_PROPS[entry.slug] ?? DEFAULT_PROPS
 }));
 

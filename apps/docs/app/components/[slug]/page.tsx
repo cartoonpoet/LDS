@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { CodeBlock } from "../../../src/components/site/CodeBlock";
 import { ComponentsSidebar, Html, SubFooter } from "../../../src/components/site/Shell";
 import { COMPONENTS, findComponent } from "../../../src/data/components";
 
@@ -49,7 +50,7 @@ export default async function ComponentDetailPage({ params }: PageProps) {
           <section className="doc-section" id="cd-usage">
             <h2>Usage</h2>
             <p>{entry.name}는 LDS 토큰 위에서 동작해서 어떤 테마에서도 같은 모습을 유지해요. 접근성 속성은 기본으로 들어 있어요.</p>
-            <div className="codeblock" dangerouslySetInnerHTML={{ __html: entry.usageHtml }} />
+            <CodeBlock code={entry.usageCode} />
           </section>
           <section className="doc-section" id="cd-props">
             <h2>Props</h2>
