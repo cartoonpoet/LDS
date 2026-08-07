@@ -89,7 +89,7 @@ pnpm add @lds/ui-v3 @lds/tokens
         <h2>패키지 구조</h2>
         <div class="dev-pkgs">
           <div class="dev-pkg"><code>@lds/tokens</code> <span style="font-size:12px;font-weight:700;color:#626F86">v0.1.0</span><p>색·간격·라운드·모션 토큰의 단일 출처예요. CSS 변수와 TypeScript 타입을 함께 내보내요.</p></div>
-          <div class="dev-pkg"><code>@lds/ui-v3</code> <span style="font-size:12px;font-weight:700;color:#626F86">v0.1.52</span><p>토큰 위에서 만든 React 컴포넌트 52종이에요. 접근성과 테스트 272개가 배포 게이트예요.</p></div>
+          <div class="dev-pkg"><code>@lds/ui-v3</code> <span style="font-size:12px;font-weight:700;color:#626F86">v0.1.52</span><p>토큰 위에서 만든 React 컴포넌트 54종이에요. 접근성과 테스트 454개가 배포 게이트예요.</p></div>
         </div>
       </section>
       <section class="doc-section" id="dv-res">

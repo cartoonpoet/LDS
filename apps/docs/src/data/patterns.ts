@@ -5,6 +5,8 @@ export type PatternEntry = {
   name: string;
   desc: string;
   diagramHtml: string;
+  /** 패턴을 구현한 컴포넌트 상세 페이지 slug (있을 때만 카드에 링크 표시) */
+  componentSlug?: string;
 };
 
 /** apps/docs에 실재하는 패턴 문서 5종 */
@@ -22,7 +24,8 @@ export const PATTERNS: PatternEntry[] = [
   {
     slug: "drawer",
     name: "Drawer",
-    desc: "흐름을 떠나지 않고 오른쪽에서 열리는 작업 패널이에요. 상세 편집과 부가 작업을 담아요."
+    desc: "흐름을 떠나지 않고 오른쪽에서 열리는 작업 패널이에요. 상세 편집과 부가 작업을 담아요.",
+    componentSlug: "drawer"
   },
   {
     slug: "comments",
@@ -32,6 +35,7 @@ export const PATTERNS: PatternEntry[] = [
   {
     slug: "table-tree",
     name: "Table Tree",
-    desc: "사건·조직처럼 계층이 있는 데이터를 표 안에서 접었다 펼치는 패턴이에요."
+    desc: "사건·조직처럼 계층이 있는 데이터를 표 안에서 접었다 펼치는 패턴이에요.",
+    componentSlug: "tabletree"
   }
 ].map(entry => ({ ...entry, diagramHtml: PATTERN_DIAGRAMS[entry.slug] ?? "" }));

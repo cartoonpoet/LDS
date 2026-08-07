@@ -16,7 +16,7 @@ export default function NotFoundPage() {
             </Link>
             <Link className="next-card" href="/components">
               <b>Components 보기 →</b>
-              <span>52개 컴포넌트를 갤러리에서 한눈에 둘러봐요.</span>
+              <span>54개 컴포넌트를 갤러리에서 한눈에 둘러봐요.</span>
             </Link>
           </div>
         </div>

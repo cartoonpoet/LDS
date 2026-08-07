@@ -39,6 +39,11 @@ export default function PatternsPage() {
                 <div className="pat-body">
                   <h3>{entry.name}</h3>
                   <p>{entry.desc}</p>
+                  {entry.componentSlug && (
+                    <p style={{ marginTop: 8 }}>
+                      <a href={`/components/${entry.componentSlug}`}>컴포넌트 문서 보기 →</a>
+                    </p>
+                  )}
                 </div>
               </div>
             ))}

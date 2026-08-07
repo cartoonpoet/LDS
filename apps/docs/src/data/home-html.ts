@@ -266,7 +266,7 @@ export const DARK_HTML = `<div class="dark-zone" id="darkZone">
               </div>
             </div>
             <div class="article-body">
-              <h3>52개 컴포넌트, 272개 테스트 — 품질 게이트와 함께 성장</h3>
+              <h3>54개 컴포넌트, 454개 테스트 — 품질 게이트와 함께 성장</h3>
               <p>모든 컴포넌트가 테스트와 접근성 검증을 통과해야 배포돼요.</p>
             </div>
           </div>

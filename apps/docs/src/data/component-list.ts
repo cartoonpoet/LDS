@@ -1,4 +1,4 @@
-// 실측 컴포넌트 52종 (packages/ui-v3/src/components 폴더명 기준)
+// 실측 컴포넌트 54종 (packages/ui-v3/src/components 폴더명 기준)
 export const COMPONENT_LIST = [
   { slug: "alert", name: "Alert", desc: "흐름을 끊지 않고 맥락 안에서 안내하는 인라인 메시지예요." },
   { slug: "autocomplete", name: "AutoComplete", desc: "입력하는 대로 후보를 제안하는 자동완성이에요." },
@@ -17,6 +17,7 @@ export const COMPONENT_LIST = [
   { slug: "collapse", name: "Collapse", desc: "긴 내용을 접었다 펼치는 영역이에요." },
   { slug: "datatable", name: "DataTable", desc: "밀도 높은 법무 데이터를 담는 표준 테이블이에요." },
   { slug: "datepicker", name: "DatePicker", desc: "날짜를 고르는 달력이에요." },
+  { slug: "drawer", name: "Drawer", desc: "흐름을 떠나지 않고 가장자리에서 슬라이드 인 하는 패널이에요." },
   { slug: "dropdown", name: "Dropdown", desc: "선택지를 정돈된 목록으로 보여줘요." },
   { slug: "fileupload", name: "FileUpload", desc: "드래그 앤 드롭으로 문서를 첨부해요." },
   { slug: "floatingmodal", name: "FloatingModal", desc: "화면 구석에 떠서 흐름을 막지 않는 모달이에요." },
@@ -45,6 +46,7 @@ export const COMPONENT_LIST = [
   { slug: "stack", name: "Stack", desc: "간격과 정렬을 선언적으로 다루는 레이아웃이에요." },
   { slug: "sweetalert", name: "SweetAlert", desc: "결정을 확인하는 대화상자예요." },
   { slug: "switch", name: "Switch", desc: "켜고 끄는 즉시 반영되는 설정이에요." },
+  { slug: "tabletree", name: "TableTree", desc: "계층이 있는 데이터를 표 안에서 접었다 펼쳐요." },
   { slug: "tabs", name: "Tabs", desc: "같은 층위의 화면을 오가는 전환이에요." },
   { slug: "tagselect", name: "TagSelect", desc: "태그를 고르고 만드는 입력이에요." },
   { slug: "textarea", name: "Textarea", desc: "여러 줄 내용을 담는 입력 필드예요." },

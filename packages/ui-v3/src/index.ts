@@ -313,6 +313,16 @@ export type {
 export { FullScreenModal } from "./components/FullScreenModal";
 export type { FullScreenModalProps } from "./components/FullScreenModal";
 
+export { Drawer } from "./components/Drawer";
+export type { DrawerProps, DrawerSide, DrawerSize } from "./components/Drawer";
+
+export { TableTree } from "./components/TableTree";
+export type {
+  TableTreeProps,
+  TableTreeColumn,
+  TableTreeRow,
+} from "./components/TableTree";
+
 /* ─── Styles ─── */
 export { sprinkles } from "./styles/sprinkles.css";
 

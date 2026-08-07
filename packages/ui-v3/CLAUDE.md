@@ -496,6 +496,52 @@ function MyPage() {
 }
 ```
 
+## Drawer
+
+```tsx
+import { useState } from "react";
+import { Drawer, Button } from "@lds/ui-v3";
+
+function MyPage() {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>계약 상세 열기</Button>
+
+      {/* 기본 — 오른쪽에서 슬라이드 인, dim + 클릭/Escape 닫기 */}
+      <Drawer
+        open={open}
+        onClose={() => setOpen(false)}
+        title="계약 상세"
+        footer={
+          <>
+            <Button variant="outline" color="secondary" onClick={() => setOpen(false)}>취소</Button>
+            <Button onClick={() => setOpen(false)}>저장</Button>
+          </>
+        }
+      >
+        <p>계약 상세 콘텐츠</p>
+      </Drawer>
+
+      {/* 왼쪽 + 작은 사이즈 (필터 패널) */}
+      <Drawer open={open} onClose={() => setOpen(false)} side="left" size="small" title="필터">
+        <p>필터 콘텐츠</p>
+      </Drawer>
+
+      {/* 비차단 — dim 없이 페이지 조작 가능 */}
+      <Drawer open={open} onClose={() => setOpen(false)} backdrop={false} title="메모">
+        <p>페이지를 계속 조작할 수 있어요.</p>
+      </Drawer>
+
+      {/* Escape 닫기 비활성 */}
+      <Drawer open={open} onClose={() => setOpen(false)} title="작성 중" closeOnEscape={false}>
+        <p>실수로 닫히지 않도록 Escape를 막습니다.</p>
+      </Drawer>
+    </>
+  );
+}
+```
+
 ## Dropdown
 
 ```tsx
@@ -1137,6 +1183,60 @@ const [on, setOn] = useState(false);
 // 비활성화
 <Switch label="Disabled" disabled />
 <Switch label="Disabled On" checked disabled />
+```
+
+## TableTree
+
+```tsx
+import { TableTree } from "@lds/ui-v3";
+import type { TableTreeColumn, TableTreeRow } from "@lds/ui-v3";
+
+const columns: TableTreeColumn[] = [
+  { key: "code", header: "관리번호", width: 180 },
+  { key: "title", header: "계약명" },
+  { key: "date", header: "체결일", width: 120, align: "right" },
+];
+
+const rows: TableTreeRow[] = [
+  {
+    id: "1",
+    cells: { code: "C20190301", title: "법무관리시스템 구축 계약", date: "2019-01-03" },
+    children: [
+      {
+        id: "1-1",
+        cells: { code: "C20190301-01", title: "유지보수 계약", date: "2020-01-03" },
+      },
+    ],
+  },
+  {
+    id: "2",
+    cells: { code: "C20221108", title: "Law.ai 공급 계약", date: "2022-11-08" },
+  },
+];
+
+// 기본 — 자식 행은 부모 확장 시에만 렌더
+<TableTree columns={columns} rows={rows} />
+
+// 초기 펼침 + 행 클릭/선택
+<TableTree
+  columns={columns}
+  rows={rows}
+  defaultExpandedIds={["1"]}
+  selectedId={selectedId}
+  onRowClick={(row) => setSelectedId(row.id)}
+/>
+
+// Controlled 펼침 상태
+const [expandedIds, setExpandedIds] = useState<string[]>(["1"]);
+<TableTree
+  columns={columns}
+  rows={rows}
+  expandedIds={expandedIds}
+  onExpandedChange={setExpandedIds}
+/>
+
+// 세로 구분선 + 들여쓰기 조절 + 빈 상태 메시지
+<TableTree columns={columns} rows={rows} bordered indentSize={28} emptyText="조회된 계약이 없습니다." />
 ```
 
 ## Tabs

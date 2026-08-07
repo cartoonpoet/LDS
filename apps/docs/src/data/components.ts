@@ -57,6 +57,28 @@ const RICH_PROPS: Record<string, readonly PropRow[]> = {
     ["size", '"large" | "medium"', '"large"', "크기"],
     ["action", "{ label, icon?, onClick? }", "—", "액션 버튼 (예: Add Tab)"]
   ],
+  drawer: [
+    ["open", "boolean", "—", "표시 여부"],
+    ["onClose", "() => void", "—", "닫기 핸들러 (Escape, backdrop 클릭, close 버튼)"],
+    ["side", '"right" | "left"', '"right"', "슬라이드 인 방향"],
+    ["size", '"small" | "medium" | "large"', '"medium"', "너비 — 360 / 480 / 640px"],
+    ["title", "ReactNode", "—", "헤더 타이틀 (간편 API)"],
+    ["footer", "ReactNode", "—", "푸터 콘텐츠 (간편 API)"],
+    ["backdrop", "boolean", "true", "dim 배경 + 클릭 닫기 + 스크롤락. false면 비차단"],
+    ["closeOnEscape", "boolean", "true", "Escape 키 닫기"]
+  ],
+  tabletree: [
+    ["columns", "TableTreeColumn[] — { key, header, width?, align? }", "—", "컬럼 정의"],
+    ["rows", "TableTreeRow[] — { id, cells, children? }", "—", "계층 행 데이터"],
+    ["defaultExpandedIds", "string[]", "[]", "초기 펼침 행 ID (uncontrolled)"],
+    ["expandedIds", "string[]", "—", "펼침 행 ID (controlled)"],
+    ["onExpandedChange", "(ids: string[]) => void", "—", "펼침 상태 변경 콜백"],
+    ["onRowClick", "(row: TableTreeRow) => void", "—", "행 클릭 콜백"],
+    ["selectedId", "string", "—", "선택된 행 ID"],
+    ["bordered", "boolean", "false", "세로 구분선 표시"],
+    ["indentSize", "number", "20", "깊이당 들여쓰기 px"],
+    ["emptyText", "ReactNode", '"데이터가 없습니다."', "데이터 없을 때 표시 메시지"]
+  ],
   datatable: [
     ["data", "T[]", "—", "테이블 데이터"],
     ["columns", "ColumnDef&lt;T&gt;[]", "—", "@tanstack/react-table 컬럼 정의"],
