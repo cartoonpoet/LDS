@@ -1,9 +1,10 @@
-// 실측 컴포넌트 48종 (packages/ui-v3/src/components 폴더명 기준)
+// 실측 컴포넌트 52종 (packages/ui-v3/src/components 폴더명 기준)
 export const COMPONENT_LIST = [
   { slug: "alert", name: "Alert", desc: "흐름을 끊지 않고 맥락 안에서 안내하는 인라인 메시지예요." },
   { slug: "autocomplete", name: "AutoComplete", desc: "입력하는 대로 후보를 제안하는 자동완성이에요." },
   { slug: "avatar", name: "Avatar", desc: "사람과 팀을 표현하는 기본 단위예요." },
   { slug: "badge", name: "Badge", desc: "개수와 상태를 작게 알리는 표시예요." },
+  { slug: "breadcrumb", name: "Breadcrumb", desc: "현재 위치까지의 경로를 알려주는 내비게이션이에요." },
   { slug: "button", name: "Button", desc: "모든 행동의 시작점이에요." },
   { slug: "buttongroup", name: "ButtonGroup", desc: "서로 배타적인 선택지를 한 몸으로 묶어요." },
   { slug: "buttontab", name: "ButtonTab", desc: "버튼 모양으로 화면을 전환하는 탭이에요." },
@@ -18,6 +19,8 @@ export const COMPONENT_LIST = [
   { slug: "datepicker", name: "DatePicker", desc: "날짜를 고르는 달력이에요." },
   { slug: "dropdown", name: "Dropdown", desc: "선택지를 정돈된 목록으로 보여줘요." },
   { slug: "fileupload", name: "FileUpload", desc: "드래그 앤 드롭으로 문서를 첨부해요." },
+  { slug: "floatingmodal", name: "FloatingModal", desc: "화면 구석에 떠서 흐름을 막지 않는 모달이에요." },
+  { slug: "fullscreenmodal", name: "FullScreenModal", desc: "화면 전체를 쓰는 몰입형 모달이에요." },
   { slug: "icon", name: "Icon", desc: "24px 그리드의 일관된 아이콘 세트예요." },
   { slug: "iconbuttongroup", name: "IconButtonGroup", desc: "아이콘 버튼을 나란히 묶어요." },
   { slug: "infopopover", name: "InfoPopover", desc: "맥락 도움말을 팝오버로 띄워요." },
@@ -44,6 +47,7 @@ export const COMPONENT_LIST = [
   { slug: "switch", name: "Switch", desc: "켜고 끄는 즉시 반영되는 설정이에요." },
   { slug: "tabs", name: "Tabs", desc: "같은 층위의 화면을 오가는 전환이에요." },
   { slug: "tagselect", name: "TagSelect", desc: "태그를 고르고 만드는 입력이에요." },
+  { slug: "textarea", name: "Textarea", desc: "여러 줄 내용을 담는 입력 필드예요." },
   { slug: "toast", name: "Toast", desc: "방해 없이 결과를 전하는 알림이에요." },
   { slug: "tooltip", name: "Tooltip", desc: "짧은 도움말을 담는 말풍선이에요." },
   { slug: "treeview", name: "TreeView", desc: "계층 구조를 탐색해요." },

@@ -289,6 +289,30 @@ export type { ChipProps } from "./components/Chip";
 export { LinkBadge } from "./components/LinkBadge";
 export type { LinkBadgeProps } from "./components/LinkBadge";
 
+export { Breadcrumb } from "./components/Breadcrumb";
+export type {
+  BreadcrumbProps,
+  BreadcrumbItem,
+  BreadcrumbSize,
+} from "./components/Breadcrumb";
+
+export { Textarea } from "./components/Textarea";
+export type {
+  TextareaProps,
+  TextareaSize,
+  TextareaState,
+  TextareaResize,
+} from "./components/Textarea";
+
+export { FloatingModal } from "./components/FloatingModal";
+export type {
+  FloatingModalProps,
+  FloatingModalPosition,
+} from "./components/FloatingModal";
+
+export { FullScreenModal } from "./components/FullScreenModal";
+export type { FullScreenModalProps } from "./components/FullScreenModal";
+
 /* ─── Styles ─── */
 export { sprinkles } from "./styles/sprinkles.css";
 

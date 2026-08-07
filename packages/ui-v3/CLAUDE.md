@@ -104,6 +104,35 @@ import { Badge } from "@lds/ui-v3";
 <Badge iconOnly leadingIcon={<MyIcon />} aria-label="알림" />
 ```
 
+## Breadcrumb
+
+```tsx
+import { Breadcrumb } from "@lds/ui-v3";
+
+// 기본 — 마지막 항목이 현재 페이지 (aria-current="page")
+<Breadcrumb
+  items={[
+    { label: "홈", href: "/" },
+    { label: "계약", href: "/contracts" },
+    { label: "계약 상세" },
+  ]}
+/>
+
+// 구분자 커스텀 (chevron 등)
+<Breadcrumb items={items} separator=">" />
+
+// 라우터 연동 (onClick)
+<Breadcrumb
+  items={[
+    { label: "홈", href: "/", onClick: (e) => { e.preventDefault(); router.push("/"); } },
+    { label: "현재 페이지" },
+  ]}
+/>
+
+// 작은 사이즈
+<Breadcrumb items={items} size="small" />
+```
+
 ## Button
 
 ```tsx
@@ -544,6 +573,85 @@ const [files, setFiles] = useState([]);
 
 // 파일 첨부 배지
 <FileAttachBadge filename="report.pdf" onRemove={() => {}} />
+```
+
+## FloatingModal
+
+```tsx
+import { useState } from "react";
+import { FloatingModal, Button } from "@lds/ui-v3";
+
+function MyPage() {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>플로팅 모달 열기</Button>
+
+      {/* 우하단 고정, backdrop 없음 — 페이지 조작 가능 */}
+      <FloatingModal
+        open={open}
+        onClose={() => setOpen(false)}
+        title="파일 업로드"
+        collapsible
+        footer={<Button onClick={() => setOpen(false)}>완료</Button>}
+      >
+        <p>계약서_최종.pdf 업로드 중… (75%)</p>
+      </FloatingModal>
+
+      {/* 좌하단 + Escape 닫기 */}
+      <FloatingModal
+        open={open}
+        onClose={() => setOpen(false)}
+        title="메모"
+        position="bottom-left"
+        closeOnEscape
+      >
+        <p>작성 중인 메모</p>
+      </FloatingModal>
+    </>
+  );
+}
+```
+
+## FullScreenModal
+
+```tsx
+import { useState } from "react";
+import { FullScreenModal, Button } from "@lds/ui-v3";
+
+function MyPage() {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>전체화면 모달 열기</Button>
+
+      {/* 상단 고정 헤더 + 스크롤 바디 + 하단 푸터 */}
+      <FullScreenModal
+        open={open}
+        onClose={() => setOpen(false)}
+        title="계약서 편집"
+        footer={
+          <>
+            <Button variant="outline" color="secondary" onClick={() => setOpen(false)}>취소</Button>
+            <Button onClick={() => setOpen(false)}>저장</Button>
+          </>
+        }
+      >
+        <p>전체화면 본문 콘텐츠</p>
+      </FullScreenModal>
+
+      {/* Escape 닫기 비활성 */}
+      <FullScreenModal
+        open={open}
+        onClose={() => setOpen(false)}
+        title="문서 작성"
+        disableEscapeClose
+      >
+        <p>작성 중 실수로 닫히지 않도록 Escape를 막습니다.</p>
+      </FullScreenModal>
+    </>
+  );
+}
 ```
 
 ## IconButtonGroup
@@ -1094,6 +1202,34 @@ const [value, setValue] = useState<string[]>([]);
   onChange={setValue}
   placeholder="Placeholder"
 />
+```
+
+## Textarea
+
+```tsx
+import { Textarea, InputGroup } from "@lds/ui-v3";
+
+// 기본
+<Textarea placeholder="내용을 입력하세요" />
+
+// 사이즈 / 줄 수
+<Textarea textareaSize="small" rows={3} />
+<Textarea textareaSize="large" rows={6} />
+
+// 상태
+<Textarea state="warning" defaultValue="필수 항목입니다" />
+<Textarea state="disabled" placeholder="비활성화" />
+
+// 리사이즈 잠금
+<Textarea resize="none" />
+
+// 글자수 표시
+<Textarea maxLength={200} showCount placeholder="200자 이내로 입력" />
+
+// InputGroup과 함께 (라벨 + 도움말)
+<InputGroup label="비고" helperText="선택 입력 항목입니다">
+  <Textarea placeholder="비고를 입력하세요" />
+</InputGroup>
 ```
 
 ## Toast
