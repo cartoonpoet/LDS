@@ -52,7 +52,7 @@ const options = [
 <AutoComplete
   options={options}
   value={value}
-  onChange={(val) => setValue(val)}
+  onChange={(val) => setValue(val as string)}
   placeholder="이름 또는 ID로 검색"
 />`,
       },
@@ -64,7 +64,7 @@ const options = [
       <AutoComplete
         options={userOptions}
         value={value}
-        onChange={(val) => setValue(val)}
+        onChange={(val) => setValue(val as string)}
         placeholder="이름 또는 ID로 검색"
       />
     );
@@ -78,7 +78,7 @@ export const Default: Story = {
       <AutoComplete
         options={userOptions}
         value={value}
-        onChange={(val) => setValue(val)}
+        onChange={(val) => setValue(val as string)}
         placeholder="이름 또는 ID로 검색"
       />
     );
@@ -92,7 +92,7 @@ export const WithInitialValue: Story = {
       <AutoComplete
         options={userOptions}
         value={value}
-        onChange={(val) => setValue(val)}
+        onChange={(val) => setValue(val as string)}
         placeholder="이름 또는 ID로 검색"
       />
     );
@@ -106,7 +106,7 @@ export const Small: Story = {
       <AutoComplete
         options={userOptions}
         value={value}
-        onChange={(val) => setValue(val)}
+        onChange={(val) => setValue(val as string)}
         placeholder="검색..."
         inputSize="small"
       />
@@ -121,7 +121,7 @@ export const Large: Story = {
       <AutoComplete
         options={userOptions}
         value={value}
-        onChange={(val) => setValue(val)}
+        onChange={(val) => setValue(val as string)}
         placeholder="검색..."
         inputSize="large"
       />

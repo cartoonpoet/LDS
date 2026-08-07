@@ -55,7 +55,7 @@ const options = [
 <AutoComplete
   options={options}
   value={value}
-  onChange={(val) => setValue(val)}
+  onChange={(val) => setValue(val as string)}
   placeholder="이름 또는 ID로 검색"
 />
 ```

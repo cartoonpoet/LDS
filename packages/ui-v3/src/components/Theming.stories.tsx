@@ -61,11 +61,11 @@ function ComponentShowcase() {
         <h4 style={{ margin: "0 0 8px", fontSize: 13, color: "#626f86" }}>Tabs</h4>
         <Tabs
           items={[
-            { key: "tab1", label: "탭 1" },
-            { key: "tab2", label: "탭 2" },
-            { key: "tab3", label: "탭 3" },
+            { value: "tab1", label: "탭 1" },
+            { value: "tab2", label: "탭 2" },
+            { value: "tab3", label: "탭 3" },
           ]}
-          activeKey="tab1"
+          value="tab1"
           onChange={() => {}}
         />
       </section>
@@ -73,7 +73,7 @@ function ComponentShowcase() {
       {/* Alert */}
       <section>
         <h4 style={{ margin: "0 0 8px", fontSize: 13, color: "#626f86" }}>Alert</h4>
-        <Alert type="primary">브랜드 컬러가 적용된 알림 메시지입니다.</Alert>
+        <Alert type="info">브랜드 컬러가 적용된 알림 메시지입니다.</Alert>
       </section>
     </div>
   );

@@ -51,7 +51,7 @@
     "build": "vite build",
     "prepublishOnly": "pnpm run build",
     "lint": "echo \"No lint configured yet\"",
-    "check": "tsc --noEmit",
+    "check": "tsc --noEmit -p tsconfig.check.json",
     "test": "vitest run --config vitest.config.ts",
     "docs": "node ../../scripts/generate-component-docs.mjs",
     "postinstall": "node scripts/postinstall.js"
