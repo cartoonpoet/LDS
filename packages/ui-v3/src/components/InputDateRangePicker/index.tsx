@@ -1,6 +1,7 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import type { HTMLAttributes } from "react";
 import { cx } from "../../lib/cx";
+import { useDismissibleLayer } from "../../lib/useDismissibleLayer";
 import { Input } from "../Input";
 import type { InputSize, InputState } from "../Input";
 import { Icon } from "../Icon";
@@ -48,29 +49,12 @@ const useRangePopover = (
     [onChange],
   );
 
-  useEffect(() => {
-    if (!open) return;
-
-    const handleMouseDown = (event: MouseEvent) => {
-      if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
-        setOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleMouseDown);
-    return () => document.removeEventListener("mousedown", handleMouseDown);
-  }, [open]);
-
-  useEffect(() => {
-    if (!open) return;
-
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setOpen(false);
-    };
-
-    document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [open]);
+  /* 바깥 클릭 + ESC 닫기 */
+  useDismissibleLayer({
+    enabled: open,
+    ref: wrapperRef,
+    onDismiss: () => setOpen(false),
+  });
 
   return { open, openCalendar, handleChange, wrapperRef };
 };

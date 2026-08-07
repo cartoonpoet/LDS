@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import type { ReactNode, HTMLAttributes } from "react";
 import { cx } from "../../lib/cx";
 import { Portal } from "../../lib/Portal";
+import { useDismissibleLayer } from "../../lib/useDismissibleLayer";
 import { ModalBody, ModalFooter } from "../Modal";
 import * as modal from "../Modal/Modal.css";
 import * as s from "./FloatingModal.css";
@@ -72,19 +73,13 @@ export function FloatingModal({
   const [collapsed, setCollapsed] = useState(false);
 
   /* Escape key (opt-in) */
-  useEffect(() => {
-    if (!open || !closeOnEscape) return;
-
-    function handleKeyDown(e: KeyboardEvent) {
-      if (e.key === "Escape") {
-        e.stopPropagation();
-        onClose();
-      }
-    }
-
-    document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [open, closeOnEscape, onClose]);
+  useDismissibleLayer({
+    enabled: open,
+    onDismiss: onClose,
+    closeOnEscape,
+    closeOnOutsideClick: false,
+    stopEscapePropagation: true,
+  });
 
   if (!open) return null;
 

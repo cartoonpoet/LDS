@@ -1,6 +1,8 @@
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useRef, useCallback } from "react";
 import type { ReactNode, HTMLAttributes, MouseEvent } from "react";
 import { cx } from "../../lib/cx";
+import { useControllableState } from "../../lib/useControllableState";
+import { useDismissibleLayer } from "../../lib/useDismissibleLayer";
 import * as s from "./Popover.css";
 
 export type PopoverPlacement = "top" | "bottom" | "left" | "right";
@@ -57,19 +59,13 @@ export function Popover({
   className,
   ...rest
 }: PopoverProps) {
-  const isControlled = controlledOpen !== undefined;
-  const [internalOpen, setInternalOpen] = useState(false);
-  const open = isControlled ? controlledOpen : internalOpen;
+  const [open, setOpen] = useControllableState({
+    value: controlledOpen,
+    defaultValue: false,
+    onChange: onOpenChange,
+  });
 
   const wrapperRef = useRef<HTMLDivElement>(null);
-
-  const setOpen = useCallback(
-    (next: boolean) => {
-      if (!isControlled) setInternalOpen(next);
-      onOpenChange?.(next);
-    },
-    [isControlled, onOpenChange],
-  );
 
   const toggle = useCallback(() => setOpen(!open), [open, setOpen]);
 
@@ -91,27 +87,12 @@ export function Popover({
     [onCancel, setOpen],
   );
 
-  /* 외부 클릭 닫기 */
-  useEffect(() => {
-    if (!open) return;
-    const handler = (e: globalThis.MouseEvent) => {
-      if (wrapperRef.current && !wrapperRef.current.contains(e.target as Node)) {
-        setOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handler);
-    return () => document.removeEventListener("mousedown", handler);
-  }, [open, setOpen]);
-
-  /* Escape 키 닫기 */
-  useEffect(() => {
-    if (!open) return;
-    const handler = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setOpen(false);
-    };
-    document.addEventListener("keydown", handler);
-    return () => document.removeEventListener("keydown", handler);
-  }, [open, setOpen]);
+  /* 외부 클릭 + Escape 키 닫기 */
+  useDismissibleLayer({
+    enabled: open,
+    ref: wrapperRef,
+    onDismiss: () => setOpen(false),
+  });
 
   const hasFooter = confirmText || cancelText;
 

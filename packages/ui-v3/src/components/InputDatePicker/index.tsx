@@ -1,6 +1,7 @@
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useCallback } from "react";
 import type { HTMLAttributes } from "react";
 import { cx } from "../../lib/cx";
+import { useDismissibleLayer } from "../../lib/useDismissibleLayer";
 import { Input } from "../Input";
 import type { InputSize, InputState } from "../Input";
 import { Icon } from "../Icon";
@@ -91,27 +92,12 @@ export const InputDatePicker = ({
     [onChange],
   );
 
-  /* 바깥 클릭 닫기 */
-  useEffect(() => {
-    if (!open) return;
-    const handler = (e: MouseEvent) => {
-      if (wrapperRef.current && !wrapperRef.current.contains(e.target as Node)) {
-        setOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handler);
-    return () => document.removeEventListener("mousedown", handler);
-  }, [open]);
-
-  /* ESC 닫기 */
-  useEffect(() => {
-    if (!open) return;
-    const handler = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setOpen(false);
-    };
-    document.addEventListener("keydown", handler);
-    return () => document.removeEventListener("keydown", handler);
-  }, [open]);
+  /* 바깥 클릭 + ESC 닫기 */
+  useDismissibleLayer({
+    enabled: open,
+    ref: wrapperRef,
+    onDismiss: () => setOpen(false),
+  });
 
   return (
     <div ref={wrapperRef} className={cx(s.wrapper, className)} {...rest}>

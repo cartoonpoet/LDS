@@ -2,7 +2,10 @@ import { useEffect, useId, useRef, useState } from "react";
 import type { ReactNode, HTMLAttributes } from "react";
 import { cx } from "../../lib/cx";
 import { Portal } from "../../lib/Portal";
+import { useDismissibleLayer } from "../../lib/useDismissibleLayer";
 import { useFocusTrap } from "../../lib/useFocusTrap";
+import { usePresence } from "../../lib/usePresence";
+import { useScrollLock } from "../../lib/useScrollLock";
 import { ModalBody, ModalFooter } from "../Modal";
 import * as modal from "../Modal/Modal.css";
 import * as s from "./Drawer.css";
@@ -68,43 +71,19 @@ export function Drawer({
   const titleId = useId();
 
   /* 슬라이드 아웃 트랜지션 동안 마운트 유지 */
-  const [exiting, setExiting] = useState(false);
-  const prevOpen = useRef(open);
-  useEffect(() => {
-    if (prevOpen.current && !open) {
-      prevOpen.current = open;
-      setExiting(true);
-      const timer = setTimeout(() => setExiting(false), s.TRANSITION_MS);
-      return () => clearTimeout(timer);
-    }
-    prevOpen.current = open;
-  }, [open]);
+  const { mounted, exiting } = usePresence(open, s.TRANSITION_MS);
 
   /* Escape key */
-  useEffect(() => {
-    if (!open || !closeOnEscape) return;
-
-    function handleKeyDown(e: KeyboardEvent) {
-      if (e.key === "Escape") {
-        e.stopPropagation();
-        onClose();
-      }
-    }
-
-    document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [open, closeOnEscape, onClose]);
+  useDismissibleLayer({
+    enabled: open,
+    onDismiss: onClose,
+    closeOnEscape,
+    closeOnOutsideClick: false,
+    stopEscapePropagation: true,
+  });
 
   /* Body scroll lock (backdrop일 때만 — 비차단 모드는 페이지 조작 유지) */
-  useEffect(() => {
-    if (!open || !backdrop) return;
-
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = prev;
-    };
-  }, [open, backdrop]);
+  useScrollLock(open && backdrop);
 
   /* Focus trap (차단 모드일 때만)
      Portal이 한 커밋 늦게 DOM을 붙이므로, 패널이 커밋된 뒤에 활성화 */
@@ -114,7 +93,7 @@ export function Drawer({
   }, [open]);
   useFocusTrap(panelRef, open && backdrop && trapReady);
 
-  if (!open && !exiting) return null;
+  if (!mounted) return null;
 
   const closing = !open;
 

@@ -1,6 +1,7 @@
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import type { HTMLAttributes, ReactNode, CSSProperties } from "react";
 import { cx } from "../../lib/cx";
+import { useControllableState } from "../../lib/useControllableState";
 import * as s from "./TableTree.css";
 
 /* ═══════════════════════════════════════════
@@ -109,22 +110,18 @@ export function TableTree({
   className,
   ...rest
 }: TableTreeProps) {
-  const [internalExpandedIds, setInternalExpandedIds] = useState<string[]>(
-    () => defaultExpandedIds ?? [],
-  );
-
-  const isControlled = controlledExpandedIds !== undefined;
-  const expandedIds = isControlled ? controlledExpandedIds : internalExpandedIds;
+  const [expandedIds, setExpandedIds] = useControllableState<string[]>({
+    value: controlledExpandedIds,
+    defaultValue: () => defaultExpandedIds ?? [],
+    onChange: onExpandedChange,
+  });
   const expandedSet = new Set(expandedIds);
 
   const toggleExpand = (id: string) => {
     const next = expandedSet.has(id)
       ? expandedIds.filter((expandedId) => expandedId !== id)
       : [...expandedIds, id];
-    if (!isControlled) {
-      setInternalExpandedIds(next);
-    }
-    onExpandedChange?.(next);
+    setExpandedIds(next);
   };
 
   const cellStyle = (column: TableTreeColumn): CSSProperties | undefined =>

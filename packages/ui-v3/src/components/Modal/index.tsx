@@ -1,8 +1,10 @@
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 import type { ReactNode, HTMLAttributes } from "react";
 import { cx } from "../../lib/cx";
 import { Portal } from "../../lib/Portal";
+import { useDismissibleLayer } from "../../lib/useDismissibleLayer";
 import { useFocusTrap } from "../../lib/useFocusTrap";
+import { useScrollLock } from "../../lib/useScrollLock";
 import * as s from "./Modal.css";
 
 /* ─── Types ─── */
@@ -88,30 +90,16 @@ export function Modal({
   const dialogRef = useRef<HTMLDivElement>(null);
 
   /* Escape key */
-  useEffect(() => {
-    if (!open || disableEscapeClose) return;
-
-    function handleKeyDown(e: KeyboardEvent) {
-      if (e.key === "Escape") {
-        e.stopPropagation();
-        onClose();
-      }
-    }
-
-    document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [open, disableEscapeClose, onClose]);
+  useDismissibleLayer({
+    enabled: open,
+    onDismiss: onClose,
+    closeOnEscape: !disableEscapeClose,
+    closeOnOutsideClick: false,
+    stopEscapePropagation: true,
+  });
 
   /* Body scroll lock */
-  useEffect(() => {
-    if (!open) return;
-
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = prev;
-    };
-  }, [open]);
+  useScrollLock(open);
 
   /* Focus trap */
   useFocusTrap(dialogRef, open);

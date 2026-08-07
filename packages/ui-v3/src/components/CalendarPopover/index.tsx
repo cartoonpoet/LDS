@@ -1,6 +1,8 @@
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useRef, useCallback } from "react";
 import type { ReactNode, HTMLAttributes, MouseEvent } from "react";
 import { cx } from "../../lib/cx";
+import { useControllableState } from "../../lib/useControllableState";
+import { useDismissibleLayer } from "../../lib/useDismissibleLayer";
 import * as s from "./CalendarPopover.css";
 
 export type CalendarPopoverPlacement = "top" | "bottom" | "left" | "right";
@@ -90,18 +92,12 @@ export function CalendarPopover({
   className,
   ...rest
 }: CalendarPopoverProps) {
-  const isControlled = controlledOpen !== undefined;
-  const [internalOpen, setInternalOpen] = useState(false);
-  const open = isControlled ? controlledOpen : internalOpen;
+  const [open, setOpen] = useControllableState({
+    value: controlledOpen,
+    defaultValue: false,
+    onChange: onOpenChange,
+  });
   const wrapperRef = useRef<HTMLDivElement>(null);
-
-  const setOpen = useCallback(
-    (next: boolean) => {
-      if (!isControlled) setInternalOpen(next);
-      onOpenChange?.(next);
-    },
-    [isControlled, onOpenChange],
-  );
 
   const toggle = useCallback(() => setOpen(!open), [open, setOpen]);
 
@@ -114,28 +110,16 @@ export function CalendarPopover({
     [onClose, setOpen],
   );
 
-  useEffect(() => {
-    if (!open) return;
-    const handler = (e: globalThis.MouseEvent) => {
-      if (wrapperRef.current && !wrapperRef.current.contains(e.target as Node)) {
-        setOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handler);
-    return () => document.removeEventListener("mousedown", handler);
-  }, [open, setOpen]);
-
-  useEffect(() => {
-    if (!open) return;
-    const handler = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        onClose?.();
-        setOpen(false);
-      }
-    };
-    document.addEventListener("keydown", handler);
-    return () => document.removeEventListener("keydown", handler);
-  }, [open, onClose, setOpen]);
+  /* 외부 클릭 + Escape 키 닫기 (Escape는 onClose도 함께 호출 — 기존 동작) */
+  useDismissibleLayer({
+    enabled: open,
+    ref: wrapperRef,
+    onDismiss: () => setOpen(false),
+    onEscape: () => {
+      onClose?.();
+      setOpen(false);
+    },
+  });
 
   const hasFooter = primaryText || secondaryText;
 

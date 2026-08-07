@@ -1,5 +1,6 @@
-import { useState, useCallback, type ReactNode } from "react";
+import { useCallback, type ReactNode } from "react";
 import { cx } from "../../lib/cx";
+import { useControllableState } from "../../lib/useControllableState";
 import * as s from "./Collapse.css";
 
 /* ─── Types ─── */
@@ -45,15 +46,13 @@ export function Collapse({
   children,
   className,
 }: CollapseProps) {
-  const [internalExpanded, setInternalExpanded] = useState(defaultExpanded);
-  const isControlled = controlledExpanded !== undefined;
-  const expanded = isControlled ? controlledExpanded : internalExpanded;
+  const [expanded, setExpanded] = useControllableState({
+    value: controlledExpanded,
+    defaultValue: defaultExpanded,
+    onChange: onToggle,
+  });
 
-  const toggle = useCallback(() => {
-    const next = !expanded;
-    if (!isControlled) setInternalExpanded(next);
-    onToggle?.(next);
-  }, [expanded, isControlled, onToggle]);
+  const toggle = useCallback(() => setExpanded(!expanded), [expanded, setExpanded]);
 
   return (
     <div className={cx(s.root({ variant, expanded }), className)}>

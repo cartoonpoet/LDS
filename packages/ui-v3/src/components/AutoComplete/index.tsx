@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import type { InputHTMLAttributes, ReactNode } from "react";
 import { cx } from "../../lib/cx";
+import { useDismissibleLayer } from "../../lib/useDismissibleLayer";
 import * as s from "./AutoComplete.css";
 
 /* ─── Types ─── */
@@ -125,16 +126,13 @@ export function AutoComplete({
     return o.label.toLowerCase().includes(inputText.toLowerCase());
   });
 
-  /* ─── click outside ─── */
-  useEffect(() => {
-    const handleClick = (e: MouseEvent) => {
-      if (wrapperRef.current && !wrapperRef.current.contains(e.target as Node)) {
-        setIsOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClick);
-    return () => document.removeEventListener("mousedown", handleClick);
-  }, []);
+  /* ─── click outside (마운트 동안 항상 리스닝 — 기존 동작, ESC는 input onKeyDown에서 처리) ─── */
+  useDismissibleLayer({
+    enabled: true,
+    ref: wrapperRef,
+    closeOnEscape: false,
+    onDismiss: () => setIsOpen(false),
+  });
 
   /* ─── select handler ─── */
   const handleSelect = useCallback(

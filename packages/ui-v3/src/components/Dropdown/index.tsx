@@ -1,5 +1,7 @@
-import { useState, useCallback, useRef, useEffect, type ReactNode } from "react";
+import { useState, useCallback, useRef, type ReactNode } from "react";
 import { cx } from "../../lib/cx";
+import { useControllableState } from "../../lib/useControllableState";
+import { useDismissibleLayer } from "../../lib/useDismissibleLayer";
 import * as s from "./Dropdown.css";
 
 /* ─── Types ─── */
@@ -68,36 +70,21 @@ export function Dropdown({
   disabled = false,
   className,
 }: DropdownProps) {
-  const [internalValue, setInternalValue] = useState<string | string[]>(
-    defaultValue ?? (multiple ? [] : ""),
-  );
-  const isControlled = controlledValue !== undefined;
-  const value = isControlled ? controlledValue : internalValue;
+  const [value, setValue] = useControllableState<string | string[]>({
+    value: controlledValue,
+    defaultValue: defaultValue ?? (multiple ? [] : ""),
+    onChange,
+  });
 
   const [open, setOpen] = useState(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
 
-  /* close on outside click */
-  useEffect(() => {
-    if (!open) return;
-    const handler = (e: MouseEvent) => {
-      if (wrapperRef.current && !wrapperRef.current.contains(e.target as Node)) {
-        setOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handler);
-    return () => document.removeEventListener("mousedown", handler);
-  }, [open]);
-
-  /* close on Escape */
-  useEffect(() => {
-    if (!open) return;
-    const handler = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setOpen(false);
-    };
-    document.addEventListener("keydown", handler);
-    return () => document.removeEventListener("keydown", handler);
-  }, [open]);
+  /* close on outside click + Escape */
+  useDismissibleLayer({
+    enabled: open,
+    ref: wrapperRef,
+    onDismiss: () => setOpen(false),
+  });
 
   const toggle = useCallback(() => {
     if (!disabled) setOpen((prev) => !prev);
@@ -110,15 +97,13 @@ export function Dropdown({
         const next = arr.includes(optionValue)
           ? arr.filter((v) => v !== optionValue)
           : [...arr, optionValue];
-        if (!isControlled) setInternalValue(next);
-        onChange?.(next);
+        setValue(next);
       } else {
-        if (!isControlled) setInternalValue(optionValue);
-        onChange?.(optionValue);
+        setValue(optionValue);
         setOpen(false);
       }
     },
-    [multiple, value, isControlled, onChange],
+    [multiple, value, setValue],
   );
 
   /* derive display text */

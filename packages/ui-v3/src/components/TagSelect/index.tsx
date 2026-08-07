@@ -1,6 +1,7 @@
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useCallback } from "react";
 import type { HTMLAttributes } from "react";
 import { cx } from "../../lib/cx";
+import { useDismissibleLayer } from "../../lib/useDismissibleLayer";
 import * as s from "./TagSelect.css";
 
 export interface TagSelectOption {
@@ -91,18 +92,16 @@ export function TagSelect({
     [value, onChange],
   );
 
-  /* 외부 클릭 닫기 */
-  useEffect(() => {
-    if (!open) return;
-    const handler = (e: MouseEvent) => {
-      if (wrapperRef.current && !wrapperRef.current.contains(e.target as Node)) {
-        setOpen(false);
-        setSearch("");
-      }
-    };
-    document.addEventListener("mousedown", handler);
-    return () => document.removeEventListener("mousedown", handler);
-  }, [open]);
+  /* 외부 클릭 닫기 (ESC 없음 — 기존 동작) */
+  useDismissibleLayer({
+    enabled: open,
+    ref: wrapperRef,
+    closeOnEscape: false,
+    onDismiss: () => {
+      setOpen(false);
+      setSearch("");
+    },
+  });
 
   const filtered = search
     ? options.filter((o) => o.label.toLowerCase().includes(search.toLowerCase()))

@@ -1,6 +1,8 @@
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useRef, useCallback } from "react";
 import type { ReactNode, HTMLAttributes } from "react";
 import { cx } from "../../lib/cx";
+import { useControllableState } from "../../lib/useControllableState";
+import { useDismissibleLayer } from "../../lib/useDismissibleLayer";
 import * as s from "./InfoPopover.css";
 
 export interface InfoPopoverStep {
@@ -57,40 +59,21 @@ export function InfoPopover({
   className,
   ...rest
 }: InfoPopoverProps) {
-  const isControlled = controlledOpen !== undefined;
-  const [internalOpen, setInternalOpen] = useState(false);
-  const open = isControlled ? controlledOpen : internalOpen;
+  const [open, setOpen] = useControllableState({
+    value: controlledOpen,
+    defaultValue: false,
+    onChange: onOpenChange,
+  });
   const wrapperRef = useRef<HTMLDivElement>(null);
-
-  const setOpen = useCallback(
-    (next: boolean) => {
-      if (!isControlled) setInternalOpen(next);
-      onOpenChange?.(next);
-    },
-    [isControlled, onOpenChange],
-  );
 
   const toggle = useCallback(() => setOpen(!open), [open, setOpen]);
 
-  useEffect(() => {
-    if (!open) return;
-    const handler = (e: globalThis.MouseEvent) => {
-      if (wrapperRef.current && !wrapperRef.current.contains(e.target as Node)) {
-        setOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handler);
-    return () => document.removeEventListener("mousedown", handler);
-  }, [open, setOpen]);
-
-  useEffect(() => {
-    if (!open) return;
-    const handler = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setOpen(false);
-    };
-    document.addEventListener("keydown", handler);
-    return () => document.removeEventListener("keydown", handler);
-  }, [open, setOpen]);
+  /* 외부 클릭 + Escape 키 닫기 */
+  useDismissibleLayer({
+    enabled: open,
+    ref: wrapperRef,
+    onDismiss: () => setOpen(false),
+  });
 
   return (
     <div ref={wrapperRef} className={cx(s.wrapper, className)} {...rest}>

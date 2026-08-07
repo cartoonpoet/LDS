@@ -1,8 +1,10 @@
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 import type { ReactNode, ReactElement, HTMLAttributes } from "react";
 import { cx } from "../../lib/cx";
 import { Portal } from "../../lib/Portal";
+import { useDismissibleLayer } from "../../lib/useDismissibleLayer";
 import { useFocusTrap } from "../../lib/useFocusTrap";
+import { useScrollLock } from "../../lib/useScrollLock";
 import * as s from "./SweetAlert.css";
 
 /* ─── Types ─── */
@@ -93,30 +95,15 @@ export function SweetAlert({
   const dialogRef = useRef<HTMLDivElement>(null);
 
   /* Escape key */
-  useEffect(() => {
-    if (!open) return;
-
-    function handleKeyDown(e: KeyboardEvent) {
-      if (e.key === "Escape") {
-        e.stopPropagation();
-        onClose();
-      }
-    }
-
-    document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [open, onClose]);
+  useDismissibleLayer({
+    enabled: open,
+    onDismiss: onClose,
+    closeOnOutsideClick: false,
+    stopEscapePropagation: true,
+  });
 
   /* Body scroll lock */
-  useEffect(() => {
-    if (!open) return;
-
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = prev;
-    };
-  }, [open]);
+  useScrollLock(open);
 
   /* Focus trap */
   useFocusTrap(dialogRef, open);
