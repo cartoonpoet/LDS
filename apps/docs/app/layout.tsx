@@ -20,6 +20,11 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="ko">
+      <head>
+        {/* JS 실행 여부 마커 — 리빌 숨김(.reveal)은 html.js에서만 적용해, 청크 로드 실패 등
+            클라이언트 JS가 죽어도 콘텐츠가 통째로 숨지 않게 한다 */}
+        <script dangerouslySetInnerHTML={{ __html: `document.documentElement.classList.add("js")` }} />
+      </head>
       <body>
         <SiteNav />
         {children}
