@@ -674,6 +674,9 @@
   .m-track { display: flex; width: max-content; animation: marqueeL 46s linear infinite; }
   .marquee.rev .m-track { animation: marqueeL 58s linear infinite reverse; }
   @keyframes marqueeL { to { transform: translateX(-50%); } }
+  /* 마퀴 카드는 <a>로 렌더 — 링크 기본 스타일 리셋 + 호버 피드백 */
+  a.m-card { text-decoration: none; color: inherit; transition: transform .25s cubic-bezier(.16, 1, .3, 1); }
+  a.m-card:hover { transform: translateY(-4px); }
   .m-card {
     width: 224px;
     height: 156px;

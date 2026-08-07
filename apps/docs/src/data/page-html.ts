@@ -54,7 +54,7 @@ pnpm add @lds/ui-v3 @lds/tokens</div>
     <aside class="toc">
       <div class="toc-sticky">
         <h6>On this page</h6>
-        <a href="#" class="active" data-scroll="#gs-install">설치</a>
+        <a href="#gs-install" class="active" data-scroll="#gs-install">설치</a>
         <a href="#gs-theme">테마 적용</a>
         <a href="#gs-first">첫 컴포넌트</a>
       </div>
@@ -247,7 +247,7 @@ export const FOUNDATIONS_COLOR_MAIN = `
     <aside class="toc">
       <div class="toc-sticky">
         <h6>On this page</h6>
-        <a href="#" class="active" data-scroll="#sec-overview">Overview</a>
+        <a href="#sec-overview" class="active" data-scroll="#sec-overview">Overview</a>
         <a href="#sec-roles">Role Based Color</a>
         <a href="#sec-palette">Palette Color</a>
       </div>

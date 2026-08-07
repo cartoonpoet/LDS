@@ -191,60 +191,60 @@ export const DARK_HTML = `<div class="dark-zone" id="darkZone">
       </div>
       <div class="marquee">
         <div class="m-track" id="marqueeA">
-          <div class="m-card pale"><div class="m-code"><span class="k">$color</span>.accent.500<br><span class="k">$spacing</span>.x4 <span style="opacity:.55">→ 16px</span><br><span class="k">$radius</span>.card <span style="opacity:.55">→ 16px</span></div><div class="m-title">Design Token</div></div>
-          <div class="m-card blue"><div class="m-swatches"><i style="background:#2151EC"></i><i style="background:#7EA0FF"></i><i style="background:#DFE8FF"></i><i style="background:#16336E"></i></div><div class="m-title">Color</div></div>
-          <div class="m-card navy"><div class="m-type">가A<small>Pretendard</small></div><div class="m-title">Typography</div></div>
-          <div class="m-card pale"><div class="m-icons">
+          <a class="m-card pale" href="/foundations"><div class="m-code"><span class="k">$color</span>.accent.500<br><span class="k">$spacing</span>.x4 <span style="opacity:.55">→ 16px</span><br><span class="k">$radius</span>.card <span style="opacity:.55">→ 16px</span></div><div class="m-title">Design Token</div></a>
+          <a class="m-card blue" href="/foundations/color"><div class="m-swatches"><i style="background:#2151EC"></i><i style="background:#7EA0FF"></i><i style="background:#DFE8FF"></i><i style="background:#16336E"></i></div><div class="m-title">Color</div></a>
+          <a class="m-card navy" href="/foundations/typography"><div class="m-type">가A<small>Pretendard</small></div><div class="m-title">Typography</div></a>
+          <a class="m-card pale" href="/components/icon"><div class="m-icons">
             <svg viewBox="0 0 24 24" fill="none"><path d="M12 3v18M5 7h14M5 7l-2.5 6a3.5 3.5 0 0 0 7 0L7 7M17 7l-2.5 6a3.5 3.5 0 0 0 7 0L19 7M8 21h8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
             <svg viewBox="0 0 24 24" fill="none"><path d="M7 3h7l4 4v14H7V3Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M10 12h5M10 16h5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
             <svg viewBox="0 0 24 24" fill="none"><path d="M12 3l2.4 5.4 5.6.6-4.2 3.9 1.2 5.6L12 15.6 7 18.5l1.2-5.6L4 9l5.6-.6L12 3Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
-          </div><div class="m-title">Icon</div></div>
-          <div class="m-card pale"><div class="m-elev"><i></i><i></i><i></i></div><div class="m-title">Shadow</div></div>
-          <div class="m-card deep"><div class="m-radius"></div><div class="m-title">Radius</div></div>
-          <div class="m-card deep"><div class="m-swatches"><i style="background:#2151EC"></i><i style="background:#1FA45B"></i><i style="background:#7B5CE6"></i><i style="background:#F07A23"></i></div><div class="m-title">Theming</div></div>
-          <div class="m-card navy"><div class="m-spacing"><i></i><i></i><i></i></div><div class="m-title">Spacing</div></div>
+          </div><div class="m-title">Icon</div></a>
+          <a class="m-card pale" href="/foundations/shadow"><div class="m-elev"><i></i><i></i><i></i></div><div class="m-title">Shadow</div></a>
+          <a class="m-card deep" href="/foundations/radius"><div class="m-radius"></div><div class="m-title">Radius</div></a>
+          <a class="m-card deep" href="/foundations/theming"><div class="m-swatches"><i style="background:#2151EC"></i><i style="background:#1FA45B"></i><i style="background:#7B5CE6"></i><i style="background:#F07A23"></i></div><div class="m-title">Theming</div></a>
+          <a class="m-card navy" href="/foundations/spacing"><div class="m-spacing"><i></i><i></i><i></i></div><div class="m-title">Spacing</div></a>
         
-          <div class="m-card pale"><div class="m-code"><span class="k">$color</span>.accent.500<br><span class="k">$spacing</span>.x4 <span style="opacity:.55">→ 16px</span><br><span class="k">$radius</span>.card <span style="opacity:.55">→ 16px</span></div><div class="m-title">Design Token</div></div>
-          <div class="m-card blue"><div class="m-swatches"><i style="background:#2151EC"></i><i style="background:#7EA0FF"></i><i style="background:#DFE8FF"></i><i style="background:#16336E"></i></div><div class="m-title">Color</div></div>
-          <div class="m-card navy"><div class="m-type">가A<small>Pretendard</small></div><div class="m-title">Typography</div></div>
-          <div class="m-card pale"><div class="m-icons">
+          <a class="m-card pale" href="/foundations"><div class="m-code"><span class="k">$color</span>.accent.500<br><span class="k">$spacing</span>.x4 <span style="opacity:.55">→ 16px</span><br><span class="k">$radius</span>.card <span style="opacity:.55">→ 16px</span></div><div class="m-title">Design Token</div></a>
+          <a class="m-card blue" href="/foundations/color"><div class="m-swatches"><i style="background:#2151EC"></i><i style="background:#7EA0FF"></i><i style="background:#DFE8FF"></i><i style="background:#16336E"></i></div><div class="m-title">Color</div></a>
+          <a class="m-card navy" href="/foundations/typography"><div class="m-type">가A<small>Pretendard</small></div><div class="m-title">Typography</div></a>
+          <a class="m-card pale" href="/components/icon"><div class="m-icons">
             <svg viewBox="0 0 24 24" fill="none"><path d="M12 3v18M5 7h14M5 7l-2.5 6a3.5 3.5 0 0 0 7 0L7 7M17 7l-2.5 6a3.5 3.5 0 0 0 7 0L19 7M8 21h8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
             <svg viewBox="0 0 24 24" fill="none"><path d="M7 3h7l4 4v14H7V3Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M10 12h5M10 16h5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
             <svg viewBox="0 0 24 24" fill="none"><path d="M12 3l2.4 5.4 5.6.6-4.2 3.9 1.2 5.6L12 15.6 7 18.5l1.2-5.6L4 9l5.6-.6L12 3Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
-          </div><div class="m-title">Icon</div></div>
-          <div class="m-card pale"><div class="m-elev"><i></i><i></i><i></i></div><div class="m-title">Shadow</div></div>
-          <div class="m-card deep"><div class="m-radius"></div><div class="m-title">Radius</div></div>
-          <div class="m-card deep"><div class="m-swatches"><i style="background:#2151EC"></i><i style="background:#1FA45B"></i><i style="background:#7B5CE6"></i><i style="background:#F07A23"></i></div><div class="m-title">Theming</div></div>
-          <div class="m-card navy"><div class="m-spacing"><i></i><i></i><i></i></div><div class="m-title">Spacing</div></div>
+          </div><div class="m-title">Icon</div></a>
+          <a class="m-card pale" href="/foundations/shadow"><div class="m-elev"><i></i><i></i><i></i></div><div class="m-title">Shadow</div></a>
+          <a class="m-card deep" href="/foundations/radius"><div class="m-radius"></div><div class="m-title">Radius</div></a>
+          <a class="m-card deep" href="/foundations/theming"><div class="m-swatches"><i style="background:#2151EC"></i><i style="background:#1FA45B"></i><i style="background:#7B5CE6"></i><i style="background:#F07A23"></i></div><div class="m-title">Theming</div></a>
+          <a class="m-card navy" href="/foundations/spacing"><div class="m-spacing"><i></i><i></i><i></i></div><div class="m-title">Spacing</div></a>
         </div>
       </div>
       <div class="marquee rev">
         <div class="m-track" id="marqueeB">
-          <div class="m-card navy"><div class="m-spacing"><i></i><i></i><i></i></div><div class="m-title">Spacing</div></div>
-          <div class="m-card deep"><div class="m-radius"></div><div class="m-title">Radius</div></div>
-          <div class="m-card deep"><div class="m-swatches"><i style="background:#2151EC"></i><i style="background:#1FA45B"></i><i style="background:#7B5CE6"></i><i style="background:#F07A23"></i></div><div class="m-title">Theming</div></div>
-          <div class="m-card pale"><div class="m-code"><span class="k">$color</span>.bg.dark<br><span class="k">$elev</span>.floating<br><span class="k">$font</span>.heading.xl</div><div class="m-title">Design Token</div></div>
-          <div class="m-card navy"><div class="m-type">가A<small>Pretendard</small></div><div class="m-title">Typography</div></div>
-          <div class="m-card blue"><div class="m-swatches"><i style="background:#16336E"></i><i style="background:#2151EC"></i><i style="background:#7EA0FF"></i><i style="background:#DFE8FF"></i></div><div class="m-title">Color</div></div>
-          <div class="m-card pale"><div class="m-elev"><i></i><i></i><i></i></div><div class="m-title">Shadow</div></div>
-          <div class="m-card blue"><div class="m-icons" style="color:#fff">
+          <a class="m-card navy" href="/foundations/spacing"><div class="m-spacing"><i></i><i></i><i></i></div><div class="m-title">Spacing</div></a>
+          <a class="m-card deep" href="/foundations/radius"><div class="m-radius"></div><div class="m-title">Radius</div></a>
+          <a class="m-card deep" href="/foundations/theming"><div class="m-swatches"><i style="background:#2151EC"></i><i style="background:#1FA45B"></i><i style="background:#7B5CE6"></i><i style="background:#F07A23"></i></div><div class="m-title">Theming</div></a>
+          <a class="m-card pale" href="/foundations"><div class="m-code"><span class="k">$color</span>.bg.dark<br><span class="k">$elev</span>.floating<br><span class="k">$font</span>.heading.xl</div><div class="m-title">Design Token</div></a>
+          <a class="m-card navy" href="/foundations/typography"><div class="m-type">가A<small>Pretendard</small></div><div class="m-title">Typography</div></a>
+          <a class="m-card blue" href="/foundations/color"><div class="m-swatches"><i style="background:#16336E"></i><i style="background:#2151EC"></i><i style="background:#7EA0FF"></i><i style="background:#DFE8FF"></i></div><div class="m-title">Color</div></a>
+          <a class="m-card pale" href="/foundations/shadow"><div class="m-elev"><i></i><i></i><i></i></div><div class="m-title">Shadow</div></a>
+          <a class="m-card blue" href="/components/icon"><div class="m-icons" style="color:#fff">
             <svg viewBox="0 0 24 24" fill="none"><path d="M12 3v18M5 7h14M5 7l-2.5 6a3.5 3.5 0 0 0 7 0L7 7M17 7l-2.5 6a3.5 3.5 0 0 0 7 0L19 7M8 21h8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
             <svg viewBox="0 0 24 24" fill="none"><path d="M7 3h7l4 4v14H7V3Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M10 12h5M10 16h5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
             <svg viewBox="0 0 24 24" fill="none"><path d="M12 3l2.4 5.4 5.6.6-4.2 3.9 1.2 5.6L12 15.6 7 18.5l1.2-5.6L4 9l5.6-.6L12 3Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
-          </div><div class="m-title">Icon</div></div>
+          </div><div class="m-title">Icon</div></a>
         
-          <div class="m-card navy"><div class="m-spacing"><i></i><i></i><i></i></div><div class="m-title">Spacing</div></div>
-          <div class="m-card deep"><div class="m-radius"></div><div class="m-title">Radius</div></div>
-          <div class="m-card deep"><div class="m-swatches"><i style="background:#2151EC"></i><i style="background:#1FA45B"></i><i style="background:#7B5CE6"></i><i style="background:#F07A23"></i></div><div class="m-title">Theming</div></div>
-          <div class="m-card pale"><div class="m-code"><span class="k">$color</span>.bg.dark<br><span class="k">$elev</span>.floating<br><span class="k">$font</span>.heading.xl</div><div class="m-title">Design Token</div></div>
-          <div class="m-card navy"><div class="m-type">가A<small>Pretendard</small></div><div class="m-title">Typography</div></div>
-          <div class="m-card blue"><div class="m-swatches"><i style="background:#16336E"></i><i style="background:#2151EC"></i><i style="background:#7EA0FF"></i><i style="background:#DFE8FF"></i></div><div class="m-title">Color</div></div>
-          <div class="m-card pale"><div class="m-elev"><i></i><i></i><i></i></div><div class="m-title">Shadow</div></div>
-          <div class="m-card blue"><div class="m-icons" style="color:#fff">
+          <a class="m-card navy" href="/foundations/spacing"><div class="m-spacing"><i></i><i></i><i></i></div><div class="m-title">Spacing</div></a>
+          <a class="m-card deep" href="/foundations/radius"><div class="m-radius"></div><div class="m-title">Radius</div></a>
+          <a class="m-card deep" href="/foundations/theming"><div class="m-swatches"><i style="background:#2151EC"></i><i style="background:#1FA45B"></i><i style="background:#7B5CE6"></i><i style="background:#F07A23"></i></div><div class="m-title">Theming</div></a>
+          <a class="m-card pale" href="/foundations"><div class="m-code"><span class="k">$color</span>.bg.dark<br><span class="k">$elev</span>.floating<br><span class="k">$font</span>.heading.xl</div><div class="m-title">Design Token</div></a>
+          <a class="m-card navy" href="/foundations/typography"><div class="m-type">가A<small>Pretendard</small></div><div class="m-title">Typography</div></a>
+          <a class="m-card blue" href="/foundations/color"><div class="m-swatches"><i style="background:#16336E"></i><i style="background:#2151EC"></i><i style="background:#7EA0FF"></i><i style="background:#DFE8FF"></i></div><div class="m-title">Color</div></a>
+          <a class="m-card pale" href="/foundations/shadow"><div class="m-elev"><i></i><i></i><i></i></div><div class="m-title">Shadow</div></a>
+          <a class="m-card blue" href="/components/icon"><div class="m-icons" style="color:#fff">
             <svg viewBox="0 0 24 24" fill="none"><path d="M12 3v18M5 7h14M5 7l-2.5 6a3.5 3.5 0 0 0 7 0L7 7M17 7l-2.5 6a3.5 3.5 0 0 0 7 0L19 7M8 21h8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
             <svg viewBox="0 0 24 24" fill="none"><path d="M7 3h7l4 4v14H7V3Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M10 12h5M10 16h5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
             <svg viewBox="0 0 24 24" fill="none"><path d="M12 3l2.4 5.4 5.6.6-4.2 3.9 1.2 5.6L12 15.6 7 18.5l1.2-5.6L4 9l5.6-.6L12 3Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
-          </div><div class="m-title">Icon</div></div>
+          </div><div class="m-title">Icon</div></a>
         </div>
       </div>
     </section>
