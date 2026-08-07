@@ -137,11 +137,8 @@
 
 ## 남은 Zeplin 컴포넌트 (미구현)
 
-| Zeplin 번호 | 이름 | 비고 |
-|-------------|------|------|
-| 16) Breadcrumbs | Breadcrumb | |
-| 20) Textarea | Textarea | 폼 컴포넌트 |
-| 11) Modals 후속 | FloatingModal, FullScreenModal | |
+없음 — 2026-08-07 기준 전부 구현 완료.
+(마지막 배치: Breadcrumb, Textarea, FloatingModal, FullScreenModal + Badge/Chip 복원, LinkBadge 신규 — 총 52개 컴포넌트, 테스트 431개)
 
 ---
 
