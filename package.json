@@ -13,7 +13,8 @@
     "lint": "turbo run lint --ui=tui",
     "check": "turbo run check --ui=tui",
     "test": "turbo run test --ui=tui",
-    "storybook": "turbo run storybook --filter=@lds/storybook --ui=tui"
+    "storybook": "turbo run storybook --filter=@lds/storybook --ui=tui",
+    "docs:props": "node scripts/generate-component-props.mjs"
   },
   "devDependencies": {
     "turbo": "^2.8.16",

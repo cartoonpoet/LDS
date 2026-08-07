@@ -64,16 +64,19 @@ export default async function ComponentDetailPage({ params }: PageProps) {
                 </tr>
               </thead>
               <tbody>
-                {entry.props.map(([name, type, defaultValue, description]) => (
-                  <tr key={name}>
-                    <td>{name}</td>
+                {entry.props.map(prop => (
+                  <tr key={prop.name}>
                     <td>
-                      <code dangerouslySetInnerHTML={{ __html: type }} />
+                      {prop.name}
+                      {prop.required && <span title="필수">*</span>}
                     </td>
                     <td>
-                      <code>{defaultValue}</code>
+                      <code>{prop.type}</code>
                     </td>
-                    <td>{description}</td>
+                    <td>
+                      <code>{prop.default ?? "—"}</code>
+                    </td>
+                    <td>{prop.description ?? ""}</td>
                   </tr>
                 ))}
               </tbody>
