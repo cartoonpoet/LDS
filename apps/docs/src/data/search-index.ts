@@ -132,7 +132,7 @@ const patternEntries: SearchEntry[] = PATTERNS.map(entry => ({
   type: "pattern",
   title: entry.name,
   desc: entry.desc,
-  href: "/patterns",
+  href: `/patterns/${entry.slug}`,
   keywords: [entry.slug, ...(PATTERN_KO_ALIASES[entry.slug] ?? [])]
 }));
 

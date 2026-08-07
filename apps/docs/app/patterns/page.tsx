@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Html, SubFooter } from "../../src/components/site/Shell";
+import Link from "next/link";
+import { Html, PatternsSidebar, SubFooter } from "../../src/components/site/Shell";
 import { PATTERNS } from "../../src/data/patterns";
 
 export const metadata: Metadata = {
@@ -11,19 +12,7 @@ export default function PatternsPage() {
   return (
     <main className="page subpage page-fade">
       <div className="doc-shell two-col">
-        <aside className="sidebar">
-          <div className="sidebar-sticky">
-            <h5>Patterns</h5>
-            <a href="#pt-grid" className="active">
-              Overview
-            </a>
-            {PATTERNS.map(entry => (
-              <a key={entry.slug} href="#pt-grid">
-                {entry.name}
-              </a>
-            ))}
-          </div>
-        </aside>
+        <PatternsSidebar />
         <div className="doc-main">
           <h1 className="doc-title">Patterns</h1>
           <p className="doc-desc">
@@ -39,11 +28,15 @@ export default function PatternsPage() {
                 <div className="pat-body">
                   <h3>{entry.name}</h3>
                   <p>{entry.desc}</p>
-                  {entry.componentSlug && (
-                    <p style={{ marginTop: 8 }}>
-                      <a href={`/components/${entry.componentSlug}`}>컴포넌트 문서 보기 →</a>
-                    </p>
-                  )}
+                  <p style={{ marginTop: 8 }}>
+                    <Link href={`/patterns/${entry.slug}`}>패턴 가이드 보기 →</Link>
+                    {entry.componentSlug && (
+                      <>
+                        {" · "}
+                        <a href={`/components/${entry.componentSlug}`}>컴포넌트 문서 보기 →</a>
+                      </>
+                    )}
+                  </p>
                 </div>
               </div>
             ))}

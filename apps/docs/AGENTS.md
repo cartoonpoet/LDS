@@ -2,7 +2,7 @@
 
 ## 디렉토리 개요
 
-LDS 제품 문서 사이트. Next.js(App Router, `--webpack`) + MDX + vanilla-extract next plugin.
+LDS 제품 문서 사이트. Next.js(App Router, `--webpack`) + vanilla-extract next plugin.
 `@lawkit/ui`/`@lds/tokens`를 workspace로 소비하며, 콘텐츠는 `src/data`의 인벤토리 객체가 주도한다.
 
 ```
@@ -10,21 +10,18 @@ app/
   page.tsx                 — 홈
   components/[slug]/       — 컴포넌트 상세 (src/data 기반)
   foundations/[slug]/      — 파운데이션
-  patterns/ develop/ get-started/ updates/
+  patterns/ + [slug]/      — 패턴 카드 + 상세 (src/data/patterns.ts 기반)
+  develop/ get-started/ updates/
   llms.txt/route.ts        — AI용 레퍼런스 (packages/ui-v3/CLAUDE.md를 빌드 시점에 읽어 서빙)
   globals.css              — 사이트 전역 스타일
 src/
   data/                    — 인벤토리: component-list / component-previews / component-usage / components(RICH_PROPS) / foundations / patterns / updates
-  components/docs/         — 문서 레이아웃 (DocsShell, Sidebar, Toc)
   components/site/         — 사이트 공통 UI (Shell, SiteNav, CodeBlock, highlight)
-  content/                 — MDX 원고 (components/foundations/overview) — src/lib/docs.tsx가 수동 등록
-  lib/docs.tsx             — MDX import 매핑 + TOC
 ```
 
 ## 파일 작성 컨벤션
 
-- 컴포넌트 페이지는 MDX가 아니라 **`src/data` 인벤토리 주도**다. slug는 소문자 붙임 표기(`buttongroup`, `inputdatepicker`)로 `COMPONENT_LIST` 기준을 따른다.
-- MDX 파일(`src/content/`)은 kebab-case, 추가 시 `src/lib/docs.tsx`에 import 등록해야 노출된다.
+- 모든 페이지는 MDX가 아니라 **`src/data` 인벤토리 주도**다. slug는 소문자 붙임 표기(`buttongroup`, `inputdatepicker`)로 `COMPONENT_LIST` 기준을 따른다.
 - 데이터 파일은 실제 `packages/ui-v3` 소스 API 기준으로만 작성한다(발명 금지).
 
 ## 코드 작성 컨벤션

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { COMPONENT_LIST } from "../../data/component-list";
 import { FOUNDATION_NAV } from "../../data/foundations";
+import { PATTERNS } from "../../data/patterns";
 
 /** 시안에서 추출한 검증된 정적 마크업을 레이아웃 영향 없이 렌더링 */
 export const Html = ({ html }: { html: string }) => (
@@ -29,6 +30,26 @@ export const ComponentsSidebar = ({ active }: { active?: string }) => (
         <Link
           key={entry.slug}
           href={`/components/${entry.slug}`}
+          className={active === entry.slug ? "active" : undefined}
+        >
+          {entry.name}
+        </Link>
+      ))}
+    </div>
+  </aside>
+);
+
+export const PatternsSidebar = ({ active }: { active?: string }) => (
+  <aside className="sidebar">
+    <div className="sidebar-sticky">
+      <h5>Patterns</h5>
+      <Link href="/patterns" className={active ? undefined : "active"}>
+        Overview
+      </Link>
+      {PATTERNS.map(entry => (
+        <Link
+          key={entry.slug}
+          href={`/patterns/${entry.slug}`}
           className={active === entry.slug ? "active" : undefined}
         >
           {entry.name}
