@@ -41,7 +41,7 @@
 seed-design.io 레이아웃을 LDS 브랜드로 재구성한 Next.js 16 사이트. 진실의 원천은 MDX가 아니라 **`src/data/`의 TS 데이터**.
 
 - **홈**: 100vh 브랜드 필름 히어로(키네틱 타이포 18s 루프, 스크롤 시 카드로 수축) + 라이브 벤토 + 다크 인트로/원칙/기반 마퀴 + 블루 푸터
-- **라우트**: `/components`(+54 상세), `/foundations`(+6 상세), `/patterns`, `/get-started`, `/develop`, `/updates`
+- **라우트**: `/components`(+54 상세), `/foundations`(+6 상세), `/patterns`(+5 가이드 상세), `/get-started`, `/develop`, `/updates`
 - **⌘K 검색**: 한글 초성 매칭, 의존성 제로 (`src/lib/search.ts` + `src/data/search-index.ts`)
 - **다크모드**: `html[data-theme]` + localStorage + OS 설정, FOUC 방지 인라인 스크립트. 홈 브랜드 필름/다크 존/블루 푸터는 양 테마 동일
 - **`/llms.txt`**: ui-v3 CLAUDE.md를 빌드 시 읽어 AI용으로 서빙
@@ -70,9 +70,9 @@ daangn/seed-design 소스 비교분석 후 선별 도입:
 ## 검증 명령
 
 ```bash
-# ui-v3 테스트 / 타입체크 (test/utils.tsx의 pretty-format TS2742 1건은 기존 이슈)
+# ui-v3 테스트 / 전수 타입체크 (스토리·테스트 포함, 에러 0이 기준)
 cd packages/ui-v3 && pnpm test
-npx tsc --noEmit -p packages/ui-v3/tsconfig.json
+pnpm --filter @lawkit/ui check
 
 # docs 타입체크 / 빌드
 pnpm --filter @lds/docs check && pnpm --filter @lds/docs build
@@ -116,8 +116,8 @@ d03c9b6 feat(ui-v3): Badge·Chip 복원 및 LinkBadge 신규 추가
 
 1. **컴포넌트 갭 선별 구현**: Divider, Callout, EmptyState, Timeline, ApprovalLine(히스토리 3b6ddf7 이전에 구현 존재 — 복원 후보), DdayBadge 등 법무 도메인 우선
 2. **Chromatic 비주얼 회귀** — 계정 연결 필요
-3. **구 MDX 정리**: `apps/docs/src/content/` + `src/lib/docs.tsx`는 라우팅에서 분리된 죽은 코드 — 콘텐츠 이관 또는 삭제 결정
-4. **스토리/테스트 타입체크 제외 해소**: ui-v3 tsconfig가 stories/test를 exclude — CI에 별도 체크 추가 검토 (Wiki Testing 페이지 참조)
-5. **다크모드 알려진 한계**: 홈 벤토 칩 대비(AA 미달 2종, 장식성), elevation 데모 흰색 고정 — 필요 시 보정
+3. ~~구 MDX 정리~~ ✅ 완료 (2026-08-07) — 패턴 가이드는 `/patterns/[slug]` 5종으로 이관, MDX 시스템 제거
+4. ~~타입체크 사각지대~~ ✅ 완료 — `tsconfig.check.json` 전수 체크, 숨은 오류 24건 수정
+5. ~~다크모드 잔여 보정~~ ✅ 완료 — 칩 AA 대비, 그림자 데모 캔버스, 토글 플래시
 
 > 이 파일은 작업 완료 후 삭제해도 됩니다.
