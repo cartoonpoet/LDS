@@ -22,7 +22,27 @@
     --danger: #EA5455;
     --warning: #F0AF23;
     --preview-bg: #F6F7F9;
+    --page-bg: #FFFFFF;
+    --text-soft: #3D4557;
     --font: "Pretendard Variable", Pretendard, -apple-system, "Apple SD Gothic Neo", sans-serif;
+    color-scheme: light;
+  }
+
+  /* ============ 다크 테마 ============
+     html[data-theme="dark"]에서 라이트 토큰을 재정의한다.
+     홈 브랜드 필름·다크 인트로/원칙/기반 섹션·블루 푸터는 --dark-, --accent- 계열 고정 팔레트라 양 테마 동일. */
+  html[data-theme="dark"] {
+    color-scheme: dark;
+    --light-bg: #0D0F14;
+    --page-bg: #0D0F14;
+    --surface: #11152A;
+    --border: #232C48;
+    --heading: #FFFFFF;
+    --body: #CDD6EA;
+    --text-soft: #CDD6EA;
+    --muted: #9AA4B8;
+    --accent-faint: rgba(126, 160, 255, 0.14);
+    --preview-bg: #1A2140;
   }
 
   html { scroll-behavior: smooth; }
@@ -34,6 +54,7 @@
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
     line-height: 1.5;
+    transition: background-color .2s ease, color .2s ease;
   }
 
   .container { max-width: 1104px; margin: 0 auto; padding: 0 24px; }
@@ -106,7 +127,7 @@
     border-radius: 999px;
     font-size: 14px;
     font-weight: 600;
-    color: #3d4557;
+    color: var(--text-soft);
     text-decoration: none;
     transition: background .2s ease, color .45s ease;
   }
@@ -125,10 +146,11 @@
     display: grid;
     place-items: center;
     cursor: pointer;
-    color: #3d4557;
+    color: var(--text-soft);
     transition: background .2s ease, color .45s ease;
   }
   .nav-search:hover { background: rgba(33, 81, 236, 0.12); color: var(--accent); }
+  .nav-search + .nav-search { margin-left: 0; }
   .nav.is-dark .nav-search { background: rgba(255, 255, 255, 0.1); color: var(--dark-body); }
 
   /* ============ 상단바 (서브페이지) ============ */
@@ -165,7 +187,7 @@
     border-radius: 8px;
     font-size: 14px;
     font-weight: 600;
-    color: #3d4557;
+    color: var(--text-soft);
     text-decoration: none;
     transition: background .2s ease, color .2s ease;
   }
@@ -180,7 +202,7 @@
     display: grid;
     place-items: center;
     cursor: pointer;
-    color: #3d4557;
+    color: var(--text-soft);
     transition: background .2s ease, color .2s ease;
   }
   .topbar-icon-btn:hover { background: var(--accent-faint); color: var(--accent); }
@@ -846,7 +868,7 @@
   .reveal.d2 { transition-delay: .22s; }
 
   /* ============ 서브페이지 공통 ============ */
-  .subpage { background: var(--surface); min-height: 100vh; padding: 64px 0 0; }
+  .subpage { background: var(--page-bg); min-height: 100vh; padding: 64px 0 0; transition: background-color .2s ease; }
   .doc-shell { max-width: 1360px; margin: 0 auto; padding: 0 32px; display: grid; gap: 56px; }
   .doc-shell.two-col { grid-template-columns: 236px minmax(0, 1fr); }
   .doc-shell.three-col { grid-template-columns: 236px minmax(0, 1fr) 190px; }
@@ -861,7 +883,7 @@
     border-radius: 8px;
     font-size: 14px;
     font-weight: 500;
-    color: #3d4557;
+    color: var(--text-soft);
     text-decoration: none;
     transition: background .15s ease, color .15s ease;
     margin-bottom: 1px;
@@ -1085,7 +1107,7 @@
 
   .doc-section { margin-top: 48px; }
   .doc-section h2 { font-size: 26px; font-weight: 800; letter-spacing: -0.02em; color: var(--heading); margin-bottom: 16px; }
-  .doc-section p { font-size: 15.5px; line-height: 1.75; color: #3d4557; margin-bottom: 14px; max-width: 660px; }
+  .doc-section p { font-size: 15.5px; line-height: 1.75; color: var(--text-soft); margin-bottom: 14px; max-width: 660px; }
   .doc-section p code {
     font-family: ui-monospace, "SF Mono", Menlo, monospace;
     font-size: 13px;
@@ -1224,7 +1246,7 @@
     border-bottom: 1.5px solid var(--border);
     letter-spacing: .03em;
   }
-  .props-table td { padding: 11px 12px; border-bottom: 1px solid var(--border); color: #3d4557; vertical-align: top; }
+  .props-table td { padding: 11px 12px; border-bottom: 1px solid var(--border); color: var(--text-soft); vertical-align: top; }
   .props-table td:first-child { font-weight: 700; color: var(--heading); }
   .props-table code {
     font-family: ui-monospace, "SF Mono", Menlo, monospace;
@@ -1368,7 +1390,7 @@
   .release-date { font-size: 13px; font-weight: 600; color: var(--muted); }
   .release-tag { font-size: 11px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--accent); background: var(--accent-faint); padding: 3px 9px; border-radius: 6px; }
   .release ul { list-style: none; }
-  .release li { position: relative; padding: 5px 0 5px 20px; font-size: 14.5px; color: #3d4557; line-height: 1.6; }
+  .release li { position: relative; padding: 5px 0 5px 20px; font-size: 14.5px; color: var(--text-soft); line-height: 1.6; }
   .release li::before { content: ""; position: absolute; left: 4px; top: 14px; width: 6px; height: 6px; border-radius: 50%; background: var(--accent-light); }
   .release li b { color: var(--heading); font-weight: 700; }
 
@@ -1792,3 +1814,61 @@
   .doc-tabs a { text-decoration: none; display: inline-block; }
   .doc-section[id], section[id], .pattern-grid[id] { scroll-margin-top: 100px; }
   .comp-card, .hub-card, .next-card, .dev-link { color: inherit; }
+
+  /* ============ 다크 테마 보정 ============ */
+  /* 서브 상단바 — 라이트 글래스 → 다크 글래스 */
+  html[data-theme="dark"] .topbar { background: rgba(13, 15, 20, 0.82); }
+
+  /* 홈 플로팅 pill — 다크 테마에서는 스크롤 위치와 무관하게 다크 글래스 고정
+     (필름은 양 테마 라이트 유지지만, 벤토/서브 구간이 다크로 바뀌므로 pill은 항상 다크가 자연스럽다) */
+  html[data-theme="dark"] .nav {
+    background: rgba(17, 21, 42, 0.72);
+    border-color: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 6px 28px rgba(0, 0, 0, 0.35);
+  }
+  html[data-theme="dark"] .nav .nav-logo-text { color: #fff; }
+  html[data-theme="dark"] .nav a.nav-link { color: var(--dark-body); }
+  html[data-theme="dark"] .nav a.nav-link:hover { background: rgba(126, 160, 255, 0.14); color: #fff; }
+  html[data-theme="dark"] .nav a.nav-link.primary { color: var(--accent-light); }
+  html[data-theme="dark"] .nav-search { background: rgba(255, 255, 255, 0.1); color: var(--dark-body); }
+  html[data-theme="dark"] .nav-search:hover { background: rgba(126, 160, 255, 0.2); color: #fff; }
+
+  /* 액센트 텍스트 — #2151EC은 다크 배경에서 대비 부족(약 3:1) → 텍스트 용도만 #7EA0FF로 보정 */
+  html[data-theme="dark"] .topbar-menu a:hover,
+  html[data-theme="dark"] .topbar-menu a.active,
+  html[data-theme="dark"] .topbar-icon-btn:hover,
+  html[data-theme="dark"] .sidebar a.active,
+  html[data-theme="dark"] .breadcrumb,
+  html[data-theme="dark"] .doc-tabs button.on,
+  html[data-theme="dark"] .doc-tabs a.on,
+  html[data-theme="dark"] .toc a.active,
+  html[data-theme="dark"] .next-card b,
+  html[data-theme="dark"] .dev-pkg code,
+  html[data-theme="dark"] .release-tag,
+  html[data-theme="dark"] .site-search-option.is-active .site-search-option-title,
+  html[data-theme="dark"] .doc-section p code,
+  html[data-theme="dark"] .props-table code { color: var(--accent-light); }
+  html[data-theme="dark"] .toc a.active { border-left-color: var(--accent-light); }
+  html[data-theme="dark"] .doc-tabs button.on::after,
+  html[data-theme="dark"] .doc-tabs a.on::after { background: var(--accent-light); }
+
+  /* 사이드바/검색 kbd — 라이트 전용 잔여 배경 보정 */
+  html[data-theme="dark"] .sidebar a:hover { background: rgba(255, 255, 255, 0.06); }
+  html[data-theme="dark"] .hub-thumb.navy { background: #1A2140; }
+
+  /* 컴포넌트 미니 프리뷰/패턴 다이어그램/라이브 프리뷰 — 미디어 영역으로 취급.
+     previewHtml 54종은 라이트 서피스 기준으로 하드코딩되어 있어, 컨테이너에서 라이트 토큰을 다시 고정한다. */
+  html[data-theme="dark"] .comp-preview,
+  html[data-theme="dark"] .pat-diagram,
+  html[data-theme="dark"] .live-preview {
+    color-scheme: light;
+    --surface: #FFFFFF;
+    --border: #EEEFF2;
+    --heading: #11152A;
+    --body: #000000;
+    --text-soft: #3D4557;
+    --muted: #626F86;
+    --accent-faint: #EEF3FF;
+    --preview-bg: #F6F7F9;
+    box-shadow: inset 0 0 0 1px rgba(13, 15, 20, 0.1);
+  }
