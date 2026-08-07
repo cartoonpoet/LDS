@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { SearchDialog } from "./SearchDialog";
 
 const MENU = [
   { key: "get-started", href: "/get-started", label: "Get Started", primary: true, hideSm: false },
@@ -32,6 +33,7 @@ export const SiteNav = () => {
   const isHome = pathname === "/";
   const activeKey = navKeyFor(pathname);
   const [isDark, setIsDark] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
   const [toast, setToast] = useState<string | null>(null);
   const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -80,7 +82,7 @@ export const SiteNav = () => {
               {item.label}
             </Link>
           ))}
-          <button className="nav-search" aria-label="검색" onClick={() => showToast("곧 만나볼 수 있어요")}>
+          <button className="nav-search" aria-label="검색" onClick={() => setSearchOpen(true)}>
             <SearchIcon />
           </button>
         </nav>
@@ -113,13 +115,14 @@ export const SiteNav = () => {
                   />
                 </svg>
               </button>
-              <button className="topbar-icon-btn" aria-label="검색" onClick={() => showToast("곧 만나볼 수 있어요")}>
+              <button className="topbar-icon-btn" aria-label="검색" onClick={() => setSearchOpen(true)}>
                 <SearchIcon />
               </button>
             </div>
           </div>
         </header>
       )}
+      <SearchDialog open={searchOpen} onOpen={() => setSearchOpen(true)} onClose={() => setSearchOpen(false)} />
       <div className={`prep-toast${toast ? " show" : ""}`}>
         <span className="ic">✦</span>
         <span>{toast ?? ""}</span>
