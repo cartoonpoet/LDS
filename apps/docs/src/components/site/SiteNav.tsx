@@ -29,7 +29,7 @@ const SearchIcon = () => (
 );
 
 const MoonIcon = () => (
-  <svg width="17" height="17" viewBox="0 0 17 17" fill="none">
+  <svg className="theme-icon icon-moon" width="17" height="17" viewBox="0 0 17 17" fill="none">
     <path
       d="M14.5 10.5A6.5 6.5 0 0 1 6.5 2.5a6.5 6.5 0 1 0 8 8Z"
       stroke="currentColor"
@@ -40,7 +40,7 @@ const MoonIcon = () => (
 );
 
 const SunIcon = () => (
-  <svg width="17" height="17" viewBox="0 0 17 17" fill="none">
+  <svg className="theme-icon icon-sun" width="17" height="17" viewBox="0 0 17 17" fill="none">
     <circle cx="8.5" cy="8.5" r="3.5" stroke="currentColor" strokeWidth="1.6" />
     <path
       d="M8.5 1.3v1.9M8.5 13.8v1.9M1.3 8.5h1.9M13.8 8.5h1.9M3.4 3.4l1.35 1.35M12.25 12.25l1.35 1.35M13.6 3.4l-1.35 1.35M4.75 12.25L3.4 13.6"
@@ -97,8 +97,15 @@ export const SiteNav = () => {
     setTheme(next);
   };
 
+  // 아이콘은 둘 다 렌더하고 CSS(html[data-theme])가 표시를 전환한다 — SSR/하이드레이션 플래시 방지.
+  // theme 상태는 aria-label 동기화 용도로만 남긴다.
   const themeLabel = theme === "dark" ? "라이트 모드로 전환" : "다크 모드로 전환";
-  const themeIcon = theme === "dark" ? <SunIcon /> : <MoonIcon />;
+  const themeIcon = (
+    <>
+      <SunIcon />
+      <MoonIcon />
+    </>
+  );
 
   return (
     <>
