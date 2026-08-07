@@ -84,6 +84,26 @@ import { Avatar, AvatarGroup } from "@lds/ui-v3";
 </AvatarGroup>
 ```
 
+## Badge
+
+```tsx
+import { Badge } from "@lds/ui-v3";
+
+// 기본 (filled / primary)
+<Badge>Label</Badge>
+
+// 변형
+<Badge variant="outline">Outline</Badge>
+<Badge variant="muted" tone="neutral">Muted</Badge>
+
+// 아이콘 + 닫기 버튼
+<Badge leadingIcon={<MyIcon />}>아이콘</Badge>
+<Badge dismissible onDismiss={handleDismiss}>닫기 가능</Badge>
+
+// 아이콘 전용
+<Badge iconOnly leadingIcon={<MyIcon />} aria-label="알림" />
+```
+
 ## Button
 
 ```tsx
@@ -279,6 +299,24 @@ const [checked, setChecked] = useState(false);
 <Checkbox label="동의합니다" checked={checked} onCheckedChange={setChecked} />
 <Checkbox size="small" label="소형" />
 <Checkbox size="large" label="대형" disabled />
+```
+
+## Chip
+
+```tsx
+import { Chip } from "@lds/ui-v3";
+
+// 기본
+<Chip>Option 1</Chip>
+
+// 선택 표시 (체크형)
+<Chip checkable selected>선택됨</Chip>
+
+// 삭제 가능
+<Chip dismissible onDismiss={handleDismiss}>필터</Chip>
+
+// 아이콘 포함
+<Chip leadingIcon={<MyIcon />}>아이콘</Chip>
 ```
 
 ## ChipsNavigation
@@ -578,6 +616,25 @@ const [items, setItems] = useState<MultiSelectItem[]>([
   onRemove={(key) => setItems((prev) => prev.filter((i) => i.key !== key))}
   placeholder="검색..."
 />
+```
+
+## LinkBadge
+
+```tsx
+import { LinkBadge } from "@lds/ui-v3";
+
+// 기본 (outline / primary) — 계약번호 등 식별자 링크
+<LinkBadge href="/contracts/C2026-01">C2026-01</LinkBadge>
+
+// 새 탭으로 열기 (↗ 표시 + rel 가드 자동)
+<LinkBadge href="https://example.com" external>외부 문서</LinkBadge>
+
+// 변형
+<LinkBadge href="#" variant="filled">Filled</LinkBadge>
+<LinkBadge href="#" variant="muted" tone="neutral">Muted</LinkBadge>
+
+// 아이콘 포함
+<LinkBadge href="#" leadingIcon={<MyIcon />}>아이콘</LinkBadge>
 ```
 
 ## ListGroup

@@ -280,6 +280,15 @@ export type {
   TreeViewSize,
 } from "./components/TreeView";
 
+export { Badge } from "./components/Badge";
+export type { BadgeProps } from "./components/Badge";
+
+export { Chip } from "./components/Chip";
+export type { ChipProps } from "./components/Chip";
+
+export { LinkBadge } from "./components/LinkBadge";
+export type { LinkBadgeProps } from "./components/LinkBadge";
+
 /* ─── Styles ─── */
 export { sprinkles } from "./styles/sprinkles.css";
 
