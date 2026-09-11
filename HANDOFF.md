@@ -17,9 +17,10 @@
 
 | 항목 | 상태 |
 |---|---|
-| 컴포넌트 | **64개** — Zeplin 스타일가이드 기준 미구현 0 + 레이아웃 프리미티브 + 법무 도메인 |
-| 테스트 | **71파일 541개** 전체 통과 (컴포넌트 520 + lib 훅 21) |
+| 컴포넌트 | **65개** — Zeplin 스타일가이드 기준 미구현 0 + 레이아웃 프리미티브 + 법무 도메인 |
+| 테스트 | **72파일 548개** 전체 통과 (컴포넌트 527 + lib 훅 21) |
 | 배포 게이트 | Storybook Vercel 빌드가 테스트→빌드→npm publish→스토리북 순서로 실행 (테스트 실패 시 전부 중단) |
+| ⚠️ npm publish | **NPM_TOKEN 만료로 v0.1.68~69 미배포** (레지스트리 최신은 v0.1.67). npmjs.com에서 새 토큰 발급 → GitHub secret `NPM_TOKEN` + Vercel 환경변수 갱신 → 실패한 run 재실행 필요 |
 | 문서 사이트 | seed-design.io 스타일 제품 사이트 완성 (아래 참조) |
 
 ### 최근 추가된 컴포넌트 (2026-09-12 후반) — feat/legal-components 브랜치
@@ -126,7 +127,8 @@ d03c9b6 feat(ui-v3): Badge·Chip 복원 및 LinkBadge 신규 추가
 
 ## 다음 작업 후보
 
-1. **컴포넌트 갭 선별 구현**: Callout만 잔여 (~~Divider~~·~~EmptyState~~·~~Timeline~~·~~ApprovalLine~~·~~DdayBadge~~ ✅ 완료 2026-09-12)
+1. ~~컴포넌트 갭 선별 구현~~ ✅ 전부 완료 (2026-09-12) — Divider·EmptyState·Timeline·ApprovalLine·DdayBadge·Callout. `/updates` 체인지로그도 v0.1.68~70 반영
+2. **레이아웃 패턴 가이드**: PageLayout + Container/Grid/Stack 조합으로 앱 골격 잡는 가이드를 `/patterns`에 추가 (후보)
 2. **Chromatic 비주얼 회귀** — 계정 연결 필요
 3. ~~구 MDX 정리~~ ✅ 완료 (2026-08-07) — 패턴 가이드는 `/patterns/[slug]` 5종으로 이관, MDX 시스템 제거
 4. ~~타입체크 사각지대~~ ✅ 완료 — `tsconfig.check.json` 전수 체크, 숨은 오류 24건 수정
