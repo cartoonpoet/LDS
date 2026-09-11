@@ -69,6 +69,9 @@ export type { CardProps } from "./components/Card";
 export { Box } from "./components/Box";
 export type { BoxProps, BoxSpacing, BoxBackground, BoxRadius } from "./components/Box";
 
+export { Divider } from "./components/Divider";
+export type { DividerProps, DividerOrientation } from "./components/Divider";
+
 export { HStack, VStack } from "./components/Stack";
 export type {
   HStackProps,
