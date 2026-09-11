@@ -20,7 +20,7 @@
 | 컴포넌트 | **65개** — Zeplin 스타일가이드 기준 미구현 0 + 레이아웃 프리미티브 + 법무 도메인 |
 | 테스트 | **72파일 548개** 전체 통과 (컴포넌트 527 + lib 훅 21) |
 | 배포 게이트 | Storybook Vercel 빌드가 테스트→빌드→npm publish→스토리북 순서로 실행 (테스트 실패 시 전부 중단) |
-| ⚠️ npm publish | **NPM_TOKEN 만료로 v0.1.68~69 미배포** (레지스트리 최신은 v0.1.67). npmjs.com에서 새 토큰 발급 → GitHub secret `NPM_TOKEN` + Vercel 환경변수 갱신 → 실패한 run 재실행 필요 |
+| npm publish | ✅ 정상화 (2026-09-12 토큰 재발급·Automation 타입). **v0.1.68~69는 토큰 만료로 npm 영구 결번**, v0.1.70이 레이아웃+법무+Callout 전부 포함해 배포됨. 토큰 만료 시 증상: publish 단계 E404(=인증 실패) 또는 EOTP(=Publish 타입 토큰) |
 | 문서 사이트 | seed-design.io 스타일 제품 사이트 완성 (아래 참조) |
 
 ### 최근 추가된 컴포넌트 (2026-09-12 후반) — feat/legal-components 브랜치
