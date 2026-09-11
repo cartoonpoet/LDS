@@ -104,6 +104,27 @@ import { Badge } from "@lds/ui-v3";
 <Badge iconOnly leadingIcon={<MyIcon />} aria-label="알림" />
 ```
 
+## Box
+
+```tsx
+import { Box } from "@lds/ui-v3";
+
+// 카드형 영역 — 패딩/배경/라운드/테두리를 토큰으로
+<Box p="x4" bg="canvas" radius="md" border>
+  콘텐츠
+</Box>
+
+// 축별 패딩
+<Box px="x5" py="x3" bg="subtle" radius="lg">
+  좌우 20px / 상하 12px
+</Box>
+
+// 페이지 배경 섹션
+<Box p="x6" bg="page">
+  섹션 콘텐츠
+</Box>
+```
+
 ## Breadcrumb
 
 ```tsx
@@ -415,6 +436,23 @@ const [open, setOpen] = useState(false);
 </CollapseGroup>
 ```
 
+## Container
+
+```tsx
+import { Container } from "@lds/ui-v3";
+
+// 페이지 본문 폭 제한 (기본 lg=1280px)
+<Container size="lg">
+  <h1>사건 목록</h1>
+  {/* 본문 */}
+</Container>
+
+// 읽기용 좁은 폭
+<Container size="sm">
+  <article>약관 본문</article>
+</Container>
+```
+
 ## DataTable
 
 ```tsx
@@ -494,6 +532,24 @@ function MyPage() {
     </>
   );
 }
+```
+
+## Divider
+
+```tsx
+import { Divider } from "@lds/ui-v3";
+
+// 섹션 구분
+<section>위 콘텐츠</section>
+<Divider />
+<section>아래 콘텐츠</section>
+
+// 수직 구분 (flex 부모 안)
+<HStack gap="x3" align="center">
+  <span>진행 중 24</span>
+  <Divider orientation="vertical" />
+  <span>종결 96</span>
+</HStack>
 ```
 
 ## Drawer
@@ -698,6 +754,27 @@ function MyPage() {
     </>
   );
 }
+```
+
+## Grid
+
+```tsx
+import { Grid } from "@lds/ui-v3";
+
+// 통계 카드 3열
+<Grid columns={3} gap="x3">
+  <Card>진행 중 사건 24</Card>
+  <Card>이번 주 기일 6</Card>
+  <Card>답변 기한 임박 3</Card>
+</Grid>
+
+// 폼 2단 배치 (행/열 간격 다르게)
+<Grid columns={2} rowGap="x4" columnGap="x6">
+  <Input label="사건번호" />
+  <Input label="사건명" />
+  <Input label="재판부" />
+  <Input label="담당 변호사" />
+</Grid>
 ```
 
 ## IconButtonGroup
@@ -935,6 +1012,31 @@ const [count, setCount] = useState(50);
 <NumberInput value={50} disabled />
 ```
 
+## PageLayout
+
+```tsx
+import { PageLayout } from "@lds/ui-v3";
+
+// 기본 — Header + Nav + Content
+<PageLayout>
+  <PageLayout.Header>{/* GNB: 로고·전역 메뉴·프로필 */}</PageLayout.Header>
+  <PageLayout.Nav>{/* LNB: 메뉴 트리 */}</PageLayout.Nav>
+  <PageLayout.Content>
+    <Container size="lg">{/* 페이지 본문 */}</Container>
+  </PageLayout.Content>
+</PageLayout>
+
+// 보조 패널 + LNB 접힘 (상태는 앱이 관리)
+const [collapsed, setCollapsed] = useState(false);
+
+<PageLayout>
+  <PageLayout.Header>{/* GNB */}</PageLayout.Header>
+  <PageLayout.Nav collapsed={collapsed}>{/* LNB */}</PageLayout.Nav>
+  <PageLayout.Content>{/* 본문 */}</PageLayout.Content>
+  <PageLayout.Panel width={360}>{/* 사건 상세 미리보기 */}</PageLayout.Panel>
+</PageLayout>
+```
+
 ## Pagination
 
 ```tsx
@@ -1092,6 +1194,19 @@ const [range, setRange] = useState<[number, number]>([25, 75]);
 
 // 비활성화
 <Slider value={50} disabled showTicks showLabels />
+```
+
+## Spacer
+
+```tsx
+import { HStack, Spacer, Button } from "@lds/ui-v3";
+
+// 제목 왼쪽, 버튼 오른쪽 끝
+<HStack gap="x3" align="center">
+  <h2>사건 목록</h2>
+  <Spacer />
+  <Button>+ 사건 등록</Button>
+</HStack>
 ```
 
 ## Spinner

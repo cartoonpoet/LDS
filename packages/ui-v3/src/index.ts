@@ -66,6 +66,35 @@ export type {
 export { Card, CardHeader, CardBody, CardFooter } from "./components/Card";
 export type { CardProps } from "./components/Card";
 
+export { Box } from "./components/Box";
+export type { BoxProps, BoxSpacing, BoxBackground, BoxRadius } from "./components/Box";
+
+export { Container } from "./components/Container";
+export type { ContainerProps, ContainerSize } from "./components/Container";
+
+export { Divider } from "./components/Divider";
+export type { DividerProps, DividerOrientation } from "./components/Divider";
+
+export { Spacer } from "./components/Spacer";
+export type { SpacerProps } from "./components/Spacer";
+
+export { Grid } from "./components/Grid";
+export type { GridProps, GridGap } from "./components/Grid";
+
+export {
+  PageLayout,
+  PageLayoutHeader,
+  PageLayoutNav,
+  PageLayoutContent,
+  PageLayoutPanel,
+} from "./components/PageLayout";
+export type {
+  PageLayoutProps,
+  PageLayoutSlotProps,
+  PageLayoutNavProps,
+  PageLayoutPanelProps,
+} from "./components/PageLayout";
+
 export { HStack, VStack } from "./components/Stack";
 export type {
   HStackProps,

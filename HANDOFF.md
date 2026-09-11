@@ -1,6 +1,6 @@
 # LDS 디자인 시스템 — 작업 핸드오프
 
-> 2026-08-07 갱신. 다른 컴퓨터에서 이어서 할 때 이 파일을 Claude에게 전달하세요.
+> 2026-09-12 갱신. 다른 컴퓨터에서 이어서 할 때 이 파일을 Claude에게 전달하세요.
 > "HANDOFF.md 읽고 이어서 작업해줘" 하면 됩니다.
 > 폴더별 코드 컨벤션은 **AGENTS.md**(루트 + packages/ui-v3, packages/tokens, apps/docs, apps/storybook)가 기준입니다.
 
@@ -13,16 +13,22 @@
 
 ---
 
-## 현재 상태 (2026-08-07)
+## 현재 상태 (2026-09-12)
 
 | 항목 | 상태 |
 |---|---|
-| 컴포넌트 | **54개** — Zeplin 스타일가이드 기준 미구현 0 |
-| 테스트 | **61파일 475개** 전체 통과 (컴포넌트 454 + lib 훅 21) |
+| 컴포넌트 | **60개** — Zeplin 스타일가이드 기준 미구현 0 + 레이아웃 프리미티브 |
+| 테스트 | **67파일 514개** 전체 통과 (컴포넌트 493 + lib 훅 21) |
 | 배포 게이트 | Storybook Vercel 빌드가 테스트→빌드→npm publish→스토리북 순서로 실행 (테스트 실패 시 전부 중단) |
 | 문서 사이트 | seed-design.io 스타일 제품 사이트 완성 (아래 참조) |
 
-### 최근 추가된 컴포넌트 (2026-08-07)
+### 최근 추가된 컴포넌트 (2026-09-12) — feat/layout-primitives 브랜치
+
+- **레이아웃 프리미티브 5종**: Box(패딩/배경/라운드/테두리 토큰 컨테이너), Grid(repeat 컬럼 격자), Divider(수평/수직 구분선), Container(최대 폭 768/1024/1280 + 중앙 정렬), Spacer(flex-grow 빈 요소)
+- **PageLayout**: grid-template-areas 기반 페이지 셸 — Header(`<header>`)/Nav(`<nav>`, width·collapsed·collapsedWidth)/Content(`<main>`)/Panel(`<aside>`, width) 슬롯, 생략 시 트랙 0으로 접힘. GNB/LNB 내용물은 여전히 각 서비스 몫(패턴 가이드 영역)
+- 시안(승인됨): https://claude.ai/code/artifact/91f18beb-2792-4bcb-b4e3-faaa439f35e0 / 계획: docs/superpowers/plans/2026-09-11-layout-primitives.md
+
+### 이전 추가된 컴포넌트 (2026-08-07)
 
 - **Badge, Chip** — git 히스토리(67a2e59)에서 복원 / **LinkBadge** — 신규 (링크형 뱃지, external 시 새 탭 + rel 가드)
 - **Breadcrumb, Textarea, FloatingModal(비차단 우하단), FullScreenModal**
@@ -114,7 +120,7 @@ d03c9b6 feat(ui-v3): Badge·Chip 복원 및 LinkBadge 신규 추가
 
 ## 다음 작업 후보
 
-1. **컴포넌트 갭 선별 구현**: Divider, Callout, EmptyState, Timeline, ApprovalLine(히스토리 3b6ddf7 이전에 구현 존재 — 복원 후보), DdayBadge 등 법무 도메인 우선
+1. **컴포넌트 갭 선별 구현**: Callout, EmptyState, Timeline, ApprovalLine(히스토리 3b6ddf7 이전에 구현 존재 — 복원 후보), DdayBadge 등 법무 도메인 우선 (~~Divider~~ ✅ 레이아웃 프리미티브로 완료 2026-09-12)
 2. **Chromatic 비주얼 회귀** — 계정 연결 필요
 3. ~~구 MDX 정리~~ ✅ 완료 (2026-08-07) — 패턴 가이드는 `/patterns/[slug]` 5종으로 이관, MDX 시스템 제거
 4. ~~타입체크 사각지대~~ ✅ 완료 — `tsconfig.check.json` 전수 체크, 숨은 오류 24건 수정
