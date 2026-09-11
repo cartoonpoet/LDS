@@ -101,6 +101,9 @@ export type {
 export { EmptyState } from "./components/EmptyState";
 export type { EmptyStateProps } from "./components/EmptyState";
 
+export { Timeline } from "./components/Timeline";
+export type { TimelineProps, TimelineItem, TimelineStatus } from "./components/Timeline";
+
 export { HStack, VStack } from "./components/Stack";
 export type {
   HStackProps,
