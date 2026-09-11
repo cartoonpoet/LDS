@@ -23,6 +23,12 @@ export const GENERATED_PROPS: Record<string, readonly GeneratedProp[]> = {
     { name: "actions", type: "AlertAction[]", required: false, description: "액션 버튼들 (승인/반려 등)" },
     { name: "className", type: "string", required: false, description: "추가 className" },
   ],
+  "approvalline": [
+    { name: "items", type: "ApprovalLineItem[]", required: true },
+    { name: "direction", type: "\"horizontal\" | \"vertical\"", required: false, default: "\"horizontal\"" },
+    { name: "showConnector", type: "boolean", required: false, default: "true" },
+    { name: "ariaLabel", type: "string", required: false, default: "\"결재선\"" },
+  ],
   "autocomplete": [
     { name: "options", type: "AutoCompleteOption[]", required: true, description: "옵션 목록" },
     { name: "multiple", type: "boolean", required: false, default: "false", description: "다중 선택 모드" },
@@ -178,6 +184,10 @@ export const GENERATED_PROPS: Record<string, readonly GeneratedProp[]> = {
     { name: "minDate", type: "Date", required: false, description: "최소 선택 가능 날짜" },
     { name: "maxDate", type: "Date", required: false, description: "최대 선택 가능 날짜" },
   ],
+  "ddaybadge": [
+    { name: "date", type: "Date | string", required: true, description: "목표 날짜 (달력일 기준으로 D-day 계산)" },
+    { name: "today", type: "Date | string", required: false, description: "기준일 — 기본값은 현재. 테스트/스토리에서 고정할 때 사용" },
+  ],
   "divider": [
     { name: "orientation", type: "\"horizontal\" | \"vertical\"", required: false, default: "\"horizontal\"", description: "방향 — vertical은 flex 부모 안에서 stretch" },
   ],
@@ -204,6 +214,12 @@ export const GENERATED_PROPS: Record<string, readonly GeneratedProp[]> = {
     { name: "panelHeader", type: "string", required: false, description: "패널 헤더 텍스트 (Multi Check 모드)" },
     { name: "disabled", type: "boolean", required: false, default: "false", description: "비활성화" },
     { name: "className", type: "string", required: false, description: "추가 className" },
+  ],
+  "emptystate": [
+    { name: "icon", type: "ReactNode", required: false, description: "상단 아이콘 (44px 내외 권장)" },
+    { name: "title", type: "ReactNode", required: true, description: "제목" },
+    { name: "description", type: "ReactNode", required: false, description: "보조 설명" },
+    { name: "action", type: "ReactNode", required: false, description: "하단 액션 (Button 등)" },
   ],
   "fileupload": [
     { name: "onFilesAdded", type: "(files: File[]) => void", required: false, description: "파일 추가 콜백" },
@@ -458,6 +474,9 @@ export const GENERATED_PROPS: Record<string, readonly GeneratedProp[]> = {
     { name: "state", type: "\"default\" | \"active\" | \"success\" | \"warning\" | \"disabled\"", required: false, default: "\"default\"", description: "상태" },
     { name: "resize", type: "\"none\" | \"vertical\"", required: false, default: "\"vertical\"", description: "리사이즈 제어" },
     { name: "showCount", type: "boolean", required: false, default: "false", description: "글자수 표시 (maxLength와 함께 사용 시 \"n/max\" 형식)" },
+  ],
+  "timeline": [
+    { name: "items", type: "TimelineItem[]", required: true },
   ],
   "toast": [
     { name: "intent", type: "\"info\" | \"success\" | \"warning\" | \"error\"", required: false, default: "\"info\"", description: "아이콘 색상 의도" },

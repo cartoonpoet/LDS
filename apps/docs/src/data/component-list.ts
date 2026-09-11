@@ -1,6 +1,7 @@
-// 실측 컴포넌트 60종 (packages/ui-v3/src/components 폴더명 기준)
+// 실측 컴포넌트 64종 (packages/ui-v3/src/components 폴더명 기준)
 export const COMPONENT_LIST = [
   { slug: "alert", name: "Alert", desc: "흐름을 끊지 않고 맥락 안에서 안내하는 인라인 메시지예요." },
+  { slug: "approvalline", name: "ApprovalLine", desc: "결재 순서와 상태를 한 줄로 보여주는 결재선이에요." },
   { slug: "autocomplete", name: "AutoComplete", desc: "입력하는 대로 후보를 제안하는 자동완성이에요." },
   { slug: "avatar", name: "Avatar", desc: "사람과 팀을 표현하는 기본 단위예요." },
   { slug: "badge", name: "Badge", desc: "개수와 상태를 작게 알리는 표시예요." },
@@ -19,9 +20,11 @@ export const COMPONENT_LIST = [
   { slug: "container", name: "Container", desc: "본문 최대 폭을 정하고 중앙에 정렬해요." },
   { slug: "datatable", name: "DataTable", desc: "밀도 높은 법무 데이터를 담는 표준 테이블이에요." },
   { slug: "datepicker", name: "DatePicker", desc: "날짜를 고르는 달력이에요." },
+  { slug: "ddaybadge", name: "DdayBadge", desc: "기일까지 남은 날짜를 임박도 색으로 알려주는 뱃지예요." },
   { slug: "divider", name: "Divider", desc: "항상 같은 색·두께로 콘텐츠를 구분하는 선이에요." },
   { slug: "drawer", name: "Drawer", desc: "흐름을 떠나지 않고 가장자리에서 슬라이드 인 하는 패널이에요." },
   { slug: "dropdown", name: "Dropdown", desc: "선택지를 정돈된 목록으로 보여줘요." },
+  { slug: "emptystate", name: "EmptyState", desc: "데이터가 없을 때의 표준 빈 화면이에요." },
   { slug: "fileupload", name: "FileUpload", desc: "드래그 앤 드롭으로 문서를 첨부해요." },
   { slug: "floatingmodal", name: "FloatingModal", desc: "화면 구석에 떠서 흐름을 막지 않는 모달이에요." },
   { slug: "fullscreenmodal", name: "FullScreenModal", desc: "화면 전체를 쓰는 몰입형 모달이에요." },
@@ -56,6 +59,7 @@ export const COMPONENT_LIST = [
   { slug: "tabs", name: "Tabs", desc: "같은 층위의 화면을 오가는 전환이에요." },
   { slug: "tagselect", name: "TagSelect", desc: "태그를 고르고 만드는 입력이에요." },
   { slug: "textarea", name: "Textarea", desc: "여러 줄 내용을 담는 입력 필드예요." },
+  { slug: "timeline", name: "Timeline", desc: "사건 진행 이력을 시간순으로 보여줘요." },
   { slug: "toast", name: "Toast", desc: "방해 없이 결과를 전하는 알림이에요." },
   { slug: "tooltip", name: "Tooltip", desc: "짧은 도움말을 담는 말풍선이에요." },
   { slug: "treeview", name: "TreeView", desc: "계층 구조를 탐색해요." },
