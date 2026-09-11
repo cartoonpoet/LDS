@@ -72,6 +72,9 @@ export type { BoxProps, BoxSpacing, BoxBackground, BoxRadius } from "./component
 export { Container } from "./components/Container";
 export type { ContainerProps, ContainerSize } from "./components/Container";
 
+export { DdayBadge } from "./components/DdayBadge";
+export type { DdayBadgeProps, DdayLevel } from "./components/DdayBadge";
+
 export { Divider } from "./components/Divider";
 export type { DividerProps, DividerOrientation } from "./components/Divider";
 
