@@ -1,4 +1,11 @@
 /* ─── Components ─── */
+export { ApprovalLine } from "./components/ApprovalLine";
+export type {
+  ApprovalLineProps,
+  ApprovalLineItem,
+  ApprovalLineStatus,
+} from "./components/ApprovalLine";
+
 export { AutoComplete } from "./components/AutoComplete";
 export type {
   AutoCompleteProps,
