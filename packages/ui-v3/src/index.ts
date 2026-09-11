@@ -81,6 +81,20 @@ export type { SpacerProps } from "./components/Spacer";
 export { Grid } from "./components/Grid";
 export type { GridProps, GridGap } from "./components/Grid";
 
+export {
+  PageLayout,
+  PageLayoutHeader,
+  PageLayoutNav,
+  PageLayoutContent,
+  PageLayoutPanel,
+} from "./components/PageLayout";
+export type {
+  PageLayoutProps,
+  PageLayoutSlotProps,
+  PageLayoutNavProps,
+  PageLayoutPanelProps,
+} from "./components/PageLayout";
+
 export { HStack, VStack } from "./components/Stack";
 export type {
   HStackProps,
