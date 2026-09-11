@@ -5,7 +5,7 @@ import { COMPONENTS } from "../../src/data/components";
 
 export const metadata: Metadata = {
   title: "Components",
-  description: "LDS의 컴포넌트 60종을 둘러보세요."
+  description: "LDS의 컴포넌트 64종을 둘러보세요."
 };
 
 export default function ComponentsPage() {

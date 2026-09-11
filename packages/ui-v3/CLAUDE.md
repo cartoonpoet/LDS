@@ -41,6 +41,31 @@ import { Alert } from "@lds/ui-v3";
 </Alert>
 ```
 
+## ApprovalLine
+
+```tsx
+import { ApprovalLine } from "@lds/ui-v3";
+
+// 기본 — 수평 결재선
+<ApprovalLine
+  items={[
+    { id: "1", order: 1, name: "박기안", role: "대리", department: "영업팀", status: "approved", date: "9. 8. 14:02" },
+    { id: "2", order: 2, name: "이검토", role: "과장", department: "법무팀", status: "approved", date: "9. 9. 10:31" },
+    { id: "3", order: 3, name: "최법무", role: "팀장", department: "법무팀", status: "current" },
+    { id: "4", order: 4, name: "정대표", role: "대표이사", status: "pending" },
+  ]}
+/>
+
+// 수직 + 코멘트
+<ApprovalLine
+  direction="vertical"
+  items={[
+    { id: "1", name: "박기안", status: "approved" },
+    { id: "2", name: "최법무", status: "rejected", comment: "계약 기간 조항 수정 후 재상신 바랍니다." },
+  ]}
+/>
+```
+
 ## AutoComplete
 
 ```tsx
@@ -534,6 +559,22 @@ function MyPage() {
 }
 ```
 
+## DdayBadge
+
+```tsx
+import { DdayBadge } from "@lds/ui-v3";
+
+// 목표 날짜만 넘기면 임박도별 색 자동
+<DdayBadge date="2026-09-15" />
+
+// 기일 리스트에서
+<HStack gap="x3" align="center">
+  <span>1차 변론기일 · 9. 15.(화) 10:00</span>
+  <Spacer />
+  <DdayBadge date="2026-09-15" />
+</HStack>
+```
+
 ## Divider
 
 ```tsx
@@ -632,6 +673,23 @@ import { Dropdown } from "@lds/ui-v3";
 // Controlled
 const [value, setValue] = useState("1y");
 <Dropdown options={options} value={value} onChange={setValue} />
+```
+
+## EmptyState
+
+```tsx
+import { EmptyState, Button } from "@lds/ui-v3";
+
+// 기본 — 목록/테이블의 빈 상태
+<EmptyState
+  icon={<FolderIcon />}
+  title="조회된 사건이 없어요"
+  description="필터를 조정하거나 새 사건을 등록하세요."
+  action={<Button>+ 사건 등록</Button>}
+/>
+
+// 제목만 (검색 결과 없음 등)
+<EmptyState title="검색 결과가 없어요" description="다른 키워드로 검색해 보세요." />
 ```
 
 ## FileUpload
@@ -1445,6 +1503,25 @@ import { Textarea, InputGroup } from "@lds/ui-v3";
 <InputGroup label="비고" helperText="선택 입력 항목입니다">
   <Textarea placeholder="비고를 입력하세요" />
 </InputGroup>
+```
+
+## Timeline
+
+```tsx
+import { Timeline } from "@lds/ui-v3";
+
+<Timeline
+  items={[
+    { id: "1", date: "2026. 6. 12.", title: "소장 접수", status: "done" },
+    { id: "2", date: "2026. 7. 30.", title: "답변서 제출", description: "피고 대리인 김앤장", status: "done" },
+    { id: "3", date: "2026. 9. 15.", title: "1차 변론기일", status: "current" },
+    { id: "4", title: "2차 변론기일", status: "upcoming" },
+  ]}
+/>
+
+// 제목에 커스텀 노드 (DdayBadge 조합)
+{ id: "3", date: "2026. 9. 15.", status: "current",
+  title: <>1차 변론기일 <DdayBadge date="2026-09-15" /></> }
 ```
 
 ## Toast
