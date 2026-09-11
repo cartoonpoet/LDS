@@ -1,4 +1,4 @@
-// 실측 컴포넌트 64종 (packages/ui-v3/src/components 폴더명 기준)
+// 실측 컴포넌트 65종 (packages/ui-v3/src/components 폴더명 기준)
 export const COMPONENT_LIST = [
   { slug: "alert", name: "Alert", desc: "흐름을 끊지 않고 맥락 안에서 안내하는 인라인 메시지예요." },
   { slug: "approvalline", name: "ApprovalLine", desc: "결재 순서와 상태를 한 줄로 보여주는 결재선이에요." },
@@ -10,6 +10,7 @@ export const COMPONENT_LIST = [
   { slug: "button", name: "Button", desc: "모든 행동의 시작점이에요." },
   { slug: "buttongroup", name: "ButtonGroup", desc: "서로 배타적인 선택지를 한 몸으로 묶어요." },
   { slug: "buttontab", name: "ButtonTab", desc: "버튼 모양으로 화면을 전환하는 탭이에요." },
+  { slug: "callout", name: "Callout", desc: "본문 흐름 속에 남는 정적 안내 블록이에요." },
   { slug: "calendarpopover", name: "CalendarPopover", desc: "달력을 팝오버로 띄워 날짜를 골라요." },
   { slug: "card", name: "Card", desc: "콘텐츠를 담는 기본 그릇이에요." },
   { slug: "charttooltip", name: "ChartTooltip", desc: "차트 위 데이터를 설명하는 툴팁이에요." },

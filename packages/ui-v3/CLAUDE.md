@@ -289,6 +289,27 @@ import { CalendarPopover } from "@lds/ui-v3";
 </CalendarPopover>
 ```
 
+## Callout
+
+```tsx
+import { Callout } from "@lds/ui-v3";
+
+// 기본 (info)
+<Callout>
+  이 계약에는 <b>자동 갱신 조항</b>이 포함되어 있어요. 해지 의사는 만료 30일 전까지 통지해야 해요.
+</Callout>
+
+// 제목 + 경고
+<Callout intent="warning" title="기한 임박">
+  답변서 제출 기한이 5일 남았어요.
+</Callout>
+
+// 아이콘 없이
+<Callout hideIcon intent="danger">
+  반려된 결재는 수정 후 재상신해야 해요.
+</Callout>
+```
+
 ## Card
 
 ```tsx
