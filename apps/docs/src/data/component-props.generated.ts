@@ -56,6 +56,15 @@ export const GENERATED_PROPS: Record<string, readonly GeneratedProp[]> = {
     { name: "iconOnly", type: "boolean", required: false, default: "false" },
     { name: "aria-label", type: "string", required: false },
   ],
+  "box": [
+    { name: "p", type: "BoxSpacing", required: false, description: "사방 패딩 (디자인 토큰: x1=4px ~ x6=24px)" },
+    { name: "px", type: "BoxSpacing", required: false, description: "좌우 패딩 — p보다 우선" },
+    { name: "py", type: "BoxSpacing", required: false, description: "상하 패딩 — p보다 우선" },
+    { name: "bg", type: "\"page\" | \"canvas\" | \"subtle\" | \"raised\"", required: false, description: "배경 (surface 역할 토큰)" },
+    { name: "radius", type: "BoxRadius", required: false, description: "모서리 라운드 (radius 토큰: sm=4px, md=6px, lg=8px)" },
+    { name: "border", type: "boolean", required: false, description: "1px border.subtle 테두리" },
+    { name: "children", type: "ReactNode", required: false },
+  ],
   "breadcrumb": [
     { name: "items", type: "BreadcrumbItem[]", required: true, description: "경로 항목 목록 — 마지막 항목이 현재 페이지" },
     { name: "separator", type: "ReactNode", required: false, default: "\"/\"", description: "구분자 (기본 \"/\")" },
@@ -145,6 +154,10 @@ export const GENERATED_PROPS: Record<string, readonly GeneratedProp[]> = {
     { name: "children", type: "ReactNode", required: false, description: "콘텐츠" },
     { name: "className", type: "string", required: false, description: "추가 className" },
   ],
+  "container": [
+    { name: "size", type: "\"sm\" | \"md\" | \"lg\" | \"full\"", required: false, description: "최대 폭 — sm=768px, md=1024px, lg=1280px, full=제한 없음" },
+    { name: "children", type: "ReactNode", required: false },
+  ],
   "datatable": [
     { name: "data", type: "T[]", required: true, description: "테이블 데이터" },
     { name: "columns", type: "ColumnDef<T, any>[]", required: true, description: "@tanstack/react-table ColumnDef 배열" },
@@ -164,6 +177,9 @@ export const GENERATED_PROPS: Record<string, readonly GeneratedProp[]> = {
     { name: "showTime", type: "boolean", required: false, default: "false", description: "시간 선택 표시" },
     { name: "minDate", type: "Date", required: false, description: "최소 선택 가능 날짜" },
     { name: "maxDate", type: "Date", required: false, description: "최대 선택 가능 날짜" },
+  ],
+  "divider": [
+    { name: "orientation", type: "\"horizontal\" | \"vertical\"", required: false, default: "\"horizontal\"", description: "방향 — vertical은 flex 부모 안에서 stretch" },
   ],
   "drawer": [
     { name: "open", type: "boolean", required: true, description: "표시 여부" },
@@ -214,6 +230,13 @@ export const GENERATED_PROPS: Record<string, readonly GeneratedProp[]> = {
     { name: "footer", type: "ReactNode", required: false, description: "푸터 콘텐츠" },
     { name: "disableEscapeClose", type: "boolean", required: false, default: "false", description: "Escape 키 닫기 비활성" },
     { name: "children", type: "ReactNode", required: false, description: "모달 본문" },
+  ],
+  "grid": [
+    { name: "columns", type: "number", required: false, default: "1", description: "동일 폭 컬럼 수 — repeat(N, minmax(0, 1fr))" },
+    { name: "gap", type: "GridGap", required: false, description: "행/열 공통 간격 토큰" },
+    { name: "rowGap", type: "GridGap", required: false, description: "행 간격 — gap보다 우선" },
+    { name: "columnGap", type: "GridGap", required: false, description: "열 간격 — gap보다 우선" },
+    { name: "children", type: "ReactNode", required: false },
   ],
   "icon": [
     { name: "name", type: "IconName", required: true },
@@ -302,6 +325,9 @@ export const GENERATED_PROPS: Record<string, readonly GeneratedProp[]> = {
     { name: "step", type: "number", required: false, default: "1", description: "증감 단위" },
     { name: "disabled", type: "boolean", required: false, default: "false", description: "비활성화" },
   ],
+  "pagelayout": [
+    { name: "children", type: "ReactNode", required: false },
+  ],
   "pagination": [
     { name: "page", type: "number", required: true, description: "현재 페이지 (1-based)" },
     { name: "totalPages", type: "number", required: true, description: "전체 페이지 수" },
@@ -370,6 +396,7 @@ export const GENERATED_PROPS: Record<string, readonly GeneratedProp[]> = {
     { name: "showValue", type: "boolean", required: false, default: "false", description: "값 배지 표시" },
     { name: "disabled", type: "boolean", required: false, default: "false", description: "비활성화" },
   ],
+  "spacer": [],
   "spinner": [
     { name: "size", type: "\"sm\" | \"md\" | \"lg\" | \"xl\"", required: false, default: "\"md\"", description: "스피너 크기" },
     { name: "color", type: "\"primary\" | \"white\"", required: false, default: "\"primary\"", description: "스피너 색상" },
