@@ -95,6 +95,9 @@ export type {
   PageLayoutPanelProps,
 } from "./components/PageLayout";
 
+export { EmptyState } from "./components/EmptyState";
+export type { EmptyStateProps } from "./components/EmptyState";
+
 export { HStack, VStack } from "./components/Stack";
 export type {
   HStackProps,
