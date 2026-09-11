@@ -182,6 +182,9 @@ export type {
   InfoPopoverStep,
 } from "./components/InfoPopover";
 
+export { Callout } from "./components/Callout";
+export type { CalloutProps, CalloutIntent } from "./components/Callout";
+
 export { CalendarPopover } from "./components/CalendarPopover";
 export type {
   CalendarPopoverProps,

@@ -115,6 +115,13 @@ export const GENERATED_PROPS: Record<string, readonly GeneratedProp[]> = {
     { name: "onSecondary", type: "() => void", required: false, description: "보조 버튼 클릭" },
     { name: "children", type: "ReactNode", required: true, description: "트리거 요소" },
   ],
+  "callout": [
+    { name: "intent", type: "\"info\" | \"success\" | \"warning\" | \"danger\"", required: false, default: "\"info\"", description: "의도 색 (기본 info)" },
+    { name: "title", type: "ReactNode", required: false, description: "굵은 제목 줄 (선택)" },
+    { name: "icon", type: "ReactNode", required: false, description: "아이콘 교체 — 기본은 intent별 글리프" },
+    { name: "hideIcon", type: "boolean", required: false, default: "false", description: "아이콘 숨김" },
+    { name: "children", type: "ReactNode", required: false, description: "본문" },
+  ],
   "card": [
     { name: "header", type: "ReactNode", required: false, description: "헤더 텍스트 (divider 포함 상단 영역)" },
     { name: "headerActions", type: "ReactNode", required: false, description: "헤더 우측 액션 영역" },

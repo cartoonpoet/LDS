@@ -10,6 +10,7 @@ export const COMPONENT_PREVIEWS: Record<string, string> = {
   button: `<div class="p-button"><span class="btn pri">계약 생성</span><span class="btn sec">취소</span></div>`,
   buttongroup: `<div class="p-btngroup"><span class="on">전체</span><span>검토중</span><span>완료</span></div>`,
   buttontab: `<div class="p-btngroup"><span class="on">계약</span><span>자문</span><span>송무</span></div>`,
+  callout: `<div style="width:82%;display:flex;gap:8px;background:rgba(33,81,236,.08);border:1px solid rgba(33,81,236,.4);border-radius:6px;padding:9px 11px"><span style="width:14px;height:14px;flex-shrink:0;border-radius:50%;border:1.5px solid #2151EC;color:#2151EC;font-size:9px;font-weight:800;display:flex;align-items:center;justify-content:center">i</span><span style="font-size:9.5px;line-height:1.5;color:#11152A">이 계약에는 <b>자동 갱신 조항</b>이 포함되어 있어요.</span></div>`,
   calendarpopover: `<div class="p-cal"><div class="hd">2026. 08</div><div class="gr"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="on"></i><i></i><i></i><i></i><i></i></div></div>`,
   card: `<div class="p-cardui"><div class="img"></div><div class="bd"><i></i><i></i></div></div>`,
   charttooltip: `<div class="p-tipwrap"><span class="p-tip">8월 · 128건</span><div class="p-widget" style="width:auto;border:none;background:transparent;padding:0"><div class="bars"><i></i><i></i><i></i><i></i></div></div></div>`,

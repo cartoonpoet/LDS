@@ -10,10 +10,37 @@ export type ReleaseEntry = {
 /** 실제 릴리스/작업 이력 기준 체인지로그 */
 export const RELEASES: ReleaseEntry[] = [
   {
-    version: "v0.1.52",
-    date: "2026. 08",
+    version: "v0.1.70",
+    date: "2026. 09",
     tag: "Latest",
     latest: true,
+    items: [
+      "<b>Callout</b> 본문 흐름 속에 남는 정적 안내 블록을 추가했어요 — 컴포넌트 65종.",
+      "<b>Docs</b> /updates 체인지로그를 최신 릴리스 기준으로 되살렸어요."
+    ]
+  },
+  {
+    version: "v0.1.69",
+    date: "2026. 09",
+    tag: "Minor",
+    items: [
+      "<b>EmptyState · DdayBadge · Timeline</b> 법무 도메인 컴포넌트 3종을 추가했어요.",
+      "<b>ApprovalLine</b> 결재선 컴포넌트를 히스토리에서 복원했어요."
+    ]
+  },
+  {
+    version: "v0.1.68",
+    date: "2026. 09",
+    tag: "Minor",
+    items: [
+      "<b>Box · Grid · Divider · Container · Spacer</b> 레이아웃 프리미티브 5종을 추가했어요.",
+      "<b>PageLayout</b> GNB·LNB·본문 골격을 슬롯으로 제공하는 페이지 셸을 추가했어요."
+    ]
+  },
+  {
+    version: "v0.1.52",
+    date: "2026. 08",
+    tag: "Patch",
     items: [
       "<b>Tokens · Layout</b> Spacing / Radius / Shadow 토큰 스토리를 추가했어요.",
       "<b>docHelpers</b> 토큰 문서를 만드는 헬퍼를 확장했어요."
