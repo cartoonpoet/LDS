@@ -1,5 +1,15 @@
 // 시안 패턴 카드의 미니 다이어그램 마크업
 export const PATTERN_DIAGRAMS: Record<string, string> = {
+  "layout": `<div class="pdx-layout">
+              <div class="top"><span class="logo"></span><i class="on"></i><i></i></div>
+              <div class="row">
+                <div class="lnb"><i class="on"></i><i></i><i></i></div>
+                <div class="main">
+                  <div class="cells"><i></i><i></i><i></i></div>
+                  <i style="width:70%"></i>
+                </div>
+              </div>
+            </div>`,
   "gnb": `<div class="pdx-gnb">
               <div class="bar"><span class="logo"></span><i class="on"></i><i></i><i></i></div>
               <div class="body"><i style="width:55%"></i><i></i><i style="width:80%"></i></div>

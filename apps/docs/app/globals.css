@@ -1466,6 +1466,19 @@
   .p-range .fld2.on { border: 1.5px solid var(--accent); }
 
   /* ============ 패턴 다이어그램 (실측 5종) ============ */
+  .pdx-layout { display: flex; flex-direction: column; gap: 8px; height: 100%; }
+  .pdx-layout .top { display: flex; align-items: center; gap: 8px; background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 9px 12px; flex: none; }
+  .pdx-layout .top .logo { width: 14px; height: 14px; border-radius: 5px; background: var(--accent); flex: none; }
+  .pdx-layout .top i { width: 34px; height: 7px; border-radius: 4px; background: var(--border); }
+  .pdx-layout .top i.on { background: var(--accent); }
+  .pdx-layout .row { display: flex; gap: 8px; flex: 1; }
+  .pdx-layout .lnb { width: 46px; background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 10px 8px; display: flex; flex-direction: column; gap: 7px; }
+  .pdx-layout .lnb i { height: 7px; border-radius: 4px; background: var(--border); }
+  .pdx-layout .lnb i.on { background: var(--accent); }
+  .pdx-layout .main { flex: 1; background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 12px; display: flex; flex-direction: column; gap: 8px; }
+  .pdx-layout .main .cells { display: flex; gap: 6px; }
+  .pdx-layout .main .cells i { flex: 1; height: 20px; margin: 0; border-radius: 6px; background: var(--accent-faint); border: 1px solid var(--border); }
+  .pdx-layout .main > i { display: block; height: 7px; border-radius: 4px; background: var(--border); margin: 0; }
   .pdx-gnb { background: #fff; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
   .pdx-gnb .bar { display: flex; align-items: center; gap: 8px; padding: 9px 12px; border-bottom: 1px solid var(--border); }
   .pdx-gnb .logo { width: 14px; height: 14px; border-radius: 5px; background: var(--accent); flex: none; }
