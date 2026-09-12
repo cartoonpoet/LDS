@@ -22,6 +22,42 @@ export type PatternEntry = {
 /** apps/docs에 실재하는 패턴 문서 5종 */
 export const PATTERNS: PatternEntry[] = [
   {
+    slug: "layout",
+    name: "Layout",
+    desc: "페이지 골격을 짜는 가장 바깥 패턴이에요. PageLayout 슬롯 위에 Container·Grid·Stack을 쌓아 화면을 조립해요.",
+    componentSlug: "pagelayout",
+    sections: [
+      {
+        id: "overview",
+        title: "개요",
+        paras: [
+          "Layout은 페이지 골격을 짜는 가장 바깥 패턴이에요. PageLayout으로 Header·Nav·Content·Panel 슬롯을 나누고, 그 안을 Container·Grid·Stack·Divider·Spacer 같은 레이아웃 프리미티브로 채워요.",
+          "GNB·LNB 패턴은 Header·Nav 슬롯 안에 들어가는 콘텐츠예요. 이 문서는 슬롯을 채우는 방법이 아니라, 슬롯 자체를 짜는 방법을 다뤄요."
+        ]
+      },
+      {
+        id: "composition",
+        title: "조합 기준",
+        items: [
+          "Header — PageLayout.Header에 GNB를 올려요. 상단 전폭이고, 한 화면에 하나만 둬요.",
+          "Nav — PageLayout.Nav에 LNB를 올려요. width·collapsed로 폭을 조절하고, 펼침/접힘 상태는 상위 애플리케이션이 관리해요.",
+          "Content — PageLayout.Content 안은 Container로 최대 폭을 제한해요. 목록·대시보드는 기본값인 size=\"lg\", 약관처럼 긴 글은 size=\"sm\"이 읽기 편해요.",
+          "Content 내부 배치 — 같은 폭 카드 여러 개는 Grid, 한 방향 나열은 HStack·VStack, 영역 구분은 Divider, 제목-버튼 같은 양끝 배치는 Spacer를 써요.",
+          "Panel — 상세 미리보기·코멘트 같은 보조 정보가 필요할 때만 추가해요. 기본 폭은 320px이고, 생략하면 트랙이 자동으로 접혀요."
+        ]
+      },
+      {
+        id: "usage-guidelines",
+        title: "사용 가이드",
+        items: [
+          "슬롯은 필요한 것만 써요. Header + Content만 있는 화면도 정상이에요.",
+          "페이지 높이는 100dvh로 채우는 게 기본이라, 스크롤은 Content·Nav·Panel 내부에서 일어나요 — body 전체가 스크롤되지 않게 해요.",
+          "Box·Grid·Divider·Container·Spacer 같은 토큰 기반 프리미티브는 색·간격을 직접 지정하지 말고 props로만 제어해요."
+        ]
+      }
+    ]
+  },
+  {
     slug: "gnb",
     name: "GNB",
     desc: "제품 전체를 가로지르는 글로벌 내비게이션이에요. 로고·주 메뉴·계정 영역의 자리가 항상 같아요.",
