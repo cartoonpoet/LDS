@@ -101,24 +101,25 @@ export function CalendarPopover({
 
   const toggle = useCallback(() => setOpen(!open), [open, setOpen]);
 
-  const handleClose = useCallback(
+  /* 닫히는 경로(닫기 버튼 / 바깥 클릭 / Escape) 전부 onClose를 함께 호출한다 */
+  const handleDismiss = useCallback(() => {
+    onClose?.();
+    setOpen(false);
+  }, [onClose, setOpen]);
+
+  const handleCloseButtonClick = useCallback(
     (e: MouseEvent) => {
       e.stopPropagation();
-      onClose?.();
-      setOpen(false);
+      handleDismiss();
     },
-    [onClose, setOpen],
+    [handleDismiss],
   );
 
-  /* 외부 클릭 + Escape 키 닫기 (Escape는 onClose도 함께 호출 — 기존 동작) */
+  /* 외부 클릭 + Escape 키 닫기 */
   useDismissibleLayer({
     enabled: open,
     ref: wrapperRef,
-    onDismiss: () => setOpen(false),
-    onEscape: () => {
-      onClose?.();
-      setOpen(false);
-    },
+    onDismiss: handleDismiss,
   });
 
   const hasFooter = primaryText || secondaryText;
@@ -137,7 +138,12 @@ export function CalendarPopover({
                 {badge && <span className={s.headerBadge}>{badge}</span>}
                 <div className={s.headerTitle}>{title}</div>
               </div>
-              <button type="button" className={s.closeBtn} onClick={handleClose}>
+              <button
+                type="button"
+                className={s.closeBtn}
+                onClick={handleCloseButtonClick}
+                aria-label="닫기"
+              >
                 <CloseIcon />
               </button>
             </div>
