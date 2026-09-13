@@ -22,7 +22,8 @@ import { Button } from "../Button";
  * | `onClose` | `() => void` | - | 닫기 핸들러 (Escape, close 버튼) |
  * | `title` | `ReactNode` | - | 헤더 타이틀 |
  * | `footer` | `ReactNode` | - | 푸터 콘텐츠 |
- * | `disableEscapeClose` | `boolean` | `false` | Escape 키 닫기 비활성 |
+ * | `closeOnEscape` | `boolean` | `true` | Escape 키 닫기 (Drawer/FloatingModal과 같은 이름) |
+ * | `disableEscapeClose` | `boolean` | `false` | **deprecated** — `closeOnEscape={false}`를 대신 쓰세요 |
  */
 const meta: Meta<typeof FullScreenModal> = {
   title: "Components/FullScreenModal",
@@ -100,7 +101,7 @@ function MyPage() {
         open={open}
         onClose={() => setOpen(false)}
         title="문서 작성"
-        disableEscapeClose
+        closeOnEscape={false}
       >
         <p>작성 중 실수로 닫히지 않도록 Escape를 막습니다.</p>
       </FullScreenModal>
@@ -151,7 +152,7 @@ export const DisableEscapeClose: Story = {
           open={open}
           onClose={() => setOpen(false)}
           title="문서 작성"
-          disableEscapeClose
+          closeOnEscape={false}
         >
           <p style={{ margin: 0 }}>Escape로 닫히지 않습니다. 닫기 버튼을 사용하세요.</p>
         </FullScreenModal>

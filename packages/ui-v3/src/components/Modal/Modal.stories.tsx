@@ -24,7 +24,8 @@ import { lightThemeClass } from "@lds/tokens";
  * | `title` | `ReactNode` | - | 헤더 타이틀 (간편 API) |
  * | `footer` | `ReactNode` | - | 푸터 콘텐츠 (간편 API) |
  * | `disableBackdropClose` | `boolean` | `false` | backdrop 클릭 닫기 비활성 |
- * | `disableEscapeClose` | `boolean` | `false` | Escape 키 닫기 비활성 |
+ * | `closeOnEscape` | `boolean` | `true` | Escape 키 닫기 (Drawer/FloatingModal과 같은 이름) |
+ * | `disableEscapeClose` | `boolean` | `false` | **deprecated** — `closeOnEscape={false}`를 대신 쓰세요 |
  */
 const meta: Meta<typeof Modal> = {
   title: "Components/Modal",

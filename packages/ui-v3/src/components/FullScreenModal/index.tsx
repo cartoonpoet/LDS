@@ -19,7 +19,9 @@ export interface FullScreenModalProps extends Omit<HTMLAttributes<HTMLDivElement
   title?: ReactNode;
   /** 푸터 콘텐츠 */
   footer?: ReactNode;
-  /** Escape 키 닫기 비활성 */
+  /** Escape 키 닫기 (기본 true) — Drawer/FloatingModal과 같은 이름입니다 */
+  closeOnEscape?: boolean;
+  /** @deprecated `closeOnEscape={false}`를 대신 쓰세요 */
   disableEscapeClose?: boolean;
   /** 모달 본문 */
   children?: ReactNode;
@@ -44,6 +46,7 @@ export function FullScreenModal({
   onClose,
   title,
   footer,
+  closeOnEscape,
   disableEscapeClose = false,
   children,
   className,
@@ -51,11 +54,11 @@ export function FullScreenModal({
 }: FullScreenModalProps) {
   const dialogRef = useRef<HTMLDivElement>(null);
 
-  /* Escape key */
+  /* Escape key — closeOnEscape가 우선, 없으면 deprecated disableEscapeClose를 따른다 */
   useDismissibleLayer({
     enabled: open,
     onDismiss: onClose,
-    closeOnEscape: !disableEscapeClose,
+    closeOnEscape: closeOnEscape ?? !disableEscapeClose,
     closeOnOutsideClick: false,
     stopEscapePropagation: true,
   });

@@ -251,7 +251,8 @@ export const GENERATED_PROPS: Record<string, readonly GeneratedProp[]> = {
     { name: "onClose", type: "() => void", required: true, description: "닫기 핸들러 (Escape, close 버튼)" },
     { name: "title", type: "ReactNode", required: false, description: "헤더 타이틀" },
     { name: "footer", type: "ReactNode", required: false, description: "푸터 콘텐츠" },
-    { name: "disableEscapeClose", type: "boolean", required: false, default: "false", description: "Escape 키 닫기 비활성" },
+    { name: "closeOnEscape", type: "boolean", required: false, description: "Escape 키 닫기 (기본 true) — Drawer/FloatingModal과 같은 이름입니다" },
+    { name: "disableEscapeClose", type: "boolean", required: false, default: "false", description: "@deprecated `closeOnEscape={false}`를 대신 쓰세요" },
     { name: "children", type: "ReactNode", required: false, description: "모달 본문" },
   ],
   "grid": [
@@ -330,7 +331,8 @@ export const GENERATED_PROPS: Record<string, readonly GeneratedProp[]> = {
     { name: "title", type: "ReactNode", required: false, description: "헤더 타이틀 (간편 API)" },
     { name: "footer", type: "ReactNode", required: false, description: "푸터 콘텐츠 (간편 API)" },
     { name: "disableBackdropClose", type: "boolean", required: false, default: "false", description: "backdrop 클릭 닫기 비활성" },
-    { name: "disableEscapeClose", type: "boolean", required: false, default: "false", description: "Escape 키 닫기 비활성" },
+    { name: "closeOnEscape", type: "boolean", required: false, description: "Escape 키 닫기 (기본 true) — Drawer/FloatingModal과 같은 이름입니다" },
+    { name: "disableEscapeClose", type: "boolean", required: false, default: "false", description: "@deprecated `closeOnEscape={false}`를 대신 쓰세요" },
     { name: "children", type: "ReactNode", required: false, description: "모달 본문" },
   ],
   "navigationtab": [

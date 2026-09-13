@@ -826,7 +826,7 @@ function MyPage() {
         open={open}
         onClose={() => setOpen(false)}
         title="문서 작성"
-        disableEscapeClose
+        closeOnEscape={false}
       >
         <p>작성 중 실수로 닫히지 않도록 Escape를 막습니다.</p>
       </FullScreenModal>
