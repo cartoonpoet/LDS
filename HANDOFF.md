@@ -1,6 +1,6 @@
 # LDS 디자인 시스템 — 작업 핸드오프
 
-> 2026-09-12 갱신. 다른 컴퓨터에서 이어서 할 때 이 파일을 Claude에게 전달하세요.
+> 2026-09-13 갱신. 다른 컴퓨터에서 이어서 할 때 이 파일을 Claude에게 전달하세요.
 > "HANDOFF.md 읽고 이어서 작업해줘" 하면 됩니다.
 > 폴더별 코드 컨벤션은 **AGENTS.md**(루트 + packages/ui-v3, packages/tokens, apps/docs, apps/storybook)가 기준입니다.
 
@@ -13,12 +13,12 @@
 
 ---
 
-## 현재 상태 (2026-09-12)
+## 현재 상태 (2026-09-13)
 
 | 항목 | 상태 |
 |---|---|
 | 컴포넌트 | **65개** — Zeplin 스타일가이드 기준 미구현 0 + 레이아웃 프리미티브 + 법무 도메인 |
-| 테스트 | **72파일 548개** 전체 통과 (컴포넌트 527 + lib 훅 21) |
+| 테스트 | **72파일 557개** 전체 통과 (컴포넌트 536 + lib 훅 21) |
 | 배포 게이트 | Storybook Vercel 빌드가 테스트→빌드→npm publish→스토리북 순서로 실행 (테스트 실패 시 전부 중단) |
 | npm publish | ✅ 정상화 (2026-09-12 토큰 재발급·Automation 타입). **v0.1.68~69는 토큰 만료로 npm 영구 결번**, v0.1.70이 레이아웃+법무+Callout 전부 포함해 배포됨. 토큰 만료 시 증상: publish 단계 E404(=인증 실패) 또는 EOTP(=Publish 타입 토큰) |
 | 문서 사이트 | seed-design.io 스타일 제품 사이트 완성 (아래 참조) |
@@ -125,13 +125,26 @@ d03c9b6 feat(ui-v3): Badge·Chip 복원 및 LinkBadge 신규 추가
 
 ---
 
+## 품질 감사 (2026-09-13)
+
+9개 전문 에이전트(응집도/결합도/예측가능성/가독성/API일관성/접근성/테스트품질/토큰아키텍처/문서·릴리스) 병렬 감사 완료. 상세는 메모리 `project_lds_design_system_audit_2026-09.md` 참조. **Tier 1(즉시 버그) 전부 수정 완료**:
+
+- ✅ 존재하지 않는 패키지명 `@lds/ui-v3`(문서 60개 전부 + 설정 4곳)를 실제 `@lawkit/ui`로 수정, 존재하지 않는 `LdsProvider` 예제도 실제 `lightThemeClass` 패턴으로 교체
+- ✅ `useScrollLock` 참조 카운트 방식으로 변경 — 중첩 오버레이(Modal 안에서 SweetAlert) non-LIFO 닫힘 시 스크롤 풀리던 버그
+- ✅ `CalendarPopover` 바깥 클릭 시 `onClose` 미호출 버그 수정
+- ✅ `Modal`/`FullScreenModal`에 `closeOnEscape` 추가해 `Drawer`/`FloatingModal`과 Escape 극성 통일(`disableEscapeClose`는 deprecated로 유지, 비파괴적)
+- 조사 중 감사 결과 2건은 **오탐으로 확인되어 미수정**: Toast z-index(react-toastify 기본 CSS가 9999로 이미 Modal의 9000보다 높음), Slider 틱/라벨 개수(labels는 이미 실제 min/max로 스케일되고 ticks는 애초에 값과 무관한 장식용 눈금)
+
+**Tier 2 이후 미착수**: 접근성 Critical(Tabs/TreeView/Slider 키보드 지원), 결합도(Drawer 등이 Modal 비공개 CSS 직접 참조), 토큰 아키텍처(다크테마 부재·가짜 팔레트·죽은 opacityPalette), API 일관성 다수, 테스트 공백(DataTable), 릴리스 프로세스(commit&tag가 publish보다 먼저 실행되는 순서 결함).
+
 ## 다음 작업 후보
 
 1. ~~컴포넌트 갭 선별 구현~~ ✅ 전부 완료 (2026-09-12) — Divider·EmptyState·Timeline·ApprovalLine·DdayBadge·Callout. `/updates` 체인지로그도 v0.1.68~70 반영
-2. **레이아웃 패턴 가이드**: PageLayout + Container/Grid/Stack 조합으로 앱 골격 잡는 가이드를 `/patterns`에 추가 (후보)
-2. **Chromatic 비주얼 회귀** — 계정 연결 필요
-3. ~~구 MDX 정리~~ ✅ 완료 (2026-08-07) — 패턴 가이드는 `/patterns/[slug]` 5종으로 이관, MDX 시스템 제거
-4. ~~타입체크 사각지대~~ ✅ 완료 — `tsconfig.check.json` 전수 체크, 숨은 오류 24건 수정
-5. ~~다크모드 잔여 보정~~ ✅ 완료 — 칩 AA 대비, 그림자 데모 캔버스, 토글 플래시
+2. ~~레이아웃 패턴 가이드~~ ✅ 완료 (PR #20, 2026-09-12) — PageLayout + Container/Grid/Stack 조합 가이드 `/patterns/layout`
+3. **품질 감사 Tier 2 이후 픽스** — 위 「품질 감사」 섹션 참조. 우선순위: 접근성 Critical → 릴리스 워크플로 순서 재배치 → 토큰 아키텍처 재설계(다크테마 포함, 가장 큰 작업)
+4. **Chromatic 비주얼 회귀** — 계정 연결 필요
+5. ~~구 MDX 정리~~ ✅ 완료 (2026-08-07) — 패턴 가이드는 `/patterns/[slug]` 5종으로 이관, MDX 시스템 제거
+6. ~~타입체크 사각지대~~ ✅ 완료 — `tsconfig.check.json` 전수 체크, 숨은 오류 24건 수정
+7. ~~다크모드 잔여 보정~~ ✅ 완료 — 칩 AA 대비, 그림자 데모 캔버스, 토글 플래시
 
 > 이 파일은 작업 완료 후 삭제해도 됩니다.
