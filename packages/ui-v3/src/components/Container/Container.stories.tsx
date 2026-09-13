@@ -10,7 +10,7 @@ import { Container } from ".";
  *
  * ### Import
  * ```tsx
- * import { Container } from "@lds/ui-v3";
+ * import { Container } from "@lawkit/ui";
  * ```
  *
  * ### Props
@@ -37,7 +37,7 @@ export const TemplateCode: Story = {
   parameters: {
     docs: {
       source: {
-        code: `import { Container } from "@lds/ui-v3";
+        code: `import { Container } from "@lawkit/ui";
 
 // 페이지 본문 폭 제한 (기본 lg=1280px)
 <Container size="lg">

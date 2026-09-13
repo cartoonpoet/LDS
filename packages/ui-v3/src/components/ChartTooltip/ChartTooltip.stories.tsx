@@ -34,7 +34,7 @@ export const TemplateCode: Story = {
   parameters: {
     docs: {
       source: {
-        code: `import { ChartTooltip } from "@lds/ui-v3";
+        code: `import { ChartTooltip } from "@lawkit/ui";
 
 // Default (헤더 + 컬러 dot)
 <ChartTooltip

@@ -10,7 +10,7 @@ import { lightThemeClass } from "@lds/tokens";
  *
  * ### Import
  * ```tsx
- * import { ListGroup, ListGroupItem, BottomSheet } from "@lds/ui-v3";
+ * import { ListGroup, ListGroupItem, BottomSheet } from "@lawkit/ui";
  * ```
  *
  * ### Props (ListGroup)
@@ -61,7 +61,7 @@ export const TemplateCode: Story = {
   parameters: {
     docs: {
       source: {
-        code: `import { ListGroup, ListGroupItem, BottomSheet } from "@lds/ui-v3";
+        code: `import { ListGroup, ListGroupItem, BottomSheet } from "@lawkit/ui";
 
 // Basic (간편 API)
 <ListGroup items={["항목 1", "항목 2", "항목 3"]} />

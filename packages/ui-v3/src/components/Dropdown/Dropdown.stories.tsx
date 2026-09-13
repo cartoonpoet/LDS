@@ -44,8 +44,8 @@ const checkOptions = [
  *
  * ### Import
  * ```tsx
- * import { Dropdown } from "@lds/ui-v3";
- * import type { DropdownProps, DropdownOption, DropdownSize } from "@lds/ui-v3";
+ * import { Dropdown } from "@lawkit/ui";
+ * import type { DropdownProps, DropdownOption, DropdownSize } from "@lawkit/ui";
  * ```
  *
  * ### Props
@@ -106,7 +106,7 @@ export const TemplateCode: Story = {
     docs: {
       source: {
         code: `import { useState } from "react";
-import { Dropdown } from "@lds/ui-v3";
+import { Dropdown } from "@lawkit/ui";
 
 // 기본 단일 선택
 <Dropdown

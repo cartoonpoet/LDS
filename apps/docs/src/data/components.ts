@@ -44,7 +44,7 @@ const resolveProps = (slug: string): readonly PropRow[] => {
 
 const BUTTON_PREVIEW = `<div class="btn-rows"><div class="btn-row"><button class="lds-btn md solid">계약 생성</button><button class="lds-btn md outline">임시 저장</button><button class="lds-btn md ghost">취소</button><button class="lds-btn md danger">삭제</button></div><div class="btn-row"><button class="lds-btn sm solid">Small</button><button class="lds-btn md solid">Medium</button><button class="lds-btn lg solid">Large</button></div><div class="btn-row"><button class="lds-btn md solid is-disabled">비활성</button><button class="lds-btn md outline is-disabled">비활성</button></div></div>`;
 
-const fallbackUsage = (name: string) => `import { ${name} } from "@lds/ui-v3";
+const fallbackUsage = (name: string) => `import { ${name} } from "@lawkit/ui";
 
 <${name} />`;
 

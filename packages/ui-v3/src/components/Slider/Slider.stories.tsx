@@ -35,7 +35,7 @@ export const TemplateCode: Story = {
     docs: {
       source: {
         code: `import { useState } from "react";
-import { Slider, RangeSlider } from "@lds/ui-v3";
+import { Slider, RangeSlider } from "@lawkit/ui";
 
 const [value, setValue] = useState(50);
 const [range, setRange] = useState<[number, number]>([25, 75]);

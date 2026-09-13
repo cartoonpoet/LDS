@@ -36,7 +36,7 @@ export const TemplateCode: Story = {
   parameters: {
     docs: {
       source: {
-        code: `import { Avatar, AvatarGroup } from "@lds/ui-v3";
+        code: `import { Avatar, AvatarGroup } from "@lawkit/ui";
 
 // Photo 아바타
 <Avatar src="/photo.jpg" size="md" />

@@ -9,7 +9,7 @@ import { lightThemeClass } from "@lds/tokens";
  *
  * ### Import
  * ```tsx
- * import { ProgressBar, StepBar } from "@lds/ui-v3";
+ * import { ProgressBar, StepBar } from "@lawkit/ui";
  * ```
  *
  * ### Props (ProgressBar)
@@ -48,7 +48,7 @@ export const TemplateCode: Story = {
   parameters: {
     docs: {
       source: {
-        code: `import { ProgressBar, StepBar } from "@lds/ui-v3";
+        code: `import { ProgressBar, StepBar } from "@lawkit/ui";
 
 // Basic
 <ProgressBar value={75} />

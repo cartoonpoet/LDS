@@ -30,7 +30,7 @@ export const TemplateCode: Story = {
   parameters: {
     docs: {
       source: {
-        code: `import { Mention } from "@lds/ui-v3";
+        code: `import { Mention } from "@lawkit/ui";
 
 // 기본 멘션
 <Mention name="나담당" />

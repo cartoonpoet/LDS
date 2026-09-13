@@ -10,7 +10,7 @@
 ## Alert
 
 ```tsx
-import { Alert } from "@lds/ui-v3";
+import { Alert } from "@lawkit/ui";
 
 // 기본 사용
 <Alert type="info" closable onClose={() => {}}>
@@ -44,7 +44,7 @@ import { Alert } from "@lds/ui-v3";
 ## ApprovalLine
 
 ```tsx
-import { ApprovalLine } from "@lds/ui-v3";
+import { ApprovalLine } from "@lawkit/ui";
 
 // 기본 — 수평 결재선
 <ApprovalLine
@@ -88,7 +88,7 @@ const options = [
 ## Avatar
 
 ```tsx
-import { Avatar, AvatarGroup } from "@lds/ui-v3";
+import { Avatar, AvatarGroup } from "@lawkit/ui";
 
 // Photo 아바타
 <Avatar src="/photo.jpg" size="md" />
@@ -112,7 +112,7 @@ import { Avatar, AvatarGroup } from "@lds/ui-v3";
 ## Badge
 
 ```tsx
-import { Badge } from "@lds/ui-v3";
+import { Badge } from "@lawkit/ui";
 
 // 기본 (filled / primary)
 <Badge>Label</Badge>
@@ -132,7 +132,7 @@ import { Badge } from "@lds/ui-v3";
 ## Box
 
 ```tsx
-import { Box } from "@lds/ui-v3";
+import { Box } from "@lawkit/ui";
 
 // 카드형 영역 — 패딩/배경/라운드/테두리를 토큰으로
 <Box p="x4" bg="canvas" radius="md" border>
@@ -153,7 +153,7 @@ import { Box } from "@lds/ui-v3";
 ## Breadcrumb
 
 ```tsx
-import { Breadcrumb } from "@lds/ui-v3";
+import { Breadcrumb } from "@lawkit/ui";
 
 // 기본 — 마지막 항목이 현재 페이지 (aria-current="page")
 <Breadcrumb
@@ -182,7 +182,7 @@ import { Breadcrumb } from "@lds/ui-v3";
 ## Button
 
 ```tsx
-import { Button } from "@lds/ui-v3";
+import { Button } from "@lawkit/ui";
 
 // 기본 버튼
 <Button>확인</Button>
@@ -216,7 +216,7 @@ import { Button } from "@lds/ui-v3";
 
 ```tsx
 import { useState } from "react";
-import { ButtonGroup } from "@lds/ui-v3";
+import { ButtonGroup } from "@lawkit/ui";
 
 const [value, setValue] = useState("left");
 
@@ -250,7 +250,7 @@ const [value, setValue] = useState("left");
 
 ```tsx
 import { useState } from "react";
-import { ButtonTab } from "@lds/ui-v3";
+import { ButtonTab } from "@lawkit/ui";
 
 const [tab, setTab] = useState("tab1");
 
@@ -269,7 +269,7 @@ const [tab, setTab] = useState("tab1");
 ## CalendarPopover
 
 ```tsx
-import { CalendarPopover } from "@lds/ui-v3";
+import { CalendarPopover } from "@lawkit/ui";
 
 <CalendarPopover
   badge="계약검토"
@@ -292,7 +292,7 @@ import { CalendarPopover } from "@lds/ui-v3";
 ## Callout
 
 ```tsx
-import { Callout } from "@lds/ui-v3";
+import { Callout } from "@lawkit/ui";
 
 // 기본 (info)
 <Callout>
@@ -313,7 +313,7 @@ import { Callout } from "@lds/ui-v3";
 ## Card
 
 ```tsx
-import { Card, CardHeader, CardBody, CardFooter } from "@lds/ui-v3";
+import { Card, CardHeader, CardBody, CardFooter } from "@lawkit/ui";
 
 // 간편 API — 헤더만
 <Card header="헤더" title="카드 타이틀">
@@ -359,7 +359,7 @@ import { Card, CardHeader, CardBody, CardFooter } from "@lds/ui-v3";
 ## ChartTooltip
 
 ```tsx
-import { ChartTooltip } from "@lds/ui-v3";
+import { ChartTooltip } from "@lawkit/ui";
 
 // Default (헤더 + 컬러 dot)
 <ChartTooltip
@@ -388,7 +388,7 @@ import { ChartTooltip } from "@lds/ui-v3";
 
 ```tsx
 import { useState } from "react";
-import { Checkbox } from "@lds/ui-v3";
+import { Checkbox } from "@lawkit/ui";
 
 const [checked, setChecked] = useState(false);
 
@@ -400,7 +400,7 @@ const [checked, setChecked] = useState(false);
 ## Chip
 
 ```tsx
-import { Chip } from "@lds/ui-v3";
+import { Chip } from "@lawkit/ui";
 
 // 기본
 <Chip>Option 1</Chip>
@@ -419,7 +419,7 @@ import { Chip } from "@lds/ui-v3";
 
 ```tsx
 import { useState } from "react";
-import { ChipsNavigation } from "@lds/ui-v3";
+import { ChipsNavigation } from "@lawkit/ui";
 
 // 단일 선택
 const [filter, setFilter] = useState<string | string[]>("");
@@ -457,7 +457,7 @@ const [filters, setFilters] = useState<string | string[]>([]);
 
 ```tsx
 import { useState } from "react";
-import { Collapse, CollapseGroup } from "@lds/ui-v3";
+import { Collapse, CollapseGroup } from "@lawkit/ui";
 
 // 기본 (Uncontrolled)
 <Collapse header="헤더">
@@ -485,7 +485,7 @@ const [open, setOpen] = useState(false);
 ## Container
 
 ```tsx
-import { Container } from "@lds/ui-v3";
+import { Container } from "@lawkit/ui";
 
 // 페이지 본문 폭 제한 (기본 lg=1280px)
 <Container size="lg">
@@ -503,7 +503,7 @@ import { Container } from "@lds/ui-v3";
 
 ```tsx
 import { useState } from "react";
-import { DataTable } from "@lds/ui-v3";
+import { DataTable } from "@lawkit/ui";
 import type { ColumnDef, SortingState, RowSelectionState } from "@tanstack/react-table";
 
 // 1. 데이터 타입 정의
@@ -554,7 +554,7 @@ function UserTable() {
 
 ```tsx
 import { useState } from "react";
-import { DatePicker, DateRangePicker } from "@lds/ui-v3";
+import { DatePicker, DateRangePicker } from "@lawkit/ui";
 
 function MyPage() {
   const [date, setDate] = useState<Date | null>(new Date());
@@ -583,7 +583,7 @@ function MyPage() {
 ## DdayBadge
 
 ```tsx
-import { DdayBadge } from "@lds/ui-v3";
+import { DdayBadge } from "@lawkit/ui";
 
 // 목표 날짜만 넘기면 임박도별 색 자동
 <DdayBadge date="2026-09-15" />
@@ -599,7 +599,7 @@ import { DdayBadge } from "@lds/ui-v3";
 ## Divider
 
 ```tsx
-import { Divider } from "@lds/ui-v3";
+import { Divider } from "@lawkit/ui";
 
 // 섹션 구분
 <section>위 콘텐츠</section>
@@ -618,7 +618,7 @@ import { Divider } from "@lds/ui-v3";
 
 ```tsx
 import { useState } from "react";
-import { Drawer, Button } from "@lds/ui-v3";
+import { Drawer, Button } from "@lawkit/ui";
 
 function MyPage() {
   const [open, setOpen] = useState(false);
@@ -664,7 +664,7 @@ function MyPage() {
 
 ```tsx
 import { useState } from "react";
-import { Dropdown } from "@lds/ui-v3";
+import { Dropdown } from "@lawkit/ui";
 
 // 기본 단일 선택
 <Dropdown
@@ -699,7 +699,7 @@ const [value, setValue] = useState("1y");
 ## EmptyState
 
 ```tsx
-import { EmptyState, Button } from "@lds/ui-v3";
+import { EmptyState, Button } from "@lawkit/ui";
 
 // 기본 — 목록/테이블의 빈 상태
 <EmptyState
@@ -722,7 +722,7 @@ import {
   FileThumbnail,
   FileItem,
   FileAttachBadge,
-} from "@lds/ui-v3";
+} from "@lawkit/ui";
 
 // 파일 업로드 영역 + 파일 목록
 const [files, setFiles] = useState([]);
@@ -760,7 +760,7 @@ const [files, setFiles] = useState([]);
 
 ```tsx
 import { useState } from "react";
-import { FloatingModal, Button } from "@lds/ui-v3";
+import { FloatingModal, Button } from "@lawkit/ui";
 
 function MyPage() {
   const [open, setOpen] = useState(false);
@@ -798,7 +798,7 @@ function MyPage() {
 
 ```tsx
 import { useState } from "react";
-import { FullScreenModal, Button } from "@lds/ui-v3";
+import { FullScreenModal, Button } from "@lawkit/ui";
 
 function MyPage() {
   const [open, setOpen] = useState(false);
@@ -838,7 +838,7 @@ function MyPage() {
 ## Grid
 
 ```tsx
-import { Grid } from "@lds/ui-v3";
+import { Grid } from "@lawkit/ui";
 
 // 통계 카드 3열
 <Grid columns={3} gap="x3">
@@ -860,7 +860,7 @@ import { Grid } from "@lds/ui-v3";
 
 ```tsx
 import { useState } from "react";
-import { IconButtonGroup } from "@lds/ui-v3";
+import { IconButtonGroup } from "@lawkit/ui";
 
 const [view, setView] = useState("card");
 
@@ -879,7 +879,7 @@ const [view, setView] = useState("card");
 ## InfoPopover
 
 ```tsx
-import { InfoPopover } from "@lds/ui-v3";
+import { InfoPopover } from "@lawkit/ui";
 
 <InfoPopover
   title="법무검토 중 외 3개"
@@ -898,8 +898,8 @@ import { InfoPopover } from "@lds/ui-v3";
 
 ```tsx
 import { useState } from "react";
-import { Input, InputGroup, MultiSelect } from "@lds/ui-v3";
-import type { MultiSelectItem } from "@lds/ui-v3";
+import { Input, InputGroup, MultiSelect } from "@lawkit/ui";
+import type { MultiSelectItem } from "@lawkit/ui";
 
 // 기본
 <Input placeholder="이메일 입력" />
@@ -931,7 +931,7 @@ const [items, setItems] = useState<MultiSelectItem[]>([
 ## LinkBadge
 
 ```tsx
-import { LinkBadge } from "@lds/ui-v3";
+import { LinkBadge } from "@lawkit/ui";
 
 // 기본 (outline / primary) — 계약번호 등 식별자 링크
 <LinkBadge href="/contracts/C2026-01">C2026-01</LinkBadge>
@@ -950,7 +950,7 @@ import { LinkBadge } from "@lds/ui-v3";
 ## ListGroup
 
 ```tsx
-import { ListGroup, ListGroupItem, BottomSheet } from "@lds/ui-v3";
+import { ListGroup, ListGroupItem, BottomSheet } from "@lawkit/ui";
 
 // Basic (간편 API)
 <ListGroup items={["항목 1", "항목 2", "항목 3"]} />
@@ -984,7 +984,7 @@ import { ListGroup, ListGroupItem, BottomSheet } from "@lds/ui-v3";
 ## Mention
 
 ```tsx
-import { Mention } from "@lds/ui-v3";
+import { Mention } from "@lawkit/ui";
 
 // 기본 멘션
 <Mention name="나담당" />
@@ -1003,7 +1003,7 @@ import { Mention } from "@lds/ui-v3";
 
 ```tsx
 import { useState } from "react";
-import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from "@lds/ui-v3";
+import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from "@lawkit/ui";
 
 function MyPage() {
   const [open, setOpen] = useState(false);
@@ -1042,8 +1042,8 @@ function MyPage() {
 
 ```tsx
 import { useState } from "react";
-import { NavigationTab } from "@lds/ui-v3";
-import type { NavigationTabItem } from "@lds/ui-v3";
+import { NavigationTab } from "@lawkit/ui";
+import type { NavigationTabItem } from "@lawkit/ui";
 
 const [tab, setTab] = useState("overview");
 
@@ -1073,7 +1073,7 @@ const [tab, setTab] = useState("overview");
 
 ```tsx
 import { useState } from "react";
-import { NumberInput } from "@lds/ui-v3";
+import { NumberInput } from "@lawkit/ui";
 
 const [count, setCount] = useState(50);
 
@@ -1094,7 +1094,7 @@ const [count, setCount] = useState(50);
 ## PageLayout
 
 ```tsx
-import { PageLayout } from "@lds/ui-v3";
+import { PageLayout } from "@lawkit/ui";
 
 // 기본 — Header + Nav + Content
 <PageLayout>
@@ -1120,7 +1120,7 @@ const [collapsed, setCollapsed] = useState(false);
 
 ```tsx
 import { useState } from "react";
-import { Pagination, PaginationCount } from "@lds/ui-v3";
+import { Pagination, PaginationCount } from "@lawkit/ui";
 
 function MyPage() {
   const [page, setPage] = useState(1);
@@ -1142,7 +1142,7 @@ function MyPage() {
 ## Popover
 
 ```tsx
-import { Popover } from "@lds/ui-v3";
+import { Popover } from "@lawkit/ui";
 
 // 기본 (간편 API)
 <Popover
@@ -1164,7 +1164,7 @@ import { Popover } from "@lds/ui-v3";
 ## Progress
 
 ```tsx
-import { ProgressBar, StepBar } from "@lds/ui-v3";
+import { ProgressBar, StepBar } from "@lawkit/ui";
 
 // Basic
 <ProgressBar value={75} />
@@ -1194,7 +1194,7 @@ import { ProgressBar, StepBar } from "@lds/ui-v3";
 
 ```tsx
 import { useState } from "react";
-import { Radio, RadioGroup } from "@lds/ui-v3";
+import { Radio, RadioGroup } from "@lawkit/ui";
 
 const [selected, setSelected] = useState("a");
 
@@ -1227,7 +1227,7 @@ const [selected, setSelected] = useState("a");
 ## Skeleton
 
 ```tsx
-import { Skeleton } from "@lds/ui-v3";
+import { Skeleton } from "@lawkit/ui";
 
 // 사각형
 <Skeleton width={200} height={120} />
@@ -1251,7 +1251,7 @@ import { Skeleton } from "@lds/ui-v3";
 
 ```tsx
 import { useState } from "react";
-import { Slider, RangeSlider } from "@lds/ui-v3";
+import { Slider, RangeSlider } from "@lawkit/ui";
 
 const [value, setValue] = useState(50);
 const [range, setRange] = useState<[number, number]>([25, 75]);
@@ -1278,7 +1278,7 @@ const [range, setRange] = useState<[number, number]>([25, 75]);
 ## Spacer
 
 ```tsx
-import { HStack, Spacer, Button } from "@lds/ui-v3";
+import { HStack, Spacer, Button } from "@lawkit/ui";
 
 // 제목 왼쪽, 버튼 오른쪽 끝
 <HStack gap="x3" align="center">
@@ -1291,7 +1291,7 @@ import { HStack, Spacer, Button } from "@lds/ui-v3";
 ## Spinner
 
 ```tsx
-import { Spinner } from "@lds/ui-v3";
+import { Spinner } from "@lawkit/ui";
 
 // 기본
 <Spinner />
@@ -1309,7 +1309,7 @@ import { Spinner } from "@lds/ui-v3";
 ## Stack
 
 ```tsx
-import { HStack, VStack } from "@lds/ui-v3";
+import { HStack, VStack } from "@lawkit/ui";
 
 // 기본 — gap만
 <HStack gap="x2">
@@ -1335,7 +1335,7 @@ import { HStack, VStack } from "@lds/ui-v3";
 
 ```tsx
 import { useState } from "react";
-import { SweetAlert, Button } from "@lds/ui-v3";
+import { SweetAlert, Button } from "@lawkit/ui";
 
 const [open, setOpen] = useState(false);
 
@@ -1361,7 +1361,7 @@ const [open, setOpen] = useState(false);
 
 ```tsx
 import { useState } from "react";
-import { Switch } from "@lds/ui-v3";
+import { Switch } from "@lawkit/ui";
 
 const [on, setOn] = useState(false);
 
@@ -1382,8 +1382,8 @@ const [on, setOn] = useState(false);
 ## TableTree
 
 ```tsx
-import { TableTree } from "@lds/ui-v3";
-import type { TableTreeColumn, TableTreeRow } from "@lds/ui-v3";
+import { TableTree } from "@lawkit/ui";
+import type { TableTreeColumn, TableTreeRow } from "@lawkit/ui";
 
 const columns: TableTreeColumn[] = [
   { key: "code", header: "관리번호", width: 180 },
@@ -1437,8 +1437,8 @@ const [expandedIds, setExpandedIds] = useState<string[]>(["1"]);
 
 ```tsx
 import { useState } from "react";
-import { Tabs } from "@lds/ui-v3";
-import type { TabItem } from "@lds/ui-v3";
+import { Tabs } from "@lawkit/ui";
+import type { TabItem } from "@lawkit/ui";
 
 const [tab, setTab] = useState("tab1");
 
@@ -1482,7 +1482,7 @@ const [tab, setTab] = useState("tab1");
 
 ```tsx
 import { useState } from "react";
-import { TagSelect } from "@lds/ui-v3";
+import { TagSelect } from "@lawkit/ui";
 
 const [value, setValue] = useState<string[]>([]);
 
@@ -1501,7 +1501,7 @@ const [value, setValue] = useState<string[]>([]);
 ## Textarea
 
 ```tsx
-import { Textarea, InputGroup } from "@lds/ui-v3";
+import { Textarea, InputGroup } from "@lawkit/ui";
 
 // 기본
 <Textarea placeholder="내용을 입력하세요" />
@@ -1529,7 +1529,7 @@ import { Textarea, InputGroup } from "@lds/ui-v3";
 ## Timeline
 
 ```tsx
-import { Timeline } from "@lds/ui-v3";
+import { Timeline } from "@lawkit/ui";
 
 <Timeline
   items={[
@@ -1548,7 +1548,7 @@ import { Timeline } from "@lds/ui-v3";
 ## Toast
 
 ```tsx
-import { Toast, ToastContainer } from "@lds/ui-v3";
+import { Toast, ToastContainer } from "@lawkit/ui";
 
 // 1-row
 <Toast title="Toast Title" intent="info" onClose={() => {}} />
@@ -1584,7 +1584,7 @@ import { Toast, ToastContainer } from "@lds/ui-v3";
 ## Tooltip
 
 ```tsx
-import { Tooltip } from "@lds/ui-v3";
+import { Tooltip } from "@lawkit/ui";
 
 // 1-row (기본)
 <Tooltip content="Tooltip right" placement="right">
@@ -1600,8 +1600,8 @@ import { Tooltip } from "@lds/ui-v3";
 ## TreeView
 
 ```tsx
-import { TreeView } from "@lds/ui-v3";
-import type { TreeNode } from "@lds/ui-v3";
+import { TreeView } from "@lawkit/ui";
+import type { TreeNode } from "@lawkit/ui";
 
 const nodes: TreeNode[] = [
   {
@@ -1643,7 +1643,7 @@ const nodes: TreeNode[] = [
 ## Widget
 
 ```tsx
-import { Widget, StatCell, StatGrid, QuickMenuItem, ScheduleItem } from "@lds/ui-v3";
+import { Widget, StatCell, StatGrid, QuickMenuItem, ScheduleItem } from "@lawkit/ui";
 
 // 통계 위젯
 <Widget title="라이선스 현황">

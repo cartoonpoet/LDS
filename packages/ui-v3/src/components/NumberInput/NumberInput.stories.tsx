@@ -38,7 +38,7 @@ export const TemplateCode: Story = {
     docs: {
       source: {
         code: `import { useState } from "react";
-import { NumberInput } from "@lds/ui-v3";
+import { NumberInput } from "@lawkit/ui";
 
 const [count, setCount] = useState(50);
 

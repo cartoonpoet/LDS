@@ -12,7 +12,7 @@ import { lightThemeClass } from "@lds/tokens";
  *
  * ### Import
  * ```tsx
- * import { Modal, ModalHeader, ModalBody, ModalFooter } from "@lds/ui-v3";
+ * import { Modal, ModalHeader, ModalBody, ModalFooter } from "@lawkit/ui";
  * ```
  *
  * ### Props (Modal)
@@ -74,7 +74,7 @@ export const TemplateCode: Story = {
     docs: {
       source: {
         code: `import { useState } from "react";
-import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from "@lds/ui-v3";
+import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from "@lawkit/ui";
 
 function MyPage() {
   const [open, setOpen] = useState(false);

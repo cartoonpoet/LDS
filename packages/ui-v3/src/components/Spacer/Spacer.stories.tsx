@@ -10,7 +10,7 @@ import { Spacer } from ".";
  *
  * ### Import
  * ```tsx
- * import { Spacer } from "@lds/ui-v3";
+ * import { Spacer } from "@lawkit/ui";
  * ```
  *
  * ### Props
@@ -32,7 +32,7 @@ export const TemplateCode: Story = {
   parameters: {
     docs: {
       source: {
-        code: `import { HStack, Spacer, Button } from "@lds/ui-v3";
+        code: `import { HStack, Spacer, Button } from "@lawkit/ui";
 
 // 제목 왼쪽, 버튼 오른쪽 끝
 <HStack gap="x3" align="center">

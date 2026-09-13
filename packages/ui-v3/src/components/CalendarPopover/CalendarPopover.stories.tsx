@@ -114,7 +114,7 @@ export const TemplateCode: Story = {
   parameters: {
     docs: {
       source: {
-        code: `import { CalendarPopover } from "@lds/ui-v3";
+        code: `import { CalendarPopover } from "@lawkit/ui";
 
 <CalendarPopover
   badge="계약검토"

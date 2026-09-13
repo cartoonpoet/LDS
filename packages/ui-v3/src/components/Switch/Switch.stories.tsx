@@ -35,7 +35,7 @@ export const TemplateCode: Story = {
     docs: {
       source: {
         code: `import { useState } from "react";
-import { Switch } from "@lds/ui-v3";
+import { Switch } from "@lawkit/ui";
 
 const [on, setOn] = useState(false);
 

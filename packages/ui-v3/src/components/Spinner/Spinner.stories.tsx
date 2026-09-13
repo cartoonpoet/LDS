@@ -46,7 +46,7 @@ export const TemplateCode: Story = {
   parameters: {
     docs: {
       source: {
-        code: `import { Spinner } from "@lds/ui-v3";
+        code: `import { Spinner } from "@lawkit/ui";
 
 // 기본
 <Spinner />

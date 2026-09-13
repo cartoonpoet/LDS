@@ -11,7 +11,7 @@ import { Timeline } from ".";
  *
  * ### Import
  * ```tsx
- * import { Timeline } from "@lds/ui-v3";
+ * import { Timeline } from "@lawkit/ui";
  * ```
  *
  * ### Props
@@ -35,7 +35,7 @@ export const TemplateCode: Story = {
   parameters: {
     docs: {
       source: {
-        code: `import { Timeline } from "@lds/ui-v3";
+        code: `import { Timeline } from "@lawkit/ui";
 
 <Timeline
   items={[

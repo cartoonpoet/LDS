@@ -46,7 +46,7 @@ export const TemplateCode: Story = {
     docs: {
       source: {
         code: `import { useState } from "react";
-import { TagSelect } from "@lds/ui-v3";
+import { TagSelect } from "@lawkit/ui";
 
 const [value, setValue] = useState<string[]>([]);
 

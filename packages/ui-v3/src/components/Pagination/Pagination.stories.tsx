@@ -10,7 +10,7 @@ import { lightThemeClass } from "@lds/tokens";
  *
  * ### Import
  * ```tsx
- * import { Pagination, PaginationCount } from "@lds/ui-v3";
+ * import { Pagination, PaginationCount } from "@lawkit/ui";
  * ```
  *
  * ### Props (Pagination)
@@ -53,7 +53,7 @@ export const TemplateCode: Story = {
     docs: {
       source: {
         code: `import { useState } from "react";
-import { Pagination, PaginationCount } from "@lds/ui-v3";
+import { Pagination, PaginationCount } from "@lawkit/ui";
 
 function MyPage() {
   const [page, setPage] = useState(1);

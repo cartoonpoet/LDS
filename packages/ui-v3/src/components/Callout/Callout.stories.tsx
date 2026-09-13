@@ -10,7 +10,7 @@ import { Callout } from ".";
  *
  * ### Import
  * ```tsx
- * import { Callout } from "@lds/ui-v3";
+ * import { Callout } from "@lawkit/ui";
  * ```
  *
  * ### Props
@@ -40,7 +40,7 @@ export const TemplateCode: Story = {
   parameters: {
     docs: {
       source: {
-        code: `import { Callout } from "@lds/ui-v3";
+        code: `import { Callout } from "@lawkit/ui";
 
 // 기본 (info)
 <Callout>

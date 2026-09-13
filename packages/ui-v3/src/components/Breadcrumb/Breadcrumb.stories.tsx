@@ -10,7 +10,7 @@ import { Breadcrumb } from ".";
  *
  * ### Import
  * ```tsx
- * import { Breadcrumb } from "@lds/ui-v3";
+ * import { Breadcrumb } from "@lawkit/ui";
  * ```
  *
  * ### Props
@@ -48,7 +48,7 @@ export const TemplateCode: Story = {
   parameters: {
     docs: {
       source: {
-        code: `import { Breadcrumb } from "@lds/ui-v3";
+        code: `import { Breadcrumb } from "@lawkit/ui";
 
 // 기본 — 마지막 항목이 현재 페이지 (aria-current="page")
 <Breadcrumb

@@ -10,8 +10,8 @@ import { lightThemeClass } from "@lds/tokens";
  *
  * ### Import
  * ```tsx
- * import { ButtonTab } from "@lds/ui-v3";
- * import type { ButtonTabItem } from "@lds/ui-v3";
+ * import { ButtonTab } from "@lawkit/ui";
+ * import type { ButtonTabItem } from "@lawkit/ui";
  * ```
  *
  * ### Props
@@ -59,7 +59,7 @@ export const TemplateCode: Story = {
     docs: {
       source: {
         code: `import { useState } from "react";
-import { ButtonTab } from "@lds/ui-v3";
+import { ButtonTab } from "@lawkit/ui";
 
 const [tab, setTab] = useState("tab1");
 

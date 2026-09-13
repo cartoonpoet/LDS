@@ -12,7 +12,7 @@ import { Button } from "../Button";
  *
  * ### Import
  * ```tsx
- * import { FullScreenModal } from "@lds/ui-v3";
+ * import { FullScreenModal } from "@lawkit/ui";
  * ```
  *
  * ### Props
@@ -72,7 +72,7 @@ export const TemplateCode: Story = {
     docs: {
       source: {
         code: `import { useState } from "react";
-import { FullScreenModal, Button } from "@lds/ui-v3";
+import { FullScreenModal, Button } from "@lawkit/ui";
 
 function MyPage() {
   const [open, setOpen] = useState(false);

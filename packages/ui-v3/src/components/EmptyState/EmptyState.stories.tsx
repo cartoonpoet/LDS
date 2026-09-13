@@ -11,7 +11,7 @@ import { EmptyState } from ".";
  *
  * ### Import
  * ```tsx
- * import { EmptyState } from "@lds/ui-v3";
+ * import { EmptyState } from "@lawkit/ui";
  * ```
  *
  * ### Props
@@ -49,7 +49,7 @@ export const TemplateCode: Story = {
   parameters: {
     docs: {
       source: {
-        code: `import { EmptyState, Button } from "@lds/ui-v3";
+        code: `import { EmptyState, Button } from "@lawkit/ui";
 
 // 기본 — 목록/테이블의 빈 상태
 <EmptyState

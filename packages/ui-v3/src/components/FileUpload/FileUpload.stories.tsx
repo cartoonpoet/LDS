@@ -65,7 +65,7 @@ import {
   FileThumbnail,
   FileItem,
   FileAttachBadge,
-} from "@lds/ui-v3";
+} from "@lawkit/ui";
 
 // 파일 업로드 영역 + 파일 목록
 const [files, setFiles] = useState([]);

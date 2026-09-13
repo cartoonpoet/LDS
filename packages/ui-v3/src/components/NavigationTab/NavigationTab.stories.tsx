@@ -20,8 +20,8 @@ const InfoIcon = () => (
  *
  * ### Import
  * ```tsx
- * import { NavigationTab } from "@lds/ui-v3";
- * import type { NavigationTabItem } from "@lds/ui-v3";
+ * import { NavigationTab } from "@lawkit/ui";
+ * import type { NavigationTabItem } from "@lawkit/ui";
  * ```
  *
  * ### Props
@@ -71,8 +71,8 @@ export const TemplateCode: Story = {
     docs: {
       source: {
         code: `import { useState } from "react";
-import { NavigationTab } from "@lds/ui-v3";
-import type { NavigationTabItem } from "@lds/ui-v3";
+import { NavigationTab } from "@lawkit/ui";
+import type { NavigationTabItem } from "@lawkit/ui";
 
 const [tab, setTab] = useState("overview");
 

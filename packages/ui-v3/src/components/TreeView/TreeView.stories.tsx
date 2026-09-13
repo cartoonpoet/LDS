@@ -145,8 +145,8 @@ export const TemplateCode: Story = {
   parameters: {
     docs: {
       source: {
-        code: `import { TreeView } from "@lds/ui-v3";
-import type { TreeNode } from "@lds/ui-v3";
+        code: `import { TreeView } from "@lawkit/ui";
+import type { TreeNode } from "@lawkit/ui";
 
 const nodes: TreeNode[] = [
   {

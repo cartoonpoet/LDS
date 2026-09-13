@@ -35,7 +35,7 @@ export const TemplateCode: Story = {
     docs: {
       source: {
         code: `import { useState } from "react";
-import { DatePicker, DateRangePicker } from "@lds/ui-v3";
+import { DatePicker, DateRangePicker } from "@lawkit/ui";
 
 function MyPage() {
   const [date, setDate] = useState<Date | null>(new Date());

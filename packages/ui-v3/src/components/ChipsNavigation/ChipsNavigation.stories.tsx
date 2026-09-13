@@ -11,8 +11,8 @@ import { lightThemeClass } from "@lds/tokens";
  *
  * ### Import
  * ```tsx
- * import { ChipsNavigation } from "@lds/ui-v3";
- * import type { ChipsNavigationItem } from "@lds/ui-v3";
+ * import { ChipsNavigation } from "@lawkit/ui";
+ * import type { ChipsNavigationItem } from "@lawkit/ui";
  * ```
  *
  * ### Props
@@ -58,7 +58,7 @@ export const TemplateCode: Story = {
     docs: {
       source: {
         code: `import { useState } from "react";
-import { ChipsNavigation } from "@lds/ui-v3";
+import { ChipsNavigation } from "@lawkit/ui";
 
 // 단일 선택
 const [filter, setFilter] = useState<string | string[]>("");

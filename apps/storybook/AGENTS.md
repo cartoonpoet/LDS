@@ -8,7 +8,7 @@
 
 ```
 .storybook/
-  main.ts       — 스토리 경로 + vanilla-extract 플러그인 + @lds/ui-v3·@lds/tokens 소스 alias
+  main.ts       — 스토리 경로 + vanilla-extract 플러그인 + @lawkit/ui·@lds/tokens 소스 alias
   preview.tsx   — body에 lightThemeClass 부착 데코레이터, docs.codePanel: true
 vercel.json     — Vercel 배포 설정 (테스트 게이트)
 ```

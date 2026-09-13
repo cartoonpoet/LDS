@@ -13,7 +13,7 @@ import { Button } from "../Button";
  *
  * ### Import
  * ```tsx
- * import { Drawer } from "@lds/ui-v3";
+ * import { Drawer } from "@lawkit/ui";
  * ```
  *
  * ### Props
@@ -51,7 +51,7 @@ export const TemplateCode: Story = {
     docs: {
       source: {
         code: `import { useState } from "react";
-import { Drawer, Button } from "@lds/ui-v3";
+import { Drawer, Button } from "@lawkit/ui";
 
 function MyPage() {
   const [open, setOpen] = useState(false);

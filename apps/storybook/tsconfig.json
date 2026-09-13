@@ -3,7 +3,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@lds/ui-v3": [
+      "@lawkit/ui": [
         "../../packages/ui-v3/src"
       ],
       "@lds/tokens": [

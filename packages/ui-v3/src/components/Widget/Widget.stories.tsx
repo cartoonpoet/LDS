@@ -45,7 +45,7 @@ export const TemplateCode: Story = {
   parameters: {
     docs: {
       source: {
-        code: `import { Widget, StatCell, StatGrid, QuickMenuItem, ScheduleItem } from "@lds/ui-v3";
+        code: `import { Widget, StatCell, StatGrid, QuickMenuItem, ScheduleItem } from "@lawkit/ui";
 
 // 통계 위젯
 <Widget title="라이선스 현황">

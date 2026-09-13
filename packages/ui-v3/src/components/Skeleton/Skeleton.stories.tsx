@@ -41,7 +41,7 @@ export const TemplateCode: Story = {
   parameters: {
     docs: {
       source: {
-        code: `import { Skeleton } from "@lds/ui-v3";
+        code: `import { Skeleton } from "@lawkit/ui";
 
 // 사각형
 <Skeleton width={200} height={120} />

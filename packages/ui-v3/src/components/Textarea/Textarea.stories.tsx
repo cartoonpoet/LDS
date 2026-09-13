@@ -10,7 +10,7 @@ import { InputGroup } from "../Input";
  *
  * ### Import
  * ```tsx
- * import { Textarea } from "@lds/ui-v3";
+ * import { Textarea } from "@lawkit/ui";
  * ```
  *
  * ### Props
@@ -46,7 +46,7 @@ export const TemplateCode: Story = {
   parameters: {
     docs: {
       source: {
-        code: `import { Textarea, InputGroup } from "@lds/ui-v3";
+        code: `import { Textarea, InputGroup } from "@lawkit/ui";
 
 // 기본
 <Textarea placeholder="내용을 입력하세요" />

@@ -30,7 +30,7 @@ src/
 
 1. `src/data/component-list.ts` — `COMPONENT_LIST`에 `{ slug, name, desc }` 추가 (desc는 "~예요" 톤 유지)
 2. `src/data/component-previews.ts` — `COMPONENT_PREVIEWS[slug]`에 미니 프리뷰 HTML 추가
-3. `src/data/component-usage.ts` — `COMPONENT_USAGE[slug]`에 템플릿 코드 추가 (import 경로는 `@lds/ui-v3`로 통일, 원본은 `packages/ui-v3/CLAUDE.md`의 TemplateCode)
+3. `src/data/component-usage.ts` — `COMPONENT_USAGE[slug]`에 템플릿 코드 추가 (import 경로는 `@lawkit/ui`로 통일, 원본은 `packages/ui-v3/CLAUDE.md`의 TemplateCode)
 4. (선택) `src/data/components.ts` — `RICH_PROPS[slug]`에 실제 Props 인터페이스 기반 표 추가 (없으면 `DEFAULT_PROPS`)
 5. **카운트 문구 갱신**: `component-list.ts` 상단 주석("실측 컴포넌트 54종"), `app/components/page.tsx`의 description("54종"), `app/not-found.tsx`("54개 컴포넌트")
 

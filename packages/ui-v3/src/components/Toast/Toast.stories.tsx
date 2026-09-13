@@ -43,7 +43,7 @@ export const TemplateCode: Story = {
   parameters: {
     docs: {
       source: {
-        code: `import { Toast, ToastContainer } from "@lds/ui-v3";
+        code: `import { Toast, ToastContainer } from "@lawkit/ui";
 
 // 1-row
 <Toast title="Toast Title" intent="info" onClose={() => {}} />

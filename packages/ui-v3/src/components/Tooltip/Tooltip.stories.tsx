@@ -53,7 +53,7 @@ export const TemplateCode: Story = {
   parameters: {
     docs: {
       source: {
-        code: `import { Tooltip } from "@lds/ui-v3";
+        code: `import { Tooltip } from "@lawkit/ui";
 
 // 1-row (기본)
 <Tooltip content="Tooltip right" placement="right">
