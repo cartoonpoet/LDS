@@ -38,7 +38,7 @@ export const TemplateCode: Story = {
   parameters: {
     docs: {
       source: {
-        code: `import { Chip } from "@lds/ui-v3";
+        code: `import { Chip } from "@lawkit/ui";
 
 // 기본
 <Chip>Option 1</Chip>
@@ -59,7 +59,7 @@ export const TemplateCode: Story = {
 export const Basic: Story = {
   parameters: {
     ...withCode(
-      `import { Chip } from "@lds/ui-v3";
+      `import { Chip } from "@lawkit/ui";
 
 export function Example() {
   return <Chip>Option 1</Chip>;
@@ -76,7 +76,7 @@ export const SelectedCheck: Story = {
   },
   parameters: {
     ...withCode(
-      `import { Chip } from "@lds/ui-v3";
+      `import { Chip } from "@lawkit/ui";
 
 export function Example() {
   return (
@@ -96,7 +96,7 @@ export const Dismissible: Story = {
   },
   parameters: {
     ...withCode(
-      `import { Chip } from "@lds/ui-v3";
+      `import { Chip } from "@lawkit/ui";
 
 export function Example() {
   return <Chip dismissible>Option 1</Chip>;

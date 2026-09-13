@@ -37,8 +37,8 @@ export const TemplateCode: Story = {
     docs: {
       source: {
         code: `import { useState } from "react";
-import { Input, InputGroup, MultiSelect } from "@lds/ui-v3";
-import type { MultiSelectItem } from "@lds/ui-v3";
+import { Input, InputGroup, MultiSelect } from "@lawkit/ui";
+import type { MultiSelectItem } from "@lawkit/ui";
 
 // 기본
 <Input placeholder="이메일 입력" />

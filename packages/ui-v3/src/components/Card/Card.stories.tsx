@@ -12,10 +12,10 @@ import { lightThemeClass } from "@lds/tokens";
  * ### Import
  * ```tsx
  * // 간편 API
- * import { Card } from "@lds/ui-v3";
+ * import { Card } from "@lawkit/ui";
  *
  * // Compound 패턴 (자유 레이아웃)
- * import { Card, CardHeader, CardBody, CardFooter } from "@lds/ui-v3";
+ * import { Card, CardHeader, CardBody, CardFooter } from "@lawkit/ui";
  * ```
  *
  * ### Props (Card)
@@ -70,7 +70,7 @@ export const TemplateCode: Story = {
   parameters: {
     docs: {
       source: {
-        code: `import { Card, CardHeader, CardBody, CardFooter } from "@lds/ui-v3";
+        code: `import { Card, CardHeader, CardBody, CardFooter } from "@lawkit/ui";
 
 // 간편 API — 헤더만
 <Card header="헤더" title="카드 타이틀">

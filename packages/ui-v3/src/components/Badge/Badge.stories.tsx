@@ -40,7 +40,7 @@ export const TemplateCode: Story = {
   parameters: {
     docs: {
       source: {
-        code: `import { Badge } from "@lds/ui-v3";
+        code: `import { Badge } from "@lawkit/ui";
 
 // 기본 (filled / primary)
 <Badge>Label</Badge>
@@ -63,7 +63,7 @@ export const TemplateCode: Story = {
 export const Filled: Story = {
   parameters: {
     ...withCode(
-      `import { Badge } from "@lds/ui-v3";
+      `import { Badge } from "@lawkit/ui";
 
 export function Example() {
   return <Badge>Label</Badge>;
@@ -79,7 +79,7 @@ export const Outline: Story = {
   },
   parameters: {
     ...withCode(
-      `import { Badge } from "@lds/ui-v3";
+      `import { Badge } from "@lawkit/ui";
 
 export function Example() {
   return <Badge variant="outline">Label</Badge>;
@@ -96,7 +96,7 @@ export const Muted: Story = {
   },
   parameters: {
     ...withCode(
-      `import { Badge } from "@lds/ui-v3";
+      `import { Badge } from "@lawkit/ui";
 
 export function Example() {
   return (
@@ -116,7 +116,7 @@ export const WithIcon: Story = {
   },
   parameters: {
     ...withCode(
-      `import { Badge } from "@lds/ui-v3";
+      `import { Badge } from "@lawkit/ui";
 
 export function Example() {
   return <Badge leadingIcon="✦">Label</Badge>;
@@ -133,7 +133,7 @@ export const Dismissible: Story = {
   },
   parameters: {
     ...withCode(
-      `import { Badge } from "@lds/ui-v3";
+      `import { Badge } from "@lawkit/ui";
 
 export function Example() {
   return (
@@ -155,7 +155,7 @@ export const IconOnly: Story = {
   },
   parameters: {
     ...withCode(
-      `import { Badge } from "@lds/ui-v3";
+      `import { Badge } from "@lawkit/ui";
 
 export function Example() {
   return <Badge iconOnly leadingIcon="A" aria-label="Alphabet badge" />;

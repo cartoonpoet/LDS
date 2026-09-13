@@ -29,7 +29,7 @@ const CategoryIcon = () => (
  *
  * ### Import
  * ```tsx
- * import { Collapse, CollapseGroup } from "@lds/ui-v3";
+ * import { Collapse, CollapseGroup } from "@lawkit/ui";
  * ```
  *
  * ### Props (Collapse)
@@ -97,7 +97,7 @@ export const TemplateCode: Story = {
     docs: {
       source: {
         code: `import { useState } from "react";
-import { Collapse, CollapseGroup } from "@lds/ui-v3";
+import { Collapse, CollapseGroup } from "@lawkit/ui";
 
 // 기본 (Uncontrolled)
 <Collapse header="헤더">

@@ -33,8 +33,8 @@ const MenuIcon = () => (
  *
  * ### Import
  * ```tsx
- * import { IconButtonGroup } from "@lds/ui-v3";
- * import type { IconButtonGroupItem } from "@lds/ui-v3";
+ * import { IconButtonGroup } from "@lawkit/ui";
+ * import type { IconButtonGroupItem } from "@lawkit/ui";
  * ```
  *
  * ### Props
@@ -84,7 +84,7 @@ export const TemplateCode: Story = {
     docs: {
       source: {
         code: `import { useState } from "react";
-import { IconButtonGroup } from "@lds/ui-v3";
+import { IconButtonGroup } from "@lawkit/ui";
 
 const [view, setView] = useState("card");
 

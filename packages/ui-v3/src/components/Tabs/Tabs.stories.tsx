@@ -17,8 +17,8 @@ const PlusIcon = () => (
  *
  * ### Import
  * ```tsx
- * import { Tabs } from "@lds/ui-v3";
- * import type { TabItem } from "@lds/ui-v3";
+ * import { Tabs } from "@lawkit/ui";
+ * import type { TabItem } from "@lawkit/ui";
  * ```
  *
  * ### Props
@@ -77,8 +77,8 @@ export const TemplateCode: Story = {
     docs: {
       source: {
         code: `import { useState } from "react";
-import { Tabs } from "@lds/ui-v3";
-import type { TabItem } from "@lds/ui-v3";
+import { Tabs } from "@lawkit/ui";
+import type { TabItem } from "@lawkit/ui";
 
 const [tab, setTab] = useState("tab1");
 

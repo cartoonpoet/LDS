@@ -14,7 +14,7 @@ const HEADER = `# LDS — Legal Design System
 ## 설치
 
 \`\`\`bash
-pnpm add @lds/ui-v3 @lds/tokens
+pnpm add @lawkit/ui @lds/tokens
 \`\`\`
 
 ## 테마 적용

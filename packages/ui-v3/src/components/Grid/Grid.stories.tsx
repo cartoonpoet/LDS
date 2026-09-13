@@ -11,7 +11,7 @@ import { Grid } from ".";
  *
  * ### Import
  * ```tsx
- * import { Grid } from "@lds/ui-v3";
+ * import { Grid } from "@lawkit/ui";
  * ```
  *
  * ### Props
@@ -47,7 +47,7 @@ export const TemplateCode: Story = {
   parameters: {
     docs: {
       source: {
-        code: `import { Grid } from "@lds/ui-v3";
+        code: `import { Grid } from "@lawkit/ui";
 
 // 통계 카드 3열
 <Grid columns={3} gap="x3">

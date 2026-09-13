@@ -56,7 +56,7 @@ export const TemplateCode: Story = {
   parameters: {
     docs: {
       source: {
-        code: `import { Popover } from "@lds/ui-v3";
+        code: `import { Popover } from "@lawkit/ui";
 
 // 기본 (간편 API)
 <Popover

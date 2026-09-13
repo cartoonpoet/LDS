@@ -9,7 +9,7 @@ import { Divider } from ".";
  *
  * ### Import
  * ```tsx
- * import { Divider } from "@lds/ui-v3";
+ * import { Divider } from "@lawkit/ui";
  * ```
  *
  * ### Props
@@ -35,7 +35,7 @@ export const TemplateCode: Story = {
   parameters: {
     docs: {
       source: {
-        code: `import { Divider } from "@lds/ui-v3";
+        code: `import { Divider } from "@lawkit/ui";
 
 // 섹션 구분
 <section>위 콘텐츠</section>

@@ -59,7 +59,7 @@ export const TemplateCode: Story = {
     docs: {
       source: {
         code: `import { useState } from "react";
-import { DataTable } from "@lds/ui-v3";
+import { DataTable } from "@lawkit/ui";
 import type { ColumnDef, SortingState, RowSelectionState } from "@tanstack/react-table";
 
 // 1. 데이터 타입 정의

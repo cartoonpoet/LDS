@@ -13,8 +13,8 @@ import type { TableTreeColumn, TableTreeRow } from ".";
  *
  * ### Import
  * ```tsx
- * import { TableTree } from "@lds/ui-v3";
- * import type { TableTreeColumn, TableTreeRow } from "@lds/ui-v3";
+ * import { TableTree } from "@lawkit/ui";
+ * import type { TableTreeColumn, TableTreeRow } from "@lawkit/ui";
  * ```
  *
  * ### Props
@@ -87,8 +87,8 @@ export const TemplateCode: Story = {
   parameters: {
     docs: {
       source: {
-        code: `import { TableTree } from "@lds/ui-v3";
-import type { TableTreeColumn, TableTreeRow } from "@lds/ui-v3";
+        code: `import { TableTree } from "@lawkit/ui";
+import type { TableTreeColumn, TableTreeRow } from "@lawkit/ui";
 
 const columns: TableTreeColumn[] = [
   { key: "code", header: "관리번호", width: 180 },

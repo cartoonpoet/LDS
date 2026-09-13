@@ -34,7 +34,7 @@ export const TemplateCode: Story = {
   parameters: {
     docs: {
       source: {
-        code: `import { LinkBadge } from "@lds/ui-v3";
+        code: `import { LinkBadge } from "@lawkit/ui";
 
 // 기본 (outline / primary) — 계약번호 등 식별자 링크
 <LinkBadge href="/contracts/C2026-01">C2026-01</LinkBadge>

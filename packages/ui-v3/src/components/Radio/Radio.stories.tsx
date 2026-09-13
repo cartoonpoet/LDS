@@ -42,7 +42,7 @@ export const TemplateCode: Story = {
     docs: {
       source: {
         code: `import { useState } from "react";
-import { Radio, RadioGroup } from "@lds/ui-v3";
+import { Radio, RadioGroup } from "@lawkit/ui";
 
 const [selected, setSelected] = useState("a");
 

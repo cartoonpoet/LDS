@@ -10,7 +10,7 @@ import { ApprovalLine } from ".";
  *
  * ### Import
  * ```tsx
- * import { ApprovalLine } from "@lds/ui-v3";
+ * import { ApprovalLine } from "@lawkit/ui";
  * ```
  *
  * ### Props
@@ -46,7 +46,7 @@ export const TemplateCode: Story = {
   parameters: {
     docs: {
       source: {
-        code: `import { ApprovalLine } from "@lds/ui-v3";
+        code: `import { ApprovalLine } from "@lawkit/ui";
 
 // 기본 — 수평 결재선
 <ApprovalLine

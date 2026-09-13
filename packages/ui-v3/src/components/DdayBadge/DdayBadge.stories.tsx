@@ -12,7 +12,7 @@ import { DdayBadge } from ".";
  *
  * ### Import
  * ```tsx
- * import { DdayBadge } from "@lds/ui-v3";
+ * import { DdayBadge } from "@lawkit/ui";
  * ```
  *
  * ### Props
@@ -38,7 +38,7 @@ export const TemplateCode: Story = {
   parameters: {
     docs: {
       source: {
-        code: `import { DdayBadge } from "@lds/ui-v3";
+        code: `import { DdayBadge } from "@lawkit/ui";
 
 // 목표 날짜만 넘기면 임박도별 색 자동
 <DdayBadge date="2026-09-15" />

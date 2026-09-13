@@ -12,7 +12,7 @@ import { lightThemeClass } from "@lds/tokens";
  *
  * ### Import
  * ```tsx
- * import { SweetAlert } from "@lds/ui-v3";
+ * import { SweetAlert } from "@lawkit/ui";
  * ```
  *
  * ### Props
@@ -78,7 +78,7 @@ export const TemplateCode: Story = {
     docs: {
       source: {
         code: `import { useState } from "react";
-import { SweetAlert, Button } from "@lds/ui-v3";
+import { SweetAlert, Button } from "@lawkit/ui";
 
 const [open, setOpen] = useState(false);
 

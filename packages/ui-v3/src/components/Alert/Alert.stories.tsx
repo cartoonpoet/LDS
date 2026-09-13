@@ -9,7 +9,7 @@ import { lightThemeClass } from "@lds/tokens";
  *
  * ### Import
  * ```tsx
- * import { Alert } from "@lds/ui-v3";
+ * import { Alert } from "@lawkit/ui";
  * ```
  *
  * ### Props
@@ -61,7 +61,7 @@ export const TemplateCode: Story = {
   parameters: {
     docs: {
       source: {
-        code: `import { Alert } from "@lds/ui-v3";
+        code: `import { Alert } from "@lawkit/ui";
 
 // 기본 사용
 <Alert type="info" closable onClose={() => {}}>

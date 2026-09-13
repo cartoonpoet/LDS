@@ -56,7 +56,7 @@ describe("FullScreenModal", () => {
     expect(onClose).toHaveBeenCalledOnce();
   });
 
-  it("does not close on Escape when disableEscapeClose", async () => {
+  it("does not close on Escape when disableEscapeClose (deprecated)", async () => {
     const onClose = vi.fn();
     const { user } = renderWithUser(
       <FullScreenModal open={true} onClose={onClose} disableEscapeClose>
@@ -65,6 +65,28 @@ describe("FullScreenModal", () => {
     );
     await user.keyboard("{Escape}");
     expect(onClose).not.toHaveBeenCalled();
+  });
+
+  it("does not close on Escape when closeOnEscape={false}", async () => {
+    const onClose = vi.fn();
+    const { user } = renderWithUser(
+      <FullScreenModal open={true} onClose={onClose} closeOnEscape={false}>
+        Content
+      </FullScreenModal>,
+    );
+    await user.keyboard("{Escape}");
+    expect(onClose).not.toHaveBeenCalled();
+  });
+
+  it("closeOnEscape takes precedence over the deprecated disableEscapeClose", async () => {
+    const onClose = vi.fn();
+    const { user } = renderWithUser(
+      <FullScreenModal open={true} onClose={onClose} closeOnEscape={true} disableEscapeClose>
+        Content
+      </FullScreenModal>,
+    );
+    await user.keyboard("{Escape}");
+    expect(onClose).toHaveBeenCalledOnce();
   });
 
   it("locks body scroll when open", () => {

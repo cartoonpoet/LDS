@@ -62,7 +62,7 @@ describe("Modal", () => {
     expect(onClose).toHaveBeenCalledOnce();
   });
 
-  it("does not call onClose on Escape when disableEscapeClose", async () => {
+  it("does not call onClose on Escape when disableEscapeClose (deprecated)", async () => {
     const onClose = vi.fn();
     const { user } = renderWithUser(
       <Modal open={true} onClose={onClose} disableEscapeClose>
@@ -71,6 +71,28 @@ describe("Modal", () => {
     );
     await user.keyboard("{Escape}");
     expect(onClose).not.toHaveBeenCalled();
+  });
+
+  it("does not call onClose on Escape when closeOnEscape={false}", async () => {
+    const onClose = vi.fn();
+    const { user } = renderWithUser(
+      <Modal open={true} onClose={onClose} closeOnEscape={false}>
+        Content
+      </Modal>,
+    );
+    await user.keyboard("{Escape}");
+    expect(onClose).not.toHaveBeenCalled();
+  });
+
+  it("closeOnEscape takes precedence over the deprecated disableEscapeClose", async () => {
+    const onClose = vi.fn();
+    const { user } = renderWithUser(
+      <Modal open={true} onClose={onClose} closeOnEscape={true} disableEscapeClose>
+        Content
+      </Modal>,
+    );
+    await user.keyboard("{Escape}");
+    expect(onClose).toHaveBeenCalledOnce();
   });
 
   it("calls onClose on backdrop click", async () => {

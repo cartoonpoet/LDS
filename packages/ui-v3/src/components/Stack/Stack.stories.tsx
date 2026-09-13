@@ -10,7 +10,7 @@ import { HStack, VStack } from ".";
  *
  * ### Import
  * ```tsx
- * import { HStack, VStack } from "@lds/ui-v3";
+ * import { HStack, VStack } from "@lawkit/ui";
  * ```
  *
  * ### Props
@@ -55,7 +55,7 @@ export const TemplateCode: Story = {
   parameters: {
     docs: {
       source: {
-        code: `import { HStack, VStack } from "@lds/ui-v3";
+        code: `import { HStack, VStack } from "@lawkit/ui";
 
 // 기본 — gap만
 <HStack gap="x2">

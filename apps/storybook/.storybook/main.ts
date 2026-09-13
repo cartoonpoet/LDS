@@ -18,7 +18,7 @@ const config: StorybookConfig = {
       plugins: [vanillaExtractPlugin()],
       resolve: {
         alias: {
-          "@lds/ui-v3": resolve(storybookDir, "../../../packages/ui-v3/src"),
+          "@lawkit/ui": resolve(storybookDir, "../../../packages/ui-v3/src"),
           "@lds/tokens": resolve(storybookDir, "../../../packages/tokens/src")
         }
       }

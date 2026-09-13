@@ -51,7 +51,7 @@ export const TemplateCode: Story = {
   parameters: {
     docs: {
       source: {
-        code: `import { InfoPopover } from "@lds/ui-v3";
+        code: `import { InfoPopover } from "@lawkit/ui";
 
 <InfoPopover
   title="법무검토 중 외 3개"

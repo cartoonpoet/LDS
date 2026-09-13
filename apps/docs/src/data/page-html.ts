@@ -22,32 +22,31 @@ export const GET_STARTED_MAIN = `
         <h2>설치</h2>
         <p>패키지 매니저로 컴포넌트와 토큰 패키지를 함께 설치해요.</p>
         <div class="codeblock"><span class="tk-cm"># pnpm</span>
-pnpm add @lds/ui-v3 @lds/tokens</div>
+pnpm add @lawkit/ui @lds/tokens</div>
       </section>
 
       <section class="doc-section" id="gs-theme">
         <h2>테마 적용</h2>
-        <p>앱 최상단을 <code>LdsProvider</code>로 감싸고 테마 클래스를 넘겨요. 토큰이 CSS 변수로 주입되면서 모든 컴포넌트가 같은 색과 간격을 바라보게 돼요.</p>
-        <div class="codeblock"><span class="tk-kw">import</span> { <span class="tk-fn">lightThemeClass</span>, <span class="tk-fn">createLdsThemeVars</span> } <span class="tk-kw">from</span> <span class="tk-str">"@lds/tokens"</span>;
-<span class="tk-kw">import</span> { <span class="tk-fn">LdsProvider</span> } <span class="tk-kw">from</span> <span class="tk-str">"@lds/ui-v3"</span>;
+        <p>앱 최상단을 <code>lightThemeClass</code>가 붙은 요소로 감싸요. 토큰이 CSS 변수로 주입되면서 모든 컴포넌트가 같은 색과 간격을 바라보게 돼요.</p>
+        <div class="codeblock"><span class="tk-kw">import</span> { <span class="tk-fn">lightThemeClass</span> } <span class="tk-kw">from</span> <span class="tk-str">"@lds/tokens"</span>;
 
 <span class="tk-kw">export const</span> <span class="tk-fn">App</span> = () <span class="tk-kw">=&gt;</span> (
-  &lt;<span class="tk-tag">LdsProvider</span> <span class="tk-attr">themeClass</span>={<span class="tk-fn">lightThemeClass</span>}&gt;
+  &lt;<span class="tk-tag">div</span> <span class="tk-attr">className</span>={<span class="tk-fn">lightThemeClass</span>}&gt;
     &lt;<span class="tk-tag">Router</span> /&gt;
-  &lt;/<span class="tk-tag">LdsProvider</span>&gt;
+  &lt;/<span class="tk-tag">div</span>&gt;
 );</div>
       </section>
 
       <section class="doc-section" id="gs-first">
         <h2>첫 컴포넌트</h2>
         <p>이제 어떤 컴포넌트든 가져다 쓰면 돼요. 색, 라운드, 간격은 토큰이 알아서 챙겨요.</p>
-        <div class="codeblock"><span class="tk-kw">import</span> { <span class="tk-fn">Button</span> } <span class="tk-kw">from</span> <span class="tk-str">"@lds/ui-v3"</span>;
+        <div class="codeblock"><span class="tk-kw">import</span> { <span class="tk-fn">Button</span> } <span class="tk-kw">from</span> <span class="tk-str">"@lawkit/ui"</span>;
 
 <span class="tk-kw">export const</span> <span class="tk-fn">Confirm</span> = () <span class="tk-kw">=&gt;</span> &lt;<span class="tk-tag">Button</span> <span class="tk-attr">variant</span>=<span class="tk-str">"solid"</span>&gt;확인&lt;/<span class="tk-tag">Button</span>&gt;;</div>
         <h3>다음 단계</h3>
         <div class="next-cards">
           <a class="next-card" href="/foundations"><b>Foundations 보기 →</b><span>색, 타이포, 간격 — 시스템의 기반을 먼저 이해해요.</span></a>
-          <a class="next-card" href="/components"><b>Components 보기 →</b><span>38개 컴포넌트를 갤러리에서 한눈에 둘러봐요.</span></a>
+          <a class="next-card" href="/components"><b>Components 보기 →</b><span>65개 컴포넌트를 갤러리에서 한눈에 둘러봐요.</span></a>
         </div>
       </section>
     </div>
@@ -78,18 +77,17 @@ export const DEVELOP_MAIN = `
       <p class="doc-desc">LDS는 React 컴포넌트와 프레임워크 중립적인 토큰 패키지로 배포돼요. Vanilla Extract 기반이라 런타임 스타일 비용이 없어요.</p>
       <section class="doc-section">
         <div class="codeblock"><span class="tk-cm"># 설치</span>
-pnpm add @lds/ui-v3 @lds/tokens
+pnpm add @lawkit/ui @lds/tokens
 
 <span class="tk-cm">// 앱 진입점</span>
 <span class="tk-kw">import</span> <span class="tk-str">"@lds/tokens/global.css"</span>;
-<span class="tk-kw">import</span> { <span class="tk-fn">lightThemeClass</span> } <span class="tk-kw">from</span> <span class="tk-str">"@lds/tokens"</span>;
-<span class="tk-kw">import</span> { <span class="tk-fn">LdsProvider</span> } <span class="tk-kw">from</span> <span class="tk-str">"@lds/ui-v3"</span>;</div>
+<span class="tk-kw">import</span> { <span class="tk-fn">lightThemeClass</span> } <span class="tk-kw">from</span> <span class="tk-str">"@lds/tokens"</span>;</div>
       </section>
       <section class="doc-section" id="dv-pkg">
         <h2>패키지 구조</h2>
         <div class="dev-pkgs">
           <div class="dev-pkg"><code>@lds/tokens</code> <span style="font-size:12px;font-weight:700;color:var(--muted)">v0.1.0</span><p>색·간격·라운드·모션 토큰의 단일 출처예요. CSS 변수와 TypeScript 타입을 함께 내보내요.</p></div>
-          <div class="dev-pkg"><code>@lds/ui-v3</code> <span style="font-size:12px;font-weight:700;color:var(--muted)">v0.1.52</span><p>토큰 위에서 만든 React 컴포넌트 65종이에요. 접근성과 테스트 527개가 배포 게이트예요.</p></div>
+          <div class="dev-pkg"><code>@lawkit/ui</code> <span style="font-size:12px;font-weight:700;color:var(--muted)">v0.1.72</span><p>토큰 위에서 만든 React 컴포넌트 65종이에요. 접근성과 테스트 527개가 배포 게이트예요.</p></div>
         </div>
       </section>
       <section class="doc-section" id="dv-res">

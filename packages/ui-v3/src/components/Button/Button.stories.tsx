@@ -16,7 +16,7 @@ const PieChartIcon = () => (
  *
  * ### Import
  * ```tsx
- * import { Button } from "@lds/ui-v3";
+ * import { Button } from "@lawkit/ui";
  * ```
  *
  * ### Props
@@ -72,7 +72,7 @@ export const TemplateCode: Story = {
   parameters: {
     docs: {
       source: {
-        code: `import { Button } from "@lds/ui-v3";
+        code: `import { Button } from "@lawkit/ui";
 
 // 기본 버튼
 <Button>확인</Button>

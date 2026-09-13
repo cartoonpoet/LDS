@@ -35,7 +35,7 @@ export const TemplateCode: Story = {
     docs: {
       source: {
         code: `import { useState } from "react";
-import { Checkbox } from "@lds/ui-v3";
+import { Checkbox } from "@lawkit/ui";
 
 const [checked, setChecked] = useState(false);
 

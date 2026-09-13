@@ -12,7 +12,7 @@ import { PageLayout } from ".";
  *
  * ### Import
  * ```tsx
- * import { PageLayout } from "@lds/ui-v3";
+ * import { PageLayout } from "@lawkit/ui";
  * ```
  *
  * ### Slots
@@ -40,7 +40,7 @@ export const TemplateCode: Story = {
   parameters: {
     docs: {
       source: {
-        code: `import { PageLayout } from "@lds/ui-v3";
+        code: `import { PageLayout } from "@lawkit/ui";
 
 // 기본 — Header + Nav + Content
 <PageLayout>

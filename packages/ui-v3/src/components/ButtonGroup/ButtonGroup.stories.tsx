@@ -22,8 +22,8 @@ const SegmentedIcon = ({ name }: { name: "secret" | "shield" }) => <Icon name={n
  *
  * ### Import
  * ```tsx
- * import { ButtonGroup } from "@lds/ui-v3";
- * import type { ButtonGroupItem } from "@lds/ui-v3";
+ * import { ButtonGroup } from "@lawkit/ui";
+ * import type { ButtonGroupItem } from "@lawkit/ui";
  * ```
  *
  * ### Props
@@ -79,7 +79,7 @@ export const TemplateCode: Story = {
     docs: {
       source: {
         code: `import { useState } from "react";
-import { ButtonGroup } from "@lds/ui-v3";
+import { ButtonGroup } from "@lawkit/ui";
 
 const [value, setValue] = useState("left");
 

@@ -12,7 +12,7 @@ import { Button } from "../Button";
  *
  * ### Import
  * ```tsx
- * import { FloatingModal } from "@lds/ui-v3";
+ * import { FloatingModal } from "@lawkit/ui";
  * ```
  *
  * ### Props
@@ -70,7 +70,7 @@ export const TemplateCode: Story = {
     docs: {
       source: {
         code: `import { useState } from "react";
-import { FloatingModal, Button } from "@lds/ui-v3";
+import { FloatingModal, Button } from "@lawkit/ui";
 
 function MyPage() {
   const [open, setOpen] = useState(false);

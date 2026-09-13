@@ -53,6 +53,45 @@ describe("CalendarPopover", () => {
     expect(screen.getByText("Cancel")).toBeInTheDocument();
   });
 
+  it("calls onClose when the close button is clicked", async () => {
+    const onClose = vi.fn();
+    const { user } = renderWithUser(
+      <CalendarPopover title="Event" fields={[]} open onClose={onClose}>
+        <button>Open</button>
+      </CalendarPopover>,
+    );
+    await user.click(screen.getByRole("button", { name: "닫기" }));
+    expect(onClose).toHaveBeenCalledTimes(1);
+  });
+
+  it("calls onClose when Escape is pressed", async () => {
+    const onClose = vi.fn();
+    renderWithUser(
+      <CalendarPopover title="Event" fields={[]} open onClose={onClose}>
+        <button>Open</button>
+      </CalendarPopover>,
+    );
+    await new Promise((resolve) => {
+      document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" }));
+      resolve(undefined);
+    });
+    expect(onClose).toHaveBeenCalledTimes(1);
+  });
+
+  it("calls onClose when clicking outside the popover", async () => {
+    const onClose = vi.fn();
+    const { user } = renderWithUser(
+      <div>
+        <CalendarPopover title="Event" fields={[]} open onClose={onClose}>
+          <button>Open</button>
+        </CalendarPopover>
+        <button>바깥</button>
+      </div>,
+    );
+    await user.click(screen.getByText("바깥"));
+    expect(onClose).toHaveBeenCalledTimes(1);
+  });
+
   it("calls onPrimary on primary button click", async () => {
     const onPrimary = vi.fn();
     const { user } = renderWithUser(

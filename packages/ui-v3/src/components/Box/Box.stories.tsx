@@ -10,7 +10,7 @@ import { Box } from ".";
  *
  * ### Import
  * ```tsx
- * import { Box } from "@lds/ui-v3";
+ * import { Box } from "@lawkit/ui";
  * ```
  *
  * ### Props
@@ -43,7 +43,7 @@ export const TemplateCode: Story = {
   parameters: {
     docs: {
       source: {
-        code: `import { Box } from "@lds/ui-v3";
+        code: `import { Box } from "@lawkit/ui";
 
 // 카드형 영역 — 패딩/배경/라운드/테두리를 토큰으로
 <Box p="x4" bg="canvas" radius="md" border>

@@ -10,7 +10,7 @@ import type { IconName } from "./types";
  *
  * ### Import
  * ```tsx
- * import { Icon } from "@lds/ui-v3";
+ * import { Icon } from "@lawkit/ui";
  * ```
  *
  * ### Template Code
