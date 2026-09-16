@@ -1,7 +1,10 @@
-import { useCallback } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import type { HTMLAttributes } from "react";
+import { defaultDurationTokens } from "@lds/tokens";
 import { cx } from "../../lib/cx";
 import * as s from "./NumberInput.css";
+
+const BUMP_MS = parseInt(defaultDurationTokens.slow, 10);
 
 export type NumberInputSize = "small" | "medium" | "large";
 
@@ -112,6 +115,17 @@ export function NumberInput({
   const atMin = min !== undefined && value <= min;
   const atMax = max !== undefined && value >= max;
 
+  /* 값이 바뀔 때마다 배경을 짧게 하이라이트 */
+  const [bump, setBump] = useState(false);
+  const prevValue = useRef(value);
+  useEffect(() => {
+    if (prevValue.current === value) return;
+    prevValue.current = value;
+    setBump(true);
+    const timer = setTimeout(() => setBump(false), BUMP_MS);
+    return () => clearTimeout(timer);
+  }, [value]);
+
   return (
     <div className={cx(s.container, className)} {...rest}>
       <button
@@ -126,7 +140,7 @@ export function NumberInput({
       <input
         type="text"
         inputMode="numeric"
-        className={s.input({ size })}
+        className={s.input({ size, bump })}
         value={value}
         onChange={handleInputChange}
         disabled={disabled}

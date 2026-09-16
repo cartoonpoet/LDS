@@ -1,4 +1,4 @@
-import { useCallback, useRef } from "react";
+import { useCallback, useRef, useState } from "react";
 import type { HTMLAttributes } from "react";
 import { cx } from "../../lib/cx";
 import * as s from "./Slider.css";
@@ -94,17 +94,20 @@ export function Slider({
 }: SliderProps) {
   const trackRef = useRef<HTMLDivElement>(null);
   const percent = pct(clamp(value, min, max), min, max);
+  const [dragging, setDragging] = useState(false);
 
   const startDrag = useCallback(
     (e: React.MouseEvent) => {
       if (disabled || !trackRef.current) return;
       e.preventDefault();
+      setDragging(true);
       const update = (ev: MouseEvent) => {
         if (!trackRef.current) return;
         onChange?.(clamp(valueFromEvent(ev, trackRef.current, min, max, step), min, max));
       };
       update(e.nativeEvent);
       const onUp = () => {
+        setDragging(false);
         document.removeEventListener("mousemove", update);
         document.removeEventListener("mouseup", onUp);
       };
@@ -126,7 +129,7 @@ export function Slider({
           className={s.trackFill}
           style={{ left: 0, width: `${percent}%` }}
         />
-        <div className={s.thumb} style={{ left: `${percent}%` }} tabIndex={0}>
+        <div className={s.thumb({ active: dragging })} style={{ left: `${percent}%` }} tabIndex={0}>
           {showValue && (
             <div className={s.valueBadge}>
               {Number.isInteger(value) ? value : value.toFixed(2)}
@@ -205,7 +208,7 @@ export function RangeSlider({
   ...rest
 }: RangeSliderProps) {
   const trackRef = useRef<HTMLDivElement>(null);
-  const dragging = useRef<"start" | "end" | null>(null);
+  const [activeHandle, setActiveHandle] = useState<"start" | "end" | null>(null);
 
   const lo = clamp(value[0], min, max);
   const hi = clamp(value[1], min, max);
@@ -217,7 +220,7 @@ export function RangeSlider({
       if (disabled || !trackRef.current) return;
       e.preventDefault();
       e.stopPropagation();
-      dragging.current = handle;
+      setActiveHandle(handle);
 
       const update = (ev: MouseEvent) => {
         if (!trackRef.current) return;
@@ -226,7 +229,7 @@ export function RangeSlider({
           min,
           max,
         );
-        if (dragging.current === "start") {
+        if (handle === "start") {
           onChange?.([Math.min(v, hi), hi]);
         } else {
           onChange?.([lo, Math.max(v, lo)]);
@@ -234,7 +237,7 @@ export function RangeSlider({
       };
 
       const onUp = () => {
-        dragging.current = null;
+        setActiveHandle(null);
         document.removeEventListener("mousemove", update);
         document.removeEventListener("mouseup", onUp);
       };
@@ -285,7 +288,7 @@ export function RangeSlider({
 
         {/* start thumb */}
         <div
-          className={s.thumb}
+          className={s.thumb({ active: activeHandle === "start" })}
           style={{ left: `${pctLo}%` }}
           onMouseDown={startDrag("start")}
           tabIndex={0}
@@ -297,7 +300,7 @@ export function RangeSlider({
 
         {/* end thumb */}
         <div
-          className={s.thumb}
+          className={s.thumb({ active: activeHandle === "end" })}
           style={{ left: `${pctHi}%` }}
           onMouseDown={startDrag("end")}
           tabIndex={0}

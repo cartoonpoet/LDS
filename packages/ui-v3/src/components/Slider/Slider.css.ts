@@ -1,4 +1,5 @@
 import { style } from "@vanilla-extract/css";
+import { recipe } from "@vanilla-extract/recipes";
 import { semanticColorRoles, themeVars, grayPalette } from "@lds/tokens";
 
 /* ─── root ─── */
@@ -37,28 +38,37 @@ export const trackFill = style({
 });
 
 /* ─── thumb ─── */
-export const thumb = style({
-  position: "absolute",
-  width: 12,
-  height: 12,
-  borderRadius: "50%",
-  backgroundColor: semanticColorRoles.surface.canvas,
-  border: `2px solid ${semanticColorRoles.action.primary.default}`,
-  boxSizing: "content-box",
-  transform: "translateX(-50%)",
-  cursor: "grab",
-  zIndex: 2,
-  transition: `box-shadow ${themeVars.duration.base} ${themeVars.easing.standard}`,
-  outline: "none",
-  ":hover": {
-    boxShadow: `0 0 0 4px ${semanticColorRoles.action.primary.subtle}`,
+export const thumb = recipe({
+  base: {
+    position: "absolute",
+    width: 12,
+    height: 12,
+    borderRadius: "50%",
+    backgroundColor: semanticColorRoles.surface.canvas,
+    border: `2px solid ${semanticColorRoles.action.primary.default}`,
+    boxSizing: "content-box",
+    transform: "translateX(-50%)",
+    cursor: "grab",
+    zIndex: 2,
+    transition: `box-shadow ${themeVars.duration.base} ${themeVars.easing.standard}, transform ${themeVars.duration.base} ${themeVars.easing.spring}`,
+    outline: "none",
+    ":hover": {
+      boxShadow: `0 0 0 4px ${semanticColorRoles.action.primary.subtle}`,
+    },
+    ":active": {
+      cursor: "grabbing",
+    },
+    ":focus-visible": {
+      boxShadow: themeVars.shadow.focus,
+    },
   },
-  ":active": {
-    cursor: "grabbing",
+  variants: {
+    active: {
+      true: { transform: "translateX(-50%) scale(1.35)" },
+      false: {},
+    },
   },
-  ":focus-visible": {
-    boxShadow: themeVars.shadow.focus,
-  },
+  defaultVariants: { active: false },
 });
 
 /* ─── value badge ─── */

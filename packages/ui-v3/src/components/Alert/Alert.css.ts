@@ -17,6 +17,26 @@ const typeIconColors = {
   saveTemporarily: semanticColorRoles.text.tertiary,
 } as const;
 
+/* ─── dismiss wrapper (닫기 시 fade + height collapse 후 언마운트) ─── */
+export const dismissOuter = recipe({
+  base: {
+    display: "grid",
+    overflow: "hidden",
+    transition: `grid-template-rows ${themeVars.duration.base} ${themeVars.easing.standard}, opacity ${themeVars.duration.base} ${themeVars.easing.standard}, margin ${themeVars.duration.base} ${themeVars.easing.standard}`,
+  },
+  variants: {
+    dismissing: {
+      true: { gridTemplateRows: "0fr", opacity: 0 },
+      false: { gridTemplateRows: "1fr", opacity: 1 },
+    },
+  },
+  defaultVariants: { dismissing: false },
+});
+
+export const dismissInner = style({
+  overflow: "hidden",
+});
+
 /* ─── root container ─── */
 export const root = recipe({
   base: {

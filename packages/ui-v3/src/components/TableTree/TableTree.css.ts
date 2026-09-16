@@ -1,4 +1,4 @@
-import { style } from "@vanilla-extract/css";
+import { style, keyframes } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 import { semanticColorRoles, themeVars, grayPalette } from "@lds/tokens";
 
@@ -61,6 +61,20 @@ export const tr = style({
     },
   },
 });
+
+/* ─── 자식 행 — 펼침 시 fade-in (실제 <tr>이라 grid-template-rows 높이
+   트릭은 쓸 수 없어 진입 fade로 대체) ─── */
+const rowFadeIn = keyframes({
+  from: { opacity: 0 },
+  to: { opacity: 1 },
+});
+
+export const trChild = style([
+  tr,
+  {
+    animation: `${rowFadeIn} ${themeVars.duration.slow} ${themeVars.easing.standard}`,
+  },
+]);
 
 export const trClickable = style({
   cursor: "pointer",

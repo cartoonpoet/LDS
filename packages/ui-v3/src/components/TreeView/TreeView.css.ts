@@ -209,7 +209,23 @@ export const separator = style({
 });
 
 /* ─── children wrapper ─── */
+export const childrenOuter = recipe({
+  base: {
+    display: "grid",
+    overflow: "hidden",
+    transition: `grid-template-rows ${themeVars.duration.slow} ${themeVars.easing.standard}`,
+  },
+  variants: {
+    expanded: {
+      true: { gridTemplateRows: "1fr" },
+      false: { gridTemplateRows: "0fr" },
+    },
+  },
+  defaultVariants: { expanded: false },
+});
+
 export const children = style({
   display: "flex",
   flexDirection: "column",
+  overflow: "hidden",
 });

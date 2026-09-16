@@ -260,23 +260,25 @@ function TreeItem({
       </div>
 
       {/* Children */}
-      {hasChildren && isExpanded && (
-        <div className={s.children} role="group">
-          {node.children!.map((child, i) => (
-            <TreeItem
-              key={child.id}
-              node={child}
-              depth={depth + 1}
-              parentTrails={[...trails, !isLast]}
-              isLast={i === node.children!.length - 1}
-              size={defaultSize}
-              selectedId={selectedId}
-              onNodeSelect={onNodeSelect}
-              expandedIds={expandedIds}
-              onToggleExpand={onToggleExpand}
-              separator={separator}
-            />
-          ))}
+      {hasChildren && (
+        <div className={s.childrenOuter({ expanded: isExpanded })}>
+          <div className={s.children} role="group">
+            {node.children!.map((child, i) => (
+              <TreeItem
+                key={child.id}
+                node={child}
+                depth={depth + 1}
+                parentTrails={[...trails, !isLast]}
+                isLast={i === node.children!.length - 1}
+                size={defaultSize}
+                selectedId={selectedId}
+                onNodeSelect={onNodeSelect}
+                expandedIds={expandedIds}
+                onToggleExpand={onToggleExpand}
+                separator={separator}
+              />
+            ))}
+          </div>
         </div>
       )}
     </div>

@@ -117,11 +117,13 @@ export function Widget({
           <div className={s.divider} />
         </>
       )}
-      {!isCollapsed && (
-        <div className={flush ? s.widgetBodyFlush : s.widgetBody}>
-          {children}
+      <div className={s.widgetBodyOuter({ collapsed: isCollapsed })}>
+        <div className={s.widgetBodyInner}>
+          <div className={flush ? s.widgetBodyFlush : s.widgetBody}>
+            {children}
+          </div>
         </div>
-      )}
+      </div>
     </div>
   );
 }

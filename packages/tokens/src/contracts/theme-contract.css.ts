@@ -75,6 +75,7 @@ export const themeVars = createThemeContract({
     standard: null,
     linear: null,
     decelerate: null,
-    emphasized: null
+    emphasized: null,
+    spring: null
   }
 });
