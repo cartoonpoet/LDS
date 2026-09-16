@@ -23,7 +23,7 @@ export const arrowButton = style({
   cursor: "pointer",
   color: semanticColorRoles.action.primary.default,
   flexShrink: 0,
-  transition: "background-color 150ms ease",
+  transition: `background-color ${themeVars.duration.base} ${themeVars.easing.standard}`,
   selectors: {
     "&:hover": {
       backgroundColor: opacityPalette.secondary,
@@ -67,7 +67,7 @@ export const pageButton = recipe({
     fontFamily: themeVars.font.family,
     color: semanticColorRoles.text.primary,
     cursor: "pointer",
-    transition: "background-color 150ms ease, color 150ms ease",
+    transition: `background-color ${themeVars.duration.base} ${themeVars.easing.standard}, color ${themeVars.duration.base} ${themeVars.easing.standard}`,
     selectors: {
       "&:hover": {
         backgroundColor: opacityPalette.secondary,

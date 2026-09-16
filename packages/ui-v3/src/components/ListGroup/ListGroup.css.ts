@@ -44,7 +44,7 @@ export const item = recipe({
     fontFamily: themeVars.font.family,
     lineHeight: 1.5,
     boxSizing: "border-box",
-    transition: "background-color 150ms ease, color 150ms ease",
+    transition: `background-color ${themeVars.duration.base} ${themeVars.easing.standard}, color ${themeVars.duration.base} ${themeVars.easing.standard}`,
   },
   variants: {
     active: {

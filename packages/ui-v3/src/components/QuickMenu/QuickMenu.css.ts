@@ -20,7 +20,7 @@ export const quickMenuItem = style({
   border: `1px solid ${semanticColorRoles.border.subtle}`,
   backgroundColor: semanticColorRoles.surface.canvas,
   boxSizing: "border-box",
-  transition: "background 150ms ease, border-color 150ms ease",
+  transition: `background ${themeVars.duration.base} ${themeVars.easing.standard}, border-color ${themeVars.duration.base} ${themeVars.easing.standard}`,
   ":hover": {
     backgroundImage: `linear-gradient(125deg, ${semanticColorRoles.action.primary.default} 0%, #6f8ef3 100%)`,
     backgroundColor: "transparent",
@@ -44,7 +44,7 @@ export const quickMenuIconWrapper = style({
   backgroundColor: opacityPalette.secondary,
   color: grayPalette[500],
   flexShrink: 0,
-  transition: "background-color 150ms ease, color 150ms ease",
+  transition: `background-color ${themeVars.duration.base} ${themeVars.easing.standard}, color ${themeVars.duration.base} ${themeVars.easing.standard}`,
   selectors: {
     [`${quickMenuItem}:hover &`]: {
       backgroundColor: grayPalette[0],
@@ -64,7 +64,7 @@ export const quickMenuLabel = style({
   lineHeight: "17px",
   color: semanticColorRoles.text.heading,
   whiteSpace: "nowrap",
-  transition: "color 150ms ease",
+  transition: `color ${themeVars.duration.base} ${themeVars.easing.standard}`,
   selectors: {
     [`${quickMenuItem}:hover &`]: {
       color: semanticColorRoles.text.inverse,

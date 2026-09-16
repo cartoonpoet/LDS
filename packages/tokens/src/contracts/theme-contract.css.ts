@@ -64,5 +64,17 @@ export const themeVars = createThemeContract({
     focus: null,
     raised: null,
     modal: null
+  },
+  duration: {
+    fast: null,
+    base: null,
+    slow: null,
+    slower: null
+  },
+  easing: {
+    standard: null,
+    linear: null,
+    decelerate: null,
+    emphasized: null
   }
 });

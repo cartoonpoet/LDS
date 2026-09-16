@@ -36,7 +36,7 @@ export const tabItem = recipe({
     fontWeight: themeVars.font.weightMedium,
     lineHeight: 1,
     textAlign: "center",
-    transition: "background-color 150ms ease, color 150ms ease",
+    transition: `background-color ${themeVars.duration.base} ${themeVars.easing.standard}, color ${themeVars.duration.base} ${themeVars.easing.standard}`,
     selectors: {
       "&:focus-visible": {
         outline: "none",

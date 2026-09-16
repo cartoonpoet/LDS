@@ -24,7 +24,7 @@ export const root = recipe({
     verticalAlign: "middle",
     userSelect: "none",
     transition:
-      "background-color 150ms ease, box-shadow 150ms ease, border-color 150ms ease, opacity 150ms ease",
+      `background-color ${themeVars.duration.base} ${themeVars.easing.standard}, box-shadow ${themeVars.duration.base} ${themeVars.easing.standard}, border-color ${themeVars.duration.base} ${themeVars.easing.standard}, opacity ${themeVars.duration.base} ${themeVars.easing.standard}`,
     selectors: {
       "&:focus-visible": {
         outline: "none",

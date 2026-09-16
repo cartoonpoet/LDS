@@ -121,7 +121,7 @@ export const chevron = recipe({
     height: 18,
     flexShrink: 0,
     color: semanticColorRoles.text.secondary,
-    transition: "transform 200ms ease",
+    transition: `transform ${themeVars.duration.slow} ${themeVars.easing.standard}`,
   },
   variants: {
     expanded: {
@@ -153,7 +153,7 @@ export const headerAction = style({
 export const content = recipe({
   base: {
     overflow: "hidden",
-    transition: "grid-template-rows 200ms ease",
+    transition: `grid-template-rows ${themeVars.duration.slow} ${themeVars.easing.standard}`,
     display: "grid",
   },
   variants: {

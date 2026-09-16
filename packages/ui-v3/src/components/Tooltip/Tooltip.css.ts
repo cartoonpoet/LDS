@@ -20,7 +20,7 @@ export const tooltip = recipe({
     zIndex: 1100,
     display: "flex",
     alignItems: "center",
-    animation: `${fadeIn} 150ms ease`,
+    animation: `${fadeIn} ${themeVars.duration.base} ${themeVars.easing.standard}`,
     pointerEvents: "none",
   },
   variants: {

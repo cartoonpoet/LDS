@@ -18,7 +18,7 @@ export const progressBar = recipe({
   base: {
     height: "100%",
     borderRadius: 7,
-    transition: "width 300ms ease",
+    transition: `width ${themeVars.duration.slower} ${themeVars.easing.standard}`,
     position: "relative",
     display: "flex",
     alignItems: "center",
@@ -52,7 +52,7 @@ const stripeMove = keyframes({
 });
 
 export const animated = style({
-  animation: `${stripeMove} 1s linear infinite`,
+  animation: `${stripeMove} 1s ${themeVars.easing.linear} infinite`,
 });
 
 export const progressValue = style({

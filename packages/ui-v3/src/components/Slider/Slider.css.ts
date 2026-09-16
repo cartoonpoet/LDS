@@ -48,7 +48,7 @@ export const thumb = style({
   transform: "translateX(-50%)",
   cursor: "grab",
   zIndex: 2,
-  transition: "box-shadow 150ms ease",
+  transition: `box-shadow ${themeVars.duration.base} ${themeVars.easing.standard}`,
   outline: "none",
   ":hover": {
     boxShadow: `0 0 0 4px ${semanticColorRoles.action.primary.subtle}`,

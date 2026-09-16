@@ -39,7 +39,7 @@ export const item = style({
 export const link = style({
   color: grayPalette[500],
   textDecoration: "none",
-  transition: "color 150ms ease",
+  transition: `color ${themeVars.duration.base} ${themeVars.easing.standard}`,
   selectors: {
     "&:hover": {
       color: semanticColorRoles.action.primary.default,

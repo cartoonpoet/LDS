@@ -73,7 +73,7 @@ export const collapseButton = style({
   cursor: "pointer",
   color: grayPalette[500],
   padding: 0,
-  transition: "transform 200ms ease, color 150ms ease",
+  transition: `transform ${themeVars.duration.slow} ${themeVars.easing.standard}, color ${themeVars.duration.base} ${themeVars.easing.standard}`,
   ":hover": {
     color: grayPalette[700],
   },

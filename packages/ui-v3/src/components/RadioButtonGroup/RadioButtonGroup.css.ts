@@ -42,7 +42,7 @@ export const item = recipe({
     textAlign: "center",
     lineHeight: 1,
     transition:
-      "background-color 150ms ease, color 150ms ease, border-color 150ms ease",
+      `background-color ${themeVars.duration.base} ${themeVars.easing.standard}, color ${themeVars.duration.base} ${themeVars.easing.standard}, border-color ${themeVars.duration.base} ${themeVars.easing.standard}`,
     flexShrink: 0,
     selectors: {
       "&:focus-visible": {

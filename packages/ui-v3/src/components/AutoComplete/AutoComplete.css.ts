@@ -26,7 +26,7 @@ export const inputWrapper = recipe({
     fontWeight: themeVars.font.weightMedium,
     color: semanticColorRoles.text.primary,
     boxSizing: "border-box",
-    transition: "border-color 150ms ease, box-shadow 150ms ease",
+    transition: `border-color ${themeVars.duration.base} ${themeVars.easing.standard}, box-shadow ${themeVars.duration.base} ${themeVars.easing.standard}`,
   },
   variants: {
     size: {
@@ -172,7 +172,7 @@ export const option = recipe({
     color: semanticColorRoles.text.primary,
     textAlign: "left",
     boxSizing: "border-box",
-    transition: "background-color 100ms ease, color 100ms ease",
+    transition: `background-color ${themeVars.duration.fast} ${themeVars.easing.standard}, color ${themeVars.duration.fast} ${themeVars.easing.standard}`,
   },
   variants: {
     highlighted: {
@@ -198,7 +198,7 @@ export const richOption = recipe({
     cursor: "pointer",
     textAlign: "left",
     boxSizing: "border-box",
-    transition: "background-color 100ms ease",
+    transition: `background-color ${themeVars.duration.fast} ${themeVars.easing.standard}`,
   },
   variants: {
     highlighted: {

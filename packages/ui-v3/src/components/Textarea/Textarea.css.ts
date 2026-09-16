@@ -26,7 +26,7 @@ export const textarea = recipe({
     color: semanticColorRoles.text.primary,
     lineHeight: "22px",
     boxSizing: "border-box",
-    transition: "border-color 150ms ease, box-shadow 150ms ease",
+    transition: `border-color ${themeVars.duration.base} ${themeVars.easing.standard}, box-shadow ${themeVars.duration.base} ${themeVars.easing.standard}`,
     "::placeholder": {
       color: semanticColorRoles.text.placeholder,
     },

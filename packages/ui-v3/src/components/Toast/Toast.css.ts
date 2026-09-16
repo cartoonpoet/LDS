@@ -101,7 +101,7 @@ export const closeBtn = style({
   color: semanticColorRoles.text.primary,
   flexShrink: 0,
   opacity: 0.5,
-  transition: "opacity 150ms ease",
+  transition: `opacity ${themeVars.duration.base} ${themeVars.easing.standard}`,
   selectors: {
     "&:hover": { opacity: 1 },
   },
@@ -125,7 +125,7 @@ export const progressTrack = style({
 export const progressFill = recipe({
   base: {
     height: "100%",
-    transition: "width 100ms linear",
+    transition: `width ${themeVars.duration.fast} ${themeVars.easing.linear}`,
   },
   variants: {
     intent: {

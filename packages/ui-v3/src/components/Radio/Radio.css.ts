@@ -37,7 +37,7 @@ export const circle = recipe({
     borderRadius: "50%",
     flexShrink: 0,
     boxSizing: "border-box",
-    transition: "background-color 150ms ease, border-color 150ms ease",
+    transition: `background-color ${themeVars.duration.base} ${themeVars.easing.standard}, border-color ${themeVars.duration.base} ${themeVars.easing.standard}`,
   },
   variants: {
     size: {

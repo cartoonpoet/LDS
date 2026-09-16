@@ -13,7 +13,7 @@ export const root = recipe({
     backgroundColor: grayPalette[200],
     backgroundImage: `linear-gradient(90deg, ${grayPalette[200]} 25%, ${grayPalette[100]} 50%, ${grayPalette[200]} 75%)`,
     backgroundSize: "200% 100%",
-    animation: `${shimmer} 1.5s ease-in-out infinite`,
+    animation: `${shimmer} 1.5s ${themeVars.easing.emphasized} infinite`,
   },
   variants: {
     variant: {
@@ -54,7 +54,7 @@ export const contentWrapper = style({
 });
 
 export const contentVisible = style({
-  animation: `${fadeIn} 0.3s ease-out`,
+  animation: `${fadeIn} ${themeVars.duration.slower} ${themeVars.easing.decelerate}`,
 });
 
 export const contentHidden = style({

@@ -48,7 +48,7 @@ export const item = recipe({
     fontWeight: themeVars.font.weightMedium,
     textAlign: "center",
     lineHeight: 1,
-    transition: "background-color 150ms ease, color 150ms ease, box-shadow 150ms ease, border-color 150ms ease",
+    transition: `background-color ${themeVars.duration.base} ${themeVars.easing.standard}, color ${themeVars.duration.base} ${themeVars.easing.standard}, box-shadow ${themeVars.duration.base} ${themeVars.easing.standard}, border-color ${themeVars.duration.base} ${themeVars.easing.standard}`,
     flexShrink: 0,
     selectors: {
       "&:focus-visible": {

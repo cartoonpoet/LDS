@@ -19,7 +19,7 @@ export const row = recipe({
     display: "flex",
     alignItems: "center",
     cursor: "pointer",
-    transition: "background-color 150ms ease",
+    transition: `background-color ${themeVars.duration.base} ${themeVars.easing.standard}`,
     borderRadius: themeVars.radius.sm,
     userSelect: "none",
     ":hover": {
@@ -108,7 +108,7 @@ export const caret = recipe({
     height: 16,
     flexShrink: 0,
     color: grayPalette[700],
-    transition: "transform 200ms ease",
+    transition: `transform ${themeVars.duration.slow} ${themeVars.easing.standard}`,
   },
   variants: {
     expanded: {

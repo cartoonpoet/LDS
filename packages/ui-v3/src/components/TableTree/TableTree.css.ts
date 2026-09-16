@@ -48,7 +48,7 @@ export const thBordered = style({
 /* ─── tbody rows ─── */
 export const tr = style({
   borderBottom: `1px solid ${semanticColorRoles.border.subtle}`,
-  transition: "background-color 150ms ease",
+  transition: `background-color ${themeVars.duration.base} ${themeVars.easing.standard}`,
   ":hover": {
     backgroundColor: semanticColorRoles.action.primary.subtle,
   },
@@ -112,7 +112,7 @@ export const toggleButton = style({
   cursor: "pointer",
   color: grayPalette[500],
   flexShrink: 0,
-  transition: "background-color 150ms ease, color 150ms ease",
+  transition: `background-color ${themeVars.duration.base} ${themeVars.easing.standard}, color ${themeVars.duration.base} ${themeVars.easing.standard}`,
   selectors: {
     "&:hover": {
       backgroundColor: semanticColorRoles.action.primary.subtle,
@@ -137,7 +137,7 @@ export const caret = recipe({
     display: "inline-flex",
     alignItems: "center",
     justifyContent: "center",
-    transition: "transform 150ms ease",
+    transition: `transform ${themeVars.duration.base} ${themeVars.easing.standard}`,
   },
   variants: {
     expanded: {

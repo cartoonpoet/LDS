@@ -83,7 +83,7 @@ export const closeButton = style({
   color: semanticColorRoles.text.primary,
   flexShrink: 0,
   boxShadow: "0 3px 8px rgba(0, 0, 0, 0.2)",
-  transition: "background-color 150ms ease",
+  transition: `background-color ${themeVars.duration.base} ${themeVars.easing.standard}`,
   selectors: {
     "&:hover": {
       backgroundColor: grayPalette[50],

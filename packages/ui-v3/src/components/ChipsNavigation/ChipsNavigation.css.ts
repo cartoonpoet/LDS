@@ -42,7 +42,7 @@ export const chip = recipe({
     fontSize: themeVars.font.sizeSm,
     fontWeight: themeVars.font.weightMedium,
     lineHeight: 1,
-    transition: "background-color 150ms ease, color 150ms ease",
+    transition: `background-color ${themeVars.duration.base} ${themeVars.easing.standard}, color ${themeVars.duration.base} ${themeVars.easing.standard}`,
     flexShrink: 0,
     selectors: {
       "&:focus-visible": {
