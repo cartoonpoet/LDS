@@ -4,6 +4,7 @@ import { cx } from "../../lib/cx";
 import { Portal } from "../../lib/Portal";
 import { useDismissibleLayer } from "../../lib/useDismissibleLayer";
 import { useFocusTrap } from "../../lib/useFocusTrap";
+import { usePresence } from "../../lib/usePresence";
 import { useScrollLock } from "../../lib/useScrollLock";
 import * as s from "./SweetAlert.css";
 
@@ -108,14 +109,19 @@ export function SweetAlert({
   /* Focus trap */
   useFocusTrap(dialogRef, open);
 
-  if (!open) return null;
+  /* 닫힘 트랜지션 동안 마운트 유지 */
+  const { mounted } = usePresence(open, s.EXIT_MS);
+
+  if (!mounted) return null;
+
+  const closing = !open;
 
   const DefaultIcon = defaultIcons[intent];
 
   return (
     <Portal>
       <div
-        className={s.overlay}
+        className={s.overlay({ closing })}
         onClick={(e) => {
           if (e.target === e.currentTarget) onClose();
         }}
@@ -124,7 +130,7 @@ export function SweetAlert({
           ref={dialogRef}
           role="alertdialog"
           aria-modal="true"
-          className={cx(s.card, className)}
+          className={cx(s.card({ closing }), className)}
           {...rest}
         >
           <div className={s.iconWrapper({ intent })}>

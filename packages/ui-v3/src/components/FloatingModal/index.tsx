@@ -3,6 +3,7 @@ import type { ReactNode, HTMLAttributes } from "react";
 import { cx } from "../../lib/cx";
 import { Portal } from "../../lib/Portal";
 import { useDismissibleLayer } from "../../lib/useDismissibleLayer";
+import { usePresence } from "../../lib/usePresence";
 import { ModalBody, ModalFooter } from "../Modal";
 import * as modal from "../Modal/Modal.css";
 import * as s from "./FloatingModal.css";
@@ -81,14 +82,19 @@ export function FloatingModal({
     stopEscapePropagation: true,
   });
 
-  if (!open) return null;
+  /* 닫힘 트랜지션 동안 마운트 유지 */
+  const { mounted } = usePresence(open, s.EXIT_MS);
+
+  if (!mounted) return null;
+
+  const closing = !open;
 
   return (
     <Portal>
       <div
         role="dialog"
         aria-label={typeof title === "string" ? title : undefined}
-        className={cx(s.card({ position }), className)}
+        className={cx(s.card({ position, closing }), className)}
         {...rest}
       >
         <div className={modal.header}>
