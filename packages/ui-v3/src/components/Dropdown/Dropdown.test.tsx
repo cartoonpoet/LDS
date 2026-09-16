@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from "vitest";
-import { renderWithUser, screen } from "../../test/utils";
+import { renderWithUser, screen, waitFor } from "../../test/utils";
 import { Dropdown } from ".";
 
 const options = [
@@ -27,7 +27,9 @@ describe("Dropdown", () => {
     await user.click(trigger);
     expect(screen.getByRole("listbox")).toBeInTheDocument();
     await user.click(trigger);
-    expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
+    });
   });
 
   it("selects an option and closes (single mode)", async () => {
@@ -38,13 +40,18 @@ describe("Dropdown", () => {
     await user.click(screen.getByRole("button"));
     await user.click(screen.getByRole("option", { name: "Apple" }));
     expect(onChange).toHaveBeenCalledWith("a");
-    expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
+    });
   });
 
   it("shows selected label in trigger", async () => {
     const { user } = renderWithUser(<Dropdown options={options} />);
     await user.click(screen.getByRole("button"));
     await user.click(screen.getByRole("option", { name: "Banana" }));
+    await waitFor(() => {
+      expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
+    });
     expect(screen.getByText("Banana")).toBeInTheDocument();
   });
 
@@ -89,7 +96,9 @@ describe("Dropdown", () => {
     await user.click(screen.getByRole("button"));
     expect(screen.getByRole("listbox")).toBeInTheDocument();
     await user.keyboard("{Escape}");
-    expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
+    });
   });
 
   it("marks selected option with aria-selected", async () => {

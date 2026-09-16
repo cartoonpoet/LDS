@@ -1,6 +1,7 @@
 import { useState, useRef, useCallback } from "react";
 import type { ReactNode, HTMLAttributes } from "react";
 import { cx } from "../../lib/cx";
+import { usePresence } from "../../lib/usePresence";
 import * as s from "./Tooltip.css";
 
 export type TooltipPlacement = "top" | "bottom" | "left" | "right";
@@ -52,6 +53,10 @@ export function Tooltip({
     setVisible(false);
   }, []);
 
+  /* 닫힘 트랜지션 동안 마운트 유지 */
+  const { mounted } = usePresence(visible, s.EXIT_MS);
+  const closing = !visible;
+
   return (
     <div
       className={cx(s.wrapper, className)}
@@ -62,9 +67,9 @@ export function Tooltip({
       {...rest}
     >
       {children}
-      {visible && (
+      {mounted && (
         <div className={s.tooltip({ placement })} role="tooltip">
-          <div className={s.body}>
+          <div className={s.body({ placement, closing })}>
             {title && <div className={s.title}>{title}</div>}
             <div className={s.content}>{content}</div>
           </div>

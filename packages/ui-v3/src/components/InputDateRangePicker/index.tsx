@@ -2,6 +2,7 @@ import { useCallback, useRef, useState } from "react";
 import type { HTMLAttributes } from "react";
 import { cx } from "../../lib/cx";
 import { useDismissibleLayer } from "../../lib/useDismissibleLayer";
+import { usePresence } from "../../lib/usePresence";
 import { Input } from "../Input";
 import type { InputSize, InputState } from "../Input";
 import { Icon } from "../Icon";
@@ -56,7 +57,11 @@ const useRangePopover = (
     onDismiss: () => setOpen(false),
   });
 
-  return { open, openCalendar, handleChange, wrapperRef };
+  /* 닫힘 트랜지션 동안 마운트 유지 */
+  const { mounted } = usePresence(open, s.EXIT_MS);
+  const closing = !open;
+
+  return { open, mounted, closing, openCalendar, handleChange, wrapperRef };
 };
 
 export interface InputDateRangePickerProps extends Omit<HTMLAttributes<HTMLDivElement>, "onChange" | "defaultValue"> {
@@ -94,7 +99,7 @@ export const InputDateRangePicker = ({
   className,
   ...rest
 }: InputDateRangePickerProps) => {
-  const { open, openCalendar, handleChange, wrapperRef } = useRangePopover(onChange, disabled);
+  const { open, mounted, closing, openCalendar, handleChange, wrapperRef } = useRangePopover(onChange, disabled);
 
   return (
     <div ref={wrapperRef} className={cx(s.wrapper, className)} {...rest}>
@@ -119,8 +124,8 @@ export const InputDateRangePicker = ({
         />
       </div>
 
-      {open && (
-        <div className={s.popover} role="dialog" aria-label="날짜 범위 선택 캘린더">
+      {mounted && (
+        <div className={s.popover({ closing })} role="dialog" aria-label="날짜 범위 선택 캘린더">
           <DateRangePicker startDate={startDate} endDate={endDate} onChange={handleChange} minDate={minDate} maxDate={maxDate} />
         </div>
       )}
@@ -161,7 +166,7 @@ export const InputDateRangePickerSplit = ({
   className,
   ...rest
 }: InputDateRangePickerSplitProps) => {
-  const { open, openCalendar, handleChange, wrapperRef } = useRangePopover(onChange, disabled);
+  const { open, mounted, closing, openCalendar, handleChange, wrapperRef } = useRangePopover(onChange, disabled);
 
   return (
     <div ref={wrapperRef} className={cx(s.wrapper, className)} {...rest}>
@@ -200,8 +205,8 @@ export const InputDateRangePickerSplit = ({
         />
       </div>
 
-      {open && (
-        <div className={s.popover} role="dialog" aria-label="날짜 범위 선택 캘린더">
+      {mounted && (
+        <div className={s.popover({ closing })} role="dialog" aria-label="날짜 범위 선택 캘린더">
           <DateRangePicker startDate={startDate} endDate={endDate} onChange={handleChange} minDate={minDate} maxDate={maxDate} />
         </div>
       )}

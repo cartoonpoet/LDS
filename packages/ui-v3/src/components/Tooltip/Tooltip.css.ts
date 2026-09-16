@@ -1,11 +1,9 @@
 import { style, keyframes } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
-import { semanticColorRoles, themeVars, darkPalette } from "@lds/tokens";
+import { semanticColorRoles, themeVars, darkPalette, defaultDurationTokens } from "@lds/tokens";
 
-const fadeIn = keyframes({
-  from: { opacity: 0 },
-  to: { opacity: 1 },
-});
+/* ─── presence timing (index.tsx의 unmount 지연과 동일) ─── */
+export const EXIT_MS = parseInt(defaultDurationTokens.base, 10);
 
 /* ─── wrapper (anchor) ─── */
 export const wrapper = style({
@@ -13,14 +11,13 @@ export const wrapper = style({
   display: "inline-flex",
 });
 
-/* ─── tooltip container ─── */
+/* ─── tooltip container (위치만 담당 — 애니메이션은 body에) ─── */
 export const tooltip = recipe({
   base: {
     position: "absolute",
     zIndex: 1100,
     display: "flex",
     alignItems: "center",
-    animation: `${fadeIn} ${themeVars.duration.base} ${themeVars.easing.standard}`,
     pointerEvents: "none",
   },
   variants: {
@@ -58,13 +55,52 @@ export const tooltip = recipe({
   defaultVariants: { placement: "top" },
 });
 
-/* ─── tooltip body (dark box) ─── */
-export const body = style({
-  backgroundColor: darkPalette[700],
-  borderRadius: themeVars.radius.md,
-  padding: `5px ${themeVars.spacing.x3}`,
-  maxWidth: 280,
-  whiteSpace: "normal",
+/* ─── tooltip body (dark box) — placement 방향으로 fade + slide ─── */
+const slideFromBottom = keyframes({
+  from: { opacity: 0, transform: "translateY(4px)" },
+  to: { opacity: 1, transform: "translateY(0)" },
+});
+const slideFromTop = keyframes({
+  from: { opacity: 0, transform: "translateY(-4px)" },
+  to: { opacity: 1, transform: "translateY(0)" },
+});
+const slideFromRight = keyframes({
+  from: { opacity: 0, transform: "translateX(4px)" },
+  to: { opacity: 1, transform: "translateX(0)" },
+});
+const slideFromLeft = keyframes({
+  from: { opacity: 0, transform: "translateX(-4px)" },
+  to: { opacity: 1, transform: "translateX(0)" },
+});
+
+export const body = recipe({
+  base: {
+    backgroundColor: darkPalette[700],
+    borderRadius: themeVars.radius.md,
+    padding: `5px ${themeVars.spacing.x3}`,
+    maxWidth: 280,
+    whiteSpace: "normal",
+    transition: `transform ${themeVars.duration.base} ${themeVars.easing.standard}, opacity ${themeVars.duration.base} ${themeVars.easing.standard}`,
+  },
+  variants: {
+    placement: {
+      top: { animation: `${slideFromBottom} ${themeVars.duration.base} ${themeVars.easing.standard}` },
+      bottom: { animation: `${slideFromTop} ${themeVars.duration.base} ${themeVars.easing.standard}` },
+      left: { animation: `${slideFromRight} ${themeVars.duration.base} ${themeVars.easing.standard}` },
+      right: { animation: `${slideFromLeft} ${themeVars.duration.base} ${themeVars.easing.standard}` },
+    },
+    closing: {
+      true: { opacity: 0 },
+      false: {},
+    },
+  },
+  compoundVariants: [
+    { variants: { placement: "top", closing: true }, style: { transform: "translateY(4px)" } },
+    { variants: { placement: "bottom", closing: true }, style: { transform: "translateY(-4px)" } },
+    { variants: { placement: "left", closing: true }, style: { transform: "translateX(4px)" } },
+    { variants: { placement: "right", closing: true }, style: { transform: "translateX(-4px)" } },
+  ],
+  defaultVariants: { placement: "top", closing: false },
 });
 
 /* ─── single-line content ─── */

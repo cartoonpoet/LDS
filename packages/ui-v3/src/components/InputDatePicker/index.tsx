@@ -2,6 +2,7 @@ import { useState, useRef, useCallback } from "react";
 import type { HTMLAttributes } from "react";
 import { cx } from "../../lib/cx";
 import { useDismissibleLayer } from "../../lib/useDismissibleLayer";
+import { usePresence } from "../../lib/usePresence";
 import { Input } from "../Input";
 import type { InputSize, InputState } from "../Input";
 import { Icon } from "../Icon";
@@ -80,6 +81,10 @@ export const InputDatePicker = ({
   const [open, setOpen] = useState(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
 
+  /* 닫힘 트랜지션 동안 마운트 유지 */
+  const { mounted } = usePresence(open, s.EXIT_MS);
+  const closing = !open;
+
   const openCalendar = useCallback(() => {
     if (!disabled) setOpen(true);
   }, [disabled]);
@@ -122,8 +127,8 @@ export const InputDatePicker = ({
         />
       </div>
 
-      {open && (
-        <div className={s.popover} role="dialog" aria-label="날짜 선택 캘린더">
+      {mounted && (
+        <div className={s.popover({ closing })} role="dialog" aria-label="날짜 선택 캘린더">
           <DatePicker
             value={value}
             onChange={handleSelect}

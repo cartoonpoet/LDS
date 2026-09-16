@@ -2,6 +2,7 @@ import { useState, useCallback, useRef, type ReactNode } from "react";
 import { cx } from "../../lib/cx";
 import { useControllableState } from "../../lib/useControllableState";
 import { useDismissibleLayer } from "../../lib/useDismissibleLayer";
+import { usePresence } from "../../lib/usePresence";
 import * as s from "./Dropdown.css";
 
 /* ─── Types ─── */
@@ -86,6 +87,10 @@ export function Dropdown({
     onDismiss: () => setOpen(false),
   });
 
+  /* 닫힘 트랜지션 동안 마운트 유지 */
+  const { mounted } = usePresence(open, s.EXIT_MS);
+  const closing = !open;
+
   const toggle = useCallback(() => {
     if (!disabled) setOpen((prev) => !prev);
   }, [disabled]);
@@ -141,8 +146,8 @@ export function Dropdown({
         </span>
       </button>
 
-      {open && (
-        <div className={s.panel} role="listbox" aria-multiselectable={multiple || undefined}>
+      {mounted && (
+        <div className={s.panel({ closing })} role="listbox" aria-multiselectable={multiple || undefined}>
           {panelHeader && <div className={s.panelHeader}>{panelHeader}</div>}
           {options.map((opt) => {
             const selected = isSelected(opt.value);

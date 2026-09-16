@@ -41,6 +41,7 @@ describe("Tooltip", () => {
     expect(screen.getByRole("tooltip")).toBeInTheDocument();
 
     fireEvent.mouseLeave(wrapper);
+    act(() => { vi.advanceTimersByTime(200); });
     expect(screen.queryByRole("tooltip")).not.toBeInTheDocument();
   });
 

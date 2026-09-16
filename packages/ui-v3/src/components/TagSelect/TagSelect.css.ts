@@ -1,5 +1,9 @@
-import { style } from "@vanilla-extract/css";
-import { semanticColorRoles, themeVars, grayPalette } from "@lds/tokens";
+import { style, keyframes } from "@vanilla-extract/css";
+import { recipe } from "@vanilla-extract/recipes";
+import { semanticColorRoles, themeVars, grayPalette, defaultDurationTokens } from "@lds/tokens";
+
+/* ─── presence timing (index.tsx의 unmount 지연과 동일) ─── */
+export const EXIT_MS = parseInt(defaultDurationTokens.base, 10);
 
 /* ─── root ─── */
 export const root = style({
@@ -99,18 +103,34 @@ export const panel = style({
   position: "relative",
 });
 
-export const menu = style({
-  position: "absolute",
-  top: 0,
-  left: 0,
-  right: 0,
-  zIndex: 1000,
-  backgroundColor: semanticColorRoles.surface.canvas,
-  borderRadius: themeVars.radius.md,
-  boxShadow: themeVars.shadow.raised,
-  maxHeight: 200,
-  overflowY: "auto",
-  padding: `${themeVars.spacing.x1} 0`,
+const slideFromTop = keyframes({
+  from: { opacity: 0, transform: "translateY(-4px)" },
+  to: { opacity: 1, transform: "translateY(0)" },
+});
+
+export const menu = recipe({
+  base: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    zIndex: 1000,
+    backgroundColor: semanticColorRoles.surface.canvas,
+    borderRadius: themeVars.radius.md,
+    boxShadow: themeVars.shadow.raised,
+    maxHeight: 200,
+    overflowY: "auto",
+    padding: `${themeVars.spacing.x1} 0`,
+    animation: `${slideFromTop} ${themeVars.duration.base} ${themeVars.easing.standard}`,
+    transition: `transform ${themeVars.duration.base} ${themeVars.easing.standard}, opacity ${themeVars.duration.base} ${themeVars.easing.standard}`,
+  },
+  variants: {
+    closing: {
+      true: { opacity: 0, transform: "translateY(-4px)" },
+      false: {},
+    },
+  },
+  defaultVariants: { closing: false },
 });
 
 export const option = style({

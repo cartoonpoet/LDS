@@ -1,6 +1,9 @@
-import { style } from "@vanilla-extract/css";
+import { style, keyframes } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
-import { semanticColorRoles, themeVars, grayPalette, opacityPalette } from "@lds/tokens";
+import { semanticColorRoles, themeVars, grayPalette, opacityPalette, defaultDurationTokens } from "@lds/tokens";
+
+/* ─── presence timing (index.tsx의 unmount 지연과 동일) ─── */
+export const EXIT_MS = parseInt(defaultDurationTokens.base, 10);
 
 /* ─── wrapper ─── */
 export const wrapper = style({
@@ -51,16 +54,55 @@ export const container = recipe({
   defaultVariants: { placement: "right" },
 });
 
-/* ─── card ─── */
-export const card = style({
-  width: 400,
-  backgroundColor: semanticColorRoles.surface.canvas,
-  borderRadius: themeVars.radius.md,
-  border: `1px solid ${grayPalette[200]}`,
-  boxShadow: themeVars.shadow.raised,
-  overflow: "hidden",
-  display: "flex",
-  flexDirection: "column",
+/* ─── card — placement 반대 방향에서 fade + slide ─── */
+const slideFromBottom = keyframes({
+  from: { opacity: 0, transform: "translateY(6px)" },
+  to: { opacity: 1, transform: "translateY(0)" },
+});
+const slideFromTop = keyframes({
+  from: { opacity: 0, transform: "translateY(-6px)" },
+  to: { opacity: 1, transform: "translateY(0)" },
+});
+const slideFromRight = keyframes({
+  from: { opacity: 0, transform: "translateX(6px)" },
+  to: { opacity: 1, transform: "translateX(0)" },
+});
+const slideFromLeft = keyframes({
+  from: { opacity: 0, transform: "translateX(-6px)" },
+  to: { opacity: 1, transform: "translateX(0)" },
+});
+
+export const card = recipe({
+  base: {
+    width: 400,
+    backgroundColor: semanticColorRoles.surface.canvas,
+    borderRadius: themeVars.radius.md,
+    border: `1px solid ${grayPalette[200]}`,
+    boxShadow: themeVars.shadow.raised,
+    overflow: "hidden",
+    display: "flex",
+    flexDirection: "column",
+    transition: `transform ${themeVars.duration.base} ${themeVars.easing.standard}, opacity ${themeVars.duration.base} ${themeVars.easing.standard}`,
+  },
+  variants: {
+    placement: {
+      top: { animation: `${slideFromBottom} ${themeVars.duration.base} ${themeVars.easing.standard}` },
+      bottom: { animation: `${slideFromTop} ${themeVars.duration.base} ${themeVars.easing.standard}` },
+      left: { animation: `${slideFromRight} ${themeVars.duration.base} ${themeVars.easing.standard}` },
+      right: { animation: `${slideFromLeft} ${themeVars.duration.base} ${themeVars.easing.standard}` },
+    },
+    closing: {
+      true: { opacity: 0 },
+      false: {},
+    },
+  },
+  compoundVariants: [
+    { variants: { placement: "top", closing: true }, style: { transform: "translateY(6px)" } },
+    { variants: { placement: "bottom", closing: true }, style: { transform: "translateY(-6px)" } },
+    { variants: { placement: "left", closing: true }, style: { transform: "translateX(6px)" } },
+    { variants: { placement: "right", closing: true }, style: { transform: "translateX(-6px)" } },
+  ],
+  defaultVariants: { placement: "right", closing: false },
 });
 
 /* ─── arrow ─── */

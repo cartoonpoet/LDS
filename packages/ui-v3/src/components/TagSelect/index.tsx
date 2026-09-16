@@ -2,6 +2,7 @@ import { useState, useRef, useCallback } from "react";
 import type { HTMLAttributes } from "react";
 import { cx } from "../../lib/cx";
 import { useDismissibleLayer } from "../../lib/useDismissibleLayer";
+import { usePresence } from "../../lib/usePresence";
 import * as s from "./TagSelect.css";
 
 export interface TagSelectOption {
@@ -109,6 +110,10 @@ export function TagSelect({
 
   const selectedOptions = options.filter((o) => value.includes(o.value));
 
+  /* 닫힘 트랜지션 동안 마운트 유지 */
+  const { mounted } = usePresence(open, s.EXIT_MS);
+  const closing = !open;
+
   return (
     <div ref={wrapperRef} className={cx(s.root, className)} {...rest}>
       {/* Trigger */}
@@ -130,9 +135,9 @@ export function TagSelect({
       </div>
 
       {/* Dropdown panel */}
-      {open && (
+      {mounted && (
         <div className={s.panel}>
-          <div className={s.menu}>
+          <div className={s.menu({ closing })}>
             {filtered.map((opt) => {
               const selected = value.includes(opt.value);
               return (

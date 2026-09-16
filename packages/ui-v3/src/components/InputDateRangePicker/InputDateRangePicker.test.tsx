@@ -2,7 +2,7 @@ import { useState } from "react";
 import { describe, it, expect, vi } from "vitest";
 import { fireEvent } from "@testing-library/react";
 import "../../test/setup";
-import { renderWithUser, screen } from "../../test/utils";
+import { renderWithUser, screen, waitFor } from "../../test/utils";
 import { InputDateRangePicker, InputDateRangePickerSplit } from ".";
 
 const ControlledOneInput = ({
@@ -71,7 +71,7 @@ describe("InputDateRangePicker", () => {
     expect(screen.getByRole("dialog", { name: "날짜 범위 선택 캘린더" })).toBeTruthy();
   });
 
-  it("selects a full range, fills the input, and closes", () => {
+  it("selects a full range, fills the input, and closes", async () => {
     const onChange = vi.fn();
     const today = new Date();
     const initialStart = new Date(today.getFullYear(), today.getMonth(), 15);
@@ -91,15 +91,19 @@ describe("InputDateRangePicker", () => {
         `${initialStart.getFullYear()}-${String(initialStart.getMonth() + 1).padStart(2, "0")}-${String(initialStart.getDate()).padStart(2, "0")} ~ ${endDate.getFullYear()}-${String(endDate.getMonth() + 1).padStart(2, "0")}-${String(endDate.getDate()).padStart(2, "0")}`,
       ),
     ).toBeTruthy();
-    expect(screen.queryByRole("dialog", { name: "날짜 범위 선택 캘린더" })).toBeNull();
+    await waitFor(() => {
+      expect(screen.queryByRole("dialog", { name: "날짜 범위 선택 캘린더" })).toBeNull();
+    });
   });
 
-  it("closes on Escape", () => {
+  it("closes on Escape", async () => {
     renderWithUser(<InputDateRangePicker startDate={null} endDate={null} />);
     fireEvent.focus(screen.getByRole("textbox"));
     expect(screen.getByRole("dialog", { name: "날짜 범위 선택 캘린더" })).toBeTruthy();
     fireEvent.keyDown(document, { key: "Escape" });
-    expect(screen.queryByRole("dialog", { name: "날짜 범위 선택 캘린더" })).toBeNull();
+    await waitFor(() => {
+      expect(screen.queryByRole("dialog", { name: "날짜 범위 선택 캘린더" })).toBeNull();
+    });
   });
 });
 
@@ -122,7 +126,7 @@ describe("InputDateRangePickerSplit", () => {
     expect(screen.getByRole("dialog", { name: "날짜 범위 선택 캘린더" })).toBeTruthy();
   });
 
-  it("selects a range and closes on end date", () => {
+  it("selects a range and closes on end date", async () => {
     const onChange = vi.fn();
     renderWithUser(
       <ControlledTwoInputs initialStart={new Date(2025, 2, 15)} onChange={onChange} />,
@@ -134,14 +138,18 @@ describe("InputDateRangePickerSplit", () => {
     expect(onChange).toHaveBeenCalled();
     expect(screen.getByDisplayValue("2025-03-15")).toBeTruthy();
     expect(screen.getByDisplayValue("2025-03-20")).toBeTruthy();
-    expect(screen.queryByRole("dialog", { name: "날짜 범위 선택 캘린더" })).toBeNull();
+    await waitFor(() => {
+      expect(screen.queryByRole("dialog", { name: "날짜 범위 선택 캘린더" })).toBeNull();
+    });
   });
 
-  it("closes on Escape", () => {
+  it("closes on Escape", async () => {
     renderWithUser(<InputDateRangePickerSplit startDate={null} endDate={null} />);
     fireEvent.focus(screen.getAllByRole("textbox")[0]);
     expect(screen.getByRole("dialog", { name: "날짜 범위 선택 캘린더" })).toBeTruthy();
     fireEvent.keyDown(document, { key: "Escape" });
-    expect(screen.queryByRole("dialog", { name: "날짜 범위 선택 캘린더" })).toBeNull();
+    await waitFor(() => {
+      expect(screen.queryByRole("dialog", { name: "날짜 범위 선택 캘린더" })).toBeNull();
+    });
   });
 });

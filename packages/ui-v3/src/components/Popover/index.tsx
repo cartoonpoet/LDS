@@ -3,6 +3,7 @@ import type { ReactNode, HTMLAttributes, MouseEvent } from "react";
 import { cx } from "../../lib/cx";
 import { useControllableState } from "../../lib/useControllableState";
 import { useDismissibleLayer } from "../../lib/useDismissibleLayer";
+import { usePresence } from "../../lib/usePresence";
 import * as s from "./Popover.css";
 
 export type PopoverPlacement = "top" | "bottom" | "left" | "right";
@@ -96,14 +97,18 @@ export function Popover({
 
   const hasFooter = confirmText || cancelText;
 
+  /* 닫힘 트랜지션 동안 마운트 유지 */
+  const { mounted } = usePresence(open, s.EXIT_MS);
+  const closing = !open;
+
   return (
     <div ref={wrapperRef} className={cx(s.wrapper, className)} {...rest}>
       <div onClick={toggle} style={{ cursor: "pointer" }}>
         {children}
       </div>
-      {open && (
+      {mounted && (
         <div className={s.popover({ placement })}>
-          <div className={s.card}>
+          <div className={s.card({ placement, closing })}>
             {title && (
               <div className={s.header}>
                 <span className={s.headerTitle}>{title}</span>

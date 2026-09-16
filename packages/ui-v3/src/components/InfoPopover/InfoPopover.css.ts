@@ -1,5 +1,9 @@
-import { style } from "@vanilla-extract/css";
-import { semanticColorRoles, themeVars, grayPalette, opacityPalette } from "@lds/tokens";
+import { style, keyframes } from "@vanilla-extract/css";
+import { recipe } from "@vanilla-extract/recipes";
+import { semanticColorRoles, themeVars, grayPalette, opacityPalette, defaultDurationTokens } from "@lds/tokens";
+
+/* ─── presence timing (index.tsx의 unmount 지연과 동일) ─── */
+export const EXIT_MS = parseInt(defaultDurationTokens.base, 10);
 
 /* ─── wrapper (anchor) ─── */
 export const wrapper = style({
@@ -7,20 +11,36 @@ export const wrapper = style({
   display: "inline-flex",
 });
 
-/* ─── floating card ─── */
-export const card = style({
-  position: "absolute",
-  bottom: "100%",
-  left: "50%",
-  transform: "translateX(-50%)",
-  marginBottom: themeVars.spacing.x2,
-  zIndex: 1100,
-  display: "flex",
-  flexDirection: "column",
-  backgroundColor: semanticColorRoles.surface.canvas,
-  borderRadius: themeVars.radius.md,
-  boxShadow: themeVars.shadow.raised,
-  overflow: "hidden",
+/* ─── floating card (위쪽에 뜨므로 아래에서 위로 슬라이드) ─── */
+const slideFromBottom = keyframes({
+  from: { opacity: 0, transform: "translate(-50%, 4px)" },
+  to: { opacity: 1, transform: "translate(-50%, 0)" },
+});
+
+export const card = recipe({
+  base: {
+    position: "absolute",
+    bottom: "100%",
+    left: "50%",
+    transform: "translateX(-50%)",
+    marginBottom: themeVars.spacing.x2,
+    zIndex: 1100,
+    display: "flex",
+    flexDirection: "column",
+    backgroundColor: semanticColorRoles.surface.canvas,
+    borderRadius: themeVars.radius.md,
+    boxShadow: themeVars.shadow.raised,
+    overflow: "hidden",
+    animation: `${slideFromBottom} ${themeVars.duration.base} ${themeVars.easing.standard}`,
+    transition: `transform ${themeVars.duration.base} ${themeVars.easing.standard}, opacity ${themeVars.duration.base} ${themeVars.easing.standard}`,
+  },
+  variants: {
+    closing: {
+      true: { opacity: 0, transform: "translate(-50%, 4px)" },
+      false: {},
+    },
+  },
+  defaultVariants: { closing: false },
 });
 
 /* ─── summary header bar (dark) ─── */
