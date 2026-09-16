@@ -48,7 +48,7 @@ export const navButton = style({
   color: grayPalette[500],
   padding: 0,
   borderRadius: themeVars.radius.sm,
-  transition: "color 150ms ease",
+  transition: `color ${themeVars.duration.base} ${themeVars.easing.standard}`,
   ":hover": {
     color: grayPalette[700],
   },
@@ -115,7 +115,7 @@ export const dateButton = recipe({
     lineHeight: "21px",
     fontFamily: themeVars.font.family,
     transition:
-      "background-color 150ms ease, color 150ms ease, border-color 150ms ease",
+      `background-color ${themeVars.duration.base} ${themeVars.easing.standard}, color ${themeVars.duration.base} ${themeVars.easing.standard}, border-color ${themeVars.duration.base} ${themeVars.easing.standard}`,
     position: "relative",
     zIndex: 1,
     padding: 0,
@@ -254,7 +254,7 @@ export const amPmToggle = style({
   color: grayPalette[800],
   boxSizing: "border-box",
   padding: `0 ${themeVars.spacing.x2}`,
-  transition: "border-color 150ms ease",
+  transition: `border-color ${themeVars.duration.base} ${themeVars.easing.standard}`,
   ":hover": {
     borderColor: grayPalette[500],
   },

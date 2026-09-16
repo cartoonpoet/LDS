@@ -78,7 +78,7 @@ export const attachButton = style({
   fontFamily: themeVars.font.family,
   color: semanticColorRoles.text.primary,
   cursor: "pointer",
-  transition: "background-color 150ms ease, border-color 150ms ease",
+  transition: `background-color ${themeVars.duration.base} ${themeVars.easing.standard}, border-color ${themeVars.duration.base} ${themeVars.easing.standard}`,
   ":hover": {
     backgroundColor: opacityPalette.light,
   },
@@ -98,7 +98,7 @@ export const primaryButton = style({
   fontFamily: themeVars.font.family,
   color: semanticColorRoles.text.inverse,
   cursor: "pointer",
-  transition: "background-color 150ms ease",
+  transition: `background-color ${themeVars.duration.base} ${themeVars.easing.standard}`,
   ":hover": {
     backgroundColor: semanticColorRoles.action.primary.active,
   },
@@ -196,7 +196,7 @@ export const thumbnailOverlay = style({
   justifyContent: "space-between",
   padding: themeVars.spacing.x2,
   opacity: 0,
-  transition: "opacity 200ms ease",
+  transition: `opacity ${themeVars.duration.slow} ${themeVars.easing.standard}`,
   selectors: {
     [`*:hover > &`]: {
       opacity: 1,
@@ -247,7 +247,7 @@ export const fileItem = recipe({
     borderRadius: themeVars.radius.sm,
     backgroundColor: semanticColorRoles.surface.canvas,
     fontFamily: themeVars.font.family,
-    transition: "border-color 150ms ease",
+    transition: `border-color ${themeVars.duration.base} ${themeVars.easing.standard}`,
     ":hover": {
       borderColor: grayPalette[500],
     },
@@ -318,7 +318,7 @@ export const fileDeleteBtn = style({
   color: grayPalette[500],
   padding: 0,
   flexShrink: 0,
-  transition: "color 150ms ease",
+  transition: `color ${themeVars.duration.base} ${themeVars.easing.standard}`,
   ":hover": {
     color: grayPalette[800],
   },
@@ -361,7 +361,7 @@ export const badgeRemoveBtn = style({
   color: grayPalette[500],
   padding: 0,
   marginLeft: themeVars.spacing.x1,
-  transition: "color 150ms ease",
+  transition: `color ${themeVars.duration.base} ${themeVars.easing.standard}`,
   ":hover": {
     color: grayPalette[800],
   },

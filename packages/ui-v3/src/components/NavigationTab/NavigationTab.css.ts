@@ -30,7 +30,7 @@ export const tab = recipe({
     lineHeight: 1,
     backgroundColor: "transparent",
     color: semanticColorRoles.text.secondary,
-    transition: "background-color 150ms ease, color 150ms ease, border-color 150ms ease",
+    transition: `background-color ${themeVars.duration.base} ${themeVars.easing.standard}, color ${themeVars.duration.base} ${themeVars.easing.standard}, border-color ${themeVars.duration.base} ${themeVars.easing.standard}`,
     selectors: {
       "&:hover:not(:disabled)": {
         color: semanticColorRoles.text.primary,

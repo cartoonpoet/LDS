@@ -16,7 +16,7 @@ export const trigger = recipe({
     fontFamily: themeVars.font.family,
     fontWeight: themeVars.font.weightRegular,
     color: semanticColorRoles.text.primary,
-    transition: "border-color 150ms ease, box-shadow 150ms ease",
+    transition: `border-color ${themeVars.duration.base} ${themeVars.easing.standard}, box-shadow ${themeVars.duration.base} ${themeVars.easing.standard}`,
     boxSizing: "border-box",
     selectors: {
       "&:focus-visible": {
@@ -102,7 +102,7 @@ export const chevron = recipe({
     width: 18,
     height: 18,
     color: semanticColorRoles.text.primary,
-    transition: "transform 200ms ease",
+    transition: `transform ${themeVars.duration.slow} ${themeVars.easing.standard}`,
     marginLeft: "auto",
   },
   variants: {
@@ -156,7 +156,7 @@ export const option = recipe({
     color: semanticColorRoles.text.primary,
     textAlign: "left",
     boxSizing: "border-box",
-    transition: "background-color 100ms ease",
+    transition: `background-color ${themeVars.duration.fast} ${themeVars.easing.standard}`,
     selectors: {
       "&:hover": {
         backgroundColor: opacityPalette.primary,
@@ -217,7 +217,7 @@ export const checkbox = recipe({
     borderRadius: 3,
     border: `1.5px solid ${grayPalette[400]}`,
     backgroundColor: semanticColorRoles.surface.canvas,
-    transition: "background-color 150ms ease, border-color 150ms ease",
+    transition: `background-color ${themeVars.duration.base} ${themeVars.easing.standard}, border-color ${themeVars.duration.base} ${themeVars.easing.standard}`,
   },
   variants: {
     checked: {

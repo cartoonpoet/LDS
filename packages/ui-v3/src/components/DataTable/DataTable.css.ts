@@ -39,7 +39,7 @@ export const th = style({
 
 export const thSortable = style({
   cursor: "pointer",
-  transition: "background-color 150ms ease",
+  transition: `background-color ${themeVars.duration.base} ${themeVars.easing.standard}`,
   ":hover": {
     backgroundColor: "rgba(0, 0, 0, 0.03)",
   },
@@ -56,7 +56,7 @@ export const sortIcon = recipe({
     display: "inline-flex",
     alignItems: "center",
     color: grayPalette[500],
-    transition: "transform 200ms ease, opacity 200ms ease",
+    transition: `transform ${themeVars.duration.slow} ${themeVars.easing.standard}, opacity ${themeVars.duration.slow} ${themeVars.easing.standard}`,
     opacity: 0.4,
   },
   variants: {
@@ -77,7 +77,7 @@ export const tbody = style({});
 
 export const tr = style({
   borderBottom: `1px solid ${semanticColorRoles.border.subtle}`,
-  transition: "background-color 150ms ease",
+  transition: `background-color ${themeVars.duration.base} ${themeVars.easing.standard}`,
   ":hover": {
     backgroundColor: semanticColorRoles.action.primary.subtle,
   },

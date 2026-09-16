@@ -30,7 +30,7 @@ export const track = recipe({
   base: {
     position: "relative",
     borderRadius: 14,
-    transition: "background-color 200ms ease",
+    transition: `background-color ${themeVars.duration.slow} ${themeVars.easing.standard}`,
     flexShrink: 0,
   },
   variants: {
@@ -68,7 +68,7 @@ export const knob = recipe({
     borderRadius: "50%",
     backgroundColor: semanticColorRoles.surface.canvas,
     boxShadow: "0 1px 3px rgba(0, 0, 0, 0.15)",
-    transition: "left 200ms ease",
+    transition: `left ${themeVars.duration.slow} ${themeVars.easing.standard}`,
   },
   variants: {
     size: {

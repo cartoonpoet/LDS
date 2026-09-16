@@ -60,7 +60,7 @@ export const inputWrapper = recipe({
     fontWeight: themeVars.font.weightMedium,
     color: semanticColorRoles.text.primary,
     boxSizing: "border-box",
-    transition: "border-color 150ms ease, box-shadow 150ms ease",
+    transition: `border-color ${themeVars.duration.base} ${themeVars.easing.standard}, box-shadow ${themeVars.duration.base} ${themeVars.easing.standard}`,
   },
   variants: {
     size: {
@@ -192,7 +192,7 @@ export const multiWrapper = recipe({
     padding: "7px 10px",
     boxSizing: "border-box",
     fontFamily: themeVars.font.family,
-    transition: "border-color 150ms ease",
+    transition: `border-color ${themeVars.duration.base} ${themeVars.easing.standard}`,
     selectors: {
       "&:focus-within": {
         borderColor: semanticColorRoles.action.primary.default,

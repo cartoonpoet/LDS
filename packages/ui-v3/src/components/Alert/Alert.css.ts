@@ -29,7 +29,7 @@ export const root = recipe({
     fontSize: themeVars.font.sizeMd,
     lineHeight: 1.5,
     color: semanticColorRoles.text.primary,
-    transition: "background-color 150ms ease",
+    transition: `background-color ${themeVars.duration.base} ${themeVars.easing.standard}`,
   },
   variants: {
     type: {
@@ -115,7 +115,7 @@ export const actionButton = recipe({
     fontWeight: themeVars.font.weightMedium,
     color: semanticColorRoles.text.inverse,
     lineHeight: 1.4,
-    transition: "opacity 150ms ease",
+    transition: `opacity ${themeVars.duration.base} ${themeVars.easing.standard}`,
     selectors: {
       "&:hover": { opacity: 0.85 },
       "&:active": { opacity: 0.7 },
@@ -146,7 +146,7 @@ export const closeButton = style({
   cursor: "pointer",
   color: semanticColorRoles.text.tertiary,
   borderRadius: themeVars.radius.sm,
-  transition: "color 150ms ease, background-color 150ms ease",
+  transition: `color ${themeVars.duration.base} ${themeVars.easing.standard}, background-color ${themeVars.duration.base} ${themeVars.easing.standard}`,
   selectors: {
     "&:hover": {
       color: semanticColorRoles.text.primary,

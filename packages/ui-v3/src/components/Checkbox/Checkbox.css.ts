@@ -39,7 +39,7 @@ export const box = recipe({
     borderRadius: 3,
     flexShrink: 0,
     boxSizing: "border-box",
-    transition: "background-color 150ms ease, box-shadow 150ms ease",
+    transition: `background-color ${themeVars.duration.base} ${themeVars.easing.standard}, box-shadow ${themeVars.duration.base} ${themeVars.easing.standard}`,
   },
   variants: {
     size: {

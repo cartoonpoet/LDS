@@ -1,5 +1,5 @@
 import { style } from "@vanilla-extract/css";
-import { semanticColorRoles } from "@lds/tokens";
+import { semanticColorRoles, themeVars } from "@lds/tokens";
 
 export const root = style({
   display: "grid",
@@ -24,7 +24,7 @@ export const nav = style({
   overflowY: "auto",
   background: semanticColorRoles.surface.subtle,
   borderRight: `1px solid ${semanticColorRoles.border.subtle}`,
-  transition: "width 0.2s ease",
+  transition: `width ${themeVars.duration.slow} ${themeVars.easing.standard}`,
 });
 
 export const content = style({

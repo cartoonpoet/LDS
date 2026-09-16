@@ -22,7 +22,7 @@ export const button = recipe({
     cursor: "pointer",
     padding: 0,
     flexShrink: 0,
-    transition: "background-color 150ms ease",
+    transition: `background-color ${themeVars.duration.base} ${themeVars.easing.standard}`,
     ":hover": {
       backgroundColor: semanticColorRoles.action.primary.active,
     },

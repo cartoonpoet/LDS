@@ -1,6 +1,6 @@
 import { style, keyframes } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
-import { semanticColorRoles } from "@lds/tokens";
+import { semanticColorRoles, themeVars } from "@lds/tokens";
 
 const spin = keyframes({
   "0%": { transform: "rotate(0deg)" },
@@ -14,7 +14,7 @@ export const root = recipe({
     borderStyle: "solid",
     borderColor: semanticColorRoles.action.primary.default,
     borderTopColor: "transparent",
-    animation: `${spin} 0.75s linear infinite`,
+    animation: `${spin} 0.75s ${themeVars.easing.linear} infinite`,
     boxSizing: "border-box",
   },
   variants: {

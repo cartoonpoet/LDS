@@ -4,6 +4,8 @@ export type { LdsSpacingTokens } from "./foundation/spacing-scale";
 export { spacingScale, defaultSpacingTokens } from "./foundation/spacing-scale";
 export { defaultRadiusTokens } from "./foundation/radius-scale";
 export { defaultShadowTokens } from "./foundation/shadow-scale";
+export { defaultDurationTokens } from "./foundation/duration-scale";
+export { defaultEasingTokens } from "./foundation/easing-scale";
 export { fontFamilyTokens, fontSizeScale, lineHeightScale, fontWeightScale, letterSpacingScale } from "./foundation/typography-scale";
 export { semanticColorRoles } from "./semantic/color-roles";
 export { textStyles } from "./semantic/text-styles";

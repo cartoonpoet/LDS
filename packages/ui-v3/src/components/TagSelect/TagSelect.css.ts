@@ -23,7 +23,7 @@ export const trigger = style({
   border: `1px solid ${semanticColorRoles.border.subtle}`,
   boxSizing: "border-box",
   cursor: "pointer",
-  transition: "border-color 150ms ease",
+  transition: `border-color ${themeVars.duration.base} ${themeVars.easing.standard}`,
   selectors: {
     "&:focus-within": {
       borderColor: semanticColorRoles.action.primary.default,
@@ -129,7 +129,7 @@ export const option = style({
   color: semanticColorRoles.text.primary,
   textAlign: "left",
   boxSizing: "border-box",
-  transition: "background-color 100ms ease",
+  transition: `background-color ${themeVars.duration.fast} ${themeVars.easing.standard}`,
   selectors: {
     "&:hover": {
       backgroundColor: semanticColorRoles.action.primary.subtle,
@@ -147,7 +147,7 @@ export const optionCheck = style({
   border: `1.5px solid ${grayPalette[400]}`,
   backgroundColor: semanticColorRoles.surface.canvas,
   flexShrink: 0,
-  transition: "background-color 150ms ease, border-color 150ms ease",
+  transition: `background-color ${themeVars.duration.base} ${themeVars.easing.standard}, border-color ${themeVars.duration.base} ${themeVars.easing.standard}`,
 });
 
 export const optionCheckSelected = style({

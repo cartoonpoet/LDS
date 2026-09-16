@@ -58,7 +58,7 @@ export const popover = recipe({
 
 /* ─── card (white box) ─── */
 export const card = style({
-  animation: `${fadeIn} 150ms ease`,
+  animation: `${fadeIn} ${themeVars.duration.base} ${themeVars.easing.standard}`,
   backgroundColor: semanticColorRoles.surface.canvas,
   borderRadius: themeVars.radius.md,
   border: `1px solid ${grayPalette[200]}`,
@@ -122,7 +122,7 @@ export const primaryBtn = style({
   fontWeight: themeVars.font.weightMedium,
   color: semanticColorRoles.text.inverse,
   cursor: "pointer",
-  transition: "opacity 150ms ease",
+  transition: `opacity ${themeVars.duration.base} ${themeVars.easing.standard}`,
   selectors: {
     "&:hover": { opacity: 0.9 },
   },
@@ -142,7 +142,7 @@ export const outlineBtn = style({
   fontWeight: themeVars.font.weightMedium,
   color: semanticColorRoles.action.primary.default,
   cursor: "pointer",
-  transition: "background-color 150ms ease",
+  transition: `background-color ${themeVars.duration.base} ${themeVars.easing.standard}`,
   selectors: {
     "&:hover": { backgroundColor: "rgba(33, 81, 236, 0.06)" },
   },
