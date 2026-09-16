@@ -4,6 +4,7 @@ import { cx } from "../../lib/cx";
 import { Portal } from "../../lib/Portal";
 import { useDismissibleLayer } from "../../lib/useDismissibleLayer";
 import { useFocusTrap } from "../../lib/useFocusTrap";
+import { usePresence } from "../../lib/usePresence";
 import { useScrollLock } from "../../lib/useScrollLock";
 import * as s from "./Modal.css";
 
@@ -107,12 +108,17 @@ export function Modal({
   /* Focus trap */
   useFocusTrap(dialogRef, open);
 
-  if (!open) return null;
+  /* 닫힘 트랜지션 동안 마운트 유지 */
+  const { mounted } = usePresence(open, s.EXIT_MS);
+
+  if (!mounted) return null;
+
+  const closing = !open;
 
   return (
     <Portal>
       <div
-        className={s.overlay}
+        className={s.overlay({ closing })}
         onClick={
           disableBackdropClose
             ? undefined
@@ -125,7 +131,7 @@ export function Modal({
           ref={dialogRef}
           role="dialog"
           aria-modal="true"
-          className={cx(s.card({ size }), className)}
+          className={cx(s.card({ size, closing }), className)}
           {...rest}
         >
           {/* 간편 API: title prop이 있으면 자동 Header 생성 */}

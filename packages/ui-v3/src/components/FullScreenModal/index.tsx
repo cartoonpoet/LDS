@@ -4,6 +4,7 @@ import { cx } from "../../lib/cx";
 import { Portal } from "../../lib/Portal";
 import { useDismissibleLayer } from "../../lib/useDismissibleLayer";
 import { useFocusTrap } from "../../lib/useFocusTrap";
+import { usePresence } from "../../lib/usePresence";
 import { useScrollLock } from "../../lib/useScrollLock";
 import { ModalBody, ModalFooter } from "../Modal";
 import * as modal from "../Modal/Modal.css";
@@ -69,7 +70,12 @@ export function FullScreenModal({
   /* Focus trap */
   useFocusTrap(dialogRef, open);
 
-  if (!open) return null;
+  /* 닫힘 트랜지션 동안 마운트 유지 */
+  const { mounted } = usePresence(open, s.EXIT_MS);
+
+  if (!mounted) return null;
+
+  const closing = !open;
 
   return (
     <Portal>
@@ -77,7 +83,7 @@ export function FullScreenModal({
         ref={dialogRef}
         role="dialog"
         aria-modal="true"
-        className={cx(s.surface, className)}
+        className={cx(s.surface({ closing }), className)}
         {...rest}
       >
         <div className={modal.header}>
