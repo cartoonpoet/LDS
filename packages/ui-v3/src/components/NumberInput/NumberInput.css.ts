@@ -52,6 +52,7 @@ export const input = recipe({
     outline: "none",
     boxSizing: "border-box",
     MozAppearance: "textfield",
+    transition: `background-color ${themeVars.duration.slow} ${themeVars.easing.standard}`,
     selectors: {
       "&::-webkit-inner-spin-button, &::-webkit-outer-spin-button": {
         WebkitAppearance: "none",
@@ -60,6 +61,10 @@ export const input = recipe({
     },
   },
   variants: {
+    bump: {
+      true: { backgroundColor: semanticColorRoles.action.primary.subtle },
+      false: {},
+    },
     size: {
       small: {
         width: 44,
@@ -87,5 +92,5 @@ export const input = recipe({
       },
     },
   },
-  defaultVariants: { size: "medium" },
+  defaultVariants: { size: "medium", bump: false },
 });

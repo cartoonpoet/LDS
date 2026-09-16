@@ -31,9 +31,11 @@ describe("TreeView", () => {
     const { user } = renderWithUser(<TreeView nodes={nodes} />);
     // Children visible by default (all root nodes expanded)
     expect(screen.getByText("Child A")).toBeInTheDocument();
-    // Click to collapse
+    const treeItem = screen.getByText("Root Node").closest('[role="treeitem"]')!;
+    expect(treeItem).toHaveAttribute("aria-expanded", "true");
+    // Click to collapse — 높이 애니메이션을 위해 콘텐츠는 DOM에 남고 aria-expanded만 바뀐다
     await user.click(screen.getByText("Root Node"));
-    expect(screen.queryByText("Child A")).not.toBeInTheDocument();
+    expect(treeItem).toHaveAttribute("aria-expanded", "false");
   });
 
   it("calls onNodeSelect on click", async () => {
@@ -49,6 +51,7 @@ describe("TreeView", () => {
   it("starts collapsed when defaultExpandedIds is empty", () => {
     renderWithUser(<TreeView nodes={nodes} defaultExpandedIds={[]} />);
     expect(screen.getByText("Root Node")).toBeInTheDocument();
-    expect(screen.queryByText("Child A")).not.toBeInTheDocument();
+    const treeItem = screen.getByText("Root Node").closest('[role="treeitem"]')!;
+    expect(treeItem).toHaveAttribute("aria-expanded", "false");
   });
 });

@@ -1,6 +1,10 @@
+import { useState } from "react";
 import type { ReactNode, MouseEventHandler } from "react";
+import { defaultDurationTokens } from "@lds/tokens";
 import { cx } from "../../lib/cx";
 import * as s from "./Alert.css";
+
+const EXIT_MS = parseInt(defaultDurationTokens.base, 10);
 
 /* ─── Types ─── */
 export type AlertType = "info" | "confirm" | "secret" | "saveTemporarily";
@@ -81,54 +85,64 @@ export function Alert({
   className,
 }: AlertProps) {
   const resolvedIcon = icon ?? defaultIcons[type];
+  const [dismissing, setDismissing] = useState(false);
+
+  const handleCloseClick: MouseEventHandler<HTMLButtonElement> = (e) => {
+    setDismissing(true);
+    setTimeout(() => onClose?.(e), EXIT_MS);
+  };
 
   return (
-    <div className={cx(s.root({ type, size }), className)} role="alert">
-      {/* Icon */}
-      <span className={cx(s.iconWrapper({ size }), s.iconColor[type])}>
-        {resolvedIcon}
-      </span>
+    <div className={s.dismissOuter({ dismissing })}>
+      <div className={s.dismissInner}>
+        <div className={cx(s.root({ type, size }), className)} role="alert">
+          {/* Icon */}
+          <span className={cx(s.iconWrapper({ size }), s.iconColor[type])}>
+            {resolvedIcon}
+          </span>
 
-      {/* Content */}
-      <div className={s.content}>
-        {title && <div className={s.title}>{title}</div>}
-        <div className={s.description}>{children}</div>
-      </div>
+          {/* Content */}
+          <div className={s.content}>
+            {title && <div className={s.title}>{title}</div>}
+            <div className={s.description}>{children}</div>
+          </div>
 
-      {/* Text Button */}
-      {textButton && (
-        <button type="button" className={s.textButton} onClick={textButton.onClick}>
-          {textButton.label}
-        </button>
-      )}
-
-      {/* Action Buttons */}
-      {actionButtons && actionButtons.length > 0 && (
-        <div className={s.actions}>
-          {actionButtons.map((action) => (
-            <button
-              key={action.label}
-              type="button"
-              className={s.actionButton({ intent: action.intent })}
-              onClick={action.onClick}
-            >
-              {action.label}
+          {/* Text Button */}
+          {textButton && (
+            <button type="button" className={s.textButton} onClick={textButton.onClick}>
+              {textButton.label}
             </button>
-          ))}
-        </div>
-      )}
+          )}
 
-      {/* Close Button */}
-      {closable && (
-        <button
-          type="button"
-          className={s.closeButton}
-          onClick={onClose}
-          aria-label="닫기"
-        >
-          <CloseIcon />
-        </button>
-      )}
+          {/* Action Buttons */}
+          {actionButtons && actionButtons.length > 0 && (
+            <div className={s.actions}>
+              {actionButtons.map((action) => (
+                <button
+                  key={action.label}
+                  type="button"
+                  className={s.actionButton({ intent: action.intent })}
+                  onClick={action.onClick}
+                >
+                  {action.label}
+                </button>
+              ))}
+            </div>
+          )}
+
+          {/* Close Button */}
+          {closable && (
+            <button
+              type="button"
+              className={s.closeButton}
+              onClick={handleCloseClick}
+              aria-label="닫기"
+            >
+              <CloseIcon />
+            </button>
+          )}
+        </div>
+      </div>
     </div>
   );
 }

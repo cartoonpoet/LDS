@@ -134,7 +134,7 @@ export function TableTree({
     return (
       <Fragment key={row.id}>
         <tr
-          className={cx(s.tr, onRowClick && s.trClickable)}
+          className={cx(depth > 0 ? s.trChild : s.tr, onRowClick && s.trClickable)}
           data-selected={selectedId === row.id ? "true" : undefined}
           onClick={onRowClick ? () => onRowClick(row) : undefined}
         >

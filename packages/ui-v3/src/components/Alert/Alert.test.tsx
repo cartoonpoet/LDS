@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from "vitest";
-import { renderWithUser, screen } from "../../test/utils";
+import { renderWithUser, screen, waitFor } from "../../test/utils";
 import { Alert } from ".";
 
 describe("Alert", () => {
@@ -32,7 +32,10 @@ describe("Alert", () => {
     const onClose = vi.fn();
     const { user } = renderWithUser(<Alert closable onClose={onClose}>Message</Alert>);
     await user.click(screen.getByLabelText("닫기"));
-    expect(onClose).toHaveBeenCalledOnce();
+    // 닫힘 애니메이션 후 onClose 호출
+    await waitFor(() => {
+      expect(onClose).toHaveBeenCalledOnce();
+    });
   });
 
   it("renders text button when provided", () => {

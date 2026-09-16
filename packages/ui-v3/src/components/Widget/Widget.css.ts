@@ -91,6 +91,25 @@ export const divider = style({
 });
 
 /* ─── body ─── */
+export const widgetBodyOuter = recipe({
+  base: {
+    display: "grid",
+    overflow: "hidden",
+    transition: `grid-template-rows ${themeVars.duration.slow} ${themeVars.easing.standard}`,
+  },
+  variants: {
+    collapsed: {
+      true: { gridTemplateRows: "0fr" },
+      false: { gridTemplateRows: "1fr" },
+    },
+  },
+  defaultVariants: { collapsed: false },
+});
+
+export const widgetBodyInner = style({
+  overflow: "hidden",
+});
+
 export const widgetBody = style({
   padding: themeVars.spacing.x5,
 });

@@ -1,6 +1,13 @@
-import { style } from "@vanilla-extract/css";
+import { style, keyframes } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 import { semanticColorRoles, themeVars, grayPalette } from "@lds/tokens";
+
+/* ─── 선택 시 살짝 튀며 채워짐 ─── */
+const popIn = keyframes({
+  from: { transform: "scale(0.7)" },
+  to: { transform: "scale(1)" },
+});
+const popAnimation = `${popIn} ${themeVars.duration.fast} ${themeVars.easing.spring}`;
 
 /* ─── wrapper ─── */
 export const wrapper = style({
@@ -72,6 +79,7 @@ export const circle = recipe({
       style: {
         backgroundColor: semanticColorRoles.action.primary.default,
         border: "none",
+        animation: popAnimation,
       },
     },
     {
@@ -101,6 +109,7 @@ export const circle = recipe({
       style: {
         backgroundColor: semanticColorRoles.surface.canvas,
         border: `3px solid ${semanticColorRoles.action.primary.default}`,
+        animation: popAnimation,
       },
     },
     {

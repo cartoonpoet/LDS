@@ -1,4 +1,4 @@
-import { style } from "@vanilla-extract/css";
+import { style, keyframes } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 import { semanticColorRoles, themeVars, grayPalette } from "@lds/tokens";
 
@@ -80,13 +80,19 @@ export const box = recipe({
   defaultVariants: { size: "medium", checked: false, disabled: false },
 });
 
-/* ─── check icon (SVG wrapper) ─── */
+/* ─── check icon (SVG wrapper) — 체크 시 살짝 튀며 등장 ─── */
+const popIn = keyframes({
+  from: { transform: "scale(0.5)", opacity: 0 },
+  to: { transform: "scale(1)", opacity: 1 },
+});
+
 export const checkIcon = recipe({
   base: {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
     color: semanticColorRoles.text.inverse,
+    animation: `${popIn} ${themeVars.duration.fast} ${themeVars.easing.spring}`,
   },
   variants: {
     size: {
