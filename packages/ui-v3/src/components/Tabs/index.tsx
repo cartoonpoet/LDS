@@ -42,10 +42,22 @@ export function Tabs({
   action: actionProp,
   className,
 }: TabsProps) {
+  const activeIndex = items.findIndex((item) => item.value === value);
+
   return (
     <div className={cx(s.root, className)}>
       <div className={s.tabRow}>
         <div className={s.tabList} role="tablist">
+          {activeIndex !== -1 && (
+            <div
+              className={s.slidingPill({ size })}
+              style={{
+                width: `${100 / items.length}%`,
+                transform: `translateX(${activeIndex * 100}%)`,
+              }}
+              aria-hidden="true"
+            />
+          )}
           {items.map((item) => {
             const isActive = item.value === value;
             return (
