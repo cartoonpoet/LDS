@@ -17,6 +17,7 @@ export const root = recipe({
       },
       outline: {},
       segmented: {
+        position: "relative",
         alignItems: "center",
         gap: 0,
         padding: themeVars.spacing.x1,
@@ -35,9 +36,24 @@ export const root = recipe({
   },
 });
 
+/* ─── sliding pill (segmented variant 전용 — translateX + width로 이동) ─── */
+export const slidingPill = style({
+  position: "absolute",
+  top: themeVars.spacing.x1,
+  bottom: themeVars.spacing.x1,
+  left: 0,
+  borderRadius: 9999,
+  backgroundColor: semanticColorRoles.surface.canvas,
+  boxShadow: themeVars.shadow.raised,
+  transition: `transform ${themeVars.duration.base} ${themeVars.easing.standard}, width ${themeVars.duration.base} ${themeVars.easing.standard}`,
+  zIndex: 0,
+});
+
 /* ─── individual item (button) ─── */
 export const item = recipe({
   base: {
+    position: "relative",
+    zIndex: 1,
     display: "inline-flex",
     alignItems: "center",
     justifyContent: "center",
@@ -138,12 +154,8 @@ export const item = recipe({
     {
       variants: { variant: "segmented", active: true },
       style: {
-        backgroundColor: semanticColorRoles.surface.canvas,
         color: action.primary.default,
         borderColor: semanticColorRoles.border.subtle,
-        boxShadow: themeVars.shadow.raised,
-        position: "relative",
-        zIndex: 1,
       },
     },
   ],

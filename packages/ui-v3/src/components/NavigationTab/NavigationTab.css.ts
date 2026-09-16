@@ -4,6 +4,7 @@ import { semanticColorRoles, themeVars, grayPalette } from "@lds/tokens";
 
 /* ─── container (pill bar) ─── */
 export const root = style({
+  position: "relative",
   display: "inline-flex",
   alignItems: "center",
   gap: 0,
@@ -12,9 +13,24 @@ export const root = style({
   padding: themeVars.spacing.x1,
 });
 
+/* ─── sliding pill (translateX + width로 이동) ─── */
+export const slidingPill = style({
+  position: "absolute",
+  top: themeVars.spacing.x1,
+  bottom: themeVars.spacing.x1,
+  left: 0,
+  borderRadius: 9999,
+  backgroundColor: semanticColorRoles.text.inverse,
+  border: `1px solid ${semanticColorRoles.action.primary.default}`,
+  transition: `transform ${themeVars.duration.base} ${themeVars.easing.standard}, width ${themeVars.duration.base} ${themeVars.easing.standard}`,
+  zIndex: 0,
+});
+
 /* ─── individual tab ─── */
 export const tab = recipe({
   base: {
+    position: "relative",
+    zIndex: 1,
     display: "inline-flex",
     alignItems: "center",
     justifyContent: "center",
@@ -44,13 +60,10 @@ export const tab = recipe({
   variants: {
     active: {
       true: {
-        backgroundColor: semanticColorRoles.text.inverse,
-        border: `1px solid ${semanticColorRoles.action.primary.default}`,
         color: semanticColorRoles.action.primary.default,
         selectors: {
           "&:hover:not(:disabled)": {
             color: semanticColorRoles.action.primary.hover,
-            borderColor: semanticColorRoles.action.primary.hover,
           },
         },
       },

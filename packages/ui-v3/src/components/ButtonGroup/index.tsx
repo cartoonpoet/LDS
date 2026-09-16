@@ -1,5 +1,7 @@
+import { useRef } from "react";
 import type { ReactNode, MouseEventHandler } from "react";
 import { cx } from "../../lib/cx";
+import { useSlidingIndicator } from "../../lib/useSlidingIndicator";
 import * as s from "./ButtonGroup.css";
 
 /* ─── Types ─── */
@@ -39,14 +41,31 @@ export function ButtonGroup({
   size = "medium",
   className,
 }: ButtonGroupProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const activeIndex = items.findIndex((item) => item.value === value);
+  const isSegmented = variant === "segmented";
+  const pillRect = useSlidingIndicator(containerRef, isSegmented ? activeIndex : -1);
+
   return (
-    <div className={cx(s.root({ variant, size }), className)} role="group">
+    <div
+      ref={containerRef}
+      className={cx(s.root({ variant, size }), className)}
+      role="group"
+    >
+      {isSegmented && pillRect && (
+        <div
+          className={s.slidingPill}
+          style={{ transform: `translateX(${pillRect.left}px)`, width: pillRect.width }}
+          aria-hidden="true"
+        />
+      )}
       {items.map((item) => {
         const isActive = item.value === value;
         return (
           <button
             key={item.value}
             type="button"
+            data-slide-item
             className={s.item({ variant, size, active: isActive })}
             data-active={isActive}
             aria-pressed={isActive}

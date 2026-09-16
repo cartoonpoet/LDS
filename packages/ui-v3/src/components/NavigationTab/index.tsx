@@ -1,5 +1,7 @@
+import { useRef } from "react";
 import type { ReactNode } from "react";
 import { cx } from "../../lib/cx";
+import { useSlidingIndicator } from "../../lib/useSlidingIndicator";
 import * as s from "./NavigationTab.css";
 
 /* ─── Types ─── */
@@ -30,8 +32,19 @@ export function NavigationTab({
   onChange,
   className,
 }: NavigationTabProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const activeIndex = items.findIndex((item) => item.value === value);
+  const pillRect = useSlidingIndicator(containerRef, activeIndex);
+
   return (
-    <div className={cx(s.root, className)} role="tablist">
+    <div ref={containerRef} className={cx(s.root, className)} role="tablist">
+      {pillRect && (
+        <div
+          className={s.slidingPill}
+          style={{ transform: `translateX(${pillRect.left}px)`, width: pillRect.width }}
+          aria-hidden="true"
+        />
+      )}
       {items.map((item) => {
         const isActive = item.value === value;
         return (
@@ -39,6 +52,7 @@ export function NavigationTab({
             key={item.value}
             type="button"
             role="tab"
+            data-slide-item
             className={s.tab({ active: isActive })}
             aria-selected={isActive}
             tabIndex={isActive ? 0 : -1}

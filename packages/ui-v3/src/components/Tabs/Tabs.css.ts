@@ -17,39 +17,59 @@ export const tabRow = style({
 
 /* ─── tab list (scrollable area) ─── */
 export const tabList = style({
+  position: "relative",
   display: "flex",
   flex: 1,
   minWidth: 0,
 });
 
+/* ─── sliding pill (선택된 탭 배경 — translateX로 이동) ─── */
+export const slidingPill = recipe({
+  base: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    backgroundColor: semanticColorRoles.action.primary.default,
+    transition: `transform ${themeVars.duration.base} ${themeVars.easing.standard}`,
+    zIndex: 0,
+  },
+  variants: {
+    size: {
+      large: { height: 48 },
+      medium: { height: 40 },
+    },
+  },
+  defaultVariants: { size: "large" },
+});
+
 /* ─── individual tab item ─── */
 export const tabItem = recipe({
   base: {
+    position: "relative",
+    zIndex: 1,
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
     gap: themeVars.spacing.x1,
     flex: 1,
     border: "none",
+    backgroundColor: "transparent",
     cursor: "pointer",
     fontFamily: themeVars.font.family,
     fontWeight: themeVars.font.weightMedium,
     lineHeight: 1,
     textAlign: "center",
-    transition: `background-color ${themeVars.duration.base} ${themeVars.easing.standard}, color ${themeVars.duration.base} ${themeVars.easing.standard}`,
+    transition: `color ${themeVars.duration.base} ${themeVars.easing.standard}`,
     selectors: {
       "&:focus-visible": {
         outline: "none",
         boxShadow: themeVars.shadow.focus,
-        zIndex: 1,
-        position: "relative",
       },
     },
   },
   variants: {
     active: {
       true: {
-        backgroundColor: semanticColorRoles.action.primary.default,
         color: semanticColorRoles.text.inverse,
       },
       false: {
