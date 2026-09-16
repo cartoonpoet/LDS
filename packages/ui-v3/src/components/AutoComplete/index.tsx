@@ -2,6 +2,7 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import type { InputHTMLAttributes, ReactNode } from "react";
 import { cx } from "../../lib/cx";
 import { useDismissibleLayer } from "../../lib/useDismissibleLayer";
+import { usePresence } from "../../lib/usePresence";
 import * as s from "./AutoComplete.css";
 
 /* ─── Types ─── */
@@ -213,6 +214,10 @@ export function AutoComplete({
   /* ─── should show panel ─── */
   const showPanel = isOpen && (multiple ? true : inputText.length > 0);
 
+  /* 닫힘 트랜지션 동안 마운트 유지 */
+  const { mounted: panelMounted } = usePresence(showPanel, s.EXIT_MS);
+  const panelClosing = !showPanel;
+
   return (
     <div ref={wrapperRef} className={cx(s.wrapper, className)}>
       <div className={s.inputWrapper({ size: inputSize, open: isOpen, disabled })}>
@@ -264,8 +269,8 @@ export function AutoComplete({
       )}
 
       {/* dropdown panel */}
-      {showPanel && (
-        <ul className={s.panel} role="listbox">
+      {panelMounted && (
+        <ul className={s.panel({ closing: panelClosing })} role="listbox">
           {filtered.length > 0 ? (
             filtered.map((opt, idx) => {
               const selected = selectedValues.includes(opt.value);

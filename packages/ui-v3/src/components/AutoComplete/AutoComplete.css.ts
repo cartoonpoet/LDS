@@ -1,6 +1,9 @@
-import { style } from "@vanilla-extract/css";
+import { style, keyframes } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
-import { semanticColorRoles, themeVars, grayPalette } from "@lds/tokens";
+import { semanticColorRoles, themeVars, grayPalette, defaultDurationTokens } from "@lds/tokens";
+
+/* ─── presence timing (index.tsx의 unmount 지연과 동일) ─── */
+export const EXIT_MS = parseInt(defaultDurationTokens.base, 10);
 
 /* ─── wrapper (relative anchor) ─── */
 export const wrapper = style({
@@ -140,19 +143,35 @@ export const badgeRemove = style({
 });
 
 /* ─── dropdown panel ─── */
-export const panel = style({
-  position: "absolute",
-  top: "100%",
-  left: 0,
-  right: 0,
-  marginTop: themeVars.spacing.x1,
-  backgroundColor: semanticColorRoles.surface.canvas,
-  borderRadius: themeVars.radius.md,
-  boxShadow: themeVars.shadow.raised,
-  zIndex: 1000,
-  maxHeight: 240,
-  overflowY: "auto",
-  padding: `${themeVars.spacing.x1} 0`,
+const slideFromTop = keyframes({
+  from: { opacity: 0, transform: "translateY(-4px)" },
+  to: { opacity: 1, transform: "translateY(0)" },
+});
+
+export const panel = recipe({
+  base: {
+    position: "absolute",
+    top: "100%",
+    left: 0,
+    right: 0,
+    marginTop: themeVars.spacing.x1,
+    backgroundColor: semanticColorRoles.surface.canvas,
+    borderRadius: themeVars.radius.md,
+    boxShadow: themeVars.shadow.raised,
+    zIndex: 1000,
+    maxHeight: 240,
+    overflowY: "auto",
+    padding: `${themeVars.spacing.x1} 0`,
+    animation: `${slideFromTop} ${themeVars.duration.base} ${themeVars.easing.standard}`,
+    transition: `transform ${themeVars.duration.base} ${themeVars.easing.standard}, opacity ${themeVars.duration.base} ${themeVars.easing.standard}`,
+  },
+  variants: {
+    closing: {
+      true: { opacity: 0, transform: "translateY(-4px)" },
+      false: {},
+    },
+  },
+  defaultVariants: { closing: false },
 });
 
 /* ─── option item ─── */

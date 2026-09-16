@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from "vitest";
-import { renderWithUser, screen } from "../../test/utils";
+import { renderWithUser, screen, waitFor } from "../../test/utils";
 import { Popover } from ".";
 
 describe("Popover", () => {
@@ -31,7 +31,9 @@ describe("Popover", () => {
     await user.click(screen.getByText("Trigger"));
     expect(screen.getByText("Popover body")).toBeInTheDocument();
     await user.click(screen.getByText("Trigger"));
-    expect(screen.queryByText("Popover body")).not.toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.queryByText("Popover body")).not.toBeInTheDocument();
+    });
   });
 
   it("renders title when provided", async () => {
@@ -65,7 +67,9 @@ describe("Popover", () => {
     await user.click(screen.getByText("Trigger"));
     await user.click(screen.getByText("확인"));
     expect(onConfirm).toHaveBeenCalledOnce();
-    expect(screen.queryByText("Body")).not.toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.queryByText("Body")).not.toBeInTheDocument();
+    });
   });
 
   it("calls onCancel and closes on cancel click", async () => {
@@ -78,7 +82,9 @@ describe("Popover", () => {
     await user.click(screen.getByText("Trigger"));
     await user.click(screen.getByText("취소"));
     expect(onCancel).toHaveBeenCalledOnce();
-    expect(screen.queryByText("Body")).not.toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.queryByText("Body")).not.toBeInTheDocument();
+    });
   });
 
   it("closes on Escape key", async () => {
@@ -90,7 +96,9 @@ describe("Popover", () => {
     await user.click(screen.getByText("Trigger"));
     expect(screen.getByText("Body")).toBeInTheDocument();
     await user.keyboard("{Escape}");
-    expect(screen.queryByText("Body")).not.toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.queryByText("Body")).not.toBeInTheDocument();
+    });
   });
 
   it("supports controlled open state", () => {

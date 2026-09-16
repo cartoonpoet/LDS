@@ -1,11 +1,9 @@
 import { style, keyframes } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
-import { semanticColorRoles, themeVars, grayPalette } from "@lds/tokens";
+import { semanticColorRoles, themeVars, grayPalette, defaultDurationTokens } from "@lds/tokens";
 
-const fadeIn = keyframes({
-  from: { opacity: 0 },
-  to: { opacity: 1 },
-});
+/* ─── presence timing (index.tsx의 unmount 지연과 동일) ─── */
+export const EXIT_MS = parseInt(defaultDurationTokens.base, 10);
 
 /* ─── wrapper (anchor) ─── */
 export const wrapper = style({
@@ -56,17 +54,58 @@ export const popover = recipe({
   defaultVariants: { placement: "bottom" },
 });
 
-/* ─── card (white box) ─── */
-export const card = style({
-  animation: `${fadeIn} ${themeVars.duration.base} ${themeVars.easing.standard}`,
-  backgroundColor: semanticColorRoles.surface.canvas,
-  borderRadius: themeVars.radius.md,
-  border: `1px solid ${grayPalette[200]}`,
-  boxShadow: themeVars.shadow.raised,
-  overflow: "hidden",
-  width: 276,
-  display: "flex",
-  flexDirection: "column",
+/* ─── card (white box) — placement 방향으로 fade + 4~8px slide ─── */
+const slideFromBottom = keyframes({
+  from: { opacity: 0, transform: "translateY(6px)" },
+  to: { opacity: 1, transform: "translateY(0)" },
+});
+const slideFromTop = keyframes({
+  from: { opacity: 0, transform: "translateY(-6px)" },
+  to: { opacity: 1, transform: "translateY(0)" },
+});
+const slideFromRight = keyframes({
+  from: { opacity: 0, transform: "translateX(6px)" },
+  to: { opacity: 1, transform: "translateX(0)" },
+});
+const slideFromLeft = keyframes({
+  from: { opacity: 0, transform: "translateX(-6px)" },
+  to: { opacity: 1, transform: "translateX(0)" },
+});
+
+const cardTransition = `transform ${themeVars.duration.base} ${themeVars.easing.standard}, opacity ${themeVars.duration.base} ${themeVars.easing.standard}`;
+
+export const card = recipe({
+  base: {
+    backgroundColor: semanticColorRoles.surface.canvas,
+    borderRadius: themeVars.radius.md,
+    border: `1px solid ${grayPalette[200]}`,
+    boxShadow: themeVars.shadow.raised,
+    overflow: "hidden",
+    width: 276,
+    display: "flex",
+    flexDirection: "column",
+    transition: cardTransition,
+  },
+  variants: {
+    /* placement === popover가 뜨는 방향 → 그 반대쪽에서 미끄러져 들어옴 */
+    placement: {
+      top: { animation: `${slideFromBottom} ${themeVars.duration.base} ${themeVars.easing.standard}` },
+      bottom: { animation: `${slideFromTop} ${themeVars.duration.base} ${themeVars.easing.standard}` },
+      left: { animation: `${slideFromRight} ${themeVars.duration.base} ${themeVars.easing.standard}` },
+      right: { animation: `${slideFromLeft} ${themeVars.duration.base} ${themeVars.easing.standard}` },
+    },
+    closing: {
+      true: { opacity: 0 },
+      false: {},
+    },
+  },
+  compoundVariants: [
+    { variants: { placement: "top", closing: true }, style: { transform: "translateY(6px)" } },
+    { variants: { placement: "bottom", closing: true }, style: { transform: "translateY(-6px)" } },
+    { variants: { placement: "left", closing: true }, style: { transform: "translateX(6px)" } },
+    { variants: { placement: "right", closing: true }, style: { transform: "translateX(-6px)" } },
+  ],
+  defaultVariants: { placement: "bottom", closing: false },
 });
 
 /* ─── header bar (accent blue) ─── */

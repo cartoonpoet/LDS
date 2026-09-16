@@ -3,6 +3,7 @@ import type { ReactNode, HTMLAttributes } from "react";
 import { cx } from "../../lib/cx";
 import { useControllableState } from "../../lib/useControllableState";
 import { useDismissibleLayer } from "../../lib/useDismissibleLayer";
+import { usePresence } from "../../lib/usePresence";
 import * as s from "./InfoPopover.css";
 
 export interface InfoPopoverStep {
@@ -75,13 +76,17 @@ export function InfoPopover({
     onDismiss: () => setOpen(false),
   });
 
+  /* 닫힘 트랜지션 동안 마운트 유지 */
+  const { mounted } = usePresence(open, s.EXIT_MS);
+  const closing = !open;
+
   return (
     <div ref={wrapperRef} className={cx(s.wrapper, className)} {...rest}>
       <div onClick={toggle} style={{ cursor: "pointer" }}>
         {children}
       </div>
-      {open && (
-        <div className={s.card}>
+      {mounted && (
+        <div className={s.card({ closing })}>
           <div className={s.header}>
             <span className={s.headerText}>{title}</span>
           </div>

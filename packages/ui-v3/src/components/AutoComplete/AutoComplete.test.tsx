@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from "vitest";
-import { renderWithUser, screen } from "../../test/utils";
+import { renderWithUser, screen, waitFor } from "../../test/utils";
 import { AutoComplete } from ".";
 
 const options = [
@@ -44,7 +44,9 @@ describe("AutoComplete", () => {
     const input = screen.getByRole("combobox");
     await user.type(input, "Ch");
     await user.click(screen.getByText("Cherry"));
-    expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
+    });
   });
 
   it("shows no result text when no match", async () => {
@@ -72,7 +74,9 @@ describe("AutoComplete", () => {
     await user.type(input, "a");
     expect(screen.getByRole("listbox")).toBeInTheDocument();
     await user.keyboard("{Escape}");
-    expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
+    });
   });
 
   it("shows initial value label", () => {
