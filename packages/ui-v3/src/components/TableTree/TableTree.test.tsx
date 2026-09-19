@@ -115,6 +115,39 @@ describe("TableTree", () => {
     expect(onRowClick).not.toHaveBeenCalled();
   });
 
+  it("makes clickable rows focusable for keyboard users", () => {
+    render(<TableTree columns={columns} rows={rows} onRowClick={vi.fn()} />);
+    const row = screen.getByText("단독계약").closest("tr")!;
+    expect(row).toHaveAttribute("tabIndex", "0");
+  });
+
+  it("does not make rows focusable when onRowClick is absent", () => {
+    render(<TableTree columns={columns} rows={rows} />);
+    const row = screen.getByText("단독계약").closest("tr")!;
+    expect(row).not.toHaveAttribute("tabIndex");
+  });
+
+  it("opens a row with Enter", async () => {
+    const onRowClick = vi.fn();
+    const { user } = renderWithUser(
+      <TableTree columns={columns} rows={rows} onRowClick={onRowClick} />,
+    );
+    (screen.getByText("단독계약").closest("tr") as HTMLElement).focus();
+    await user.keyboard("{Enter}");
+    expect(onRowClick).toHaveBeenCalledOnce();
+    expect(onRowClick.mock.calls[0][0].id).toBe("2");
+  });
+
+  it("펼치기 버튼에서 스페이스를 눌러도 행이 두 번 열리지 않는다", async () => {
+    const onRowClick = vi.fn();
+    const { user } = renderWithUser(
+      <TableTree columns={columns} rows={rows} onRowClick={onRowClick} />,
+    );
+    screen.getByRole("button", { name: "펼치기" }).focus();
+    await user.keyboard(" ");
+    expect(onRowClick).not.toHaveBeenCalled();
+  });
+
   it("renders emptyText when rows is empty", () => {
     render(<TableTree columns={columns} rows={[]} emptyText="조회된 계약이 없습니다." />);
     expect(screen.getByText("조회된 계약이 없습니다.")).toBeInTheDocument();

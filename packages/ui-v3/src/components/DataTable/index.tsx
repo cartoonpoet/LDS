@@ -1,5 +1,5 @@
 import { useCallback, useMemo } from "react";
-import type { HTMLAttributes, ReactNode } from "react";
+import type { HTMLAttributes, KeyboardEvent, ReactNode } from "react";
 import {
   useReactTable,
   getCoreRowModel,
@@ -160,6 +160,17 @@ export function DataTable<T>({
     [onRowClick],
   );
 
+  /** Enter/Space 로 행을 연다 — 체크박스 등 자체 키보드 동작이 있는 셀에서 누른 것은 무시한다. */
+  const handleRowKeyDown = useCallback(
+    (row: Row<T>) => (event: KeyboardEvent<HTMLTableRowElement>) => {
+      if (event.target !== event.currentTarget) return;
+      if (event.key !== "Enter" && event.key !== " ") return;
+      event.preventDefault();
+      onRowClick?.(row.original);
+    },
+    [onRowClick],
+  );
+
   const colCount = allColumns.length;
 
   return (
@@ -224,9 +235,11 @@ export function DataTable<T>({
               return (
                 <tr
                   key={row.id}
-                  className={cx(s.tr, isSelected && s.trSelected)}
+                  className={cx(s.tr, onRowClick && s.trClickable, isSelected && s.trSelected)}
                   onClick={onRowClick ? () => handleRowClick(row) : undefined}
-                  style={onRowClick ? { cursor: "pointer" } : undefined}
+                  onKeyDown={onRowClick ? handleRowKeyDown(row) : undefined}
+                  role={onRowClick ? "button" : undefined}
+                  tabIndex={onRowClick ? 0 : undefined}
                 >
                   {row.getVisibleCells().map((cell) => {
                     const isCheckbox = cell.column.id === "__select";

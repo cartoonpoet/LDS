@@ -76,8 +76,15 @@ export const trChild = style([
   },
 ]);
 
+/* onRowClick 이 있는 행 — 마우스뿐 아니라 키보드(Tab+Enter/Space)로도 눌린다. */
 export const trClickable = style({
   cursor: "pointer",
+  selectors: {
+    "&:focus-visible": {
+      outline: "none",
+      boxShadow: `inset ${themeVars.shadow.focus}`,
+    },
+  },
 });
 
 export const td = style({
