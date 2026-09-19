@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import type { HTMLAttributes, ReactNode, CSSProperties } from "react";
+import type { HTMLAttributes, KeyboardEvent, ReactNode, CSSProperties } from "react";
 import { cx } from "../../lib/cx";
 import { useControllableState } from "../../lib/useControllableState";
 import * as s from "./TableTree.css";
@@ -127,6 +127,15 @@ export function TableTree({
   const cellStyle = (column: TableTreeColumn): CSSProperties | undefined =>
     column.align ? { textAlign: column.align } : undefined;
 
+  /** Enter/Space 로 행을 연다 — 펼치기 버튼 등 자체 키보드 동작이 있는 셀에서 누른 것은 무시한다. */
+  const handleRowKeyDown =
+    (row: TableTreeRow) => (event: KeyboardEvent<HTMLTableRowElement>) => {
+      if (event.target !== event.currentTarget) return;
+      if (event.key !== "Enter" && event.key !== " ") return;
+      event.preventDefault();
+      onRowClick?.(row);
+    };
+
   const renderRow = (row: TableTreeRow, depth: number): ReactNode => {
     const hasChildren = !!(row.children && row.children.length > 0);
     const isExpanded = expandedSet.has(row.id);
@@ -137,6 +146,9 @@ export function TableTree({
           className={cx(depth > 0 ? s.trChild : s.tr, onRowClick && s.trClickable)}
           data-selected={selectedId === row.id ? "true" : undefined}
           onClick={onRowClick ? () => onRowClick(row) : undefined}
+          onKeyDown={onRowClick ? handleRowKeyDown(row) : undefined}
+          role={onRowClick ? "button" : undefined}
+          tabIndex={onRowClick ? 0 : undefined}
         >
           {columns.map((column, colIndex) => (
             <td
