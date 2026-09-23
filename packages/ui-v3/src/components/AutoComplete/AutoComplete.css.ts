@@ -23,7 +23,7 @@ export const inputWrapper = recipe({
     width: "100%",
     backgroundColor: semanticColorRoles.surface.canvas,
     borderRadius: themeVars.radius.sm,
-    border: `1px solid ${grayPalette[400]}`,
+    border: `1px solid ${semanticColorRoles.field.border}`,
     fontFamily: themeVars.font.family,
     fontSize: themeVars.font.sizeMd,
     fontWeight: themeVars.font.weightMedium,

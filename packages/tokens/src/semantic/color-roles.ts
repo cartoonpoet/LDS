@@ -37,7 +37,7 @@ export const semanticColorRoles = {
     default: t.neutralBorder,
     strong: t.neutralBorderStrong,
     focus: t.accentPrimary,
-    input: grayPalette[500],
+    input: t.neutralBorderStrong,
     primary: t.accentPrimary,
     secondary: t.accentSecondary,
     success: "#28c76f",
@@ -304,7 +304,7 @@ export const semanticColorRoles = {
     helper: t.textMuted,
     background: t.neutralSurface,
     backgroundDisabled: t.neutralDisabled,
-    border: grayPalette[500],
+    border: t.neutralBorderStrong,
     borderHover: t.neutralBorderStrong,
     borderFocus: t.accentPrimary,
     icon: t.textMuted
