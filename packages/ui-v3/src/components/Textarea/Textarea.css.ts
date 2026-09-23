@@ -1,6 +1,6 @@
 import { style, globalStyle } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
-import { semanticColorRoles, themeVars, grayPalette } from "@lds/tokens";
+import { semanticColorRoles, themeVars } from "@lds/tokens";
 
 /* ─── wrapper (textarea + count) ─── */
 export const wrapper = style({
@@ -18,7 +18,7 @@ export const textarea = recipe({
     width: "100%",
     backgroundColor: semanticColorRoles.surface.canvas,
     borderRadius: themeVars.radius.sm,
-    border: `1px solid ${grayPalette[400]}`,
+    border: `1px solid ${semanticColorRoles.field.border}`,
     outline: "none",
     fontFamily: themeVars.font.family,
     fontSize: themeVars.font.sizeMd,
