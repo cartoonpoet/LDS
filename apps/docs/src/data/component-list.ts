@@ -1,4 +1,4 @@
-// 실측 컴포넌트 65종 (packages/ui-v3/src/components 폴더명 기준)
+// 실측 컴포넌트 67종 (packages/ui-v3/src/components 폴더명 기준)
 export const COMPONENT_LIST = [
   { slug: "alert", name: "Alert", desc: "흐름을 끊지 않고 맥락 안에서 안내하는 인라인 메시지예요." },
   { slug: "approvalline", name: "ApprovalLine", desc: "결재 순서와 상태를 한 줄로 보여주는 결재선이에요." },
@@ -29,6 +29,7 @@ export const COMPONENT_LIST = [
   { slug: "fileupload", name: "FileUpload", desc: "드래그 앤 드롭으로 문서를 첨부해요." },
   { slug: "floatingmodal", name: "FloatingModal", desc: "화면 구석에 떠서 흐름을 막지 않는 모달이에요." },
   { slug: "fullscreenmodal", name: "FullScreenModal", desc: "화면 전체를 쓰는 몰입형 모달이에요." },
+  { slug: "gnb", name: "Gnb", desc: "서비스 최상단에서 도움말·검색·프로필을 한 줄로 묶는 글로벌 내비게이션이에요." },
   { slug: "grid", name: "Grid", desc: "동일 폭 컬럼으로 카드와 폼을 정렬하는 격자예요." },
   { slug: "icon", name: "Icon", desc: "24px 그리드의 일관된 아이콘 세트예요." },
   { slug: "iconbuttongroup", name: "IconButtonGroup", desc: "아이콘 버튼을 나란히 묶어요." },
@@ -38,6 +39,7 @@ export const COMPONENT_LIST = [
   { slug: "inputdaterangepicker", name: "InputDateRangePicker", desc: "계약 기간처럼 시작과 끝을 함께 골라요." },
   { slug: "linkbadge", name: "LinkBadge", desc: "눌러서 이동할 수 있는 뱃지예요." },
   { slug: "listgroup", name: "ListGroup", desc: "목록을 하나의 그룹으로 묶어요." },
+  { slug: "lnb", name: "Lnb", desc: "업무 메뉴를 2단계로 펼치고 아이콘만 남겨 접을 수 있는 좌측 내비게이션이에요." },
   { slug: "mention", name: "Mention", desc: "@로 사람을 불러 함께 일해요." },
   { slug: "modal", name: "Modal", desc: "중요한 결정을 위해 흐름을 잠시 멈춰요." },
   { slug: "navigationtab", name: "NavigationTab", desc: "화면 상단의 내비게이션 탭이에요." },

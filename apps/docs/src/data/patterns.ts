@@ -32,15 +32,15 @@ export const PATTERNS: PatternEntry[] = [
         title: "개요",
         paras: [
           "Layout은 페이지 골격을 짜는 가장 바깥 패턴이에요. PageLayout으로 Header·Nav·Content·Panel 슬롯을 나누고, 그 안을 Container·Grid·Stack·Divider·Spacer 같은 레이아웃 프리미티브로 채워요.",
-          "GNB·LNB 패턴은 Header·Nav 슬롯 안에 들어가는 콘텐츠예요. 이 문서는 슬롯을 채우는 방법이 아니라, 슬롯 자체를 짜는 방법을 다뤄요."
+          "Header·Nav 슬롯에는 Gnb·Lnb 컴포넌트를 올려요. 이 문서는 슬롯을 채우는 방법이 아니라, 슬롯 자체를 짜는 방법을 다뤄요."
         ]
       },
       {
         id: "composition",
         title: "조합 기준",
         items: [
-          "Header — PageLayout.Header에 GNB를 올려요. 상단 전폭이고, 한 화면에 하나만 둬요.",
-          "Nav — PageLayout.Nav에 LNB를 올려요. width·collapsed로 폭을 조절하고, 펼침/접힘 상태는 상위 애플리케이션이 관리해요.",
+          "Header — PageLayout.Header에 Gnb를 올려요. 한 화면에 하나만 둬요. 기본은 상단 전폭이고, headerSpan=\"content\"면 LNB가 화면 높이 전체를 차지하고 GNB는 본문 위에만 놓여요(Law.ai 데스크톱).",
+          "Nav — PageLayout.Nav에 Lnb를 올려요. Lnb 폭(펼침 260 / 접힘 80)에 맞춰 width={260} collapsedWidth={80}을 넘기고, 펼침/접힘 상태는 상위 애플리케이션이 관리해요.",
           "Content — PageLayout.Content 안은 Container로 최대 폭을 제한해요. 목록·대시보드는 기본값인 size=\"lg\", 약관처럼 긴 글은 size=\"sm\"이 읽기 편해요.",
           "Content 내부 배치 — 같은 폭 카드 여러 개는 Grid, 한 방향 나열은 HStack·VStack, 영역 구분은 Divider, 제목-버튼 같은 양끝 배치는 Spacer를 써요.",
           "Panel — 상세 미리보기·코멘트 같은 보조 정보가 필요할 때만 추가해요. 기본 폭은 320px이고, 생략하면 트랙이 자동으로 접혀요."
@@ -60,6 +60,7 @@ export const PATTERNS: PatternEntry[] = [
   {
     slug: "gnb",
     name: "GNB",
+    componentSlug: "gnb",
     desc: "제품 전체를 가로지르는 글로벌 내비게이션이에요. 로고·주 메뉴·계정 영역의 자리가 항상 같아요.",
     sections: [
       {
@@ -67,7 +68,7 @@ export const PATTERNS: PatternEntry[] = [
         title: "개요",
         paras: [
           "GNB는 서비스 최상단에서 주요 영역 전환을 담당하는 글로벌 내비게이션이에요. 로고·주 메뉴·계정 영역의 자리를 항상 같게 유지해서, 어떤 화면에 있어도 같은 방식으로 이동할 수 있어요.",
-          "GNB는 디자인 시스템의 단일 컴포넌트가 아니라 각 서비스가 프리미티브를 조합해 만드는 패턴이에요. 이 문서는 그 조합 기준을 정리해요."
+          "Gnb 컴포넌트는 바 골격(높이·배경·그림자)과 start·end 슬롯만 정하고, 안에 들어갈 아이콘 버튼·검색·프로필은 Gnb.IconButton·Gnb.Divider·Gnb.Profile로 조합해요. 이 문서는 그 조합 기준을 정리해요."
         ]
       },
       {
@@ -83,6 +84,7 @@ export const PATTERNS: PatternEntry[] = [
   {
     slug: "lnb",
     name: "LNB",
+    componentSlug: "lnb",
     desc: "섹션 안을 이동하는 로컬 내비게이션이에요. 현재 위치가 언제나 왼쪽 목록에 표시돼요.",
     sections: [
       {
@@ -90,7 +92,7 @@ export const PATTERNS: PatternEntry[] = [
         title: "개요",
         paras: [
           "LNB는 업무 화면의 좌측 정보 구조를 단계적으로 펼쳐 보여주는 로컬 내비게이션이에요. 브랜드 영역, 활성 메뉴 강조, 접힘형(collapsed) 사이드바를 한 세트로 구성해요.",
-          "GNB와 마찬가지로 디자인 시스템의 단일 컴포넌트가 아니라, 각 서비스에서 프리미티브를 조합해 만드는 패턴이에요."
+          "Lnb 컴포넌트에 메뉴 데이터(items)만 넘기면 활성 강조·그룹 펼침·접힘 모드가 함께 동작해요. 메뉴 구성과 라우팅은 서비스가 정해요."
         ]
       },
       {
