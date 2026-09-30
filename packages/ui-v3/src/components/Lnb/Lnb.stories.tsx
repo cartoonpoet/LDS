@@ -25,7 +25,7 @@ import type { LnbItem } from ".";
 const meta: Meta<typeof Lnb> = {
   title: "Components/Lnb",
   component: Lnb,
-  decorators: [(Story) => <div className={lightThemeClass} style={{ height: 720, background: "#f2f4f6" }}><Story /></div>],
+  decorators: [(Story) => <div className={lightThemeClass} style={{ height: 960, background: "#f2f4f6" }}><Story /></div>],
   tags: ["autodocs"],
   parameters: { layout: "fullscreen" },
 };

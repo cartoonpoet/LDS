@@ -38,7 +38,12 @@ import { PageLayout } from ".";
 const meta: Meta<typeof PageLayout> = {
   title: "Components/PageLayout",
   component: PageLayout,
-  decorators: [(Story) => <div className={lightThemeClass} style={{ height: 480 }}><Story /></div>],
+  /* 스토리별 높이는 parameters.frameHeight로 지정 (기본 480) */
+  decorators: [
+    (Story, { parameters }) => (
+      <div className={lightThemeClass} style={{ height: parameters.frameHeight ?? 480 }}><Story /></div>
+    ),
+  ],
   tags: ["autodocs"],
   parameters: { layout: "fullscreen" },
 };
@@ -203,25 +208,26 @@ function DesktopShell({ defaultCollapsed = false, panel = false }: { defaultColl
 
 export const LawaiExpanded: Story = {
   name: "Law.ai · LNB 펼침",
-  decorators: [(Story) => <div style={{ height: 960 }}><Story /></div>],
+  parameters: { frameHeight: 960 },
   render: () => <DesktopShell />,
 };
 
 export const LawaiCollapsed: Story = {
   name: "Law.ai · LNB 접힘",
-  decorators: [(Story) => <div style={{ height: 960 }}><Story /></div>],
+  parameters: { frameHeight: 960 },
   render: () => <DesktopShell defaultCollapsed />,
 };
 
 export const LawaiWithPanel: Story = {
   name: "Law.ai · Panel 포함",
-  decorators: [(Story) => <div style={{ height: 960 }}><Story /></div>],
+  parameters: { frameHeight: 960 },
   render: () => <DesktopShell panel />,
 };
 
 export const LawaiMobile: Story = {
   name: "Law.ai · Mobile",
-  decorators: [(Story) => <div style={{ width: 360, height: 720 }}><Story /></div>],
+  parameters: { frameHeight: 720 },
+  decorators: [(Story) => <div style={{ width: 360, height: "100%" }}><Story /></div>],
   render: () => (
     <PageLayout style={{ height: "100%" }}>
       <PageLayout.Header>
