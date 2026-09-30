@@ -23,6 +23,13 @@
 | npm publish | ✅ 정상화 (2026-09-12 토큰 재발급·Automation 타입). **v0.1.68~69는 토큰 만료로 npm 영구 결번**, v0.1.70이 레이아웃+법무+Callout 전부 포함해 배포됨. 토큰 만료 시 증상: publish 단계 E404(=인증 실패) 또는 EOTP(=Publish 타입 토큰) |
 | 문서 사이트 | seed-design.io 스타일 제품 사이트 완성 (아래 참조) |
 
+### 최근 추가된 컴포넌트 (2026-09-30) — feat/gnb-lnb-layout 브랜치
+
+- **Gnb**: 62px 바 + `start`/`end` 슬롯, 부품 `Gnb.IconButton`(label=aria-label·title) / `Gnb.Divider` / `Gnb.Profile`(onClick 시 button, `compact`=모바일)
+- **Lnb**: `items` 데이터 주도, 펼침 260 / 접힘 80. 현재 페이지가 속한 1depth 그라데이션 강조, 그룹은 한 번에 하나만 펼침(`openValue`), 접힘 중 그룹 클릭 시 펼치며 해당 그룹 오픈. collapsed·openValue 모두 controlled/uncontrolled
+- **PageLayout `headerSpan`**: `full`(기존) / `content`(Nav 전체 높이 + Header는 본문 위). Law.ai 레이아웃 스토리 4종(LNB 펼침·접힘·Panel·Mobile)
+- 원본 시안: Figma `Lawai-Design-System-v1.0`(m3wsd5VQFIqRxTV79G0fFf) `GNB / LNB / Drawer` 페이지, `Foundations / Layout` 아트보드
+
 ### 최근 추가된 컴포넌트 (2026-09-12 후반) — feat/legal-components 브랜치
 
 - **법무 도메인 4종**: EmptyState(빈 화면 표준), DdayBadge(기일 임박도 자동 색), Timeline(사건 진행 이력, done/current/upcoming), ApprovalLine(결재선 — 666a55e에서 복원 후 현행 컨벤션 보정)
@@ -32,7 +39,7 @@
 ### 이전 추가된 컴포넌트 (2026-09-12) — feat/layout-primitives 브랜치 (머지됨, v0.1.68)
 
 - **레이아웃 프리미티브 5종**: Box(패딩/배경/라운드/테두리 토큰 컨테이너), Grid(repeat 컬럼 격자), Divider(수평/수직 구분선), Container(최대 폭 768/1024/1280 + 중앙 정렬), Spacer(flex-grow 빈 요소)
-- **PageLayout**: grid-template-areas 기반 페이지 셸 — Header(`<header>`)/Nav(`<nav>`, width·collapsed·collapsedWidth)/Content(`<main>`)/Panel(`<aside>`, width) 슬롯, 생략 시 트랙 0으로 접힘. GNB/LNB 내용물은 여전히 각 서비스 몫(패턴 가이드 영역)
+- **PageLayout**: grid-template-areas 기반 페이지 셸 — Header(`<header>`)/Nav(`<nav>`, width·collapsed·collapsedWidth)/Content(`<main>`)/Panel(`<aside>`, width) 슬롯, 생략 시 트랙 0으로 접힘. `headerSpan="content"`면 Nav가 화면 높이 전체(Law.ai 데스크톱 레이아웃)
 - 시안(승인됨): https://claude.ai/code/artifact/91f18beb-2792-4bcb-b4e3-faaa439f35e0 / 계획: docs/superpowers/plans/2026-09-11-layout-primitives.md
 
 ### 이전 추가된 컴포넌트 (2026-08-07)
@@ -40,7 +47,7 @@
 - **Badge, Chip** — git 히스토리(67a2e59)에서 복원 / **LinkBadge** — 신규 (링크형 뱃지, external 시 새 탭 + rel 가드)
 - **Breadcrumb, Textarea, FloatingModal(비차단 우하단), FullScreenModal**
 - **Drawer** (좌/우 슬라이드 패널, backdrop 유/무) / **TableTree** (계층형 테이블, controlled 지원)
-- GNB/LNB·CommentThread는 **의도적으로 DS에 넣지 않음** — 각 서비스에서 프리미티브 조합 (패턴 문서가 조합 가이드)
+- CommentThread는 **의도적으로 DS에 넣지 않음** — 각 서비스에서 프리미티브 조합 (패턴 문서가 조합 가이드). GNB/LNB는 2026-09-30 컴포넌트화(아래)
 
 ### lib 공통 훅 (packages/ui-v3/src/lib/, 내부 전용 — 배럴 미export)
 

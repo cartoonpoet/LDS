@@ -255,6 +255,10 @@ export const GENERATED_PROPS: Record<string, readonly GeneratedProp[]> = {
     { name: "disableEscapeClose", type: "boolean", required: false, default: "false", description: "@deprecated `closeOnEscape={false}`를 대신 쓰세요" },
     { name: "children", type: "ReactNode", required: false, description: "모달 본문" },
   ],
+  "gnb": [
+    { name: "start", type: "ReactNode", required: false, description: "왼쪽 영역 — 아이콘 버튼 · 구분선 · 검색" },
+    { name: "end", type: "ReactNode", required: false, description: "오른쪽 영역 — 아이콘 버튼 · 프로필" },
+  ],
   "grid": [
     { name: "columns", type: "number", required: false, default: "1", description: "동일 폭 컬럼 수 — repeat(N, minmax(0, 1fr))" },
     { name: "gap", type: "GridGap", required: false, description: "행/열 공통 간격 토큰" },
@@ -321,6 +325,19 @@ export const GENERATED_PROPS: Record<string, readonly GeneratedProp[]> = {
     { name: "items", type: "string[]", required: false, description: "간편 API: 문자열 배열로 아이템 생성" },
     { name: "children", type: "ReactNode", required: false },
   ],
+  "lnb": [
+    { name: "items", type: "LnbItem[]", required: true, description: "메뉴 목록" },
+    { name: "value", type: "string", required: false, description: "현재 페이지 값 (1depth 또는 2depth)" },
+    { name: "onSelect", type: "(value: string) => void", required: false, description: "메뉴 선택 핸들러 — 라우팅은 서비스가 연결" },
+    { name: "openValue", type: "string | null", required: false, description: "펼쳐진 그룹 값 (controlled, 한 번에 하나)" },
+    { name: "defaultOpenValue", type: "string | null", required: false, description: "펼쳐진 그룹 초기값 — 생략 시 현재 페이지가 속한 그룹" },
+    { name: "onOpenChange", type: "(value: string | null) => void", required: false, description: "그룹 펼침 변경 핸들러" },
+    { name: "collapsed", type: "boolean", required: false, description: "접힘 (controlled)" },
+    { name: "defaultCollapsed", type: "boolean", required: false, default: "false", description: "접힘 초기값" },
+    { name: "onCollapsedChange", type: "(collapsed: boolean) => void", required: false, description: "접힘 변경 핸들러" },
+    { name: "logo", type: "ReactNode", required: false, description: "펼쳤을 때 로고" },
+    { name: "collapsedLogo", type: "ReactNode", required: false, description: "접혔을 때 로고 (심볼) — 생략 시 숨김" },
+  ],
   "mention": [
     { name: "name", type: "string", required: true, description: "사용자 이름 (@ 자동 추가)" },
   ],
@@ -351,6 +368,7 @@ export const GENERATED_PROPS: Record<string, readonly GeneratedProp[]> = {
     { name: "disabled", type: "boolean", required: false, default: "false", description: "비활성화" },
   ],
   "pagelayout": [
+    { name: "headerSpan", type: "\"full\" | \"content\"", required: false, default: "\"full\"", description: "Header 폭 — `full`: 상단 전폭 / `content`: Nav 옆(Nav가 화면 높이 전체)" },
     { name: "children", type: "ReactNode", required: false },
   ],
   "pagination": [

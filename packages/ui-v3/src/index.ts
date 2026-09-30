@@ -105,6 +105,12 @@ export type {
   PageLayoutPanelProps,
 } from "./components/PageLayout";
 
+export { Gnb, GnbIconButton, GnbDivider, GnbProfile } from "./components/Gnb";
+export type { GnbProps, GnbIconButtonProps, GnbProfileProps } from "./components/Gnb";
+
+export { Lnb } from "./components/Lnb";
+export type { LnbProps, LnbItem, LnbSubItem } from "./components/Lnb";
+
 export { EmptyState } from "./components/EmptyState";
 export type { EmptyStateProps } from "./components/EmptyState";
 

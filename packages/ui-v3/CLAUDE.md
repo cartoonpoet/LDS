@@ -835,6 +835,47 @@ function MyPage() {
 }
 ```
 
+## Gnb
+
+```tsx
+import { Gnb, Input, Avatar, Icon } from "@lawkit/ui";
+
+// Desktop — 왼쪽: 도움말·일정 | 검색 / 오른쪽: 설정·프로필
+<Gnb
+  start={
+    <>
+      <Gnb.IconButton icon={<Icon name="helpCircle" />} label="도움말" />
+      <Gnb.IconButton icon={<Icon name="calendar" />} label="일정" />
+      <Gnb.Divider />
+      <Input placeholder="검색어를 입력해 주세요" leftIcon={<Icon name="search" size="sm" />} />
+    </>
+  }
+  end={
+    <>
+      <Gnb.IconButton icon={<Icon name="settings" />} label="설정" />
+      <Gnb.Profile
+        name="이법무 변호사님"
+        description="휴맥스홀딩스"
+        avatar={<Avatar src="/me.jpg" />}
+        onClick={openProfileMenu}
+      />
+    </>
+  }
+/>
+
+// Mobile — 메뉴 버튼 + 아이콘 + 아바타만
+<Gnb
+  start={<Gnb.IconButton icon={<Icon name="menu" />} label="메뉴 열기" onClick={openDrawer} />}
+  end={
+    <>
+      <Gnb.IconButton icon={<Icon name="search" />} label="검색" />
+      <Gnb.IconButton icon={<Icon name="settings" />} label="설정" />
+      <Gnb.Profile compact name="이법무 변호사님" avatar={<Avatar src="/me.jpg" status="online" />} />
+    </>
+  }
+/>
+```
+
 ## Grid
 
 ```tsx
@@ -981,6 +1022,44 @@ import { ListGroup, ListGroupItem, BottomSheet } from "@lawkit/ui";
 </BottomSheet>
 ```
 
+## Lnb
+
+```tsx
+import { useState } from "react";
+import { Lnb, Icon } from "@lawkit/ui";
+import type { LnbItem } from "@lawkit/ui";
+
+const items: LnbItem[] = [
+  {
+    value: "home",
+    label: "홈",
+    icon: <Icon name="home" />,
+    children: [
+      { value: "my-status", label: "나의 현황" },
+      { value: "search", label: "통합검색" },
+    ],
+  },
+  { value: "contract", label: "계약", icon: <Icon name="fileText" />, href: "/contracts" },
+  { value: "litigation", label: "송무", icon: <Icon name="litigation" /> },
+];
+
+// 기본 — 현재 페이지가 속한 그룹이 자동으로 펼쳐짐
+const [page, setPage] = useState("my-status");
+
+<Lnb
+  items={items}
+  value={page}
+  onSelect={setPage}
+  logo={<img src="/logo.svg" alt="Law.ai" />}
+  collapsedLogo={<img src="/symbol.svg" alt="Law.ai" />}
+/>
+
+// 접힘 상태를 앱이 관리 (PageLayout.Nav 폭과 함께)
+const [collapsed, setCollapsed] = useState(false);
+
+<Lnb items={items} value={page} onSelect={setPage} collapsed={collapsed} onCollapsedChange={setCollapsed} />
+```
+
 ## Mention
 
 ```tsx
@@ -1113,6 +1192,16 @@ const [collapsed, setCollapsed] = useState(false);
   <PageLayout.Nav collapsed={collapsed}>{/* LNB */}</PageLayout.Nav>
   <PageLayout.Content>{/* 본문 */}</PageLayout.Content>
   <PageLayout.Panel width={360}>{/* 사건 상세 미리보기 */}</PageLayout.Panel>
+</PageLayout>
+
+// Law.ai 데스크톱 — LNB 화면 높이 전체 + GNB는 본문 위 (LNB 폭 260/80)
+// gnbStart · gnbEnd 구성은 Gnb 템플릿 참고
+<PageLayout headerSpan="content">
+  <PageLayout.Header><Gnb start={gnbStart} end={gnbEnd} /></PageLayout.Header>
+  <PageLayout.Nav width={260} collapsed={collapsed} collapsedWidth={80}>
+    <Lnb items={items} value={page} onSelect={setPage} collapsed={collapsed} onCollapsedChange={setCollapsed} />
+  </PageLayout.Nav>
+  <PageLayout.Content>{/* 본문 */}</PageLayout.Content>
 </PageLayout>
 ```
 
