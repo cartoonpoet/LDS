@@ -1,5 +1,5 @@
 import { useId } from "react";
-import type { HTMLAttributes, ReactNode } from "react";
+import type { HTMLAttributes, MouseEvent, ReactNode } from "react";
 import { cx } from "../../lib/cx";
 import { useControllableState } from "../../lib/useControllableState";
 import { Icon } from "../Icon";
@@ -55,6 +55,10 @@ export interface LnbProps extends Omit<HTMLAttributes<HTMLElement>, "onSelect"> 
 
 const findGroupOf = (items: LnbItem[], value?: string) =>
   items.find((item) => item.children?.some((child) => child.value === value))?.value ?? null;
+
+/** Ctrl/Cmd/Shift 클릭·휠 클릭은 새 탭·새 창 등 브라우저 기본 동작에 맡기고 선택하지 않는다 */
+const isPlainClick = (event: MouseEvent) =>
+  event.button === 0 && !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey;
 
 /* ─── Component ─── */
 export function Lnb({
@@ -121,7 +125,12 @@ export function Lnb({
           const itemClass = s.item({ active: isActive, collapsed });
           const content = (
             <>
-              {item.icon && <span className={s.icon} aria-hidden>{item.icon}</span>}
+              {item.icon ? (
+                <span className={s.icon} aria-hidden>{item.icon}</span>
+              ) : (
+                /* 아이콘 없는 항목이 접힘 상태에서 빈 버튼이 되지 않도록 첫 글자를 표시 */
+                collapsed && <span className={s.icon} aria-hidden>{item.label.charAt(0)}</span>
+              )}
               {!collapsed && <span className={s.label}>{item.label}</span>}
               {!collapsed && hasChildren && (
                 <span className={s.chevron({ open: isOpen })} aria-hidden>
@@ -150,7 +159,7 @@ export function Lnb({
                   href={item.href}
                   className={itemClass}
                   aria-current={isCurrent ? "page" : undefined}
-                  onClick={() => onSelect?.(item.value)}
+                  onClick={(event) => isPlainClick(event) && onSelect?.(item.value)}
                   {...collapsedProps}
                 >
                   {content}
@@ -185,7 +194,7 @@ export function Lnb({
                             href={child.href}
                             className={childClass}
                             aria-current={isChildCurrent ? "page" : undefined}
-                            onClick={() => onSelect?.(child.value)}
+                            onClick={(event) => isPlainClick(event) && onSelect?.(child.value)}
                           >
                             {childContent}
                           </a>

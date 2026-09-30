@@ -74,6 +74,24 @@ describe("Lnb", () => {
     expect(onSelect.mock.calls).toEqual([["litigation"], ["my-status"]]);
   });
 
+  it("does not call onSelect on modified link clicks (new tab/window)", async () => {
+    const onSelect = vi.fn();
+    const { user } = renderWithUser(<Lnb items={items} defaultOpenValue="home" onSelect={onSelect} />);
+    await user.keyboard("{Control>}");
+    await user.click(screen.getByRole("link", { name: "계약" }));
+    await user.click(screen.getByRole("link", { name: "통합검색" }));
+    await user.keyboard("{/Control}");
+    expect(onSelect).not.toHaveBeenCalled();
+    await user.click(screen.getByRole("link", { name: "계약" }));
+    expect(onSelect).toHaveBeenCalledWith("contract");
+  });
+
+  it("shows the first letter for icon-less items when collapsed", () => {
+    render(<Lnb items={items} collapsed />);
+    expect(screen.getByRole("button", { name: "송무" })).toHaveTextContent("송");
+    expect(screen.getByRole("button", { name: "홈" }).textContent).toBe("");
+  });
+
   it("does not call onSelect when toggling a group", async () => {
     const onSelect = vi.fn();
     const { user } = renderWithUser(<Lnb items={items} onSelect={onSelect} />);

@@ -74,8 +74,9 @@ const [collapsed, setCollapsed] = useState(false);
 </PageLayout>
 
 // Law.ai 데스크톱 — LNB 화면 높이 전체 + GNB는 본문 위 (LNB 폭 260/80)
+// gnbStart · gnbEnd 구성은 Gnb 템플릿 참고
 <PageLayout headerSpan="content">
-  <PageLayout.Header><Gnb start={/* ... */} end={/* ... */} /></PageLayout.Header>
+  <PageLayout.Header><Gnb start={gnbStart} end={gnbEnd} /></PageLayout.Header>
   <PageLayout.Nav width={260} collapsed={collapsed} collapsedWidth={80}>
     <Lnb items={items} value={page} onSelect={setPage} collapsed={collapsed} onCollapsedChange={setCollapsed} />
   </PageLayout.Nav>

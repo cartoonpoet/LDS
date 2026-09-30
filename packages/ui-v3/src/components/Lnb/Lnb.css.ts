@@ -123,7 +123,8 @@ export const item = recipe({
     cursor: "pointer",
     transition: `background ${themeVars.duration.base} ${themeVars.easing.standard}`,
     selectors: {
-      "&:hover": { background: semanticColorRoles.surface.subtle },
+      /* background 단축 속성은 active 그라데이션(background-image)을 지우므로 color만 바꾼다 */
+      "&:hover": { backgroundColor: semanticColorRoles.surface.subtle },
       ...focusRing,
     },
   },
