@@ -90,6 +90,27 @@ describe("PageLayout", () => {
     expect(mod.PageLayoutPanel).toBe(PageLayout.Panel);
   });
 
+  it("headerSpan switches root layout class", () => {
+    const { rerender } = render(
+      <PageLayout data-testid="root">
+        <PageLayout.Content>본문</PageLayout.Content>
+      </PageLayout>
+    );
+    const fullClass = screen.getByTestId("root").className;
+    rerender(
+      <PageLayout data-testid="root" headerSpan="content">
+        <PageLayout.Content>본문</PageLayout.Content>
+      </PageLayout>
+    );
+    expect(screen.getByTestId("root").className).not.toBe(fullClass);
+    rerender(
+      <PageLayout data-testid="root" headerSpan="full">
+        <PageLayout.Content>본문</PageLayout.Content>
+      </PageLayout>
+    );
+    expect(screen.getByTestId("root").className).toBe(fullClass);
+  });
+
   it("merges custom className on root and slots", () => {
     render(
       <PageLayout data-testid="root" className="root-extra">

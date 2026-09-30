@@ -4,6 +4,8 @@ import * as s from "./PageLayout.css";
 
 /* ─── Types ─── */
 export interface PageLayoutProps extends HTMLAttributes<HTMLDivElement> {
+  /** Header 폭 — `full`: 상단 전폭 / `content`: Nav 옆(Nav가 화면 높이 전체) */
+  headerSpan?: "full" | "content";
   children?: ReactNode;
 }
 
@@ -79,9 +81,9 @@ export function PageLayoutPanel({
 }
 
 /* ─── Root ─── */
-function PageLayoutRoot({ className, children, ...rest }: PageLayoutProps) {
+function PageLayoutRoot({ headerSpan = "full", className, children, ...rest }: PageLayoutProps) {
   return (
-    <div className={cx(s.root, className)} {...rest}>
+    <div className={cx(s.root({ headerSpan }), className)} {...rest}>
       {children}
     </div>
   );

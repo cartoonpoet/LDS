@@ -1,14 +1,25 @@
 import { style } from "@vanilla-extract/css";
+import { recipe } from "@vanilla-extract/recipes";
 import { semanticColorRoles, themeVars } from "@lds/tokens";
 
-export const root = style({
-  display: "grid",
-  gridTemplateAreas: `"header header header" "nav content panel"`,
-  gridTemplateRows: "auto minmax(0, 1fr)",
-  gridTemplateColumns: "auto minmax(0, 1fr) auto",
-  height: "100dvh",
-  boxSizing: "border-box",
-  background: semanticColorRoles.surface.page,
+export const root = recipe({
+  base: {
+    display: "grid",
+    gridTemplateRows: "auto minmax(0, 1fr)",
+    gridTemplateColumns: "auto minmax(0, 1fr) auto",
+    height: "100dvh",
+    boxSizing: "border-box",
+    background: semanticColorRoles.surface.page,
+  },
+  variants: {
+    headerSpan: {
+      /* Header가 상단 전폭, Nav는 그 아래 */
+      full: { gridTemplateAreas: `"header header header" "nav content panel"` },
+      /* Nav가 화면 높이 전체, Header는 Content·Panel 위에만 */
+      content: { gridTemplateAreas: `"nav header header" "nav content panel"` },
+    },
+  },
+  defaultVariants: { headerSpan: "full" },
 });
 
 export const header = style({

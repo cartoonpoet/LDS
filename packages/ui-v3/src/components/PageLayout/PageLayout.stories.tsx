@@ -1,6 +1,12 @@
 import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { lightThemeClass } from "@lds/tokens";
+import { Avatar } from "../Avatar";
+import { Gnb } from "../Gnb";
+import { Icon } from "../Icon";
+import { Input } from "../Input";
+import { Lnb } from "../Lnb";
+import type { LnbItem } from "../Lnb";
 import { PageLayout } from ".";
 
 /**
@@ -8,12 +14,18 @@ import { PageLayout } from ".";
  *
  * GNB + LNB + 콘텐츠 골격을 슬롯으로 제공하는 페이지 셸입니다.
  * grid-template-areas 기반이라 슬롯을 생략하면 해당 영역이 0으로 접힙니다.
- * GNB/LNB의 내용물은 각 서비스가 채웁니다(패턴 가이드 참조).
+ * Header에는 `Gnb`, Nav에는 `Lnb`를 올립니다. `headerSpan="content"`면 LNB가 화면 높이 전체를 차지하고
+ * GNB는 본문 위에만 놓입니다(Law.ai 데스크톱 레이아웃).
  *
  * ### Import
  * ```tsx
  * import { PageLayout } from "@lawkit/ui";
  * ```
+ *
+ * ### Root Props
+ * | Prop | Default | Description |
+ * |------|---------|-------------|
+ * | `headerSpan` | `"full"` | `full`: Header 상단 전폭 / `content`: Nav 옆 (Nav가 화면 높이 전체) |
  *
  * ### Slots
  * | Slot | Element | Props | Description |
@@ -59,6 +71,15 @@ const [collapsed, setCollapsed] = useState(false);
   <PageLayout.Nav collapsed={collapsed}>{/* LNB */}</PageLayout.Nav>
   <PageLayout.Content>{/* 본문 */}</PageLayout.Content>
   <PageLayout.Panel width={360}>{/* 사건 상세 미리보기 */}</PageLayout.Panel>
+</PageLayout>
+
+// Law.ai 데스크톱 — LNB 화면 높이 전체 + GNB는 본문 위 (LNB 폭 260/80)
+<PageLayout headerSpan="content">
+  <PageLayout.Header><Gnb start={/* ... */} end={/* ... */} /></PageLayout.Header>
+  <PageLayout.Nav width={260} collapsed={collapsed} collapsedWidth={80}>
+    <Lnb items={items} value={page} onSelect={setPage} collapsed={collapsed} onCollapsedChange={setCollapsed} />
+  </PageLayout.Nav>
+  <PageLayout.Content>{/* 본문 */}</PageLayout.Content>
 </PageLayout>`,
       },
     },
@@ -103,4 +124,118 @@ export const CollapsibleNav: Story = {
       </PageLayout>
     );
   },
+};
+
+/* ─── Law.ai 레이아웃 (Figma: Foundations / Layout) ─── */
+
+const lnbItems: LnbItem[] = [
+  {
+    value: "home",
+    label: "홈",
+    icon: <Icon name="home" />,
+    children: [
+      { value: "my-status", label: "나의 현황" },
+      { value: "search", label: "통합검색" },
+      { value: "approval", label: "결재함" },
+    ],
+  },
+  { value: "contract", label: "계약", icon: <Icon name="fileText" /> },
+  { value: "advice", label: "법률자문", icon: <Icon name="law" /> },
+  { value: "litigation", label: "송무", icon: <Icon name="litigation" /> },
+  { value: "seal", label: "인감 사용 신청", icon: <Icon name="seal" /> },
+  { value: "board", label: "게시판", icon: <Icon name="board" /> },
+  { value: "regulation", label: "사규", icon: <Icon name="regulation" /> },
+  {
+    value: "system",
+    label: "시스템 관리",
+    icon: <Icon name="settings" />,
+    children: [{ value: "system-user", label: "사용자 관리" }],
+  },
+];
+
+const logo = <strong style={{ fontSize: 22, color: "#2151ec" }}>Law.ai</strong>;
+const symbol = <strong style={{ fontSize: 22, color: "#2151ec" }}>L</strong>;
+
+const desktopGnb = (
+  <Gnb
+    start={
+      <>
+        <Gnb.IconButton icon={<Icon name="helpCircle" />} label="도움말" />
+        <Gnb.IconButton icon={<Icon name="calendar" />} label="일정" />
+        <Gnb.Divider />
+        <div style={{ width: 400, maxWidth: "100%" }}>
+          <Input placeholder="검색어를 입력해 주세요" leftIcon={<Icon name="search" size="sm" />} />
+        </div>
+      </>
+    }
+    end={
+      <>
+        <Gnb.IconButton icon={<Icon name="settings" />} label="설정" />
+        <Gnb.Profile name="이법무 변호사님" description="휴맥스홀딩스" avatar={<Avatar system />} />
+      </>
+    }
+  />
+);
+
+function DesktopShell({ defaultCollapsed = false, panel = false }: { defaultCollapsed?: boolean; panel?: boolean }) {
+  const [collapsed, setCollapsed] = useState(defaultCollapsed);
+  const [page, setPage] = useState("my-status");
+  return (
+    <PageLayout headerSpan="content" style={{ height: "100%" }}>
+      <PageLayout.Header>{desktopGnb}</PageLayout.Header>
+      <PageLayout.Nav width={260} collapsed={collapsed} collapsedWidth={80}>
+        <Lnb
+          items={lnbItems}
+          value={page}
+          onSelect={setPage}
+          collapsed={collapsed}
+          onCollapsedChange={setCollapsed}
+          logo={logo}
+          collapsedLogo={symbol}
+        />
+      </PageLayout.Nav>
+      <PageLayout.Content><div style={demoBox}>본문 — {page}</div></PageLayout.Content>
+      {panel && <PageLayout.Panel><div style={demoBox}>사건 상세 미리보기</div></PageLayout.Panel>}
+    </PageLayout>
+  );
+}
+
+export const LawaiExpanded: Story = {
+  name: "Law.ai · LNB 펼침",
+  decorators: [(Story) => <div style={{ height: 960 }}><Story /></div>],
+  render: () => <DesktopShell />,
+};
+
+export const LawaiCollapsed: Story = {
+  name: "Law.ai · LNB 접힘",
+  decorators: [(Story) => <div style={{ height: 960 }}><Story /></div>],
+  render: () => <DesktopShell defaultCollapsed />,
+};
+
+export const LawaiWithPanel: Story = {
+  name: "Law.ai · Panel 포함",
+  decorators: [(Story) => <div style={{ height: 960 }}><Story /></div>],
+  render: () => <DesktopShell panel />,
+};
+
+export const LawaiMobile: Story = {
+  name: "Law.ai · Mobile",
+  decorators: [(Story) => <div style={{ width: 360, height: 720 }}><Story /></div>],
+  render: () => (
+    <PageLayout style={{ height: "100%" }}>
+      <PageLayout.Header>
+        <Gnb
+          start={<Gnb.IconButton icon={<Icon name="menu" />} label="메뉴 열기" />}
+          end={
+            <>
+              <Gnb.IconButton icon={<Icon name="search" />} label="검색" />
+              <Gnb.IconButton icon={<Icon name="settings" />} label="설정" />
+              <Gnb.Profile compact name="이법무 변호사님" avatar={<Avatar system status="online" />} />
+            </>
+          }
+        />
+      </PageLayout.Header>
+      <PageLayout.Content><div style={demoBox}>본문</div></PageLayout.Content>
+    </PageLayout>
+  ),
 };
